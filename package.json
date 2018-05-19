@@ -1,0 +1,22 @@
+{
+  "name": "phaser3-weapon-plugin",
+  "version": "1.0.0",
+  "description": "Weapon Plugin for Phaser 3",
+  "main": "src/main.js",
+  "scripts": {
+    "build": "webpack"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/16patsle/phaser3-weapon-plugin.git"
+  },
+  "author": "Patrick Sletvold",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/16patsle/phaser3-weapon-plugin/issues"
+  },
+  "homepage": "https://github.com/16patsle/phaser3-weapon-plugin#readme",
+  "devDependencies": {
+    "webpack": "^3.10.0"
+  }
+}
