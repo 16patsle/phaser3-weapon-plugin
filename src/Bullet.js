@@ -4,6 +4,7 @@
  * @license      {@link https://github.com/photonstorm/phaser3-plugin-template/blob/master/LICENSE|MIT License}
  */
 
+const consts = require('./consts');
 
 class Bullet extends Phaser.GameObjects.Sprite {
   /**
@@ -18,6 +19,8 @@ class Bullet extends Phaser.GameObjects.Sprite {
    */
   constructor(scene, x, y, key, frame) {
     super(scene, x, y, key, frame);
+
+    this.scene.physics.add.existing(this);
 
     this.data = {
       bulletManager: null,
@@ -53,8 +56,8 @@ class Bullet extends Phaser.GameObjects.Sprite {
       return;
     }
 
-    if (this.data.killType > Phaser.Weapon.KILL_LIFESPAN) {
-      if (this.data.killType === Phaser.Weapon.KILL_DISTANCE) {
+    if (this.data.killType > consts.KILL_LIFESPAN) {
+      if (this.data.killType === consts.KILL_DISTANCE) {
         if (
           new Phaser.Math.Vector2(this.data.fromX, this.data.fromY).distance(this) >
           this.data.killDistance

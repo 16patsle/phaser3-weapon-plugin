@@ -80,120 +80,6 @@ return /******/ (function(modules) { // webpackBootstrap
 "use strict";
 
 
-function _typeof(obj) { if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
-
-function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-
-function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function"); } _setPrototypeOf(subClass.prototype, superClass && superClass.prototype); if (superClass) _setPrototypeOf(subClass, superClass); }
-
-function _setPrototypeOf(o, p) { _setPrototypeOf = Object.setPrototypeOf || function _setPrototypeOf(o, p) { o.__proto__ = p; return o; }; return _setPrototypeOf(o, p); }
-
-function _defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } }
-
-function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _defineProperties(Constructor.prototype, protoProps); if (staticProps) _defineProperties(Constructor, staticProps); return Constructor; }
-
-function _possibleConstructorReturn(self, call) { if (call && (_typeof(call) === "object" || typeof call === "function")) { return call; } return _assertThisInitialized(self); }
-
-function _assertThisInitialized(self) { if (self === void 0) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return self; }
-
-function _getPrototypeOf(o) { _getPrototypeOf = Object.getPrototypeOf || function _getPrototypeOf(o) { return o.__proto__; }; return _getPrototypeOf(o); }
-
-/**
- * @author       Patrick Sletvold
- * @author       Richard Davey
- * @license      {@link https://github.com/photonstorm/phaser3-plugin-template/blob/master/LICENSE|MIT License}
- */
-var Bullet =
-/*#__PURE__*/
-function (_Phaser$GameObjects$S) {
-  /**
-   * Create a new `Bullet` object. Bullets are used by the `Weapon` class, and are normal Sprites,
-   * with a few extra properties in the data object to handle Weapon specific features.
-   *
-   * @param {Phaser.Scene} scene - A reference to the currently running scene.
-   * @param {number} x - The x coordinate (in world space) to position the Particle at.
-   * @param {number} y - The y coordinate (in world space) to position the Particle at.
-   * @param {string} key - This is the image or texture used by the Particle during rendering. It can be a string which is a reference to the Cache entry, or an instance of a RenderTexture or PIXI.Texture.
-   * @param {string|number} frame - If this Particle is using part of a sprite sheet or texture atlas you can specify the exact frame to use by giving a string or numeric index.
-   */
-  function Bullet(scene, x, y, key, frame) {
-    var _this;
-
-    _classCallCheck(this, Bullet);
-
-    _this = _possibleConstructorReturn(this, _getPrototypeOf(Bullet).call(this, scene, x, y, key, frame));
-    _this.data = {
-      bulletManager: null,
-      fromX: 0,
-      fromY: 0,
-      bodyDirty: true,
-      rotateToVelocity: false,
-      killType: 0,
-      killDistance: 0
-    };
-    return _this;
-  }
-  /**
-   * Kills the Bullet, freeing it up for re-use by the Weapon bullet pool.
-   * Also dispatches the `Weapon.onKill` signal.
-   * @returns {Bullet} This instance of the bullet class
-   */
-
-
-  _createClass(Bullet, [{
-    key: "kill",
-    value: function kill() {
-      this.alive = false;
-      this.visible = false;
-      this.data.bulletManager.onKill.dispatch(this);
-      return this;
-    }
-    /**
-     * Updates the Bullet, killing as required.
-     * @returns {Bullet} This instance of the bullet class
-     */
-
-  }, {
-    key: "update",
-    value: function update() {
-      if (!this.exists) {
-        return;
-      }
-
-      if (this.data.killType > Phaser.Weapon.KILL_LIFESPAN) {
-        if (this.data.killType === Phaser.Weapon.KILL_DISTANCE) {
-          if (new Phaser.Math.Vector2(this.data.fromX, this.data.fromY).distance(this) > this.data.killDistance) {
-            this.kill();
-          }
-        } else if (!this.data.bulletManager.bulletBounds.intersects(this)) {
-          this.kill();
-        }
-      }
-
-      if (this.data.rotateToVelocity) {
-        this.rotation = this.body.velocity.atan();
-      }
-
-      if (this.data.bulletManager.bulletWorldWrap) {
-        this.scene.sys.physics.world.bounds.wrap(this, this.data.bulletManager.bulletWorldWrapPadding);
-      }
-    }
-  }]);
-
-  _inherits(Bullet, _Phaser$GameObjects$S);
-
-  return Bullet;
-}(Phaser.GameObjects.Sprite);
-
-module.exports = Bullet;
-
-/***/ }),
-/* 1 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
 module.exports = {
   /**
    * A {@link #bulletKillType} constant that stops the bullets from ever being destroyed automatically.
@@ -247,6 +133,125 @@ module.exports = {
 };
 
 /***/ }),
+/* 1 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+function _typeof(obj) { if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function"); } _setPrototypeOf(subClass.prototype, superClass && superClass.prototype); if (superClass) _setPrototypeOf(subClass, superClass); }
+
+function _setPrototypeOf(o, p) { _setPrototypeOf = Object.setPrototypeOf || function _setPrototypeOf(o, p) { o.__proto__ = p; return o; }; return _setPrototypeOf(o, p); }
+
+function _defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } }
+
+function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _defineProperties(Constructor.prototype, protoProps); if (staticProps) _defineProperties(Constructor, staticProps); return Constructor; }
+
+function _possibleConstructorReturn(self, call) { if (call && (_typeof(call) === "object" || typeof call === "function")) { return call; } return _assertThisInitialized(self); }
+
+function _getPrototypeOf(o) { _getPrototypeOf = Object.getPrototypeOf || function _getPrototypeOf(o) { return o.__proto__; }; return _getPrototypeOf(o); }
+
+function _assertThisInitialized(self) { if (self === void 0) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return self; }
+
+/**
+ * @author       Patrick Sletvold
+ * @author       Richard Davey
+ * @license      {@link https://github.com/photonstorm/phaser3-plugin-template/blob/master/LICENSE|MIT License}
+ */
+var consts = __webpack_require__(0);
+
+var Bullet =
+/*#__PURE__*/
+function (_Phaser$GameObjects$S) {
+  /**
+   * Create a new `Bullet` object. Bullets are used by the `Weapon` class, and are normal Sprites,
+   * with a few extra properties in the data object to handle Weapon specific features.
+   *
+   * @param {Phaser.Scene} scene - A reference to the currently running scene.
+   * @param {number} x - The x coordinate (in world space) to position the Particle at.
+   * @param {number} y - The y coordinate (in world space) to position the Particle at.
+   * @param {string} key - This is the image or texture used by the Particle during rendering. It can be a string which is a reference to the Cache entry, or an instance of a RenderTexture or PIXI.Texture.
+   * @param {string|number} frame - If this Particle is using part of a sprite sheet or texture atlas you can specify the exact frame to use by giving a string or numeric index.
+   */
+  function Bullet(scene, x, y, key, frame) {
+    var _this;
+
+    _classCallCheck(this, Bullet);
+
+    _this = _possibleConstructorReturn(this, _getPrototypeOf(Bullet).call(this, scene, x, y, key, frame));
+
+    _this.scene.physics.add.existing(_assertThisInitialized(_assertThisInitialized(_this)));
+
+    _this.data = {
+      bulletManager: null,
+      fromX: 0,
+      fromY: 0,
+      bodyDirty: true,
+      rotateToVelocity: false,
+      killType: 0,
+      killDistance: 0
+    };
+    return _this;
+  }
+  /**
+   * Kills the Bullet, freeing it up for re-use by the Weapon bullet pool.
+   * Also dispatches the `Weapon.onKill` signal.
+   * @returns {Bullet} This instance of the bullet class
+   */
+
+
+  _createClass(Bullet, [{
+    key: "kill",
+    value: function kill() {
+      this.alive = false;
+      this.visible = false;
+      this.data.bulletManager.onKill.dispatch(this);
+      return this;
+    }
+    /**
+     * Updates the Bullet, killing as required.
+     * @returns {Bullet} This instance of the bullet class
+     */
+
+  }, {
+    key: "update",
+    value: function update() {
+      if (!this.exists) {
+        return;
+      }
+
+      if (this.data.killType > consts.KILL_LIFESPAN) {
+        if (this.data.killType === consts.KILL_DISTANCE) {
+          if (new Phaser.Math.Vector2(this.data.fromX, this.data.fromY).distance(this) > this.data.killDistance) {
+            this.kill();
+          }
+        } else if (!this.data.bulletManager.bulletBounds.intersects(this)) {
+          this.kill();
+        }
+      }
+
+      if (this.data.rotateToVelocity) {
+        this.rotation = this.body.velocity.atan();
+      }
+
+      if (this.data.bulletManager.bulletWorldWrap) {
+        this.scene.sys.physics.world.bounds.wrap(this, this.data.bulletManager.bulletWorldWrapPadding);
+      }
+    }
+  }]);
+
+  _inherits(Bullet, _Phaser$GameObjects$S);
+
+  return Bullet;
+}(Phaser.GameObjects.Sprite);
+
+module.exports = Bullet;
+
+/***/ }),
 /* 2 */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -278,9 +283,9 @@ function _getPrototypeOf(o) { _getPrototypeOf = Object.getPrototypeOf || functio
  */
 var Weapon = __webpack_require__(3);
 
-var Bullet = __webpack_require__(0);
+var Bullet = __webpack_require__(1);
 
-var consts = __webpack_require__(1);
+var consts = __webpack_require__(0);
 /**
  * The Weapon Plugin provides the ability to easily create a bullet pool and manager.
  *
@@ -480,9 +485,9 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
  * @author       Richard Davey
  * @license      {@link https://github.com/photonstorm/phaser3-plugin-template/blob/master/LICENSE|MIT License}
  */
-var Bullet = __webpack_require__(0);
+var Bullet = __webpack_require__(1);
 
-var consts = __webpack_require__(1);
+var consts = __webpack_require__(0);
 /**
  * The Weapon provides the ability to easily create a bullet pool and manager.
  *
