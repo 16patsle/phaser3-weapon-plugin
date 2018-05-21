@@ -4,21 +4,20 @@
  * @license      {@link https://github.com/photonstorm/phaser3-plugin-template/blob/master/LICENSE|MIT License}
  */
 
-/**
- * Create a new `Bullet` object. Bullets are used by the `Phaser.Weapon` class, and are normal Sprites,
- * with a few extra properties in the data object to handle Weapon specific features.
- *
- * @param {Phaser.Scene} scene - A reference to the currently running scene.
- * @param {number} x - The x coordinate (in world space) to position the Particle at.
- * @param {number} y - The y coordinate (in world space) to position the Particle at.
- * @param {string} key - This is the image or texture used by the Particle during rendering. It can be a string which is a reference to the Cache entry, or an instance of a RenderTexture or PIXI.Texture.
- * @param {string|number} frame - If this Particle is using part of a sprite sheet or texture atlas you can specify the exact frame to use by giving a string or numeric index.
- */
+
 class Bullet extends Phaser.GameObjects.Sprite {
+  /**
+   * Create a new `Bullet` object. Bullets are used by the `Weapon` class, and are normal Sprites,
+   * with a few extra properties in the data object to handle Weapon specific features.
+   *
+   * @param {Phaser.Scene} scene - A reference to the currently running scene.
+   * @param {number} x - The x coordinate (in world space) to position the Particle at.
+   * @param {number} y - The y coordinate (in world space) to position the Particle at.
+   * @param {string} key - This is the image or texture used by the Particle during rendering. It can be a string which is a reference to the Cache entry, or an instance of a RenderTexture or PIXI.Texture.
+   * @param {string|number} frame - If this Particle is using part of a sprite sheet or texture atlas you can specify the exact frame to use by giving a string or numeric index.
+   */
   constructor(scene, x, y, key, frame) {
     super(scene, x, y, key, frame);
-
-    this.anchor.set(0.5);
 
     this.data = {
       bulletManager: null,
@@ -57,7 +56,7 @@ class Bullet extends Phaser.GameObjects.Sprite {
     if (this.data.killType > Phaser.Weapon.KILL_LIFESPAN) {
       if (this.data.killType === Phaser.Weapon.KILL_DISTANCE) {
         if (
-          this.game.physics.arcade.distanceToXY(this, this.data.fromX, this.data.fromY, true) >
+          new Phaser.Math.Vector2(this.data.fromX, this.data.fromY).distance(this) >
           this.data.killDistance
         ) {
           this.kill();
@@ -72,7 +71,7 @@ class Bullet extends Phaser.GameObjects.Sprite {
     }
 
     if (this.data.bulletManager.bulletWorldWrap) {
-      this.game.world.wrap(this, this.data.bulletManager.bulletWorldWrapPadding);
+      this.scene.sys.physics.world.bounds.wrap(this, this.data.bulletManager.bulletWorldWrapPadding);
     }
   }
 }

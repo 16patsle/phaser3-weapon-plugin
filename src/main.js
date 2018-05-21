@@ -3,7 +3,9 @@
  * @author       Richard Davey
  * @license      {@link https://github.com/photonstorm/phaser3-plugin-template/blob/master/LICENSE|MIT License}
  */
-const Weapon = require('/.Weapon');
+const Weapon = require('./Weapon');
+const Bullet = require('./Bullet');
+const consts = require('./consts');
 
 /**
  * The Weapon Plugin provides the ability to easily create a bullet pool and manager.
@@ -40,8 +42,15 @@ class WeaponPlugin extends Phaser.Plugins.ScenePlugin {
     //pluginManager.registerGameObject('weapon', this.add);
   }
 
-  add(bulletLimit, key, frame) {
-    this.weapons.push(new Weapon(this.scene, bulletLimit, key, frame));
+  add(bulletLimit, key, frame, group, weaponClass) {
+    if(!weaponClass){
+      weaponClass = Weapon
+    }
+    const weapon = new weaponClass(this.scene, bulletLimit, key, frame, group);
+
+    this.weapons.push(weapon);
+
+    return weapon;
   }
 
   /**
@@ -155,55 +164,10 @@ class WeaponPlugin extends Phaser.Plugins.ScenePlugin {
   }
 }
 
-/**
- * A {@link #bulletKillType} constant that stops the bullets from ever being destroyed automatically.
- * @constant
- * @type {integer}
- */
-WeaponPlugin.KILL_NEVER = 0;
+WeaponPlugin.Weapon = Weapon;
+WeaponPlugin.Bullet = Bullet;
 
-/**
- * A {@link #bulletKillType} constant that automatically kills the bullets when their {@link #bulletLifespan} expires.
- * @constant
- * @type {integer}
- */
-WeaponPlugin.KILL_LIFESPAN = 1;
-
-/**
- * A {@link #bulletKillType} constant that automatically kills the bullets after they
- * exceed the {@link #bulletDistance} from their original firing position.
- * @constant
- * @type {integer}
- */
-WeaponPlugin.KILL_DISTANCE = 2;
-
-/**
- * A {@link #bulletKillType} constant that automatically kills the bullets when they leave the {@link #bounds} rectangle.
- * @constant
- * @type {integer}
- */
-WeaponPlugin.KILL_WEAPON_BOUNDS = 3;
-
-/**
- * A {@link #bulletKillType} constant that automatically kills the bullets when they leave the {@link Phaser.Camera#bounds} rectangle.
- * @constant
- * @type {integer}
- */
-WeaponPlugin.KILL_CAMERA_BOUNDS = 4;
-
-/**
- * A {@link #bulletKillType} constant that automatically kills the bullets when they leave the {@link Phaser.World#bounds} rectangle.
- * @constant
- * @type {integer}
- */
-WeaponPlugin.KILL_WORLD_BOUNDS = 5;
-
-/**
- * A {@link #bulletKillType} constant that automatically kills the bullets when they leave the {@link #bounds} rectangle.
- * @constant
- * @type {integer}
- */
-WeaponPlugin.KILL_STATIC_BOUNDS = 6;
+WeaponPlugin.consts = consts
 
 //  Make sure you export the plugin for webpack to expose
 

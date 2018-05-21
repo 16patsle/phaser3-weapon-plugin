@@ -4,6 +4,7 @@
  * @license      {@link https://github.com/photonstorm/phaser3-plugin-template/blob/master/LICENSE|MIT License}
  */
 const Bullet = require('./Bullet');
+const consts = require('./consts');
 
 /**
  * The Weapon provides the ability to easily create a bullet pool and manager.
@@ -194,7 +195,7 @@ class Weapon {
     this.bulletSpeedVariance = 0;
 
     /**
-     * If you've set {@link #bulletKillType} to `WeaponPlugin.KILL_LIFESPAN` this controls the amount
+     * If you've set {@link #bulletKillType} to `consts.KILL_LIFESPAN` this controls the amount
      * of lifespan the Bullets have set on launch. The value is given in milliseconds.
      * When a Bullet hits its lifespan limit it will be automatically killed.
      * @type {number}
@@ -203,7 +204,7 @@ class Weapon {
     this.bulletLifespan = 0;
 
     /**
-     * If you've set {@link #bulletKillType} to `WeaponPlugin.KILL_DISTANCE` this controls the distance
+     * If you've set {@link #bulletKillType} to `consts.KILL_DISTANCE` this controls the distance
      * the Bullet can travel before it is automatically killed. The distance is given in pixels.
      * @type {number}
      * @default
@@ -261,7 +262,7 @@ class Weapon {
      * @type {integer}
      * @private
      */
-    this._bulletKillType = WeaponPlugin.KILL_WORLD_BOUNDS;
+    this._bulletKillType = consts.KILL_WORLD_BOUNDS;
 
     /**
      * Holds internal data about custom bullet body sizes.
@@ -279,8 +280,8 @@ class Weapon {
 
     /**
      * This Rectangle defines the bounds that are used when determining if a Bullet should be killed or not.
-     * It's used in combination with {@link #bulletKillType} when that is set to either `WeaponPlugin.KILL_WEAPON_BOUNDS`
-     * or `WeaponPlugin.KILL_STATIC_BOUNDS`. If you are not using either of these kill types then the bounds are ignored.
+     * It's used in combination with {@link #bulletKillType} when that is set to either `consts.KILL_WEAPON_BOUNDS`
+     * or `consts.KILL_STATIC_BOUNDS`. If you are not using either of these kill types then the bounds are ignored.
      * If you are tracking a Sprite or Point then the bounds are centered on that object every frame.
      *
      * @type {Phaser.Geom.Rectangle}
@@ -399,7 +400,7 @@ class Weapon {
 
     this.eventEmitter = new Phaser.Events.EventEmitter();
 
-    createBullets(bulletLimit, key, frame, group);
+    this.createBullets(bulletLimit, key, frame, group);
   }
 
   /**
@@ -431,9 +432,9 @@ class Weapon {
     if (quantity === undefined) {
       quantity = 1;
     }
-    if (group === undefined) {
+    /*if (group === undefined) {
       group = this.game.world;
-    }
+    }*/
 
     if (this.bullets && !this.bullets.scene) {
       this.bullets = null;
@@ -461,6 +462,10 @@ class Weapon {
 
       this.bulletKey = key;
       this.bulletFrame = frame;
+
+      if(group){
+        group.addMultiple(this.bullets.children.entries)
+      }
     }
 
     return this;
@@ -890,7 +895,7 @@ class Weapon {
       bullet.data.killDistance = this.bulletKillDistance;
       bullet.data.rotateToVelocity = this.bulletRotateToVelocity;
 
-      if (this.bulletKillType === WeaponPlugin.KILL_LIFESPAN) {
+      if (this.bulletKillType === consts.KILL_LIFESPAN) {
         bullet.lifespan = this.bulletLifespan;
       }
 
@@ -1114,7 +1119,7 @@ class Weapon {
    * @returns {void}
    */
   update() {
-    if (this._bulletKillType === WeaponPlugin.KILL_WEAPON_BOUNDS) {
+    if (this._bulletKillType === consts.KILL_WEAPON_BOUNDS) {
       if (this.trackedSprite) {
         this.trackedSprite.updateTransform();
         this.bounds.centerOn(this.trackedSprite.x, this.trackedSprite.y);
@@ -1181,29 +1186,29 @@ Object.defineProperty(Weapon.prototype, 'bulletClass', {
 });
 
 /**
- * This controls how the bullets will be killed. The default is `WeaponPlugin.KILL_WORLD_BOUNDS`.
+ * This controls how the bullets will be killed. The default is `consts.KILL_WORLD_BOUNDS`.
  *
  * There are 7 different "kill types" available:
  *
- * * `WeaponPlugin.KILL_NEVER`
+ * * `consts.KILL_NEVER`
  * The bullets are never destroyed by the Weapon. It's up to you to destroy them via your own code.
  *
- * * `WeaponPlugin.KILL_LIFESPAN`
+ * * `consts.KILL_LIFESPAN`
  * The bullets are automatically killed when their `bulletLifespan` amount expires.
  *
- * * `WeaponPlugin.KILL_DISTANCE`
+ * * `consts.KILL_DISTANCE`
  * The bullets are automatically killed when they exceed `bulletDistance` pixels away from their original launch position.
  *
- * * `WeaponPlugin.KILL_WEAPON_BOUNDS`
+ * * `consts.KILL_WEAPON_BOUNDS`
  * The bullets are automatically killed when they no longer intersect with the {@link #bounds} rectangle.
  *
- * * `WeaponPlugin.KILL_CAMERA_BOUNDS`
+ * * `consts.KILL_CAMERA_BOUNDS`
  * The bullets are automatically killed when they no longer intersect with the {@link Phaser.Camera#bounds} rectangle.
  *
- * * `WeaponPlugin.KILL_WORLD_BOUNDS`
+ * * `consts.KILL_WORLD_BOUNDS`
  * The bullets are automatically killed when they no longer intersect with the {@link Phaser.World#bounds} rectangle.
  *
- * * `WeaponPlugin.KILL_STATIC_BOUNDS`
+ * * `consts.KILL_STATIC_BOUNDS`
  * The bullets are automatically killed when they no longer intersect with the {@link #bounds} rectangle.
  * The difference between static bounds and weapon bounds, is that a static bounds will never be adjusted to
  * match the position of a tracked sprite or pointer.
@@ -1218,16 +1223,16 @@ Object.defineProperty(Weapon.prototype, 'bulletKillType', {
 
   set(type) {
     switch (type) {
-      case WeaponPlugin.KILL_STATIC_BOUNDS:
-      case WeaponPlugin.KILL_WEAPON_BOUNDS:
+      case consts.KILL_STATIC_BOUNDS:
+      case consts.KILL_WEAPON_BOUNDS:
         this.bulletBounds = this.bounds;
         break;
 
-      case WeaponPlugin.KILL_CAMERA_BOUNDS:
+      case consts.KILL_CAMERA_BOUNDS:
         this.bulletBounds = this.scene.sys.cameras.main._bounds;
         break;
 
-      case WeaponPlugin.KILL_WORLD_BOUNDS:
+      case consts.KILL_WORLD_BOUNDS:
         this.bulletBounds = this.scene.sys.physics.world.bounds;
         break;
     }
