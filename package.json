@@ -18,5 +18,10 @@
   "homepage": "https://github.com/16patsle/phaser3-weapon-plugin#readme",
   "devDependencies": {
     "webpack": "^3.10.0"
+  },
+  "dependencies": {
+    "@babel/core": "^7.0.0-beta.47",
+    "@babel/preset-env": "^7.0.0-beta.47",
+    "babel-loader": "^8.0.0-beta.3"
   }
 }
