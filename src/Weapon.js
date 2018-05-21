@@ -428,9 +428,12 @@ class Weapon {
    * @param {Phaser.GameObjects.Group} [group] - Optional Group to add the object to. If not specified it will be added to the World group.
    * @return {Weapon} This Weapon instance.
    */
-  createBullets(quantity, key, frame, group) {
+  createBullets(quantity, key, frame, group, bulletClass) {
     if (quantity === undefined) {
       quantity = 1;
+    }
+    if(bulletClass){
+      this._bulletClass=bulletClass
     }
     /*if (group === undefined) {
       group = this.game.world;
@@ -444,7 +447,7 @@ class Weapon {
       this.bullets = this.scene.add.group({
         classType: this._bulletClass,
         maxSize: quantity,
-        runChildUpdate: true,
+        runChildUpdate: true
       });
     }
 
@@ -454,7 +457,7 @@ class Weapon {
         quantity = 1;
       }
 
-      this.bullets.createMultiple({ key, frame, repeat: quantity });
+      this.bullets.createMultiple({ key, frame, repeat: quantity, active: false, visible: false });
 
       this.bullets.children.each(function(child) {
         child.bulletManager = this;

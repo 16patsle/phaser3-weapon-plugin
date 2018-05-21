@@ -912,9 +912,13 @@ function () {
 
   _createClass(Weapon, [{
     key: "createBullets",
-    value: function createBullets(quantity, key, frame, group) {
+    value: function createBullets(quantity, key, frame, group, bulletClass) {
       if (quantity === undefined) {
         quantity = 1;
+      }
+
+      if (bulletClass) {
+        this._bulletClass = bulletClass;
       }
       /*if (group === undefined) {
         group = this.game.world;
@@ -942,7 +946,9 @@ function () {
         this.bullets.createMultiple({
           key: key,
           frame: frame,
-          repeat: quantity
+          repeat: quantity,
+          active: false,
+          visible: false
         });
         this.bullets.children.each(function (child) {
           child.bulletManager = this;
