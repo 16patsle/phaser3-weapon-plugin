@@ -1402,7 +1402,7 @@ function () {
         bullet.angle = angle + this.bulletAngleOffset; //  Frames and Animations
 
         if (this.bulletAnimation) {
-          bullet.animations.play(this.bulletAnimation);
+          bullet.anims.play(this.bulletAnimation);
         } else if (this.bulletFrameCycle) {
           bullet.frame = this.bulletFrames[this.bulletFrameIndex];
           this.bulletFrameIndex++;
@@ -1557,7 +1557,7 @@ function () {
      * @param {string} name - The unique (within the Weapon instance) name for the animation, i.e. "fire", "blast".
      * @param {Array} [frames=null] - An array of numbers/strings that correspond to the frames to add to this animation and in which order. e.g. [1, 2, 3] or ['run0', 'run1', run2]). If null then all frames will be used.
      * @param {number} [frameRate=60] - The speed at which the animation should play. The speed is given in frames per second.
-     * @param {number} [repeat=1] - Number of times to repeat the animation. Set to -1 to repeat forever.
+     * @param {number} [loop=1] - Number of times to repeat the animation. Set to -1 to repeat forever.
      * @return {Weapon} The Weapon Plugin.
      */
 
@@ -1569,7 +1569,7 @@ function () {
           key: name,
           frames: frames,
           frameRate: frameRate,
-          repeat: repeat
+          loop: loop
         });
         this.anims[name] = this.scene.sys.anims.anims.entries[name];
       }
