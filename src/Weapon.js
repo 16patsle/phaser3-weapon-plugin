@@ -1236,7 +1236,7 @@ Object.defineProperty(Weapon.prototype, 'bulletKillType', {
         break;
 
       case consts.KILL_WORLD_BOUNDS:
-        this.bulletBounds = this.scene.sys.physics.world.bounds;
+        this.bulletBounds = this.scene.physics.world.bounds;
         break;
     }
 
