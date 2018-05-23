@@ -800,7 +800,7 @@ class Weapon {
           this.trackedSprite.x + this.trackOffset.x,
           this.trackedSprite.y + this.trackOffset.y
         );
-        this._rotatedPoint.rotate(
+        Phaser.Math.RotateAround(this._rotatedPoint,
           this.trackedSprite.x,
           this.trackedSprite.y,
           this.trackedSprite.rotation

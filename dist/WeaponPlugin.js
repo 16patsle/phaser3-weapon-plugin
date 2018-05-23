@@ -1314,7 +1314,7 @@ function () {
         if (this.trackRotation) {
           this._rotatedPoint.set(this.trackedSprite.x + this.trackOffset.x, this.trackedSprite.y + this.trackOffset.y);
 
-          this._rotatedPoint.rotate(this.trackedSprite.x, this.trackedSprite.y, this.trackedSprite.rotation);
+          Phaser.Math.RotateAround(this._rotatedPoint, this.trackedSprite.x, this.trackedSprite.y, this.trackedSprite.rotation);
 
           if (this.fireFrom.width > 1) {
             this.fireFrom.CenterOn(this._rotatedPoint.x, this._rotatedPoint.y);
