@@ -11,7 +11,15 @@
 
   <div id="phaser-example"></div>
   <script src="//cdn.jsdelivr.net/npm/phaser@3.8.0/dist/phaser.js"></script>
-  <script src="./js/asteroids.js"></script>
+  <script>
+    var urlParams = new URLSearchParams(window.location.search);
+    var filename = urlParams.get('src');
+    var s = document.createElement('script');
+    s.type = 'text/javascript';
+    s.src = 'js/' + decodeURI(filename) + '.js';
+    document.body.appendChild(s);
+
+  </script>
 
 </body>
 
