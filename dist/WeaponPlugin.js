@@ -1415,6 +1415,7 @@ function () {
         this.active = true;
         this.visible = true;
         bullet.active = true;
+        bullet.visible = true;
         bullet.data.fromX = fromX;
         bullet.data.fromY = fromY;
         bullet.data.killType = this.bulletKillType;

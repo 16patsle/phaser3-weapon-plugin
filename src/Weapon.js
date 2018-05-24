@@ -900,6 +900,7 @@ class Weapon {
       this.active = true;
       this.visible = true;
       bullet.active = true;
+      bullet.visible = true;
 
       bullet.data.fromX = fromX;
       bullet.data.fromY = fromY;
