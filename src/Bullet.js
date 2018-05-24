@@ -95,7 +95,7 @@ class Bullet extends Phaser.GameObjects.Sprite {
     }
 
     if (this.data.bulletManager.bulletWorldWrap) {
-      this.scene.physics.world.bounds.wrap(
+      this.scene.physics.world.wrap(
         this,
         this.data.bulletManager.bulletWorldWrapPadding
       );
