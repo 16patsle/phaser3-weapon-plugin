@@ -34,6 +34,7 @@ class Bullet extends Phaser.GameObjects.Sprite {
       rotateToVelocity: false,
       killType: 0,
       killDistance: 0,
+      bodyBounds: new Phaser.Geom.Rectangle()
     };
   }
 
@@ -72,20 +73,10 @@ class Bullet extends Phaser.GameObjects.Sprite {
         ) {
           this.kill();
         }
-      } else if (
-        !Phaser.Geom.Intersects.RectangleToRectangle(
+      } else if (!Phaser.Geom.Intersects.RectangleToRectangle(
           this.data.bulletManager.bulletBounds,
-          // this is janky af. I don't recall the actual method to pull a bounds
-          // rect from a v3 arcade body. getBounds() didn't work so I brute
-          // forced it.
-          new Phaser.Geom.Rectangle(
-            this.body.x,
-            this.body.y,
-            this.body.width,
-            this.body.height,
-          )
-        )
-      ) {
+          this.body.getBounds(this.data.bodyBounds)
+        )) {
         this.kill();
       }
     }
