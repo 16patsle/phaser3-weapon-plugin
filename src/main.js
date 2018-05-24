@@ -1,5 +1,6 @@
 /**
  * @author       Patrick Sletvold
+ * @author       jdotr <https://github.com/jdotrjs>
  * @author       Richard Davey
  * @license      {@link https://github.com/photonstorm/phaser3-plugin-template/blob/master/LICENSE|MIT License}
  */
