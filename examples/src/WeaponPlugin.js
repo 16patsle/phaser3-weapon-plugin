@@ -159,6 +159,7 @@ function _assertThisInitialized(self) { if (self === void 0) { throw new Referen
 
 /**
  * @author       Patrick Sletvold
+ * @author       jdotr <https://github.com/jdotrjs>
  * @author       Richard Davey
  * @license      {@link https://github.com/photonstorm/phaser3-plugin-template/blob/master/LICENSE|MIT License}
  */
@@ -197,7 +198,8 @@ function (_Phaser$GameObjects$S) {
       bodyDirty: true,
       rotateToVelocity: false,
       killType: 0,
-      killDistance: 0
+      killDistance: 0,
+      bodyBounds: new Phaser.Geom.Rectangle()
     };
     return _this;
   }
@@ -237,10 +239,7 @@ function (_Phaser$GameObjects$S) {
           if (new Phaser.Math.Vector2(this.data.fromX, this.data.fromY).distance(this) > this.data.killDistance) {
             this.kill();
           }
-        } else if (!Phaser.Geom.Intersects.RectangleToRectangle(this.data.bulletManager.bulletBounds, // this is janky af. I don't recall the actual method to pull a bounds
-        // rect from a v3 arcade body. getBounds() didn't work so I brute
-        // forced it.
-        new Phaser.Geom.Rectangle(this.body.x, this.body.y, this.body.width, this.body.height))) {
+        } else if (!Phaser.Geom.Intersects.RectangleToRectangle(this.data.bulletManager.bulletBounds, this.body.getBounds(this.data.bodyBounds))) {
           this.kill();
         }
       }
@@ -250,7 +249,7 @@ function (_Phaser$GameObjects$S) {
       }
 
       if (this.data.bulletManager.bulletWorldWrap) {
-        this.scene.physics.world.bounds.wrap(this, this.data.bulletManager.bulletWorldWrapPadding);
+        this.scene.physics.world.wrap(this, this.data.bulletManager.bulletWorldWrapPadding);
       }
     }
   }]);
@@ -289,6 +288,7 @@ function _getPrototypeOf(o) { _getPrototypeOf = Object.getPrototypeOf || functio
 
 /**
  * @author       Patrick Sletvold
+ * @author       jdotr <https://github.com/jdotrjs>
  * @author       Richard Davey
  * @license      {@link https://github.com/photonstorm/phaser3-plugin-template/blob/master/LICENSE|MIT License}
  */
@@ -499,6 +499,7 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
 
 /**
  * @author       Patrick Sletvold
+ * @author       jdotr <https://github.com/jdotrjs>
  * @author       Richard Davey
  * @license      {@link https://github.com/photonstorm/phaser3-plugin-template/blob/master/LICENSE|MIT License}
  */
