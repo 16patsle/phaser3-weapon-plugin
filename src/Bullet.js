@@ -6,6 +6,8 @@
 
 const consts = require('./consts');
 
+let bulletID = 0
+
 class Bullet extends Phaser.GameObjects.Sprite {
   /**
    * Create a new `Bullet` object. Bullets are used by the `Weapon` class, and are normal Sprites,
@@ -19,7 +21,8 @@ class Bullet extends Phaser.GameObjects.Sprite {
    */
   constructor(scene, x, y, key, frame) {
     super(scene, x, y, key, frame);
-
+    this.bulletID = bulletID
+    bulletID++
     this.scene.physics.add.existing(this);
 
     this.data = {
@@ -39,10 +42,13 @@ class Bullet extends Phaser.GameObjects.Sprite {
    * @returns {Bullet} This instance of the bullet class
    */
   kill() {
-    this.alive = false;
+    console.log(`Killing bullet ${this.bulletID}`)
+    // alive no longer does stuff in v3?
+    // this.alive = false;
+    this.active = false;
     this.visible = false;
 
-    this.data.bulletManager.onKill.dispatch(this);
+    this.data.bulletManager.eventEmitter.emit('kill', this);
 
     return this;
   }
@@ -52,7 +58,8 @@ class Bullet extends Phaser.GameObjects.Sprite {
    * @returns {Bullet} This instance of the bullet class
    */
   update() {
-    if (!this.exists) {
+    if (!this.active) {
+      // this was previously a check to this.exists
       return;
     }
 
@@ -64,7 +71,20 @@ class Bullet extends Phaser.GameObjects.Sprite {
         ) {
           this.kill();
         }
-      } else if (!this.data.bulletManager.bulletBounds.intersects(this)) {
+      } else if (
+        !Phaser.Geom.Intersects.RectangleToRectangle(
+          this.data.bulletManager.bulletBounds,
+          // this is janky af. I don't recall the actual method to pull a bounds
+          // rect from a v3 arcade body. getBounds() didn't work so I brute
+          // forced it.
+          new Phaser.Geom.Rectangle(
+            this.body.x,
+            this.body.y,
+            this.body.width,
+            this.body.height,
+          )
+        )
+      ) {
         this.kill();
       }
     }

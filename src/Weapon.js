@@ -9,17 +9,21 @@ const consts = require('./consts');
 /**
  * The Weapon provides the ability to easily create a bullet pool and manager.
  *
- * Weapons fire {@link Bullet} objects, which are essentially Sprites with a few extra properties.
- * The Bullets are enabled for Arcade Physics. They do not currently work with P2 Physics.
+ * Weapons fire {@link Bullet} objects, which are essentially Sprites with a
+ * few extra properties. The Bullets are enabled for Arcade Physics. They do
+ * not currently work with P2 Physics.
  *
- * The Bullets are created inside of {@link #bullets weapon.bullets}, which is a {@link Phaser.GameObjects.Group} instance. Anything you
- * can usually do with a Group, such as move it around the display list, iterate it, etc can be done
- * to the bullets Group too.
+ * The Bullets are created inside of {@link #bullets weapon.bullets}, which is
+ * a {@link Phaser.GameObjects.Group} instance. Anything you can usually do
+ * with a Group, such as move it around the display list, iterate it, etc can
+ * be done to the bullets Group too.
  *
- * Bullets can have textures and even animations. You can control the speed at which they are fired,
- * the firing rate, the firing angle, and even set things like gravity for them.
+ * Bullets can have textures and even animations. You can control the speed at
+ * which they are fired, the firing rate, the firing angle, and even set things
+ * like gravity for them.
  *
- * A small example, using add.weapon, assumed to be running from within a {@link Phaser.Scene#create} method:
+ * A small example, using add.weapon, assumed to be running from within a
+ * {@link Phaser.Scene#create} method:
  *
  * ```javascript
  * var weapon = this.add.weapon(10, 'bullet');
@@ -460,7 +464,7 @@ class Weapon {
       this.bullets.createMultiple({ key, frame, repeat: quantity, active: false, visible: false });
 
       this.bullets.children.each(function(child) {
-        child.bulletManager = this;
+        child.data.bulletManager = this
       }, this);
 
       this.bulletKey = key;
@@ -881,16 +885,21 @@ class Weapon {
     if (this.autoExpandBulletsGroup) {
       bullet = this.bullets.getFirstDead(true, fromX, fromY, this.bulletKey, this.bulletFrame);
 
-      bullet.bulletManager = this;
+      bullet.data.bulletManager = this;
     } else {
       bullet = this.bullets.getFirstDead(false);
     }
 
+    console.log(`got bullet: ${bullet ? bullet.bulletID : 'none, :('}`)
+
     if (bullet) {
       bullet.body.reset(fromX, fromY);
 
+      // unclear if we actually need to set this to active here or if this
+      // should be the bullet itself
       this.active = true;
       this.visible = true;
+      bullet.active = true;
 
       bullet.data.fromX = fromX;
       bullet.data.fromY = fromY;
@@ -1225,6 +1234,7 @@ Object.defineProperty(Weapon.prototype, 'bulletKillType', {
   },
 
   set(type) {
+    console.log(`setting bulletKillType: ${type}`)
     switch (type) {
       case consts.KILL_STATIC_BOUNDS:
       case consts.KILL_WEAPON_BOUNDS:
@@ -1237,6 +1247,7 @@ Object.defineProperty(Weapon.prototype, 'bulletKillType', {
 
       case consts.KILL_WORLD_BOUNDS:
         this.bulletBounds = this.scene.physics.world.bounds;
+        console.log(this.bulletBounds)
         break;
     }
 
