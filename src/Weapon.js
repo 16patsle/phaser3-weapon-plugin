@@ -437,8 +437,8 @@ class Weapon {
     if (quantity === undefined) {
       quantity = 1;
     }
-    if(bulletClass){
-      this._bulletClass=bulletClass
+    if (bulletClass) {
+      this._bulletClass = bulletClass
     }
     /*if (group === undefined) {
       group = this.game.world;
@@ -462,16 +462,22 @@ class Weapon {
         quantity = 1;
       }
 
-      this.bullets.createMultiple({ key, frame, repeat: quantity, active: false, visible: false });
+      this.bullets.createMultiple({
+        key,
+        frame,
+        repeat: quantity,
+        active: false,
+        visible: false
+      });
 
-      this.bullets.children.each(function(child) {
+      this.bullets.children.each(function (child) {
         child.data.bulletManager = this
       }, this);
 
       this.bulletKey = key;
       this.bulletFrame = frame;
 
-      if(group){
+      if (group) {
         group.addMultiple(this.bullets.children.entries)
       }
     }
