@@ -1,10 +1,13 @@
 /**
  * @author       Patrick Sletvold
+ * @author       jdotr <https://github.com/jdotrjs>
  * @author       Richard Davey
  * @license      {@link https://github.com/photonstorm/phaser3-plugin-template/blob/master/LICENSE|MIT License}
  */
 
 const consts = require('./consts');
+
+let bulletID = 0
 
 class Bullet extends Phaser.GameObjects.Sprite {
   /**
@@ -19,7 +22,8 @@ class Bullet extends Phaser.GameObjects.Sprite {
    */
   constructor(scene, x, y, key, frame) {
     super(scene, x, y, key, frame);
-
+    this.bulletID = bulletID
+    bulletID++
     this.scene.physics.add.existing(this);
 
     this.data = {
@@ -30,6 +34,7 @@ class Bullet extends Phaser.GameObjects.Sprite {
       rotateToVelocity: false,
       killType: 0,
       killDistance: 0,
+      bodyBounds: new Phaser.Geom.Rectangle()
     };
   }
 
@@ -39,10 +44,13 @@ class Bullet extends Phaser.GameObjects.Sprite {
    * @returns {Bullet} This instance of the bullet class
    */
   kill() {
-    this.alive = false;
+    console.log(`Killing bullet ${this.bulletID}`)
+    // alive no longer does stuff in v3?
+    // this.alive = false;
+    this.active = false;
     this.visible = false;
 
-    this.data.bulletManager.onKill.dispatch(this);
+    this.data.bulletManager.eventEmitter.emit('kill', this);
 
     return this;
   }
@@ -52,7 +60,8 @@ class Bullet extends Phaser.GameObjects.Sprite {
    * @returns {Bullet} This instance of the bullet class
    */
   update() {
-    if (!this.exists) {
+    if (!this.active) {
+      // this was previously a check to this.exists
       return;
     }
 
@@ -64,7 +73,10 @@ class Bullet extends Phaser.GameObjects.Sprite {
         ) {
           this.kill();
         }
-      } else if (!this.data.bulletManager.bulletBounds.intersects(this)) {
+      } else if (!Phaser.Geom.Intersects.RectangleToRectangle(
+          this.data.bulletManager.bulletBounds,
+          this.body.getBounds(this.data.bodyBounds)
+        )) {
         this.kill();
       }
     }
@@ -74,7 +86,7 @@ class Bullet extends Phaser.GameObjects.Sprite {
     }
 
     if (this.data.bulletManager.bulletWorldWrap) {
-      this.scene.physics.world.bounds.wrap(
+      this.scene.physics.world.wrap(
         this,
         this.data.bulletManager.bulletWorldWrapPadding
       );

@@ -159,10 +159,13 @@ function _assertThisInitialized(self) { if (self === void 0) { throw new Referen
 
 /**
  * @author       Patrick Sletvold
+ * @author       jdotr <https://github.com/jdotrjs>
  * @author       Richard Davey
  * @license      {@link https://github.com/photonstorm/phaser3-plugin-template/blob/master/LICENSE|MIT License}
  */
 var consts = __webpack_require__(0);
+
+var bulletID = 0;
 
 var Bullet =
 /*#__PURE__*/
@@ -183,6 +186,8 @@ function (_Phaser$GameObjects$S) {
     _classCallCheck(this, Bullet);
 
     _this = _possibleConstructorReturn(this, _getPrototypeOf(Bullet).call(this, scene, x, y, key, frame));
+    _this.bulletID = bulletID;
+    bulletID++;
 
     _this.scene.physics.add.existing(_assertThisInitialized(_assertThisInitialized(_this)));
 
@@ -193,7 +198,8 @@ function (_Phaser$GameObjects$S) {
       bodyDirty: true,
       rotateToVelocity: false,
       killType: 0,
-      killDistance: 0
+      killDistance: 0,
+      bodyBounds: new Phaser.Geom.Rectangle()
     };
     return _this;
   }
@@ -207,9 +213,12 @@ function (_Phaser$GameObjects$S) {
   _createClass(Bullet, [{
     key: "kill",
     value: function kill() {
-      this.alive = false;
+      console.log("Killing bullet ".concat(this.bulletID)); // alive no longer does stuff in v3?
+      // this.alive = false;
+
+      this.active = false;
       this.visible = false;
-      this.data.bulletManager.onKill.dispatch(this);
+      this.data.bulletManager.eventEmitter.emit('kill', this);
       return this;
     }
     /**
@@ -220,7 +229,8 @@ function (_Phaser$GameObjects$S) {
   }, {
     key: "update",
     value: function update() {
-      if (!this.exists) {
+      if (!this.active) {
+        // this was previously a check to this.exists
         return;
       }
 
@@ -229,7 +239,7 @@ function (_Phaser$GameObjects$S) {
           if (new Phaser.Math.Vector2(this.data.fromX, this.data.fromY).distance(this) > this.data.killDistance) {
             this.kill();
           }
-        } else if (!this.data.bulletManager.bulletBounds.intersects(this)) {
+        } else if (!Phaser.Geom.Intersects.RectangleToRectangle(this.data.bulletManager.bulletBounds, this.body.getBounds(this.data.bodyBounds))) {
           this.kill();
         }
       }
@@ -239,7 +249,7 @@ function (_Phaser$GameObjects$S) {
       }
 
       if (this.data.bulletManager.bulletWorldWrap) {
-        this.scene.physics.world.bounds.wrap(this, this.data.bulletManager.bulletWorldWrapPadding);
+        this.scene.physics.world.wrap(this, this.data.bulletManager.bulletWorldWrapPadding);
       }
     }
   }]);
@@ -278,6 +288,7 @@ function _getPrototypeOf(o) { _getPrototypeOf = Object.getPrototypeOf || functio
 
 /**
  * @author       Patrick Sletvold
+ * @author       jdotr <https://github.com/jdotrjs>
  * @author       Richard Davey
  * @license      {@link https://github.com/photonstorm/phaser3-plugin-template/blob/master/LICENSE|MIT License}
  */
@@ -287,19 +298,24 @@ var Bullet = __webpack_require__(1);
 
 var consts = __webpack_require__(0);
 /**
- * The Weapon Plugin provides the ability to easily create a bullet pool and manager.
+ * The Weapon Plugin provides the ability to easily create a bullet pool
+ * and manager.
  *
- * Weapons fire {@link Bullet} objects, which are essentially Sprites with a few extra properties.
- * The Bullets are enabled for Arcade Physics. They do not currently work with P2 Physics.
+ * Weapons fire {@link Bullet} objects, which are essentially Sprites with a
+ * few extra properties. The Bullets are enabled for Arcade Physics. They do
+ * not currently work with Impact or Matter Physics.
  *
- * The Bullets are created inside of {@link #bullets weapon.bullets}, which is a {@link Phaser.GameObjects.Group} instance. Anything you
- * can usually do with a Group, such as move it around the display list, iterate it, etc can be done
- * to the bullets Group too.
+ * The Bullets are created inside of {@link #bullets weapon.bullets}, which is
+ * a {@link Phaser.GameObjects.Group} instance. Anything you can usually do
+ * with a Group, such as move it around the display list, iterate it, etc can
+ * be done to the bullets Group too.
  *
- * Bullets can have textures and even animations. You can control the speed at which they are fired,
- * the firing rate, the firing angle, and even set things like gravity for them.
+ * Bullets can have textures and even animations. You can control the speed at
+ * which they are fired, the firing rate, the firing angle, and even set things
+ * like gravity for them.
  *
- * A small example, using add.weapon, assumed to be running from within a {@link Phaser.Scene#create} method:
+ * A small example, using add.weapon, assumed to be running from within a
+ * {@link Phaser.Scene#create} method:
  *
  * ```javascript
  * var weapon = this.add.weapon(10, 'bullet');
@@ -314,7 +330,8 @@ var WeaponPlugin =
 function (_Phaser$Plugins$Scene) {
   /**
    * @param {Phaser.Scene} scene - A reference to the Phaser.Scene instance.
-   * @param {Phaser.Plugins.PluginManager} pluginManager - A reference to the Phaser.Plugins.PlugiManager instance.
+   * @param {Phaser.Plugins.PluginManager} pluginManager - A reference to the
+   *  Phaser.Plugins.PluginManager instance.
    */
   function WeaponPlugin(scene, pluginManager) {
     var _this;
@@ -322,8 +339,8 @@ function (_Phaser$Plugins$Scene) {
     _classCallCheck(this, WeaponPlugin);
 
     _this = _possibleConstructorReturn(this, _getPrototypeOf(WeaponPlugin).call(this, scene, pluginManager));
-    _this.weapons = []; //  Register our new Game Object type
-    //pluginManager.registerGameObject('weapon', this.add);
+    _this.weapons = []; // Register our new Game Object type
+    // pluginManager.registerGameObject('weapon', this.add);
 
     return _this;
   }
@@ -482,6 +499,7 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
 
 /**
  * @author       Patrick Sletvold
+ * @author       jdotr <https://github.com/jdotrjs>
  * @author       Richard Davey
  * @license      {@link https://github.com/photonstorm/phaser3-plugin-template/blob/master/LICENSE|MIT License}
  */
@@ -491,17 +509,21 @@ var consts = __webpack_require__(0);
 /**
  * The Weapon provides the ability to easily create a bullet pool and manager.
  *
- * Weapons fire {@link Bullet} objects, which are essentially Sprites with a few extra properties.
- * The Bullets are enabled for Arcade Physics. They do not currently work with P2 Physics.
+ * Weapons fire {@link Bullet} objects, which are essentially Sprites with a
+ * few extra properties. The Bullets are enabled for Arcade Physics. They do
+ * not currently work with P2 Physics.
  *
- * The Bullets are created inside of {@link #bullets weapon.bullets}, which is a {@link Phaser.GameObjects.Group} instance. Anything you
- * can usually do with a Group, such as move it around the display list, iterate it, etc can be done
- * to the bullets Group too.
+ * The Bullets are created inside of {@link #bullets weapon.bullets}, which is
+ * a {@link Phaser.GameObjects.Group} instance. Anything you can usually do
+ * with a Group, such as move it around the display list, iterate it, etc can
+ * be done to the bullets Group too.
  *
- * Bullets can have textures and even animations. You can control the speed at which they are fired,
- * the firing rate, the firing angle, and even set things like gravity for them.
+ * Bullets can have textures and even animations. You can control the speed at
+ * which they are fired, the firing rate, the firing angle, and even set things
+ * like gravity for them.
  *
- * A small example, using add.weapon, assumed to be running from within a {@link Phaser.Scene#create} method:
+ * A small example, using add.weapon, assumed to be running from within a
+ * {@link Phaser.Scene#create} method:
  *
  * ```javascript
  * var weapon = this.add.weapon(10, 'bullet');
@@ -956,7 +978,7 @@ function () {
           visible: false
         });
         this.bullets.children.each(function (child) {
-          child.bulletManager = this;
+          child.data.bulletManager = this;
         }, this);
         this.bulletKey = key;
         this.bulletFrame = frame;
@@ -1380,15 +1402,21 @@ function () {
 
       if (this.autoExpandBulletsGroup) {
         bullet = this.bullets.getFirstDead(true, fromX, fromY, this.bulletKey, this.bulletFrame);
-        bullet.bulletManager = this;
+        bullet.data.bulletManager = this;
       } else {
         bullet = this.bullets.getFirstDead(false);
       }
 
+      console.log("got bullet: ".concat(bullet ? bullet.bulletID : 'none, :('));
+
       if (bullet) {
-        bullet.body.reset(fromX, fromY);
+        bullet.body.reset(fromX, fromY); // unclear if we actually need to set this to active here or if this
+        // should be the bullet itself
+
         this.active = true;
         this.visible = true;
+        bullet.active = true;
+        bullet.visible = true;
         bullet.data.fromX = fromX;
         bullet.data.fromY = fromY;
         bullet.data.killType = this.bulletKillType;
@@ -1722,6 +1750,8 @@ Object.defineProperty(Weapon.prototype, 'bulletKillType', {
     return this._bulletKillType;
   },
   set: function set(type) {
+    console.log("setting bulletKillType: ".concat(type));
+
     switch (type) {
       case consts.KILL_STATIC_BOUNDS:
       case consts.KILL_WEAPON_BOUNDS:
@@ -1734,6 +1764,7 @@ Object.defineProperty(Weapon.prototype, 'bulletKillType', {
 
       case consts.KILL_WORLD_BOUNDS:
         this.bulletBounds = this.scene.physics.world.bounds;
+        console.log(this.bulletBounds);
         break;
     }
 

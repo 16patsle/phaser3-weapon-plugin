@@ -30,6 +30,7 @@ function create() {
   this.weapon = this.weapons.add(30, 'bullet');
 
   //  The bullet will be automatically killed when it leaves the world bounds
+  console.log(`setting bulletKillType`)
   this.weapon.bulletKillType = WeaponPlugin.consts.KILL_WORLD_BOUNDS;
 
   //  The speed at which the bullet is fired

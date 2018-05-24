@@ -1,5 +1,6 @@
 /**
  * @author       Patrick Sletvold
+ * @author       jdotr <https://github.com/jdotrjs>
  * @author       Richard Davey
  * @license      {@link https://github.com/photonstorm/phaser3-plugin-template/blob/master/LICENSE|MIT License}
  */
@@ -8,19 +9,24 @@ const Bullet = require('./Bullet');
 const consts = require('./consts');
 
 /**
- * The Weapon Plugin provides the ability to easily create a bullet pool and manager.
+ * The Weapon Plugin provides the ability to easily create a bullet pool
+ * and manager.
  *
- * Weapons fire {@link Bullet} objects, which are essentially Sprites with a few extra properties.
- * The Bullets are enabled for Arcade Physics. They do not currently work with P2 Physics.
+ * Weapons fire {@link Bullet} objects, which are essentially Sprites with a
+ * few extra properties. The Bullets are enabled for Arcade Physics. They do
+ * not currently work with Impact or Matter Physics.
  *
- * The Bullets are created inside of {@link #bullets weapon.bullets}, which is a {@link Phaser.GameObjects.Group} instance. Anything you
- * can usually do with a Group, such as move it around the display list, iterate it, etc can be done
- * to the bullets Group too.
+ * The Bullets are created inside of {@link #bullets weapon.bullets}, which is
+ * a {@link Phaser.GameObjects.Group} instance. Anything you can usually do
+ * with a Group, such as move it around the display list, iterate it, etc can
+ * be done to the bullets Group too.
  *
- * Bullets can have textures and even animations. You can control the speed at which they are fired,
- * the firing rate, the firing angle, and even set things like gravity for them.
+ * Bullets can have textures and even animations. You can control the speed at
+ * which they are fired, the firing rate, the firing angle, and even set things
+ * like gravity for them.
  *
- * A small example, using add.weapon, assumed to be running from within a {@link Phaser.Scene#create} method:
+ * A small example, using add.weapon, assumed to be running from within a
+ * {@link Phaser.Scene#create} method:
  *
  * ```javascript
  * var weapon = this.add.weapon(10, 'bullet');
@@ -31,19 +37,20 @@ const consts = require('./consts');
 class WeaponPlugin extends Phaser.Plugins.ScenePlugin {
   /**
    * @param {Phaser.Scene} scene - A reference to the Phaser.Scene instance.
-   * @param {Phaser.Plugins.PluginManager} pluginManager - A reference to the Phaser.Plugins.PlugiManager instance.
+   * @param {Phaser.Plugins.PluginManager} pluginManager - A reference to the
+   *  Phaser.Plugins.PluginManager instance.
    */
   constructor(scene, pluginManager) {
     super(scene, pluginManager);
 
     this.weapons = [];
 
-    //  Register our new Game Object type
-    //pluginManager.registerGameObject('weapon', this.add);
+    // Register our new Game Object type
+    // pluginManager.registerGameObject('weapon', this.add);
   }
 
   add(bulletLimit, key, frame, group, weaponClass) {
-    if(!weaponClass){
+    if (!weaponClass) {
       weaponClass = Weapon
     }
     const weapon = new weaponClass(this.scene, bulletLimit, key, frame, group);
