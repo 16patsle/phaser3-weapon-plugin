@@ -43,4 +43,13 @@ Usage of the plugin should be similar to that of the one included in Phaser CE. 
 
 The plugin is written in ES2015/ES6, but the built version targets ES5.
 
+## Missing/broken features
+* Debug features (weapon.debug)
+* Bullet lifespan (KILL_LIFESPAN and weapon.bulletLifespan)
+* Bullet angle offset (weapon.bulletAngleOffset)
+* Bullet frame cycle (weapon.setBulletFrames)
+* Possibly angle and speed variance
+
+
+## Credits
 This plugin is a port of the [Weapon Plugin](https://github.com/photonstorm/phaser-ce/blob/f2be9bef1d953c9cd55dcd8808d109fa96731126/src/plugins/weapon/WeaponPlugin.js) in Phaser CE by Richard Davey, and is based on the Phaser 3 Plugin template, also by Richard Davey
