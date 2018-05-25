@@ -34,10 +34,14 @@ const consts = require('./consts');
  */
 class Weapon {
   /**
+   * TODO: a builder style interface would be neat. Can be kicked way forward
+   * into polishing.
    * @param {Phaser.Scene} scene - A reference to the Phaser.Scene instance.
    */
   constructor(scene, bulletLimit, key, frame, group) {
     this.scene = scene;
+
+    this.debugPhysics = null;
 
     /**
      * This is the Phaser.Group that contains all of the bullets managed by this plugin.
@@ -517,6 +521,9 @@ class Weapon {
   pauseAll() {
     this.bullets.children.each(child => {
       child.body.enable = false;
+      if (child.data.timeEvent !== null) {
+        child.data.timeEvent.paused = true;
+      }
     }, this);
 
     return this;
@@ -532,6 +539,9 @@ class Weapon {
   resumeAll() {
     this.bullets.children.each(child => {
       child.body.enable = true;
+      if (child.data.timeEvent !== null) {
+        child.data.timeEvent.paused = false;
+      }
     }, this);
 
     return this;
@@ -897,18 +907,10 @@ class Weapon {
       bullet = this.bullets.getFirstDead(false);
     }
 
-    console.log(`got bullet: ${bullet ? bullet.bulletID : 'none, :('}`)
+    console.log(`Got bullet: ${bullet ? bullet.bulletID : 'none, :('}`)
 
     if (bullet) {
-      bullet.body.reset(fromX, fromY);
-
-      // unclear if we actually need to set this to active here or if this
-      // should be the bullet itself
-      this.active = true;
-      this.visible = true;
-      bullet.active = true;
-      bullet.visible = true;
-
+      bullet.prepare(fromX, fromY);
       bullet.data.fromX = fromX;
       bullet.data.fromY = fromY;
       bullet.data.killType = this.bulletKillType;
@@ -916,6 +918,13 @@ class Weapon {
       bullet.data.rotateToVelocity = this.bulletRotateToVelocity;
 
       if (this.bulletKillType === consts.KILL_LIFESPAN) {
+        if (this.bulletLifespan <= 0) {
+          throw new Error('Invalid bulletLifespan; must be > 0')
+        }
+        bullet.data.timeEvent = this.scene.time.addEvent({
+          delay: this.bulletLifespan,
+          callback: bullet.kill.bind(bullet),
+        })
         bullet.lifespan = this.bulletLifespan;
       }
 
@@ -1255,7 +1264,6 @@ Object.defineProperty(Weapon.prototype, 'bulletKillType', {
 
       case consts.KILL_WORLD_BOUNDS:
         this.bulletBounds = this.scene.physics.world.bounds;
-        console.log(this.bulletBounds)
         break;
     }
 

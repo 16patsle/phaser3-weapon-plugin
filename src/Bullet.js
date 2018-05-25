@@ -27,6 +27,7 @@ class Bullet extends Phaser.GameObjects.Sprite {
     this.scene.physics.add.existing(this);
 
     this.data = {
+      timeEvent: null,
       bulletManager: null,
       fromX: 0,
       fromY: 0,
@@ -39,16 +40,45 @@ class Bullet extends Phaser.GameObjects.Sprite {
   }
 
   /**
+   * Prepares this bullet to be fired and interact with the rest of the scene
+   * again.
+   */
+  prepare(x, y) {
+    this.setActive(true);
+    this.setVisible(true);
+    this.body.enable = true;
+    this.body.reset(x, y);
+    this.body.debugShowBody = this.data.bulletManager.debugPhysics;
+    this.body.debugShowVelocity = this.data.bulletManager.debugPhysics;
+  }
+
+  /**
    * Kills the Bullet, freeing it up for re-use by the Weapon bullet pool.
-   * Also dispatches the `Weapon.onKill` signal.
+   * Also dispatches the `Weapon`s kill signal.
    * @returns {Bullet} This instance of the bullet class
    */
   kill() {
     console.log(`Killing bullet ${this.bulletID}`)
-    // alive no longer does stuff in v3?
-    // this.alive = false;
-    this.active = false;
-    this.visible = false;
+
+    // Reproduce Phaser.Physics.Arcade.Components.Enable.disableBody because
+    // we can't assume that the bullet class has it built in.
+    this.body.stop();
+    this.body.enable = false;
+    this.setActive(false);
+    this.setVisible(false);
+    this.body.debugShowBody = false;
+    this.body.debugShowVelocity = false;
+
+    // TODO: potentially we don't need to destroy the time event and we can
+    // just pause when the bullet is killed and restart it when it's refired.
+    // For now though do the simple thing and discard it.
+    // Another option would be to use Date.now() and manually process pause
+    // events with a flag and some math.
+    // Both of those are probably premature optimizations.
+    if (this.data.timeEvent !== null) {
+      this.data.timeEvent.destroy();
+      this.data.timeEvent = null;
+    }
 
     this.data.bulletManager.eventEmitter.emit('kill', this);
 

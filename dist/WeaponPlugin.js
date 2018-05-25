@@ -143,17 +143,17 @@ function _typeof(obj) { if (typeof Symbol === "function" && typeof Symbol.iterat
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
-function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function"); } _setPrototypeOf(subClass.prototype, superClass && superClass.prototype); if (superClass) _setPrototypeOf(subClass, superClass); }
-
-function _setPrototypeOf(o, p) { _setPrototypeOf = Object.setPrototypeOf || function _setPrototypeOf(o, p) { o.__proto__ = p; return o; }; return _setPrototypeOf(o, p); }
-
 function _defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } }
 
 function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _defineProperties(Constructor.prototype, protoProps); if (staticProps) _defineProperties(Constructor, staticProps); return Constructor; }
 
 function _possibleConstructorReturn(self, call) { if (call && (_typeof(call) === "object" || typeof call === "function")) { return call; } return _assertThisInitialized(self); }
 
-function _getPrototypeOf(o) { _getPrototypeOf = Object.getPrototypeOf || function _getPrototypeOf(o) { return o.__proto__; }; return _getPrototypeOf(o); }
+function _getPrototypeOf(o) { _getPrototypeOf = Object.setPrototypeOf ? Object.getPrototypeOf : function _getPrototypeOf(o) { return o.__proto__ || Object.getPrototypeOf(o); }; return _getPrototypeOf(o); }
+
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function"); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, writable: true, configurable: true } }); if (superClass) _setPrototypeOf(subClass, superClass); }
+
+function _setPrototypeOf(o, p) { _setPrototypeOf = Object.setPrototypeOf || function _setPrototypeOf(o, p) { o.__proto__ = p; return o; }; return _setPrototypeOf(o, p); }
 
 function _assertThisInitialized(self) { if (self === void 0) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return self; }
 
@@ -170,6 +170,8 @@ var bulletID = 0;
 var Bullet =
 /*#__PURE__*/
 function (_Phaser$GameObjects$S) {
+  _inherits(Bullet, _Phaser$GameObjects$S);
+
   /**
    * Create a new `Bullet` object. Bullets are used by the `Weapon` class, and are normal Sprites,
    * with a few extra properties in the data object to handle Weapon specific features.
@@ -192,6 +194,7 @@ function (_Phaser$GameObjects$S) {
     _this.scene.physics.add.existing(_assertThisInitialized(_assertThisInitialized(_this)));
 
     _this.data = {
+      timeEvent: null,
       bulletManager: null,
       fromX: 0,
       fromY: 0,
@@ -204,20 +207,47 @@ function (_Phaser$GameObjects$S) {
     return _this;
   }
   /**
-   * Kills the Bullet, freeing it up for re-use by the Weapon bullet pool.
-   * Also dispatches the `Weapon.onKill` signal.
-   * @returns {Bullet} This instance of the bullet class
+   * Prepares this bullet to be fired and interact with the rest of the scene
+   * again.
    */
 
 
   _createClass(Bullet, [{
+    key: "prepare",
+    value: function prepare(x, y) {
+      this.setActive(true);
+      this.setVisible(true);
+      this.body.enable = true;
+      this.body.reset(x, y);
+      this.body.debugShowBody = this.data.bulletManager.debugPhysics;
+      this.body.debugShowVelocity = this.data.bulletManager.debugPhysics;
+    }
+    /**
+     * Kills the Bullet, freeing it up for re-use by the Weapon bullet pool.
+     * Also dispatches the `Weapon`s kill signal.
+     * @returns {Bullet} This instance of the bullet class
+     */
+
+  }, {
     key: "kill",
     value: function kill() {
-      console.log("Killing bullet ".concat(this.bulletID)); // alive no longer does stuff in v3?
-      // this.alive = false;
+      console.log("Killing bullet ".concat(this.bulletID)); // Reproduce Phaser.Physics.Arcade.Components.Enable.disableBody because
+      // we can't assume that the bullet class has it built in.
 
-      this.active = false;
-      this.visible = false;
+      this.body.stop();
+      this.body.enable = false;
+      this.setActive(false);
+      this.setVisible(false);
+      this.body.debugShowBody = false;
+      this.body.debugShowVelocity = false; // TODO: potentially we don't need to destry the time event and we can
+      // just pause when the bullet is killed and restart it when it's refired.
+      // For now though do the simple thing and discard it.
+
+      if (this.data.timeEvent !== null) {
+        this.data.timeEvent.destroy();
+        this.data.timeEvent = null;
+      }
+
       this.data.bulletManager.eventEmitter.emit('kill', this);
       return this;
     }
@@ -254,8 +284,6 @@ function (_Phaser$GameObjects$S) {
     }
   }]);
 
-  _inherits(Bullet, _Phaser$GameObjects$S);
-
   return Bullet;
 }(Phaser.GameObjects.Sprite);
 
@@ -272,10 +300,6 @@ function _typeof(obj) { if (typeof Symbol === "function" && typeof Symbol.iterat
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
-function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function"); } _setPrototypeOf(subClass.prototype, superClass && superClass.prototype); if (superClass) _setPrototypeOf(subClass, superClass); }
-
-function _setPrototypeOf(o, p) { _setPrototypeOf = Object.setPrototypeOf || function _setPrototypeOf(o, p) { o.__proto__ = p; return o; }; return _setPrototypeOf(o, p); }
-
 function _defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } }
 
 function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _defineProperties(Constructor.prototype, protoProps); if (staticProps) _defineProperties(Constructor, staticProps); return Constructor; }
@@ -284,7 +308,11 @@ function _possibleConstructorReturn(self, call) { if (call && (_typeof(call) ===
 
 function _assertThisInitialized(self) { if (self === void 0) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return self; }
 
-function _getPrototypeOf(o) { _getPrototypeOf = Object.getPrototypeOf || function _getPrototypeOf(o) { return o.__proto__; }; return _getPrototypeOf(o); }
+function _getPrototypeOf(o) { _getPrototypeOf = Object.setPrototypeOf ? Object.getPrototypeOf : function _getPrototypeOf(o) { return o.__proto__ || Object.getPrototypeOf(o); }; return _getPrototypeOf(o); }
+
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function"); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, writable: true, configurable: true } }); if (superClass) _setPrototypeOf(subClass, superClass); }
+
+function _setPrototypeOf(o, p) { _setPrototypeOf = Object.setPrototypeOf || function _setPrototypeOf(o, p) { o.__proto__ = p; return o; }; return _setPrototypeOf(o, p); }
 
 /**
  * @author       Patrick Sletvold
@@ -328,6 +356,8 @@ var consts = __webpack_require__(0);
 var WeaponPlugin =
 /*#__PURE__*/
 function (_Phaser$Plugins$Scene) {
+  _inherits(WeaponPlugin, _Phaser$Plugins$Scene);
+
   /**
    * @param {Phaser.Scene} scene - A reference to the Phaser.Scene instance.
    * @param {Phaser.Plugins.PluginManager} pluginManager - A reference to the
@@ -473,8 +503,6 @@ function (_Phaser$Plugins$Scene) {
     }
   }]);
 
-  _inherits(WeaponPlugin, _Phaser$Plugins$Scene);
-
   return WeaponPlugin;
 }(Phaser.Plugins.ScenePlugin);
 
@@ -537,12 +565,15 @@ var Weapon =
 /*#__PURE__*/
 function () {
   /**
+   * TODO: a builder style interface would be neat. Can be kicked way forward
+   * into polishing.
    * @param {Phaser.Scene} scene - A reference to the Phaser.Scene instance.
    */
   function Weapon(scene, bulletLimit, key, frame, group) {
     _classCallCheck(this, Weapon);
 
     this.scene = scene;
+    this.debugPhysics = null;
     /**
      * This is the Phaser.Group that contains all of the bullets managed by this plugin.
      * @type {Phaser.GameObjects.Group}
@@ -1025,6 +1056,10 @@ function () {
     value: function pauseAll() {
       this.bullets.children.each(function (child) {
         child.body.enable = false;
+
+        if (child.data.timeEvent !== null) {
+          child.data.timeEvent.paused = true;
+        }
       }, this);
       return this;
     }
@@ -1041,6 +1076,10 @@ function () {
     value: function resumeAll() {
       this.bullets.children.each(function (child) {
         child.body.enable = true;
+
+        if (child.data.timeEvent !== null) {
+          child.data.timeEvent.paused = false;
+        }
       }, this);
       return this;
     }
@@ -1407,16 +1446,10 @@ function () {
         bullet = this.bullets.getFirstDead(false);
       }
 
-      console.log("got bullet: ".concat(bullet ? bullet.bulletID : 'none, :('));
+      console.log("Got bullet: ".concat(bullet ? bullet.bulletID : 'none, :('));
 
       if (bullet) {
-        bullet.body.reset(fromX, fromY); // unclear if we actually need to set this to active here or if this
-        // should be the bullet itself
-
-        this.active = true;
-        this.visible = true;
-        bullet.active = true;
-        bullet.visible = true;
+        bullet.prepare(fromX, fromY);
         bullet.data.fromX = fromX;
         bullet.data.fromY = fromY;
         bullet.data.killType = this.bulletKillType;
@@ -1424,6 +1457,14 @@ function () {
         bullet.data.rotateToVelocity = this.bulletRotateToVelocity;
 
         if (this.bulletKillType === consts.KILL_LIFESPAN) {
+          if (this.bulletLifespan <= 0) {
+            throw new Error('Invalid bulletLifespan; must be > 0');
+          }
+
+          bullet.data.timeEvent = this.scene.time.addEvent({
+            delay: this.bulletLifespan,
+            callback: bullet.kill.bind(bullet)
+          });
           bullet.lifespan = this.bulletLifespan;
         }
 
@@ -1626,13 +1667,13 @@ function () {
     if (debugBodies === undefined) {
       debugBodies = false;
     }
-     this.game.debug.text('Weapon Plugin', x, y);
+      this.game.debug.text('Weapon Plugin', x, y);
     this.game.debug.text(
       'Bullets Alive: ' + this.bullets.total + ' - Total: ' + this.bullets.length,
       x,
       y + 24
     );
-     if (debugBodies) {
+      if (debugBodies) {
       this.bullets.forEachExists(this.game.debug.body, this.game.debug, 'rgba(255, 0, 255, 0.8)');
     }*/
 
@@ -1764,7 +1805,6 @@ Object.defineProperty(Weapon.prototype, 'bulletKillType', {
 
       case consts.KILL_WORLD_BOUNDS:
         this.bulletBounds = this.scene.physics.world.bounds;
-        console.log(this.bulletBounds);
         break;
     }
 
