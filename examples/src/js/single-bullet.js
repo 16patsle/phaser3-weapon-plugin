@@ -29,6 +29,9 @@ function create() {
   //  Creates 1 single bullet, using the 'bullet' graphic
   this.weapon = this.weapons.add(1, 'bullet');
 
+  // Enable physics debugging for the bullets
+  this.weapon.debugPhysics = true
+
   //  The bullet will be automatically killed when it leaves the world bounds
   console.log(`setting bulletKillType`)
   this.weapon.bulletKillType = WeaponPlugin.consts.KILL_WORLD_BOUNDS;
