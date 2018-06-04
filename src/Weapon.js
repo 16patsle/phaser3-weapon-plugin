@@ -114,7 +114,7 @@ class Weapon {
      * @type {integer}
      * @default
      */
-    this.fireAngle = Phaser.ANGLE_UP;
+    this.fireAngle = consts.ANGLE_UP;
 
     /**
      * When a Bullet is fired it can optionally inherit the velocity of the `trackedSprite` if set.

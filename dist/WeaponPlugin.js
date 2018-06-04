@@ -129,7 +129,63 @@ module.exports = {
    * @constant
    * @type {integer}
    */
-  KILL_STATIC_BOUNDS: 6
+  KILL_STATIC_BOUNDS: 6,
+
+  /**
+   * The Angle (in degrees) a Game Object needs to be set to in order to face up.
+   * @constant Phaser.ANGLE_UP
+   * @type {integer}
+   */
+  ANGLE_UP: 270,
+
+  /**
+   * The Angle (in degrees) a Game Object needs to be set to in order to face down.
+   * @constant Phaser.ANGLE_DOWN
+   * @type {integer}
+   */
+  ANGLE_DOWN: 90,
+
+  /**
+   * The Angle (in degrees) a Game Object needs to be set to in order to face left.
+   * @constant Phaser.ANGLE_LEFT
+   * @type {integer}
+   */
+  ANGLE_LEFT: 180,
+
+  /**
+   * The Angle (in degrees) a Game Object needs to be set to in order to face right.
+   * @constant Phaser.ANGLE_RIGHT
+   * @type {integer}
+   */
+  ANGLE_RIGHT: 0,
+
+  /**
+   * The Angle (in degrees) a Game Object needs to be set to in order to face north east.
+   * @constant Phaser.ANGLE_NORTH_EAST
+   * @type {integer}
+   */
+  ANGLE_NORTH_EAST: 315,
+
+  /**
+   * The Angle (in degrees) a Game Object needs to be set to in order to face north west.
+   * @constant Phaser.ANGLE_NORTH_WEST
+   * @type {integer}
+   */
+  ANGLE_NORTH_WEST: 225,
+
+  /**
+   * The Angle (in degrees) a Game Object needs to be set to in order to face south east.
+   * @constant Phaser.ANGLE_SOUTH_EAST
+   * @type {integer}
+   */
+  ANGLE_SOUTH_EAST: 45,
+
+  /**
+   * The Angle (in degrees) a Game Object needs to be set to in order to face south west.
+   * @constant Phaser.ANGLE_SOUTH_WEST
+   * @type {integer}
+   */
+  ANGLE_SOUTH_WEST: 135
 };
 
 /***/ }),
@@ -649,7 +705,7 @@ function () {
      * @default
      */
 
-    this.fireAngle = Phaser.ANGLE_UP;
+    this.fireAngle = consts.ANGLE_UP;
     /**
      * When a Bullet is fired it can optionally inherit the velocity of the `trackedSprite` if set.
      * @type {boolean}
@@ -1471,6 +1527,7 @@ function () {
           bullet.lifespan = this.bulletLifespan;
         }
 
+        bullet.setOrigin(0);
         bullet.angle = angle + this.bulletAngleOffset; //  Frames and Animations
 
         if (this.bulletAnimation) {
