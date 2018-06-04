@@ -1870,3 +1870,4 @@ module.exports = Weapon;
 /***/ })
 /******/ ]);
 });
+//# sourceMappingURL=WeaponPlugin.js.map
