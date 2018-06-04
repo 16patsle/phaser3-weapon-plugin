@@ -133,28 +133,28 @@ module.exports = {
 
   /**
    * The Angle (in degrees) a Game Object needs to be set to in order to face up.
-   * @constant Phaser.ANGLE_UP
+   * @constant
    * @type {integer}
    */
   ANGLE_UP: 270,
 
   /**
    * The Angle (in degrees) a Game Object needs to be set to in order to face down.
-   * @constant Phaser.ANGLE_DOWN
+   * @constant
    * @type {integer}
    */
   ANGLE_DOWN: 90,
 
   /**
    * The Angle (in degrees) a Game Object needs to be set to in order to face left.
-   * @constant Phaser.ANGLE_LEFT
+   * @constant
    * @type {integer}
    */
   ANGLE_LEFT: 180,
 
   /**
    * The Angle (in degrees) a Game Object needs to be set to in order to face right.
-   * @constant Phaser.ANGLE_RIGHT
+   * @constant
    * @type {integer}
    */
   ANGLE_RIGHT: 0,
@@ -168,21 +168,21 @@ module.exports = {
 
   /**
    * The Angle (in degrees) a Game Object needs to be set to in order to face north west.
-   * @constant Phaser.ANGLE_NORTH_WEST
+   * @constant
    * @type {integer}
    */
   ANGLE_NORTH_WEST: 225,
 
   /**
    * The Angle (in degrees) a Game Object needs to be set to in order to face south east.
-   * @constant Phaser.ANGLE_SOUTH_EAST
+   * @constant
    * @type {integer}
    */
   ANGLE_SOUTH_EAST: 45,
 
   /**
    * The Angle (in degrees) a Game Object needs to be set to in order to face south west.
-   * @constant Phaser.ANGLE_SOUTH_WEST
+   * @constant
    * @type {integer}
    */
   ANGLE_SOUTH_WEST: 135
@@ -1527,7 +1527,6 @@ function () {
           bullet.lifespan = this.bulletLifespan;
         }
 
-        bullet.setOrigin(0);
         bullet.angle = angle + this.bulletAngleOffset; //  Frames and Animations
 
         if (this.bulletAnimation) {
