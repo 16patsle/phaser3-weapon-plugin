@@ -32,6 +32,9 @@ function create() {
   //  Creates 30 bullets, using the 'bullet' graphic
   this.weapon = this.weapons.add(40, 'bullet');
 
+  // Enable physics debugging for the bullets
+  this.weapon.debugPhysics = true
+
   //  The 'rgblaser.png' is a Sprite Sheet with 80 frames in it (each 4x4 px in size)
   //  The 3rd argument tells the Weapon Plugin to advance to the next frame each time
   //  a bullet is fired, when it hits 80 it'll wrap to zero again.
