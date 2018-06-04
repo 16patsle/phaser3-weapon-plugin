@@ -143,17 +143,17 @@ function _typeof(obj) { if (typeof Symbol === "function" && typeof Symbol.iterat
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function"); } _setPrototypeOf(subClass.prototype, superClass && superClass.prototype); if (superClass) _setPrototypeOf(subClass, superClass); }
+
+function _setPrototypeOf(o, p) { _setPrototypeOf = Object.setPrototypeOf || function _setPrototypeOf(o, p) { o.__proto__ = p; return o; }; return _setPrototypeOf(o, p); }
+
 function _defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } }
 
 function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _defineProperties(Constructor.prototype, protoProps); if (staticProps) _defineProperties(Constructor, staticProps); return Constructor; }
 
 function _possibleConstructorReturn(self, call) { if (call && (_typeof(call) === "object" || typeof call === "function")) { return call; } return _assertThisInitialized(self); }
 
-function _getPrototypeOf(o) { _getPrototypeOf = Object.setPrototypeOf ? Object.getPrototypeOf : function _getPrototypeOf(o) { return o.__proto__ || Object.getPrototypeOf(o); }; return _getPrototypeOf(o); }
-
-function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function"); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, writable: true, configurable: true } }); if (superClass) _setPrototypeOf(subClass, superClass); }
-
-function _setPrototypeOf(o, p) { _setPrototypeOf = Object.setPrototypeOf || function _setPrototypeOf(o, p) { o.__proto__ = p; return o; }; return _setPrototypeOf(o, p); }
+function _getPrototypeOf(o) { _getPrototypeOf = Object.getPrototypeOf || function _getPrototypeOf(o) { return o.__proto__; }; return _getPrototypeOf(o); }
 
 function _assertThisInitialized(self) { if (self === void 0) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return self; }
 
@@ -170,8 +170,6 @@ var bulletID = 0;
 var Bullet =
 /*#__PURE__*/
 function (_Phaser$GameObjects$S) {
-  _inherits(Bullet, _Phaser$GameObjects$S);
-
   /**
    * Create a new `Bullet` object. Bullets are used by the `Weapon` class, and are normal Sprites,
    * with a few extra properties in the data object to handle Weapon specific features.
@@ -239,9 +237,12 @@ function (_Phaser$GameObjects$S) {
       this.setActive(false);
       this.setVisible(false);
       this.body.debugShowBody = false;
-      this.body.debugShowVelocity = false; // TODO: potentially we don't need to destry the time event and we can
+      this.body.debugShowVelocity = false; // TODO: potentially we don't need to destroy the time event and we can
       // just pause when the bullet is killed and restart it when it's refired.
       // For now though do the simple thing and discard it.
+      // Another option would be to use Date.now() and manually process pause
+      // events with a flag and some math.
+      // Both of those are probably premature optimizations.
 
       if (this.data.timeEvent !== null) {
         this.data.timeEvent.destroy();
@@ -284,6 +285,8 @@ function (_Phaser$GameObjects$S) {
     }
   }]);
 
+  _inherits(Bullet, _Phaser$GameObjects$S);
+
   return Bullet;
 }(Phaser.GameObjects.Sprite);
 
@@ -300,6 +303,10 @@ function _typeof(obj) { if (typeof Symbol === "function" && typeof Symbol.iterat
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function"); } _setPrototypeOf(subClass.prototype, superClass && superClass.prototype); if (superClass) _setPrototypeOf(subClass, superClass); }
+
+function _setPrototypeOf(o, p) { _setPrototypeOf = Object.setPrototypeOf || function _setPrototypeOf(o, p) { o.__proto__ = p; return o; }; return _setPrototypeOf(o, p); }
+
 function _defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } }
 
 function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _defineProperties(Constructor.prototype, protoProps); if (staticProps) _defineProperties(Constructor, staticProps); return Constructor; }
@@ -308,11 +315,7 @@ function _possibleConstructorReturn(self, call) { if (call && (_typeof(call) ===
 
 function _assertThisInitialized(self) { if (self === void 0) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return self; }
 
-function _getPrototypeOf(o) { _getPrototypeOf = Object.setPrototypeOf ? Object.getPrototypeOf : function _getPrototypeOf(o) { return o.__proto__ || Object.getPrototypeOf(o); }; return _getPrototypeOf(o); }
-
-function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function"); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, writable: true, configurable: true } }); if (superClass) _setPrototypeOf(subClass, superClass); }
-
-function _setPrototypeOf(o, p) { _setPrototypeOf = Object.setPrototypeOf || function _setPrototypeOf(o, p) { o.__proto__ = p; return o; }; return _setPrototypeOf(o, p); }
+function _getPrototypeOf(o) { _getPrototypeOf = Object.getPrototypeOf || function _getPrototypeOf(o) { return o.__proto__; }; return _getPrototypeOf(o); }
 
 /**
  * @author       Patrick Sletvold
@@ -356,8 +359,6 @@ var consts = __webpack_require__(0);
 var WeaponPlugin =
 /*#__PURE__*/
 function (_Phaser$Plugins$Scene) {
-  _inherits(WeaponPlugin, _Phaser$Plugins$Scene);
-
   /**
    * @param {Phaser.Scene} scene - A reference to the Phaser.Scene instance.
    * @param {Phaser.Plugins.PluginManager} pluginManager - A reference to the
@@ -502,6 +503,8 @@ function (_Phaser$Plugins$Scene) {
       this.systems = null;
     }
   }]);
+
+  _inherits(WeaponPlugin, _Phaser$Plugins$Scene);
 
   return WeaponPlugin;
 }(Phaser.Plugins.ScenePlugin);
@@ -1667,13 +1670,13 @@ function () {
     if (debugBodies === undefined) {
       debugBodies = false;
     }
-      this.game.debug.text('Weapon Plugin', x, y);
+     this.game.debug.text('Weapon Plugin', x, y);
     this.game.debug.text(
       'Bullets Alive: ' + this.bullets.total + ' - Total: ' + this.bullets.length,
       x,
       y + 24
     );
-      if (debugBodies) {
+     if (debugBodies) {
       this.bullets.forEachExists(this.game.debug.body, this.game.debug, 'rgba(255, 0, 255, 0.8)');
     }*/
 
