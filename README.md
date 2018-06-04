@@ -45,7 +45,6 @@ The plugin is written in ES2015/ES6, but the built version targets ES5.
 
 ## Missing/broken features
 * Debug features (weapon.debug)
-* Bullet lifespan (KILL_LIFESPAN and weapon.bulletLifespan)
 * Bullet angle offset (weapon.bulletAngleOffset)
 * Bullet frame cycle (weapon.setBulletFrames)
 * Possibly angle and speed variance
