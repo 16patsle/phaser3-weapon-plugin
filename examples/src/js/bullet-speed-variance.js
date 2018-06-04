@@ -46,7 +46,7 @@ function create() {
   this.weapon.fireRate = 60;
 
   //  Add a variance to the bullet speed by +- this value
-  this.weapon.bulletAngleVariance = 200;
+  this.weapon.bulletSpeedVariance = 200;
 
   this.sprite = this.add.sprite(320, 500, 'ship');
 
@@ -55,8 +55,8 @@ function create() {
   this.sprite.body.setDrag(70);
   this.sprite.body.maxVelocity.set(200);
 
-  //  Tell the Weapon to track the 'player' Sprite, offset by 14px horizontally, 0 vertically
-  this.weapon.trackSprite(this.sprite, 14, 0);
+  //  Tell the Weapon to track the 'player' Sprite
+  this.weapon.trackSprite(this.sprite);
 
   this.cursors = this.input.keyboard.createCursorKeys();
 

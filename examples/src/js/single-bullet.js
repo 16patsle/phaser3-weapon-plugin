@@ -49,8 +49,8 @@ function create() {
   this.sprite.body.setDrag(70);
   this.sprite.body.maxVelocity.set(200);
 
-  //  Tell the Weapon to track the 'player' Sprite, offset by 14px horizontally, 0 vertically
-  this.weapon.trackSprite(this.sprite, 14, 0);
+  //  Tell the Weapon to track the 'player' Sprite
+  this.weapon.trackSprite(this.sprite);
 
   this.cursors = this.input.keyboard.createCursorKeys();
 

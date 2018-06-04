@@ -29,6 +29,9 @@ function create() {
   //  Creates 30 bullets, using the 'bullet' graphic
   this.weapon = this.weapons.add(30, 'bullet');
 
+  // Enable physics debugging for the bullets
+  this.weapon.debugPhysics = true
+
   //  The bullets will be automatically killed when they are 2000ms old
   this.weapon.bulletKillType = WeaponPlugin.consts.KILL_LIFESPAN;
   this.weapon.bulletLifespan = 2000;
