@@ -4,7 +4,9 @@
   "description": "Weapon Plugin for Phaser 3",
   "main": "src/main.js",
   "scripts": {
-    "build": "webpack"
+    "build": "webpack",
+    "postbuild": "cp dist/WeaponPlugin.js examples/src/WeaponPlugin.js",
+    "examples": "cd examples/src && http-server -p 2234"
   },
   "repository": {
     "type": "git",
@@ -17,6 +19,7 @@
   },
   "homepage": "https://github.com/16patsle/phaser3-weapon-plugin#readme",
   "devDependencies": {
+    "http-server": "^0.11.1",
     "webpack": "^3.10.0"
   },
   "dependencies": {
