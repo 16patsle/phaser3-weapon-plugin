@@ -6,7 +6,7 @@
   "scripts": {
     "build": "webpack",
     "postbuild": "cp dist/WeaponPlugin.js examples/src/WeaponPlugin.js",
-    "examples": "cd examples/src && http-server -p 2234"
+    "examples": "http-server examples/src -p 2234"
   },
   "repository": {
     "type": "git",
