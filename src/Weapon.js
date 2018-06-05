@@ -37,6 +37,10 @@ class Weapon {
    * TODO: a builder style interface would be neat. Can be kicked way forward
    * into polishing.
    * @param {Phaser.Scene} scene - A reference to the Phaser.Scene instance.
+   * @param {number} bulletLimit - The number of bullets to create.
+   * @param {String} key - The texture key for the bullet.
+   * @param {String} frame - The frame name for the bullet.
+   * @param {Phaser.GameObjects.Group} group - A group to add the bullets to.
    */
   constructor(scene, bulletLimit, key, frame, group) {
     this.scene = scene;
