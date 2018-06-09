@@ -33,16 +33,15 @@ function create() {
   this.weapon = this.weapons.add(40, 'bullet');
 
   // Enable physics debugging for the bullets
-  this.weapon.debugPhysics = true
+  this.weapon.debugPhysics = false
 
   //  The 'rgblaser.png' is a Sprite Sheet with 80 frames in it (each 4x4 px in size)
   //  The 3rd argument tells the Weapon Plugin to advance to the next frame each time
   //  a bullet is fired, when it hits 80 it'll wrap to zero again.
   //  You can also set this via this.weapon.bulletFrameCycle = true
-  this.weapon.setBulletFrames(0, 80, true);
+  this.weapon.setBulletFrames(0, 79, WeaponPlugin.consts.BULLET_FRAME_RANDOM);
 
   //  The bullet will be automatically killed when it leaves the world bounds
-  console.log(`setting bulletKillType`)
   this.weapon.bulletKillType = WeaponPlugin.consts.KILL_WORLD_BOUNDS;
 
   //  The speed at which the bullet is fired
@@ -52,7 +51,7 @@ function create() {
   this.weapon.fireRate = 50;
 
   //  Wrap bullets around the world bounds to the opposite side
-  this.weapon.bulletWorldWrap = true;
+  this.weapon.bulletWorldWrap = false;
 
   this.sprite = this.add.sprite(400, 300, 'ship');
 

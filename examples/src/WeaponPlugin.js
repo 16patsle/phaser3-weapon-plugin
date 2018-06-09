@@ -185,7 +185,29 @@ module.exports = {
    * @constant
    * @type {integer}
    */
-  ANGLE_SOUTH_WEST: 135
+  ANGLE_SOUTH_WEST: 135,
+
+  /**
+   * When selecting a bullet frame the same frame should always be used. This
+   * is the default value.
+   * @constant
+   * @type { integer }
+   */
+  BULLET_FRAME_STABLE: 0,
+
+  /**
+   * When selecting a bullet frame the next frame should be used
+   * @constant
+   * @type { integer }
+   */
+  BULLET_FRAME_CYCLE: 1,
+
+  /**
+   * When selecting a bullet frame a random frame should be used.
+   * @constant
+   * @type { integer }
+   */
+  BULLET_FRAME_RANDOM: 2
 };
 
 /***/ }),
@@ -199,17 +221,17 @@ function _typeof(obj) { if (typeof Symbol === "function" && typeof Symbol.iterat
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
-function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function"); } _setPrototypeOf(subClass.prototype, superClass && superClass.prototype); if (superClass) _setPrototypeOf(subClass, superClass); }
-
-function _setPrototypeOf(o, p) { _setPrototypeOf = Object.setPrototypeOf || function _setPrototypeOf(o, p) { o.__proto__ = p; return o; }; return _setPrototypeOf(o, p); }
-
 function _defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } }
 
 function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _defineProperties(Constructor.prototype, protoProps); if (staticProps) _defineProperties(Constructor, staticProps); return Constructor; }
 
 function _possibleConstructorReturn(self, call) { if (call && (_typeof(call) === "object" || typeof call === "function")) { return call; } return _assertThisInitialized(self); }
 
-function _getPrototypeOf(o) { _getPrototypeOf = Object.getPrototypeOf || function _getPrototypeOf(o) { return o.__proto__; }; return _getPrototypeOf(o); }
+function _getPrototypeOf(o) { _getPrototypeOf = Object.setPrototypeOf ? Object.getPrototypeOf : function _getPrototypeOf(o) { return o.__proto__ || Object.getPrototypeOf(o); }; return _getPrototypeOf(o); }
+
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function"); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, writable: true, configurable: true } }); if (superClass) _setPrototypeOf(subClass, superClass); }
+
+function _setPrototypeOf(o, p) { _setPrototypeOf = Object.setPrototypeOf || function _setPrototypeOf(o, p) { o.__proto__ = p; return o; }; return _setPrototypeOf(o, p); }
 
 function _assertThisInitialized(self) { if (self === void 0) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return self; }
 
@@ -226,6 +248,8 @@ var bulletID = 0;
 var Bullet =
 /*#__PURE__*/
 function (_Phaser$GameObjects$S) {
+  _inherits(Bullet, _Phaser$GameObjects$S);
+
   /**
    * Create a new `Bullet` object. Bullets are used by the `Weapon` class, and are normal Sprites,
    * with a few extra properties in the data object to handle Weapon specific features.
@@ -341,8 +365,6 @@ function (_Phaser$GameObjects$S) {
     }
   }]);
 
-  _inherits(Bullet, _Phaser$GameObjects$S);
-
   return Bullet;
 }(Phaser.GameObjects.Sprite);
 
@@ -359,10 +381,6 @@ function _typeof(obj) { if (typeof Symbol === "function" && typeof Symbol.iterat
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
-function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function"); } _setPrototypeOf(subClass.prototype, superClass && superClass.prototype); if (superClass) _setPrototypeOf(subClass, superClass); }
-
-function _setPrototypeOf(o, p) { _setPrototypeOf = Object.setPrototypeOf || function _setPrototypeOf(o, p) { o.__proto__ = p; return o; }; return _setPrototypeOf(o, p); }
-
 function _defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } }
 
 function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _defineProperties(Constructor.prototype, protoProps); if (staticProps) _defineProperties(Constructor, staticProps); return Constructor; }
@@ -371,7 +389,11 @@ function _possibleConstructorReturn(self, call) { if (call && (_typeof(call) ===
 
 function _assertThisInitialized(self) { if (self === void 0) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return self; }
 
-function _getPrototypeOf(o) { _getPrototypeOf = Object.getPrototypeOf || function _getPrototypeOf(o) { return o.__proto__; }; return _getPrototypeOf(o); }
+function _getPrototypeOf(o) { _getPrototypeOf = Object.setPrototypeOf ? Object.getPrototypeOf : function _getPrototypeOf(o) { return o.__proto__ || Object.getPrototypeOf(o); }; return _getPrototypeOf(o); }
+
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function"); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, writable: true, configurable: true } }); if (superClass) _setPrototypeOf(subClass, superClass); }
+
+function _setPrototypeOf(o, p) { _setPrototypeOf = Object.setPrototypeOf || function _setPrototypeOf(o, p) { o.__proto__ = p; return o; }; return _setPrototypeOf(o, p); }
 
 /**
  * @author       Patrick Sletvold
@@ -415,6 +437,8 @@ var consts = __webpack_require__(0);
 var WeaponPlugin =
 /*#__PURE__*/
 function (_Phaser$Plugins$Scene) {
+  _inherits(WeaponPlugin, _Phaser$Plugins$Scene);
+
   /**
    * @param {Phaser.Scene} scene - A reference to the Phaser.Scene instance.
    * @param {Phaser.Plugins.PluginManager} pluginManager - A reference to the
@@ -560,8 +584,6 @@ function (_Phaser$Plugins$Scene) {
     }
   }]);
 
-  _inherits(WeaponPlugin, _Phaser$Plugins$Scene);
-
   return WeaponPlugin;
 }(Phaser.Plugins.ScenePlugin);
 
@@ -627,6 +649,10 @@ function () {
    * TODO: a builder style interface would be neat. Can be kicked way forward
    * into polishing.
    * @param {Phaser.Scene} scene - A reference to the Phaser.Scene instance.
+   * @param {number} bulletLimit - The number of bullets to create.
+   * @param {String} key - The texture key for the bullet.
+   * @param {String} frame - The frame name for the bullet.
+   * @param {Phaser.GameObjects.Group} group - A group to add the bullets to.
    */
   function Weapon(scene, bulletLimit, key, frame, group) {
     _classCallCheck(this, Weapon);
@@ -1505,8 +1531,6 @@ function () {
         bullet = this.bullets.getFirstDead(false);
       }
 
-      console.log("Got bullet: ".concat(bullet ? bullet.bulletID : 'none, :('));
-
       if (bullet) {
         bullet.prepare(fromX, fromY);
         bullet.data.fromX = fromX;
@@ -1532,14 +1556,15 @@ function () {
         if (this.bulletAnimation) {
           bullet.anims.play(this.bulletAnimation);
         } else if (this.bulletFrameCycle) {
-          bullet.frame = this.bulletFrames[this.bulletFrameIndex];
-          this.bulletFrameIndex++;
-
           if (this.bulletFrameIndex >= this.bulletFrames.length) {
             this.bulletFrameIndex = 0;
           }
+
+          bullet.setTexture(this.bulletKey, this.bulletFrameIndex);
+          this.bulletFrameIndex++;
         } else if (this.bulletFrameRandom) {
-          bullet.frame = this.bulletFrames[Math.floor(Math.random() * this.bulletFrames.length)];
+          var nextFrame = Math.floor(Math.random() * this.bulletFrames.length);
+          bullet.setTexture(this.bulletKey, nextFrame);
         }
 
         if (bullet.data.bodyDirty) {
@@ -1639,36 +1664,42 @@ function () {
     /**
      * Sets the texture frames that the bullets can use when being launched.
      *
-     * This is intended for use when you've got numeric based frames, such as those loaded via a Sprite Sheet.
+     * This is intended for use when you've got numeric based frames, such as
+     * those loaded via a Sprite Sheet.
      *
-     * It works by calling `Phaser.Utils.Array.NumberArray` internally, using the min and max values
-     * provided. Then it sets the frame index to be zero.
+     * It works by calling `Phaser.Utils.Array.NumberArray` internally, using
+     * the min and max values provided. Then it sets the frame index to be zero.
      *
-     * You can optionally set the cycle and random booleans, to allow bullets to cycle through the frames
-     * when they're fired, or pick one at random.
+     * You can optionally set the cycle and random booleans, to allow bullets to
+     * cycle through the frames when they're fired, or pick one at random.
      *
      * @param {integer} min - The minimum value the frame can be. Usually zero.
      * @param {integer} max - The maximum value the frame can be.
-     * @param {boolean} [cycle=true] - Should the bullet frames cycle as they are fired?
-     * @param {boolean} [random=false] - Should the bullet frames be picked at random as they are fired?
+     * @param {integer} [selcetionMethod=BULLET_FRAME_STABLE] - Specifies how the
+     *  frame for the fired bullet will be selected. See consts.BULLET_FRAME_XYZ
+     *  for options.
      * @return {Weapon} The Weapon Plugin.
      */
 
   }, {
     key: "setBulletFrames",
-    value: function setBulletFrames(min, max, cycle, random) {
-      if (cycle === undefined) {
-        cycle = true;
+    value: function setBulletFrames(min, max, selectionMethod) {
+      if (selectionMethod === undefined) {
+        selectionMethod = consts.BULLET_FRAME_STABLE;
       }
 
-      if (random === undefined) {
-        random = false;
+      if (typeof selectionMethod !== 'number' || selectionMethod < consts.BULLET_FRAME_STABLE || selectionMethod > consts.BULLET_FRAME_RANDOM) {
+        throw new Error("Invalid bullet frame selection method specified: ".concat(selectionMethod));
+      }
+
+      if (min > max) {
+        throw new Error("min frame (".concat(min, ") must be <= max frame ").concat(max));
       }
 
       this.bulletFrames = Phaser.Utils.Array.NumberArray(min, max);
       this.bulletFrameIndex = 0;
-      this.bulletFrameCycle = cycle;
-      this.bulletFrameRandom = random;
+      this.bulletFrameCycle = selectionMethod === consts.BULLET_FRAME_CYCLE;
+      this.bulletFrameRandom = selectionMethod === consts.BULLET_FRAME_RANDOM;
       return this;
     }
     /**
@@ -1726,13 +1757,13 @@ function () {
     if (debugBodies === undefined) {
       debugBodies = false;
     }
-     this.game.debug.text('Weapon Plugin', x, y);
+      this.game.debug.text('Weapon Plugin', x, y);
     this.game.debug.text(
       'Bullets Alive: ' + this.bullets.total + ' - Total: ' + this.bullets.length,
       x,
       y + 24
     );
-     if (debugBodies) {
+      if (debugBodies) {
       this.bullets.forEachExists(this.game.debug.body, this.game.debug, 'rgba(255, 0, 255, 0.8)');
     }*/
 
@@ -1850,8 +1881,6 @@ Object.defineProperty(Weapon.prototype, 'bulletKillType', {
     return this._bulletKillType;
   },
   set: function set(type) {
-    console.log("setting bulletKillType: ".concat(type));
-
     switch (type) {
       case consts.KILL_STATIC_BOUNDS:
       case consts.KILL_WEAPON_BOUNDS:

@@ -58,8 +58,6 @@ class Bullet extends Phaser.GameObjects.Sprite {
    * @returns {Bullet} This instance of the bullet class
    */
   kill() {
-    console.log(`Killing bullet ${this.bulletID}`)
-
     // Reproduce Phaser.Physics.Arcade.Components.Enable.disableBody because
     // we can't assume that the bullet class has it built in.
     this.body.stop();
