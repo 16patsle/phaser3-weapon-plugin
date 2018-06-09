@@ -309,9 +309,8 @@ function (_Phaser$GameObjects$S) {
   }, {
     key: "kill",
     value: function kill() {
-      console.log("Killing bullet ".concat(this.bulletID)); // Reproduce Phaser.Physics.Arcade.Components.Enable.disableBody because
+      // Reproduce Phaser.Physics.Arcade.Components.Enable.disableBody because
       // we can't assume that the bullet class has it built in.
-
       this.body.stop();
       this.body.enable = false;
       this.setActive(false);
@@ -1027,28 +1026,37 @@ function () {
     this.createBullets(bulletLimit, key, frame, group);
   }
   /**
-   * This method performs two actions: First it will check to see if the {@link #bullets} Group exists or not,
-   * and if not it creates it, adding it the `group` given as the 4th argument.
+   * This method performs two actions: First it will check to see if the
+   * {@link #bullets} Group exists or not, and if not it creates it, adding its
+   * children to the `group` given as the 4th argument.
    *
-   * Then it will seed the bullet pool with the `quantity` number of Bullets, using the texture key and frame
-   * provided (if any).
+   * Then it will seed the bullet pool with the `quantity` number of Bullets,
+   * using the texture key and frame provided (if any).
    *
-   * If for example you set the quantity to be 10, then this Weapon will only ever be able to have 10 bullets
-   * in-flight simultaneously. If you try to fire an 11th bullet then nothing will happen until one, or more, of
-   * the in-flight bullets have been killed, freeing them up for use by the Weapon again.
+   * If for example you set the quantity to be 10, then this Weapon will only
+   * ever be able to have 10 bullets in-flight simultaneously. If you try to
+   * fire an 11th bullet then nothing will happen until one, or more, of the
+   * in-flight bullets have been killed, freeing them up for use by the Weapon
+   * again.
    *
-   * If you do not wish to have a limit set, then pass in -1 as the quantity. In this instance the Weapon will
-   * keep increasing the size of the bullet pool as needed. It will never reduce the size of the pool however,
-   * so be careful it doesn't grow too large.
+   * If you do not wish to have a limit set, then pass in -1 as the quantity.
+   * In this instance the Weapon will keep increasing the size of the bullet
+   * pool as needed. It will never reduce the size of the pool however, so be
+   * careful it doesn't grow too large.
    *
-   * You can either set the texture key and frame here, or via the {@link #bulletKey} and {@link #bulletFrame}
-   * properties. You can also animate bullets, or set them to use random frames. All Bullets belonging to a
-   * single Weapon instance must share the same texture key however.
+   * You can either set the texture key and frame here, or via the
+   * {@link #bulletKey} and {@link #bulletFrame} properties. You can also
+   * animate bullets, or set them to use random frames. All Bullets belonging
+   * to a single Weapon instance must share the same texture key however.
    *
-   * @param {integer} [quantity=1] - The quantity of bullets to seed the Weapon with. If -1 it will set the pool to automatically expand.
-   * @param {string} [key] - The Game.cache key of the image that this Sprite will use.
-   * @param {integer|string} [frame] - If the Sprite image contains multiple frames you can specify which one to use here.
-   * @param {Phaser.GameObjects.Group} [group] - Optional Group to add the object to. If not specified it will be added to the World group.
+   * @param {integer} [quantity=1] - The quantity of bullets to seed the Weapon
+   *  with. If -1 it will set the pool to automatically expand.
+   * @param {string} [key] - The Game.cache key of the image that this Sprite
+   *  will use.
+   * @param {integer|string} [frame] - If the Sprite image contains multiple
+   *  frames you can specify which one to use here.
+   * @param {Phaser.GameObjects.Group} [group] - Optional Group to add the
+   *  object to. If not specified it will be added to the World group.
    * @return {Weapon} This Weapon instance.
    */
 
@@ -1546,6 +1554,8 @@ function () {
 
           bullet.data.timeEvent = this.scene.time.addEvent({
             delay: this.bulletLifespan,
+            // TODO: test to see if we can just pass callbackContext: bullet and
+            // have it work. no need to re-bind every time we fire a bullet
             callback: bullet.kill.bind(bullet)
           });
           bullet.lifespan = this.bulletLifespan;
