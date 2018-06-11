@@ -5,7 +5,7 @@
  * @license      {@link https://github.com/photonstorm/phaser3-plugin-template/blob/master/LICENSE|MIT License}
  */
 
-const consts = require('./consts');
+import consts from './consts';
 
 let bulletID = 0;
 
@@ -121,4 +121,4 @@ class Bullet extends Phaser.GameObjects.Sprite {
   }
 }
 
-module.exports = Bullet;
+export default Bullet;

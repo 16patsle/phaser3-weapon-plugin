@@ -4,8 +4,8 @@
  * @author       Richard Davey
  * @license      {@link https://github.com/photonstorm/phaser3-plugin-template/blob/master/LICENSE|MIT License}
  */
-const Bullet = require('./Bullet');
-const consts = require('./consts');
+import Bullet from './Bullet';
+import consts from './consts';
 
 /**
  * The Weapon provides the ability to easily create a bullet pool and manager.
@@ -1345,4 +1345,4 @@ Object.defineProperty(Weapon.prototype, 'y', {
   },
 });
 
-module.exports = Weapon;
+export default Weapon;

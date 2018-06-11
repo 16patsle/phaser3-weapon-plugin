@@ -1,4 +1,4 @@
-module.exports = {
+export default {
   /**
    * A {@link #bulletKillType} constant that stops the bullets from ever being destroyed automatically.
    * @constant

@@ -4,9 +4,9 @@
  * @author       Richard Davey
  * @license      {@link https://github.com/photonstorm/phaser3-plugin-template/blob/master/LICENSE|MIT License}
  */
-const Weapon = require('./Weapon');
-const Bullet = require('./Bullet');
-const consts = require('./consts');
+import Weapon from './Weapon';
+import Bullet from './Bullet';
+import consts from './consts';
 
 /**
  * The Weapon Plugin provides the ability to easily create a bullet pool
@@ -178,4 +178,4 @@ WeaponPlugin.consts = consts;
 
 //  Make sure you export the plugin for webpack to expose
 
-module.exports = WeaponPlugin;
+export default WeaponPlugin;
