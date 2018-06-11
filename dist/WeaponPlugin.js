@@ -80,7 +80,11 @@ return /******/ (function(modules) { // webpackBootstrap
 "use strict";
 
 
-module.exports = {
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.default = void 0;
+var _default = {
   /**
    * A {@link #bulletKillType} constant that stops the bullets from ever being destroyed automatically.
    * @constant
@@ -209,6 +213,7 @@ module.exports = {
    */
   BULLET_FRAME_RANDOM: 2
 };
+exports.default = _default;
 
 /***/ }),
 /* 1 */
@@ -217,9 +222,22 @@ module.exports = {
 "use strict";
 
 
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.default = void 0;
+
+var _consts = _interopRequireDefault(__webpack_require__(0));
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
 function _typeof(obj) { if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function"); } _setPrototypeOf(subClass.prototype, superClass && superClass.prototype); if (superClass) _setPrototypeOf(subClass, superClass); }
+
+function _setPrototypeOf(o, p) { _setPrototypeOf = Object.setPrototypeOf || function _setPrototypeOf(o, p) { o.__proto__ = p; return o; }; return _setPrototypeOf(o, p); }
 
 function _defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } }
 
@@ -227,29 +245,15 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
 
 function _possibleConstructorReturn(self, call) { if (call && (_typeof(call) === "object" || typeof call === "function")) { return call; } return _assertThisInitialized(self); }
 
-function _getPrototypeOf(o) { _getPrototypeOf = Object.setPrototypeOf ? Object.getPrototypeOf : function _getPrototypeOf(o) { return o.__proto__ || Object.getPrototypeOf(o); }; return _getPrototypeOf(o); }
-
-function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function"); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, writable: true, configurable: true } }); if (superClass) _setPrototypeOf(subClass, superClass); }
-
-function _setPrototypeOf(o, p) { _setPrototypeOf = Object.setPrototypeOf || function _setPrototypeOf(o, p) { o.__proto__ = p; return o; }; return _setPrototypeOf(o, p); }
+function _getPrototypeOf(o) { _getPrototypeOf = Object.getPrototypeOf || function _getPrototypeOf(o) { return o.__proto__; }; return _getPrototypeOf(o); }
 
 function _assertThisInitialized(self) { if (self === void 0) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return self; }
-
-/**
- * @author       Patrick Sletvold
- * @author       jdotr <https://github.com/jdotrjs>
- * @author       Richard Davey
- * @license      {@link https://github.com/photonstorm/phaser3-plugin-template/blob/master/LICENSE|MIT License}
- */
-var consts = __webpack_require__(0);
 
 var bulletID = 0;
 
 var Bullet =
 /*#__PURE__*/
 function (_Phaser$GameObjects$S) {
-  _inherits(Bullet, _Phaser$GameObjects$S);
-
   /**
    * Create a new `Bullet` object. Bullets are used by the `Weapon` class, and are normal Sprites,
    * with a few extra properties in the data object to handle Weapon specific features.
@@ -344,8 +348,8 @@ function (_Phaser$GameObjects$S) {
         return;
       }
 
-      if (this.data.killType > consts.KILL_LIFESPAN) {
-        if (this.data.killType === consts.KILL_DISTANCE) {
+      if (this.data.killType > _consts.default.KILL_LIFESPAN) {
+        if (this.data.killType === _consts.default.KILL_DISTANCE) {
           if (new Phaser.Math.Vector2(this.data.fromX, this.data.fromY).distance(this) > this.data.killDistance) {
             this.kill();
           }
@@ -364,10 +368,13 @@ function (_Phaser$GameObjects$S) {
     }
   }]);
 
+  _inherits(Bullet, _Phaser$GameObjects$S);
+
   return Bullet;
 }(Phaser.GameObjects.Sprite);
 
-module.exports = Bullet;
+var _default = Bullet;
+exports.default = _default;
 
 /***/ }),
 /* 2 */
@@ -376,9 +383,26 @@ module.exports = Bullet;
 "use strict";
 
 
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.default = void 0;
+
+var _Weapon = _interopRequireDefault(__webpack_require__(3));
+
+var _Bullet = _interopRequireDefault(__webpack_require__(1));
+
+var _consts = _interopRequireDefault(__webpack_require__(0));
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
 function _typeof(obj) { if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function"); } _setPrototypeOf(subClass.prototype, superClass && superClass.prototype); if (superClass) _setPrototypeOf(subClass, superClass); }
+
+function _setPrototypeOf(o, p) { _setPrototypeOf = Object.setPrototypeOf || function _setPrototypeOf(o, p) { o.__proto__ = p; return o; }; return _setPrototypeOf(o, p); }
 
 function _defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } }
 
@@ -388,23 +412,8 @@ function _possibleConstructorReturn(self, call) { if (call && (_typeof(call) ===
 
 function _assertThisInitialized(self) { if (self === void 0) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return self; }
 
-function _getPrototypeOf(o) { _getPrototypeOf = Object.setPrototypeOf ? Object.getPrototypeOf : function _getPrototypeOf(o) { return o.__proto__ || Object.getPrototypeOf(o); }; return _getPrototypeOf(o); }
+function _getPrototypeOf(o) { _getPrototypeOf = Object.getPrototypeOf || function _getPrototypeOf(o) { return o.__proto__; }; return _getPrototypeOf(o); }
 
-function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function"); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, writable: true, configurable: true } }); if (superClass) _setPrototypeOf(subClass, superClass); }
-
-function _setPrototypeOf(o, p) { _setPrototypeOf = Object.setPrototypeOf || function _setPrototypeOf(o, p) { o.__proto__ = p; return o; }; return _setPrototypeOf(o, p); }
-
-/**
- * @author       Patrick Sletvold
- * @author       jdotr <https://github.com/jdotrjs>
- * @author       Richard Davey
- * @license      {@link https://github.com/photonstorm/phaser3-plugin-template/blob/master/LICENSE|MIT License}
- */
-var Weapon = __webpack_require__(3);
-
-var Bullet = __webpack_require__(1);
-
-var consts = __webpack_require__(0);
 /**
  * The Weapon Plugin provides the ability to easily create a bullet pool
  * and manager.
@@ -431,13 +440,9 @@ var consts = __webpack_require__(0);
  * this.input.onDown.add(weapon.fire, this); // Update this
  * ```
  */
-
-
 var WeaponPlugin =
 /*#__PURE__*/
 function (_Phaser$Plugins$Scene) {
-  _inherits(WeaponPlugin, _Phaser$Plugins$Scene);
-
   /**
    * @param {Phaser.Scene} scene - A reference to the Phaser.Scene instance.
    * @param {Phaser.Plugins.PluginManager} pluginManager - A reference to the
@@ -459,7 +464,7 @@ function (_Phaser$Plugins$Scene) {
     key: "add",
     value: function add(bulletLimit, key, frame, group, weaponClass) {
       if (!weaponClass) {
-        weaponClass = Weapon;
+        weaponClass = _Weapon.default;
       }
 
       var weapon = new weaponClass(this.scene, bulletLimit, key, frame, group);
@@ -477,7 +482,7 @@ function (_Phaser$Plugins$Scene) {
   }, {
     key: "start",
     value: function start() {
-      eventEmitter.on('postrender', this.postRender, this);
+      this.systems.events.on('postrender', this.postRender, this);
     }
     /**
      * If this is a Scene Plugin (i.e. installed into a Scene) then this method is called when the Scene boots.
@@ -583,14 +588,17 @@ function (_Phaser$Plugins$Scene) {
     }
   }]);
 
+  _inherits(WeaponPlugin, _Phaser$Plugins$Scene);
+
   return WeaponPlugin;
 }(Phaser.Plugins.ScenePlugin);
 
-WeaponPlugin.Weapon = Weapon;
-WeaponPlugin.Bullet = Bullet;
-WeaponPlugin.consts = consts; //  Make sure you export the plugin for webpack to expose
+WeaponPlugin.Weapon = _Weapon.default;
+WeaponPlugin.Bullet = _Bullet.default;
+WeaponPlugin.consts = _consts.default; //  Make sure you export the plugin for webpack to expose
 
-module.exports = WeaponPlugin;
+var _default = WeaponPlugin;
+exports.default = _default;
 
 /***/ }),
 /* 3 */
@@ -599,21 +607,23 @@ module.exports = WeaponPlugin;
 "use strict";
 
 
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.default = void 0;
+
+var _Bullet = _interopRequireDefault(__webpack_require__(1));
+
+var _consts = _interopRequireDefault(__webpack_require__(0));
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
 function _defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } }
 
 function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _defineProperties(Constructor.prototype, protoProps); if (staticProps) _defineProperties(Constructor, staticProps); return Constructor; }
 
-/**
- * @author       Patrick Sletvold
- * @author       jdotr <https://github.com/jdotrjs>
- * @author       Richard Davey
- * @license      {@link https://github.com/photonstorm/phaser3-plugin-template/blob/master/LICENSE|MIT License}
- */
-var Bullet = __webpack_require__(1);
-
-var consts = __webpack_require__(0);
 /**
  * The Weapon provides the ability to easily create a bullet pool and manager.
  *
@@ -639,8 +649,6 @@ var consts = __webpack_require__(0);
  * this.input.onDown.add(weapon.fire, this); // Update this
  * ```
  */
-
-
 var Weapon =
 /*#__PURE__*/
 function () {
@@ -730,7 +738,7 @@ function () {
      * @default
      */
 
-    this.fireAngle = consts.ANGLE_UP;
+    this.fireAngle = _consts.default.ANGLE_UP;
     /**
      * When a Bullet is fired it can optionally inherit the velocity of the `trackedSprite` if set.
      * @type {boolean}
@@ -873,7 +881,7 @@ function () {
      * @private
      */
 
-    this._bulletClass = Bullet;
+    this._bulletClass = _Bullet.default;
     /**
      * Private var that holds the public `bulletCollideWorldBounds` property.
      * @type {boolean}
@@ -887,7 +895,7 @@ function () {
      * @private
      */
 
-    this._bulletKillType = consts.KILL_WORLD_BOUNDS;
+    this._bulletKillType = _consts.default.KILL_WORLD_BOUNDS;
     /**
      * Holds internal data about custom bullet body sizes.
      *
@@ -1547,7 +1555,7 @@ function () {
         bullet.data.killDistance = this.bulletKillDistance;
         bullet.data.rotateToVelocity = this.bulletRotateToVelocity;
 
-        if (this.bulletKillType === consts.KILL_LIFESPAN) {
+        if (this.bulletKillType === _consts.default.KILL_LIFESPAN) {
           if (this.bulletLifespan <= 0) {
             throw new Error('Invalid bulletLifespan; must be > 0');
           }
@@ -1695,10 +1703,10 @@ function () {
     key: "setBulletFrames",
     value: function setBulletFrames(min, max, selectionMethod) {
       if (selectionMethod === undefined) {
-        selectionMethod = consts.BULLET_FRAME_STABLE;
+        selectionMethod = _consts.default.BULLET_FRAME_STABLE;
       }
 
-      if (typeof selectionMethod !== 'number' || selectionMethod < consts.BULLET_FRAME_STABLE || selectionMethod > consts.BULLET_FRAME_RANDOM) {
+      if (typeof selectionMethod !== 'number' || selectionMethod < _consts.default.BULLET_FRAME_STABLE || selectionMethod > _consts.default.BULLET_FRAME_RANDOM) {
         throw new Error("Invalid bullet frame selection method specified: ".concat(selectionMethod));
       }
 
@@ -1708,8 +1716,8 @@ function () {
 
       this.bulletFrames = Phaser.Utils.Array.NumberArray(min, max);
       this.bulletFrameIndex = 0;
-      this.bulletFrameCycle = selectionMethod === consts.BULLET_FRAME_CYCLE;
-      this.bulletFrameRandom = selectionMethod === consts.BULLET_FRAME_RANDOM;
+      this.bulletFrameCycle = selectionMethod === _consts.default.BULLET_FRAME_CYCLE;
+      this.bulletFrameRandom = selectionMethod === _consts.default.BULLET_FRAME_RANDOM;
       return this;
     }
     /**
@@ -1767,13 +1775,13 @@ function () {
     if (debugBodies === undefined) {
       debugBodies = false;
     }
-      this.game.debug.text('Weapon Plugin', x, y);
+     this.game.debug.text('Weapon Plugin', x, y);
     this.game.debug.text(
       'Bullets Alive: ' + this.bullets.total + ' - Total: ' + this.bullets.length,
       x,
       y + 24
     );
-      if (debugBodies) {
+     if (debugBodies) {
       this.bullets.forEachExists(this.game.debug.body, this.game.debug, 'rgba(255, 0, 255, 0.8)');
     }*/
 
@@ -1785,7 +1793,7 @@ function () {
   }, {
     key: "update",
     value: function update() {
-      if (this._bulletKillType === consts.KILL_WEAPON_BOUNDS) {
+      if (this._bulletKillType === _consts.default.KILL_WEAPON_BOUNDS) {
         if (this.trackedSprite) {
           this.trackedSprite.updateTransform();
           this.bounds.centerOn(this.trackedSprite.x, this.trackedSprite.y);
@@ -1892,16 +1900,16 @@ Object.defineProperty(Weapon.prototype, 'bulletKillType', {
   },
   set: function set(type) {
     switch (type) {
-      case consts.KILL_STATIC_BOUNDS:
-      case consts.KILL_WEAPON_BOUNDS:
+      case _consts.default.KILL_STATIC_BOUNDS:
+      case _consts.default.KILL_WEAPON_BOUNDS:
         this.bulletBounds = this.bounds;
         break;
 
-      case consts.KILL_CAMERA_BOUNDS:
+      case _consts.default.KILL_CAMERA_BOUNDS:
         this.bulletBounds = this.scene.sys.cameras.main._bounds;
         break;
 
-      case consts.KILL_WORLD_BOUNDS:
+      case _consts.default.KILL_WORLD_BOUNDS:
         this.bulletBounds = this.scene.physics.world.bounds;
         break;
     }
@@ -1960,7 +1968,8 @@ Object.defineProperty(Weapon.prototype, 'y', {
     this.fireFrom.y = value;
   }
 });
-module.exports = Weapon;
+var _default = Weapon;
+exports.default = _default;
 
 /***/ })
 /******/ ]);
