@@ -7,7 +7,7 @@
 
 const consts = require('./consts');
 
-let bulletID = 0
+let bulletID = 0;
 
 class Bullet extends Phaser.GameObjects.Sprite {
   /**
@@ -22,8 +22,8 @@ class Bullet extends Phaser.GameObjects.Sprite {
    */
   constructor(scene, x, y, key, frame) {
     super(scene, x, y, key, frame);
-    this.bulletID = bulletID
-    bulletID++
+    this.bulletID = bulletID;
+    bulletID++;
     this.scene.physics.add.existing(this);
 
     this.data = {
@@ -35,7 +35,7 @@ class Bullet extends Phaser.GameObjects.Sprite {
       rotateToVelocity: false,
       killType: 0,
       killDistance: 0,
-      bodyBounds: new Phaser.Geom.Rectangle()
+      bodyBounds: new Phaser.Geom.Rectangle(),
     };
   }
 
@@ -101,10 +101,12 @@ class Bullet extends Phaser.GameObjects.Sprite {
         ) {
           this.kill();
         }
-      } else if (!Phaser.Geom.Intersects.RectangleToRectangle(
+      } else if (
+        !Phaser.Geom.Intersects.RectangleToRectangle(
           this.data.bulletManager.bulletBounds,
           this.body.getBounds(this.data.bodyBounds)
-        )) {
+        )
+      ) {
         this.kill();
       }
     }
@@ -114,10 +116,7 @@ class Bullet extends Phaser.GameObjects.Sprite {
     }
 
     if (this.data.bulletManager.bulletWorldWrap) {
-      this.scene.physics.world.wrap(
-        this,
-        this.data.bulletManager.bulletWorldWrapPadding
-      );
+      this.scene.physics.world.wrap(this, this.data.bulletManager.bulletWorldWrapPadding);
     }
   }
 }

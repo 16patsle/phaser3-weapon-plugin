@@ -455,7 +455,7 @@ class Weapon {
       quantity = 1;
     }
     if (bulletClass) {
-      this._bulletClass = bulletClass
+      this._bulletClass = bulletClass;
     }
     /*if (group === undefined) {
       group = this.game.world;
@@ -469,7 +469,7 @@ class Weapon {
       this.bullets = this.scene.add.group({
         classType: this._bulletClass,
         maxSize: quantity,
-        runChildUpdate: true
+        runChildUpdate: true,
       });
     }
 
@@ -484,18 +484,18 @@ class Weapon {
         frame,
         repeat: quantity,
         active: false,
-        visible: false
+        visible: false,
       });
 
-      this.bullets.children.each(function (child) {
-        child.data.bulletManager = this
+      this.bullets.children.each(function(child) {
+        child.data.bulletManager = this;
       }, this);
 
       this.bulletKey = key;
       this.bulletFrame = frame;
 
       if (group) {
-        group.addMultiple(this.bullets.children.entries)
+        group.addMultiple(this.bullets.children.entries);
       }
     }
 
@@ -834,7 +834,8 @@ class Weapon {
           this.trackedSprite.x + this.trackOffset.x,
           this.trackedSprite.y + this.trackOffset.y
         );
-        Phaser.Math.RotateAround(this._rotatedPoint,
+        Phaser.Math.RotateAround(
+          this._rotatedPoint,
           this.trackedSprite.x,
           this.trackedSprite.y,
           this.trackedSprite.rotation
@@ -929,14 +930,14 @@ class Weapon {
 
       if (this.bulletKillType === consts.KILL_LIFESPAN) {
         if (this.bulletLifespan <= 0) {
-          throw new Error('Invalid bulletLifespan; must be > 0')
+          throw new Error('Invalid bulletLifespan; must be > 0');
         }
         bullet.data.timeEvent = this.scene.time.addEvent({
           delay: this.bulletLifespan,
           // TODO: test to see if we can just pass callbackContext: bullet and
           // have it work. no need to re-bind every time we fire a bullet
           callback: bullet.kill.bind(bullet),
-        })
+        });
         bullet.lifespan = this.bulletLifespan;
       }
 
@@ -953,7 +954,7 @@ class Weapon {
         this.bulletFrameIndex++;
       } else if (this.bulletFrameRandom) {
         const nextFrame = Math.floor(Math.random() * this.bulletFrames.length);
-        bullet.setTexture(this.bulletKey, nextFrame)
+        bullet.setTexture(this.bulletKey, nextFrame);
       }
 
       if (bullet.data.bodyDirty) {
@@ -1082,11 +1083,11 @@ class Weapon {
       selectionMethod < consts.BULLET_FRAME_STABLE ||
       selectionMethod > consts.BULLET_FRAME_RANDOM
     ) {
-      throw new Error(`Invalid bullet frame selection method specified: ${selectionMethod}`)
+      throw new Error(`Invalid bullet frame selection method specified: ${selectionMethod}`);
     }
 
     if (min > max) {
-      throw new Error(`min frame (${min}) must be <= max frame ${max}`)
+      throw new Error(`min frame (${min}) must be <= max frame ${max}`);
     }
 
     this.bulletFrames = Phaser.Utils.Array.NumberArray(min, max);

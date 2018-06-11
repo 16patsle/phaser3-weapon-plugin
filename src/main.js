@@ -51,7 +51,7 @@ class WeaponPlugin extends Phaser.Plugins.ScenePlugin {
 
   add(bulletLimit, key, frame, group, weaponClass) {
     if (!weaponClass) {
-      weaponClass = Weapon
+      weaponClass = Weapon;
     }
     const weapon = new weaponClass(this.scene, bulletLimit, key, frame, group);
 
@@ -68,7 +68,7 @@ class WeaponPlugin extends Phaser.Plugins.ScenePlugin {
    * @returns {void}
    */
   start() {
-    eventEmitter.on('postrender', this.postRender, this);
+    this.systems.events.on('postrender', this.postRender, this);
   }
 
   /**
@@ -174,7 +174,7 @@ class WeaponPlugin extends Phaser.Plugins.ScenePlugin {
 WeaponPlugin.Weapon = Weapon;
 WeaponPlugin.Bullet = Bullet;
 
-WeaponPlugin.consts = consts
+WeaponPlugin.consts = consts;
 
 //  Make sure you export the plugin for webpack to expose
 
