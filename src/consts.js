@@ -104,4 +104,26 @@ module.exports = {
    * @type {integer}
    */
   ANGLE_SOUTH_WEST: 135,
+
+  /**
+   * When selecting a bullet frame the same frame should always be used. This
+   * is the default value.
+   * @constant
+   * @type { integer }
+   */
+  BULLET_FRAME_STABLE: 0,
+
+  /**
+   * When selecting a bullet frame the next frame should be used
+   * @constant
+   * @type { integer }
+   */
+  BULLET_FRAME_CYCLE: 1,
+
+  /**
+   * When selecting a bullet frame a random frame should be used.
+   * @constant
+   * @type { integer }
+   */
+  BULLET_FRAME_RANDOM: 2,
 };

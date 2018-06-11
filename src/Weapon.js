@@ -417,28 +417,37 @@ class Weapon {
   }
 
   /**
-   * This method performs two actions: First it will check to see if the {@link #bullets} Group exists or not,
-   * and if not it creates it, adding it the `group` given as the 4th argument.
+   * This method performs two actions: First it will check to see if the
+   * {@link #bullets} Group exists or not, and if not it creates it, adding its
+   * children to the `group` given as the 4th argument.
    *
-   * Then it will seed the bullet pool with the `quantity` number of Bullets, using the texture key and frame
-   * provided (if any).
+   * Then it will seed the bullet pool with the `quantity` number of Bullets,
+   * using the texture key and frame provided (if any).
    *
-   * If for example you set the quantity to be 10, then this Weapon will only ever be able to have 10 bullets
-   * in-flight simultaneously. If you try to fire an 11th bullet then nothing will happen until one, or more, of
-   * the in-flight bullets have been killed, freeing them up for use by the Weapon again.
+   * If for example you set the quantity to be 10, then this Weapon will only
+   * ever be able to have 10 bullets in-flight simultaneously. If you try to
+   * fire an 11th bullet then nothing will happen until one, or more, of the
+   * in-flight bullets have been killed, freeing them up for use by the Weapon
+   * again.
    *
-   * If you do not wish to have a limit set, then pass in -1 as the quantity. In this instance the Weapon will
-   * keep increasing the size of the bullet pool as needed. It will never reduce the size of the pool however,
-   * so be careful it doesn't grow too large.
+   * If you do not wish to have a limit set, then pass in -1 as the quantity.
+   * In this instance the Weapon will keep increasing the size of the bullet
+   * pool as needed. It will never reduce the size of the pool however, so be
+   * careful it doesn't grow too large.
    *
-   * You can either set the texture key and frame here, or via the {@link #bulletKey} and {@link #bulletFrame}
-   * properties. You can also animate bullets, or set them to use random frames. All Bullets belonging to a
-   * single Weapon instance must share the same texture key however.
+   * You can either set the texture key and frame here, or via the
+   * {@link #bulletKey} and {@link #bulletFrame} properties. You can also
+   * animate bullets, or set them to use random frames. All Bullets belonging
+   * to a single Weapon instance must share the same texture key however.
    *
-   * @param {integer} [quantity=1] - The quantity of bullets to seed the Weapon with. If -1 it will set the pool to automatically expand.
-   * @param {string} [key] - The Game.cache key of the image that this Sprite will use.
-   * @param {integer|string} [frame] - If the Sprite image contains multiple frames you can specify which one to use here.
-   * @param {Phaser.GameObjects.Group} [group] - Optional Group to add the object to. If not specified it will be added to the World group.
+   * @param {integer} [quantity=1] - The quantity of bullets to seed the Weapon
+   *  with. If -1 it will set the pool to automatically expand.
+   * @param {string} [key] - The Game.cache key of the image that this Sprite
+   *  will use.
+   * @param {integer|string} [frame] - If the Sprite image contains multiple
+   *  frames you can specify which one to use here.
+   * @param {Phaser.GameObjects.Group} [group] - Optional Group to add the
+   *  object to. If not specified it will be added to the World group.
    * @return {Weapon} This Weapon instance.
    */
   createBullets(quantity, key, frame, group, bulletClass) {
@@ -905,13 +914,10 @@ class Weapon {
 
     if (this.autoExpandBulletsGroup) {
       bullet = this.bullets.getFirstDead(true, fromX, fromY, this.bulletKey, this.bulletFrame);
-
       bullet.data.bulletManager = this;
     } else {
       bullet = this.bullets.getFirstDead(false);
     }
-
-    console.log(`Got bullet: ${bullet ? bullet.bulletID : 'none, :('}`)
 
     if (bullet) {
       bullet.prepare(fromX, fromY);
@@ -927,6 +933,8 @@ class Weapon {
         }
         bullet.data.timeEvent = this.scene.time.addEvent({
           delay: this.bulletLifespan,
+          // TODO: test to see if we can just pass callbackContext: bullet and
+          // have it work. no need to re-bind every time we fire a bullet
           callback: bullet.kill.bind(bullet),
         })
         bullet.lifespan = this.bulletLifespan;
@@ -938,15 +946,14 @@ class Weapon {
       if (this.bulletAnimation) {
         bullet.anims.play(this.bulletAnimation);
       } else if (this.bulletFrameCycle) {
-        bullet.frame = this.bulletFrames[this.bulletFrameIndex];
-
-        this.bulletFrameIndex++;
-
         if (this.bulletFrameIndex >= this.bulletFrames.length) {
           this.bulletFrameIndex = 0;
         }
+        bullet.setTexture(this.bulletKey, this.bulletFrameIndex);
+        this.bulletFrameIndex++;
       } else if (this.bulletFrameRandom) {
-        bullet.frame = this.bulletFrames[Math.floor(Math.random() * this.bulletFrames.length)];
+        const nextFrame = Math.floor(Math.random() * this.bulletFrames.length);
+        bullet.setTexture(this.bulletKey, nextFrame)
       }
 
       if (bullet.data.bodyDirty) {
@@ -1050,34 +1057,42 @@ class Weapon {
   /**
    * Sets the texture frames that the bullets can use when being launched.
    *
-   * This is intended for use when you've got numeric based frames, such as those loaded via a Sprite Sheet.
+   * This is intended for use when you've got numeric based frames, such as
+   * those loaded via a Sprite Sheet.
    *
-   * It works by calling `Phaser.Utils.Array.NumberArray` internally, using the min and max values
-   * provided. Then it sets the frame index to be zero.
+   * It works by calling `Phaser.Utils.Array.NumberArray` internally, using
+   * the min and max values provided. Then it sets the frame index to be zero.
    *
-   * You can optionally set the cycle and random booleans, to allow bullets to cycle through the frames
-   * when they're fired, or pick one at random.
+   * You can optionally set the cycle and random booleans, to allow bullets to
+   * cycle through the frames when they're fired, or pick one at random.
    *
    * @param {integer} min - The minimum value the frame can be. Usually zero.
    * @param {integer} max - The maximum value the frame can be.
-   * @param {boolean} [cycle=true] - Should the bullet frames cycle as they are fired?
-   * @param {boolean} [random=false] - Should the bullet frames be picked at random as they are fired?
+   * @param {integer} [selcetionMethod=BULLET_FRAME_STABLE] - Specifies how the
+   *  frame for the fired bullet will be selected. See consts.BULLET_FRAME_XYZ
+   *  for options.
    * @return {Weapon} The Weapon Plugin.
    */
-  setBulletFrames(min, max, cycle, random) {
-    if (cycle === undefined) {
-      cycle = true;
+  setBulletFrames(min, max, selectionMethod) {
+    if (selectionMethod === undefined) {
+      selectionMethod = consts.BULLET_FRAME_STABLE;
     }
-    if (random === undefined) {
-      random = false;
+    if (
+      typeof selectionMethod !== 'number' ||
+      selectionMethod < consts.BULLET_FRAME_STABLE ||
+      selectionMethod > consts.BULLET_FRAME_RANDOM
+    ) {
+      throw new Error(`Invalid bullet frame selection method specified: ${selectionMethod}`)
+    }
+
+    if (min > max) {
+      throw new Error(`min frame (${min}) must be <= max frame ${max}`)
     }
 
     this.bulletFrames = Phaser.Utils.Array.NumberArray(min, max);
-
     this.bulletFrameIndex = 0;
-
-    this.bulletFrameCycle = cycle;
-    this.bulletFrameRandom = random;
+    this.bulletFrameCycle = selectionMethod === consts.BULLET_FRAME_CYCLE;
+    this.bulletFrameRandom = selectionMethod === consts.BULLET_FRAME_RANDOM;
 
     return this;
   }
@@ -1255,7 +1270,6 @@ Object.defineProperty(Weapon.prototype, 'bulletKillType', {
   },
 
   set(type) {
-    console.log(`setting bulletKillType: ${type}`)
     switch (type) {
       case consts.KILL_STATIC_BOUNDS:
       case consts.KILL_WEAPON_BOUNDS:
