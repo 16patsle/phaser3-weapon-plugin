@@ -17,8 +17,10 @@ class Bullet extends Phaser.GameObjects.Sprite {
    * @param {Phaser.Scene} scene - A reference to the currently running scene.
    * @param {number} x - The x coordinate (in world space) to position the Particle at.
    * @param {number} y - The y coordinate (in world space) to position the Particle at.
-   * @param {string} key - This is the image or texture used by the Particle during rendering. It can be a string which is a reference to the Cache entry, or an instance of a RenderTexture or PIXI.Texture.
-   * @param {string|number} frame - If this Particle is using part of a sprite sheet or texture atlas you can specify the exact frame to use by giving a string or numeric index.
+   * @param {string} key - This is the image or texture used by the Particle during rendering.
+   * It can be a string which is a reference to the Cache entry, or an instance of a RenderTexture or PIXI.Texture.
+   * @param {string|number} frame - If this Particle is using part of a sprite sheet or texture atlas
+   * you can specify the exact frame to use by giving a string or numeric index.
    */
   constructor(scene, x, y, key, frame) {
     super(scene, x, y, key, frame);

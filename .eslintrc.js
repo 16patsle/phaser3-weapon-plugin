@@ -28,6 +28,11 @@ module.exports = {
       "error",
       "always"
     ],
-    "no-unused-vars": "warn"
+    "no-unused-vars": "warn",
+    "max-len": ["warn", {
+      "code": 100,
+      "comments": 120,
+      "ignoreUrls": true
+    }]
   }
 };

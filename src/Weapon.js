@@ -507,7 +507,8 @@ class Weapon {
    *
    * See {@link Phaser.GameObjects.Group#forEachExists forEachExists} for more details.
    *
-   * @param {function} callback - The function that will be called for each applicable child. The child will be passed as the first argument.
+   * @param {function} callback - The function that will be called for each applicable child.
+   * The child will be passed as the first argument.
    * @param {object} callbackContext - The context in which the function should be called (usually 'this').
    * @param {...any} [args=(none)] - Additional arguments to pass to the callback function, after the child item.
    * @return {Weapon} This Weapon instance.
@@ -595,9 +596,9 @@ class Weapon {
   }
 
   /**
-   * Sets this Weapon to track the given Sprite, or any Object with a public {@link Phaser.Component.Core#world world} Point object.
-   * When a Weapon tracks a Sprite it will automatically update its {@link #fireFrom} value to match the Sprite's
-   * position within the Game World, adjusting the coordinates based on the offset arguments.
+   * Sets this Weapon to track the given Sprite, or any Object with a public {@link Phaser.Component.Core#world world}
+   * Point object. When a Weapon tracks a Sprite it will automatically update its {@link #fireFrom} value to match the
+   * Sprite's position within the Game World, adjusting the coordinates based on the offset arguments.
    *
    * This allows you to lock a Weapon to a Sprite, so that bullets are always launched from its location.
    *
@@ -640,7 +641,8 @@ class Weapon {
    * Calling `trackPointer` will reset {@link #trackedSprite} to null, should it have been set, as you can
    * only track _either_ a Pointer, or a Sprite, at once, but not both.
    *
-   * @param {Phaser.Input.Pointer} [pointer] - The Pointer to track the position of. Defaults to `Input.activePointer` if not specified.
+   * @param {Phaser.Input.Pointer} [pointer] - The Pointer to track the position of.
+   * Defaults to `Input.activePointer` if not specified.
    * @param {integer} [offsetX=0] - The horizontal offset from the Pointers position to be applied to the Weapon.
    * @param {integer} [offsetY=0] - The vertical offset from the Pointers position to be applied to the Weapon.
    * @return {Weapon} This Weapon instance.
@@ -682,9 +684,13 @@ class Weapon {
    * When the bullets are launched they have their texture and frame updated, as required.
    * The velocity of the bullets are calculated based on Weapon properties like {@link #bulletSpeed}.
    *
-   * @param {array} positions - An array of positions. Each position can be any Object, as long as it has public `x` and `y` properties, such as Phaser.Point, { x: 0, y: 0 }, Phaser.Sprite, etc.
-   * @param {Phaser.GameObject.Sprite|Phaser.Math.Vector2|Object|string} [from] - Optionally fires the bullets **from** the `x` and `y` properties of this object, _instead_ of any {@link #trackedSprite} or `trackedPointer` that is set.
-   * @return {array} An array containing all of the fired Phaser.Bullet objects, if a launch was successful, otherwise an empty array.
+   * @param {array} positions - An array of positions. Each position can be any Object,
+   * as long as it has public `x` and `y` properties, such as Phaser.Point, { x: 0, y: 0 }, Phaser.Sprite, etc.
+   * @param {Phaser.GameObject.Sprite|Phaser.Math.Vector2|Object|string} [from]
+   * Optionally fires the bullets **from** the `x` and `y` properties of this object,
+   * _instead_ of any {@link #trackedSprite} or `trackedPointer` that is set.
+   * @return {array} An array containing all of the fired Phaser.Bullet objects,
+   * if a launch was successful, otherwise an empty array.
    */
   fireMany(positions, from) {
     this.multiFire = true;
@@ -720,8 +726,10 @@ class Weapon {
    * If you wish to fire multiple bullets in a single game update, then set {@link #multiFire} to `true`
    * and you can call this method as many times as you like, per loop. See also {@link #fireMany}.
    *
-   * @param {number} [offsetX=0] - The horizontal offset from the position of the tracked Sprite or Pointer, as set with {@link #trackSprite}.
-   * @param {number} [offsetY=0] - The vertical offset from the position of the tracked Sprite or Pointer, as set with {@link #trackSprite}.
+   * @param {number} [offsetX=0] - The horizontal offset from the position of the tracked Sprite or Pointer,
+   * as set with {@link #trackSprite}.
+   * @param {number} [offsetY=0] - The vertical offset from the position of the tracked Sprite or Pointer,
+   * as set with {@link #trackSprite}.
    * @return {Bullet} The fired bullet, if a launch was successful, otherwise `null`.
    */
   fireOffset(offsetX, offsetY) {
@@ -774,9 +782,10 @@ class Weapon {
   }
 
   /**
-   * Attempts to fire a single Bullet. If there are no more bullets available in the pool, and the pool cannot be extended,
-   * then this method returns `null`. It will also return `null` if not enough time has expired since the last time
-   * the Weapon was fired, as defined in the {@link #fireRate} property.
+   * Attempts to fire a single Bullet. If there are no more bullets available in the pool,
+   * and the pool cannot be extended, then this method returns `null`. It will also return `null`
+   * if not enough time has expired since the last time the Weapon was fired,
+   * as defined in the {@link #fireRate} property.
    *
    * Otherwise the first available bullet is selected, launched, and returned.
    *
@@ -792,11 +801,17 @@ class Weapon {
    * and you can call `fire` as many times as you like, per loop. Multiple fires in a single update
    * only counts once towards the `shots` total, but you will still receive a Signal for each bullet.
    *
-   * @param {Phaser.GameObjects.Sprite|Phaser.Math.Vector2|Object|string} [from] - Optionally fires the bullet **from** the `x` and `y` properties of this object. If set this overrides {@link #trackedSprite} or `trackedPointer`. Pass `null` to ignore it.
-   * @param {number} [x] - The x coordinate, in world space, to fire the bullet **towards**. If left as `undefined`, or `null`, the bullet direction is based on its angle.
-   * @param {number} [y] - The y coordinate, in world space, to fire the bullet **towards**. If left as `undefined`, or `null`, the bullet direction is based on its angle.
-   * @param {number} [offsetX=0] - If the bullet is fired from a tracked Sprite or Pointer, or the `from` argument is set, this applies a horizontal offset from the launch position.
-   * @param {number} [offsetY=0] - If the bullet is fired from a tracked Sprite or Pointer, or the `from` argument is set, this applies a vertical offset from the launch position.
+   * @param {Phaser.GameObjects.Sprite|Phaser.Math.Vector2|Object|string} [from]
+   * Optionally fires the bullet **from** the `x` and `y` properties of this object.
+   * If set this overrides {@link #trackedSprite} or `trackedPointer`. Pass `null` to ignore it.
+   * @param {number} [x] - The x coordinate, in world space, to fire the bullet **towards**.
+   * If left as `undefined`, or `null`, the bullet direction is based on its angle.
+   * @param {number} [y] - The y coordinate, in world space, to fire the bullet **towards**.
+   * If left as `undefined`, or `null`, the bullet direction is based on its angle.
+   * @param {number} [offsetX=0] - If the bullet is fired from a tracked Sprite or Pointer,
+   * or the `from` argument is set, this applies a horizontal offset from the launch position.
+   * @param {number} [offsetY=0] - If the bullet is fired from a tracked Sprite or Pointer,
+   * or the `from` argument is set, this applies a vertical offset from the launch position.
    * @return {Bullet} The fired bullet, if a launch was successful, otherwise `null`.
    */
   fire(from, x, y, offsetX, offsetY) {
@@ -1110,8 +1125,10 @@ class Weapon {
    * If you wish to stop using animations at all, set {@link #bulletAnimation} to '' (an empty string).
    *
    * @param {string} name - The unique (within the Weapon instance) name for the animation, i.e. "fire", "blast".
-   * @param {Array} [frames=null] - An array of numbers/strings that correspond to the frames to add to this animation and in which order. e.g. [1, 2, 3] or ['run0', 'run1', run2]). If null then all frames will be used.
-   * @param {number} [frameRate=60] - The speed at which the animation should play. The speed is given in frames per second.
+   * @param {Array} [frames=null] - An array of numbers/strings that correspond to the framesto add to this animation
+   * and in which order. e.g. [1, 2, 3] or ['run0', 'run1', run2]). If null then all frames will be used.
+   * @param {number} [frameRate=60] - The speed at which the animation should play.
+   * The speed is given in frames per second.
    * @param {number} [loop=1] - Number of times to repeat the animation. Set to -1 to repeat forever.
    * @return {Weapon} The Weapon Plugin.
    */
@@ -1246,7 +1263,8 @@ Object.defineProperty(Weapon.prototype, 'bulletClass', {
  * The bullets are automatically killed when their `bulletLifespan` amount expires.
  *
  * * `consts.KILL_DISTANCE`
- * The bullets are automatically killed when they exceed `bulletDistance` pixels away from their original launch position.
+ * The bullets are automatically killed when they
+ * exceed `bulletDistance` pixels away from their original launch position.
  *
  * * `consts.KILL_WEAPON_BOUNDS`
  * The bullets are automatically killed when they no longer intersect with the {@link #bounds} rectangle.

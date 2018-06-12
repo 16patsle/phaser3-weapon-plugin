@@ -7,7 +7,8 @@ export default {
   KILL_NEVER: 0,
 
   /**
-   * A {@link #bulletKillType} constant that automatically kills the bullets when their {@link #bulletLifespan} expires.
+   * A {@link #bulletKillType} constant that automatically kills the bullets
+   * when their {@link #bulletLifespan} expires.
    * @constant
    * @type {integer}
    */
@@ -22,28 +23,32 @@ export default {
   KILL_DISTANCE: 2,
 
   /**
-   * A {@link #bulletKillType} constant that automatically kills the bullets when they leave the {@link #bounds} rectangle.
+   * A {@link #bulletKillType} constant that automatically kills the bullets
+   * when they leave the {@link #bounds} rectangle.
    * @constant
    * @type {integer}
    */
   KILL_WEAPON_BOUNDS: 3,
 
   /**
-   * A {@link #bulletKillType} constant that automatically kills the bullets when they leave the {@link Phaser.Camera#bounds} rectangle.
+   * A {@link #bulletKillType} constant that automatically kills the bullets
+   * when they leave the {@link Phaser.Camera#bounds} rectangle.
    * @constant
    * @type {integer}
    */
   KILL_CAMERA_BOUNDS: 4,
 
   /**
-   * A {@link #bulletKillType} constant that automatically kills the bullets when they leave the {@link Phaser.World#bounds} rectangle.
+   * A {@link #bulletKillType} constant that automatically kills the bullets
+   * when they leave the {@link Phaser.World#bounds} rectangle.
    * @constant
    * @type {integer}
    */
   KILL_WORLD_BOUNDS: 5,
 
   /**
-   * A {@link #bulletKillType} constant that automatically kills the bullets when they leave the {@link #bounds} rectangle.
+   * A {@link #bulletKillType} constant that automatically kills the bullets
+   * when they leave the {@link #bounds} rectangle.
    * @constant
    * @type {integer}
    */
