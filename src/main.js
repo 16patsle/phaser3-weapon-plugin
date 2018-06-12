@@ -80,7 +80,8 @@ class WeaponPlugin extends Phaser.Plugins.ScenePlugin {
   boot() {
     const eventEmitter = this.systems.events;
 
-    //  Listening to the following events is entirely optional, although we would recommend cleanly shutting down and destroying at least.
+    //  Listening to the following events is entirely optional,
+    //  although we would recommend cleanly shutting down and destroying at least.
     //  If you don't need any of these events then remove the listeners and the relevant methods too.
 
     eventEmitter.on('preupdate', this.preUpdate, this);
@@ -143,7 +144,8 @@ class WeaponPlugin extends Phaser.Plugins.ScenePlugin {
     // Empty
   }
 
-  //  Called when a Scene is put to sleep. A sleeping scene doesn't update or render, but isn't destroyed or shutdown. preUpdate events still fire.
+  //  Called when a Scene is put to sleep.
+  //  A sleeping scene doesn't update or render, but isn't destroyed or shutdown. preUpdate events still fire.
   sleep() {
     // Empty
   }
@@ -153,7 +155,8 @@ class WeaponPlugin extends Phaser.Plugins.ScenePlugin {
     // Empty
   }
 
-  //  Called when a Scene shuts down, it may then come back again later (which will invoke the 'start' event) but should be considered dormant.
+  //  Called when a Scene shuts down,
+  //  it may then come back again later (which will invoke the 'start' event) but should be considered dormant.
   shutdown() {
     // Empty
   }
