@@ -4,9 +4,12 @@
   "description": "Weapon Plugin for Phaser 3",
   "main": "src/main.js",
   "scripts": {
+    "prebuild": "npm run lint:fix",
     "build": "webpack",
     "postbuild": "cp dist/WeaponPlugin.{js,js.map} examples/src/",
-    "examples": "http-server examples/src -p 2234"
+    "examples": "http-server examples/src -p 2234",
+    "lint": "eslint src/**/*",
+    "lint:fix": "eslint src/**/* --fix"
   },
   "repository": {
     "type": "git",
@@ -19,6 +22,7 @@
   },
   "homepage": "https://github.com/16patsle/phaser3-weapon-plugin#readme",
   "devDependencies": {
+    "eslint": "^4.19.1",
     "http-server": "^0.11.1",
     "webpack": "^3.10.0"
   },

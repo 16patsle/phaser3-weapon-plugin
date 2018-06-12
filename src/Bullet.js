@@ -7,7 +7,7 @@
 
 const consts = require('./consts');
 
-let bulletID = 0
+let bulletID = 0;
 
 class Bullet extends Phaser.GameObjects.Sprite {
   /**
@@ -17,13 +17,15 @@ class Bullet extends Phaser.GameObjects.Sprite {
    * @param {Phaser.Scene} scene - A reference to the currently running scene.
    * @param {number} x - The x coordinate (in world space) to position the Particle at.
    * @param {number} y - The y coordinate (in world space) to position the Particle at.
-   * @param {string} key - This is the image or texture used by the Particle during rendering. It can be a string which is a reference to the Cache entry, or an instance of a RenderTexture or PIXI.Texture.
-   * @param {string|number} frame - If this Particle is using part of a sprite sheet or texture atlas you can specify the exact frame to use by giving a string or numeric index.
+   * @param {string} key - This is the image or texture used by the Particle during rendering.
+   * It can be a string which is a reference to the Cache entry, or an instance of a RenderTexture or PIXI.Texture.
+   * @param {string|number} frame - If this Particle is using part of a sprite sheet or texture atlas
+   * you can specify the exact frame to use by giving a string or numeric index.
    */
   constructor(scene, x, y, key, frame) {
     super(scene, x, y, key, frame);
-    this.bulletID = bulletID
-    bulletID++
+    this.bulletID = bulletID;
+    bulletID++;
     this.scene.physics.add.existing(this);
 
     this.data = {
@@ -35,7 +37,7 @@ class Bullet extends Phaser.GameObjects.Sprite {
       rotateToVelocity: false,
       killType: 0,
       killDistance: 0,
-      bodyBounds: new Phaser.Geom.Rectangle()
+      bodyBounds: new Phaser.Geom.Rectangle(),
     };
   }
 
@@ -101,10 +103,12 @@ class Bullet extends Phaser.GameObjects.Sprite {
         ) {
           this.kill();
         }
-      } else if (!Phaser.Geom.Intersects.RectangleToRectangle(
+      } else if (
+        !Phaser.Geom.Intersects.RectangleToRectangle(
           this.data.bulletManager.bulletBounds,
           this.body.getBounds(this.data.bodyBounds)
-        )) {
+        )
+      ) {
         this.kill();
       }
     }
@@ -114,10 +118,7 @@ class Bullet extends Phaser.GameObjects.Sprite {
     }
 
     if (this.data.bulletManager.bulletWorldWrap) {
-      this.scene.physics.world.wrap(
-        this,
-        this.data.bulletManager.bulletWorldWrapPadding
-      );
+      this.scene.physics.world.wrap(this, this.data.bulletManager.bulletWorldWrapPadding);
     }
   }
 }
