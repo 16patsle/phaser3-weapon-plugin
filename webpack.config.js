@@ -16,6 +16,7 @@ module.exports = {
     filename: '[name].js',
     library: 'WeaponPlugin',
     libraryTarget: 'umd',
+    libraryExport: 'default',
     umdNamedDefine: true,
   },
 
@@ -37,16 +38,18 @@ module.exports = {
     }),
   ],
   module: {
-    rules: [{
-      test: /\.js$/,
-      exclude: /(node_modules)/,
-      use: {
-        loader: 'babel-loader',
-        options: {
-          presets: ['@babel/preset-env'],
-          plugins: [],
+    rules: [
+      {
+        test: /\.js$/,
+        exclude: /(node_modules)/,
+        use: {
+          loader: 'babel-loader',
+          options: {
+            presets: ['@babel/preset-env'],
+            plugins: [],
+          },
         },
       },
-    }, ],
+    ],
   },
 };
