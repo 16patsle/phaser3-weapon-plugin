@@ -63,4 +63,6 @@ The plugin is written in ES2015/ES6, but the built version targets ES5.
 ## Credits
 This plugin is a port of the [Weapon Plugin](https://github.com/photonstorm/phaser-ce/blob/f2be9bef1d953c9cd55dcd8808d109fa96731126/src/plugins/weapon/WeaponPlugin.js) in Phaser CE by Richard Davey, and is based on the Phaser 3 Plugin template, also by Richard Davey
 
-The port of the plugin was started by @16patsle, but @jdotrjs has helped extensively with debugging and implementing broken features.
+The port of the plugin was started by [@16patsle](https://github.com/16patsle), but
+[@jdotrjs](https://github.com/jdotrjs) has helped extensively with debugging and
+implementing broken features.
