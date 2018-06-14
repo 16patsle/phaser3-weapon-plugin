@@ -2,12 +2,12 @@
 
 A Phaser 3 compatible port of the Weapon Plugin shipped with Phaser CE.
 
-This is a work in progress.
+This is a work in progress and is currently in beta.
 
 This plugin can be installed from npm:
 ```
-npm install phaser3-weapon-plugin // if you use npm
-yarn add phaser3-weapon-plugin // for yarn users
+npm install phaser3-weapon-plugin@beta // if you use npm
+yarn add phaser3-weapon-plugin@beta // for yarn users
 ```
 
 ## Building
