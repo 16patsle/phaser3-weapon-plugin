@@ -9,7 +9,8 @@
     "postbuild": "cp dist/WeaponPlugin.{js,js.map} examples/src/",
     "examples": "http-server examples/src -p 2234",
     "lint": "eslint src/**/*",
-    "lint:fix": "eslint src/**/* --fix"
+    "lint:fix": "eslint src/**/* --fix",
+    "docs": "node docs"
   },
   "repository": {
     "type": "git",
@@ -24,6 +25,7 @@
   "devDependencies": {
     "eslint": "^4.19.1",
     "http-server": "^0.11.1",
+    "jsdoc-to-markdown": "^4.0.1",
     "webpack": "^3.10.0"
   },
   "dependencies": {
