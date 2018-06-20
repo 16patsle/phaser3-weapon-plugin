@@ -1,4 +1,9 @@
-export default {
+/**
+ * The constants for the Weapon Plugin
+ */
+class Consts {}
+
+Consts.prototype = {
   /**
    * A {@link #bulletKillType} constant that stops the bullets from ever being destroyed automatically.
    * @constant
@@ -84,7 +89,7 @@ export default {
 
   /**
    * The Angle (in degrees) a Game Object needs to be set to in order to face north east.
-   * @constant Phaser.ANGLE_NORTH_EAST
+   * @constant
    * @type {integer}
    */
   ANGLE_NORTH_EAST: 315,
@@ -132,3 +137,5 @@ export default {
    */
   BULLET_FRAME_RANDOM: 2,
 };
+
+export default Consts;
