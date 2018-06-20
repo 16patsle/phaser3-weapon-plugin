@@ -6,7 +6,7 @@
  */
 import Weapon from './Weapon';
 import Bullet from './Bullet';
-import consts from './consts';
+import consts from './Consts';
 
 /**
  * The Weapon Plugin provides the ability to easily create a bullet pool
@@ -49,6 +49,15 @@ class WeaponPlugin extends Phaser.Plugins.ScenePlugin {
     // pluginManager.registerGameObject('weapon', this.add);
   }
 
+  /**
+   * 
+   * @param {number} bulletLimit - Max numbor of bullets to be created
+   * @param {String} key - The texture key to use
+   * @param {String} frame - The frame to use, if using an atlas.
+   * @param {Phaser.GameObjects.Group} group - Weapon game objects will be added to this group.
+   * @param {Weapon} weaponClass - The custom weapon class to use. Should extend Weapon.
+   * @returns {Weapon}
+   */
   add(bulletLimit, key, frame, group, weaponClass) {
     if (!weaponClass) {
       weaponClass = Weapon;
@@ -65,6 +74,7 @@ class WeaponPlugin extends Phaser.Plugins.ScenePlugin {
    * If a plugin is stopped, and then started again, this will get called again.
    * Typically called immediately after `BasePlugin.init`.
    *
+   * @private
    * @returns {void}
    */
   start() {
@@ -75,6 +85,7 @@ class WeaponPlugin extends Phaser.Plugins.ScenePlugin {
    * If this is a Scene Plugin (i.e. installed into a Scene) then this method is called when the Scene boots.
    * By this point the plugin properties `scene` and `systems` will have already been set.
    * In here you can listen for Scene events and set-up whatever you need for this plugin to run.
+   * @private
    * @returns {void}
    */
   boot() {
@@ -98,15 +109,23 @@ class WeaponPlugin extends Phaser.Plugins.ScenePlugin {
     eventEmitter.on('destroy', this.destroy, this);
   }
 
-  //  Called every Scene step - phase 1
+  /**
+   * Called every Scene step - phase 1
+   * 
+   * @private
+   * @param {number} time - Current game time
+   * @param {number} delta - Time since last call
+   * @returns {void}
+   */
   preUpdate(time, delta) {
     // Empty
   }
 
   /**
    * Internal update method, called by the PluginManager.
+   * Called every Scene step - phase 2
    *
-   * @protected
+   * @private
    * @param {number} time - Current game time
    * @param {number} delta - Time since last call
    * @returns {void}
@@ -117,7 +136,14 @@ class WeaponPlugin extends Phaser.Plugins.ScenePlugin {
     });
   }
 
-  //  Called every Scene step - phase 3
+  /**
+   * Called every Scene step - phase 3
+   * 
+   * @private
+   * @param {number} time - Current game time
+   * @param {number} delta - Time since last call
+   * @returns {void}
+   */
   postUpdate(time, delta) {
     // Empty
   }
@@ -125,7 +151,7 @@ class WeaponPlugin extends Phaser.Plugins.ScenePlugin {
   /**
    * Internal update method, called by the PluginManager.
    *
-   * @protected
+   * @private
    * @returns {void}
    */
   postRender() {
@@ -134,29 +160,54 @@ class WeaponPlugin extends Phaser.Plugins.ScenePlugin {
     });
   }
 
-  //  Called when a Scene is paused. A paused scene doesn't have its Step run, but still renders.
+  /**
+   * Called when a Scene is paused. A paused scene doesn't have its Step run, but still renders.
+   *
+   * @private
+   * @returns {void}
+   */
   pause() {
     // Empty
   }
 
-  //  Called when a Scene is resumed from a paused state.
+  /**
+   * Called when a Scene is resumed from a paused state.
+   *
+   * @private
+   * @returns {void}
+   */
   resume() {
     // Empty
   }
 
-  //  Called when a Scene is put to sleep.
-  //  A sleeping scene doesn't update or render, but isn't destroyed or shutdown. preUpdate events still fire.
+  /**
+   * Called when a Scene is put to sleep.
+   * A sleeping scene doesn't update or render, but isn't destroyed or shutdown. preUpdate events still fire.
+   *
+   * @private
+   * @returns {void}
+   */
   sleep() {
     // Empty
   }
 
-  //  Called when a Scene is woken from a sleeping state.
+  /**
+   * Called when a Scene is woken from a sleeping state.
+   *
+   * @private
+   * @returns {void}
+   */
   wake() {
     // Empty
   }
 
-  //  Called when a Scene shuts down,
-  //  it may then come back again later (which will invoke the 'start' event) but should be considered dormant.
+  /**
+   * Called when a Scene shuts down,
+   * it may then come back again later (which will invoke the 'start' event) but should be considered dormant.
+   *
+   * @private
+   * @returns {void}
+   */
   shutdown() {
     // Empty
   }
@@ -164,6 +215,7 @@ class WeaponPlugin extends Phaser.Plugins.ScenePlugin {
   /**
    * Destroys this Weapon.
    * You must release everything in here, all references, all objects, free it all up.
+   * @private
    * @returns {void}
    */
   destroy() {
@@ -174,11 +226,21 @@ class WeaponPlugin extends Phaser.Plugins.ScenePlugin {
   }
 }
 
+/**
+ * Shortcut to the Weapon class
+ * @type {Weapon}
+ */
 WeaponPlugin.Weapon = Weapon;
+/**
+ * Shortcut to the Bullet class
+ * @type {Bullet}
+ */
 WeaponPlugin.Bullet = Bullet;
 
+/**
+ * The WeaponPlugin constants
+ * @type {Consts}
+ */
 WeaponPlugin.consts = consts;
-
-//  Make sure you export the plugin for webpack to expose
 
 export default WeaponPlugin;

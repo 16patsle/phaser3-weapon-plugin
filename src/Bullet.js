@@ -5,7 +5,7 @@
  * @license      {@link https://github.com/photonstorm/phaser3-plugin-template/blob/master/LICENSE|MIT License}
  */
 
-import consts from './consts';
+import consts from './Consts';
 
 let bulletID = 0;
 
@@ -28,6 +28,17 @@ class Bullet extends Phaser.GameObjects.Sprite {
     bulletID++;
     this.scene.physics.add.existing(this);
 
+    /**
+     * Data used by this bullet, accessed from the Weapon (aka bulletManager)
+     * @type {Object} data
+     * @property {Weapon} data.bulletManager - The instance that manages this bullet
+     * @property {Number} data.fromX - The x coordinate this bullet launched from
+     * @property {Number} data.fromY - The y coordinate this bullet launched from
+     * @property {Boolean} data.rotateToVelocity - Should the bullet rotate to face the direction it's moving?
+     * @property {Number} data.killType - When should this bullet be killed
+     * @property {Number} data.killDistance - Distance in pixels before the bullet wil be killed
+     * when using `consts.KILL_DISTANCE`
+     */
     this.data = {
       timeEvent: null,
       bulletManager: null,
@@ -44,6 +55,10 @@ class Bullet extends Phaser.GameObjects.Sprite {
   /**
    * Prepares this bullet to be fired and interact with the rest of the scene
    * again.
+   * 
+   * @param {Number} x - The x coordinate this bullet launched from
+   * @param {Number} y - The y coordinate this bullet launched from
+   * @returns {void}
    */
   prepare(x, y) {
     this.setActive(true);
@@ -103,12 +118,10 @@ class Bullet extends Phaser.GameObjects.Sprite {
         ) {
           this.kill();
         }
-      } else if (
-        !Phaser.Geom.Intersects.RectangleToRectangle(
-          this.data.bulletManager.bulletBounds,
-          this.body.getBounds(this.data.bodyBounds)
-        )
-      ) {
+      } else if (!Phaser.Geom.Intersects.RectangleToRectangle(
+        this.data.bulletManager.bulletBounds,
+        this.body.getBounds(this.data.bodyBounds)
+      )) {
         this.kill();
       }
     }

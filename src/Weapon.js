@@ -5,7 +5,7 @@
  * @license      {@link https://github.com/photonstorm/phaser3-plugin-template/blob/master/LICENSE|MIT License}
  */
 import Bullet from './Bullet';
-import consts from './consts';
+import consts from './Consts';
 
 /**
  * The Weapon provides the ability to easily create a bullet pool and manager.
@@ -45,6 +45,11 @@ class Weapon {
   constructor(scene, bulletLimit, key, frame, group) {
     this.scene = scene;
 
+    /**
+     * Enable physics debugging for the bullets?
+     * @type {Boolean}
+     * @default
+     */
     this.debugPhysics = null;
 
     /**
@@ -364,6 +369,7 @@ class Weapon {
      * Internal multiFire test flag.
      *
      * @type {boolean}
+     * @private
      */
     this._hasFired = false;
 
@@ -487,7 +493,7 @@ class Weapon {
         visible: false,
       });
 
-      this.bullets.children.each(function(child) {
+      this.bullets.children.each(function (child) {
         child.data.bulletManager = this;
       }, this);
 
