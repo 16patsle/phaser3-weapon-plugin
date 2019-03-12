@@ -4,6 +4,9 @@ module.exports = {
     "commonjs": true,
     "es6": true
   },
+  "globals": {
+    "Phaser": "readonly"
+  },
   "parserOptions": {
     "sourceType": "module"
   },
@@ -28,6 +31,7 @@ module.exports = {
       "error",
       "always"
     ],
+    "no-console": "warn",
     "no-unused-vars": "warn",
     "max-len": ["warn", {
       "code": 100,
