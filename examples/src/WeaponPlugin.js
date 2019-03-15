@@ -284,7 +284,9 @@ function (_Phaser$GameObjects$S) {
 
     _this.scene.physics.add.existing(_assertThisInitialized(_assertThisInitialized(_this)));
 
-    _this.data = {
+    _this.setDataEnabled();
+
+    _this.setData({
       timeEvent: null,
       bulletManager: null,
       fromX: 0,
@@ -294,7 +296,8 @@ function (_Phaser$GameObjects$S) {
       killType: 0,
       killDistance: 0,
       bodyBounds: new Phaser.Geom.Rectangle()
-    };
+    });
+
     return _this;
   }
   /**
@@ -336,7 +339,7 @@ function (_Phaser$GameObjects$S) {
       // events with a flag and some math.
       // Both of those are probably premature optimizations.
 
-      if (this.data.timeEvent !== null) {
+      if (this.getData('timeEvent') !== null) {
         this.data.timeEvent.destroy();
         this.data.timeEvent = null;
       }
