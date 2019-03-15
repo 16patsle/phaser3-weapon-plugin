@@ -28,7 +28,9 @@ class Bullet extends Phaser.GameObjects.Sprite {
     bulletID++;
     this.scene.physics.add.existing(this);
 
-    this.data = {
+    this.setDataEnabled();
+
+    this.setData({
       timeEvent: null,
       bulletManager: null,
       fromX: 0,
@@ -38,7 +40,7 @@ class Bullet extends Phaser.GameObjects.Sprite {
       killType: 0,
       killDistance: 0,
       bodyBounds: new Phaser.Geom.Rectangle(),
-    };
+    });
   }
 
   /**
@@ -75,7 +77,7 @@ class Bullet extends Phaser.GameObjects.Sprite {
     // Another option would be to use Date.now() and manually process pause
     // events with a flag and some math.
     // Both of those are probably premature optimizations.
-    if (this.data.timeEvent !== null) {
+    if (this.getData("timeEvent") !== null) {
       this.data.timeEvent.destroy();
       this.data.timeEvent = null;
     }
