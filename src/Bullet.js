@@ -12,7 +12,7 @@ let bulletID = 0;
 class Bullet extends Phaser.GameObjects.Sprite {
   /**
    * Create a new `Bullet` object. Bullets are used by the `Weapon` class, and are normal Sprites,
-   * with a few extra properties in the data object to handle Weapon specific features.
+   * with a few extra properties in the data manager to handle Weapon specific features.
    *
    * @param {Phaser.Scene} scene - A reference to the currently running scene.
    * @param {number} x - The x coordinate (in world space) to position the Particle at.
@@ -52,8 +52,8 @@ class Bullet extends Phaser.GameObjects.Sprite {
     this.setVisible(true);
     this.body.enable = true;
     this.body.reset(x, y);
-    this.body.debugShowBody = this.data.bulletManager.debugPhysics;
-    this.body.debugShowVelocity = this.data.bulletManager.debugPhysics;
+    this.body.debugShowBody = this.getData('bulletManager').debugPhysics;
+    this.body.debugShowVelocity = this.getData('bulletManager').debugPhysics;
   }
 
   /**
@@ -78,11 +78,11 @@ class Bullet extends Phaser.GameObjects.Sprite {
     // events with a flag and some math.
     // Both of those are probably premature optimizations.
     if (this.getData('timeEvent') !== null) {
-      this.data.timeEvent.destroy();
-      this.data.timeEvent = null;
+      this.getData('timeEvent').destroy();
+      this.setData('timeEvent', null);
     }
 
-    this.data.bulletManager.eventEmitter.emit('kill', this);
+    this.getData('bulletManager').eventEmitter.emit('kill', this);
 
     return this;
   }
@@ -97,30 +97,30 @@ class Bullet extends Phaser.GameObjects.Sprite {
       return;
     }
 
-    if (this.data.killType > consts.KILL_LIFESPAN) {
-      if (this.data.killType === consts.KILL_DISTANCE) {
+    if (this.getData('killType') > consts.KILL_LIFESPAN) {
+      if (this.getData('killType') === consts.KILL_DISTANCE) {
         if (
-          new Phaser.Math.Vector2(this.data.fromX, this.data.fromY).distance(this) >
-          this.data.killDistance
+          new Phaser.Math.Vector2(this.getData('fromX'), this.getData('fromY')).distance(this) >
+          this.getData('killDistance')
         ) {
           this.kill();
         }
       } else if (
         !Phaser.Geom.Intersects.RectangleToRectangle(
-          this.data.bulletManager.bulletBounds,
-          this.body.getBounds(this.data.bodyBounds)
+          this.getData('bulletManager').bulletBounds,
+          this.body.getBounds(this.getData('bodyBounds'))
         )
       ) {
         this.kill();
       }
     }
 
-    if (this.data.rotateToVelocity) {
+    if (this.getData('rotateToVelocity')) {
       this.rotation = this.body.velocity.atan();
     }
 
-    if (this.data.bulletManager.bulletWorldWrap) {
-      this.scene.physics.world.wrap(this, this.data.bulletManager.bulletWorldWrapPadding);
+    if (this.getData('bulletManager').bulletWorldWrap) {
+      this.scene.physics.world.wrap(this, this.getData('bulletManager').bulletWorldWrapPadding);
     }
   }
 }

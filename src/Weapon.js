@@ -605,7 +605,7 @@ class Weapon {
       });
 
       this.bullets.children.each(function(child) {
-        child.data.bulletManager = this;
+        child.setData('bulletManager', this);
       }, this);
 
       this.bulletKey = key;
@@ -652,8 +652,8 @@ class Weapon {
   pauseAll() {
     this.bullets.children.each(child => {
       child.body.enable = false;
-      if (child.data.timeEvent !== null) {
-        child.data.timeEvent.paused = true;
+      if (child.getData('timeEvent') !== null) {
+        child.getData('timeEvent').paused = true;
       }
     }, this);
 
@@ -670,8 +670,8 @@ class Weapon {
   resumeAll() {
     this.bullets.children.each(child => {
       child.body.enable = true;
-      if (child.data.timeEvent !== null) {
-        child.data.timeEvent.paused = false;
+      if (child.getData('timeEvent') !== null) {
+        child.getData('timeEvent').paused = false;
       }
     }, this);
 
@@ -1047,29 +1047,31 @@ class Weapon {
 
     if (this.autoExpandBulletsGroup) {
       bullet = this.bullets.getFirstDead(true, fromX, fromY, this.bulletKey, this.bulletFrame);
-      bullet.data.bulletManager = this;
+      bullet.setData('bulletManager', this);
     } else {
       bullet = this.bullets.getFirstDead(false);
     }
 
     if (bullet) {
       bullet.prepare(fromX, fromY);
-      bullet.data.fromX = fromX;
-      bullet.data.fromY = fromY;
-      bullet.data.killType = this.bulletKillType;
-      bullet.data.killDistance = this.bulletKillDistance;
-      bullet.data.rotateToVelocity = this.bulletRotateToVelocity;
+      bullet.setData({
+        fromX,
+        fromY,
+        killType: this.bulletKillType,
+        killDistance: this.bulletKillDistance,
+        rotateToVelocity: this.bulletRotateToVelocity,
+      });
 
       if (this.bulletKillType === consts.KILL_LIFESPAN) {
         if (this.bulletLifespan <= 0) {
           throw new Error('Invalid bulletLifespan; must be > 0');
         }
-        bullet.data.timeEvent = this.scene.time.addEvent({
+        bullet.setData('timeEvent', this.scene.time.addEvent({
           delay: this.bulletLifespan,
           // TODO: test to see if we can just pass callbackContext: bullet and
           // have it work. no need to re-bind every time we fire a bullet
           callback: bullet.kill.bind(bullet),
-        });
+        }));
         bullet.lifespan = this.bulletLifespan;
       }
 
@@ -1089,7 +1091,7 @@ class Weapon {
         bullet.setTexture(this.bulletKey, nextFrame);
       }
 
-      if (bullet.data.bodyDirty) {
+      if (bullet.getData('bodyDirty')) {
         if (this._data.customBody) {
           bullet.body.setSize(this._data.width, this._data.height);
           bullet.body.setOffset(this._data.offsetX, this._data.offsetY);
@@ -1097,7 +1099,7 @@ class Weapon {
 
         bullet.body.collideWorldBounds = this.bulletCollideWorldBounds;
 
-        bullet.data.bodyDirty = false;
+        bullet.setData('bodyDirty', false);
       }
 
       bullet.body.setVelocity(moveX, moveY);
