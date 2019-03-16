@@ -417,6 +417,123 @@ class Weapon {
   }
 
   /**
+ * The Class of the bullets that are launched by this Weapon. Defaults to {@link Phaser.Bullet}, but can be
+ * overridden before calling `createBullets` and set to your own class type.
+ *
+ * It should be a constructor function accepting `(game, x, y, key, frame)`.
+ *
+ * @property {function} bulletClass
+ */
+  get bulletClass() {
+    return this._bulletClass;
+  }
+  set bulletClass(classType){
+    this._bulletClass = classType;
+
+    // `this.bullets` exists only after createBullets()
+    if (this.bullets) {
+      this.bullets.classType = this._bulletClass;
+    }
+  }
+
+  /**
+ * This controls how the bullets will be killed. The default is `consts.KILL_WORLD_BOUNDS`.
+ *
+ * There are 7 different "kill types" available:
+ *
+ * * `consts.KILL_NEVER`
+ * The bullets are never destroyed by the Weapon. It's up to you to destroy them via your own code.
+ *
+ * * `consts.KILL_LIFESPAN`
+ * The bullets are automatically killed when their `bulletLifespan` amount expires.
+ *
+ * * `consts.KILL_DISTANCE`
+ * The bullets are automatically killed when they
+ * exceed `bulletDistance` pixels away from their original launch position.
+ *
+ * * `consts.KILL_WEAPON_BOUNDS`
+ * The bullets are automatically killed when they no longer intersect with the {@link #bounds} rectangle.
+ *
+ * * `consts.KILL_CAMERA_BOUNDS`
+ * The bullets are automatically killed when they no longer intersect with the {@link Phaser.Camera#bounds} rectangle.
+ *
+ * * `consts.KILL_WORLD_BOUNDS`
+ * The bullets are automatically killed when they no longer intersect with the {@link Phaser.World#bounds} rectangle.
+ *
+ * * `consts.KILL_STATIC_BOUNDS`
+ * The bullets are automatically killed when they no longer intersect with the {@link #bounds} rectangle.
+ * The difference between static bounds and weapon bounds, is that a static bounds will never be adjusted to
+ * match the position of a tracked sprite or pointer.
+ *
+ * @property {integer} bulletKillType
+ */
+  get bulletKillType(){
+    return this._bulletKillType;
+  }
+  set bulletKillType(type){
+    switch (type) {
+      case consts.KILL_STATIC_BOUNDS:
+      case consts.KILL_WEAPON_BOUNDS:
+        this.bulletBounds = this.bounds;
+        break;
+
+      case consts.KILL_CAMERA_BOUNDS:
+        this.bulletBounds = this.scene.sys.cameras.main._bounds;
+        break;
+
+      case consts.KILL_WORLD_BOUNDS:
+        this.bulletBounds = this.scene.physics.world.bounds;
+        break;
+    }
+
+    this._bulletKillType = type;
+  }
+
+  /**
+ * Should bullets collide with the World bounds or not?
+ *
+ * @property {boolean} bulletCollideWorldBounds
+ */
+  get bulletCollideWorldBounds(){
+    return this._bulletCollideWorldBounds;
+  }
+  set bulletCollideWorldBounds(value){
+    this._bulletCollideWorldBounds = value;
+
+    this.bullets.children.each(child => {
+      child.body.collideWorldBounds = value;
+      child.setData('bodyDirty', false);
+    });
+  }
+
+  /**
+ * The x coordinate from which bullets are fired. This is the same as `Weapon.fireFrom.x`, and
+ * can be overridden by the {@link #fire} arguments.
+ *
+ * @property {number} x
+ */
+  get x(){
+    return this.fireFrom.x;
+  }
+  set x(value){
+    this.fireFrom.x = value;
+  }
+
+  /**
+ * The y coordinate from which bullets are fired. This is the same as `Weapon.fireFrom.y`, and
+ * can be overridden by the {@link #fire} arguments.
+ *
+ * @name Weapon#y
+ * @property {number} y
+ */
+  get y(){
+    return this.fireFrom.y;
+  }
+  set y(value){
+    this.fireFrom.y = value;
+  }
+
+  /**
    * This method performs two actions: First it will check to see if the
    * {@link #bullets} Group exists or not, and if not it creates it, adding its
    * children to the `group` given as the 4th argument.
@@ -1226,141 +1343,5 @@ class Weapon {
     this.bullets.destroy(true);
   }
 }
-
-/**
- * The Class of the bullets that are launched by this Weapon. Defaults to {@link Phaser.Bullet}, but can be
- * overridden before calling `createBullets` and set to your own class type.
- *
- * It should be a constructor function accepting `(game, x, y, key, frame)`.
- *
- * @name Weapon#bulletClass
- * @property {function} bulletClass
- */
-Object.defineProperty(Weapon.prototype, 'bulletClass', {
-  get() {
-    return this._bulletClass;
-  },
-
-  set(classType) {
-    this._bulletClass = classType;
-
-    // `this.bullets` exists only after createBullets()
-    if (this.bullets) {
-      this.bullets.classType = this._bulletClass;
-    }
-  },
-});
-
-/**
- * This controls how the bullets will be killed. The default is `consts.KILL_WORLD_BOUNDS`.
- *
- * There are 7 different "kill types" available:
- *
- * * `consts.KILL_NEVER`
- * The bullets are never destroyed by the Weapon. It's up to you to destroy them via your own code.
- *
- * * `consts.KILL_LIFESPAN`
- * The bullets are automatically killed when their `bulletLifespan` amount expires.
- *
- * * `consts.KILL_DISTANCE`
- * The bullets are automatically killed when they
- * exceed `bulletDistance` pixels away from their original launch position.
- *
- * * `consts.KILL_WEAPON_BOUNDS`
- * The bullets are automatically killed when they no longer intersect with the {@link #bounds} rectangle.
- *
- * * `consts.KILL_CAMERA_BOUNDS`
- * The bullets are automatically killed when they no longer intersect with the {@link Phaser.Camera#bounds} rectangle.
- *
- * * `consts.KILL_WORLD_BOUNDS`
- * The bullets are automatically killed when they no longer intersect with the {@link Phaser.World#bounds} rectangle.
- *
- * * `consts.KILL_STATIC_BOUNDS`
- * The bullets are automatically killed when they no longer intersect with the {@link #bounds} rectangle.
- * The difference between static bounds and weapon bounds, is that a static bounds will never be adjusted to
- * match the position of a tracked sprite or pointer.
- *
- * @name Weapon#bulletKillType
- * @property {integer} bulletKillType
- */
-Object.defineProperty(Weapon.prototype, 'bulletKillType', {
-  get() {
-    return this._bulletKillType;
-  },
-
-  set(type) {
-    switch (type) {
-      case consts.KILL_STATIC_BOUNDS:
-      case consts.KILL_WEAPON_BOUNDS:
-        this.bulletBounds = this.bounds;
-        break;
-
-      case consts.KILL_CAMERA_BOUNDS:
-        this.bulletBounds = this.scene.sys.cameras.main._bounds;
-        break;
-
-      case consts.KILL_WORLD_BOUNDS:
-        this.bulletBounds = this.scene.physics.world.bounds;
-        break;
-    }
-
-    this._bulletKillType = type;
-  },
-});
-
-/**
- * Should bullets collide with the World bounds or not?
- *
- * @name Weapon#bulletCollideWorldBounds
- * @property {boolean} bulletCollideWorldBounds
- */
-Object.defineProperty(Weapon.prototype, 'bulletCollideWorldBounds', {
-  get() {
-    return this._bulletCollideWorldBounds;
-  },
-
-  set(value) {
-    this._bulletCollideWorldBounds = value;
-
-    this.bullets.children.each(child => {
-      child.body.collideWorldBounds = value;
-      child.data.bodyDirty = false;
-    });
-  },
-});
-
-/**
- * The x coordinate from which bullets are fired. This is the same as `Weapon.fireFrom.x`, and
- * can be overridden by the {@link #fire} arguments.
- *
- * @name Weapon#x
- * @property {number} x
- */
-Object.defineProperty(Weapon.prototype, 'x', {
-  get() {
-    return this.fireFrom.x;
-  },
-
-  set(value) {
-    this.fireFrom.x = value;
-  },
-});
-
-/**
- * The y coordinate from which bullets are fired. This is the same as `Weapon.fireFrom.y`, and
- * can be overridden by the {@link #fire} arguments.
- *
- * @name Weapon#y
- * @property {number} y
- */
-Object.defineProperty(Weapon.prototype, 'y', {
-  get() {
-    return this.fireFrom.y;
-  },
-
-  set(value) {
-    this.fireFrom.y = value;
-  },
-});
 
 export default Weapon;
