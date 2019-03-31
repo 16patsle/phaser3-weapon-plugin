@@ -361,6 +361,14 @@ class Weapon {
      */
     this._rotatedPoint = new Phaser.Math.Vector2();
 
+    /**
+     * Log level for this weapon. Either `warn`, `error' or `off`. `warn` is the default.
+     * If you change this, please do so before setting any other properties.
+     * 
+     * @type {string}
+     */
+    this.logLevel = 'warn';
+
     this.eventEmitter = new Phaser.Events.EventEmitter();
 
     validateConfig(this);
