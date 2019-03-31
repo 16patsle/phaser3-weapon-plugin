@@ -75,16 +75,10 @@ return /******/ (function(modules) { // webpackBootstrap
 /************************************************************************/
 /******/ ([
 /* 0 */
-/***/ (function(module, exports, __webpack_require__) {
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-
-
-Object.defineProperty(exports, "__esModule", {
-  value: true
-});
-exports.default = void 0;
-var _default = {
+/* harmony default export */ __webpack_exports__["a"] = ({
   /**
    * A {@link #bulletKillType} constant that stops the bullets from ever being destroyed automatically.
    * @constant
@@ -217,25 +211,14 @@ var _default = {
    * @type { integer }
    */
   BULLET_FRAME_RANDOM: 2
-};
-exports.default = _default;
+});
 
 /***/ }),
 /* 1 */
-/***/ (function(module, exports, __webpack_require__) {
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-
-
-Object.defineProperty(exports, "__esModule", {
-  value: true
-});
-exports.default = void 0;
-
-var _consts = _interopRequireDefault(__webpack_require__(0));
-
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__consts__ = __webpack_require__(0);
 function _typeof(obj) { if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
@@ -248,11 +231,18 @@ function _possibleConstructorReturn(self, call) { if (call && (_typeof(call) ===
 
 function _getPrototypeOf(o) { _getPrototypeOf = Object.setPrototypeOf ? Object.getPrototypeOf : function _getPrototypeOf(o) { return o.__proto__ || Object.getPrototypeOf(o); }; return _getPrototypeOf(o); }
 
+function _assertThisInitialized(self) { if (self === void 0) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return self; }
+
 function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function"); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, writable: true, configurable: true } }); if (superClass) _setPrototypeOf(subClass, superClass); }
 
 function _setPrototypeOf(o, p) { _setPrototypeOf = Object.setPrototypeOf || function _setPrototypeOf(o, p) { o.__proto__ = p; return o; }; return _setPrototypeOf(o, p); }
 
-function _assertThisInitialized(self) { if (self === void 0) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return self; }
+/**
+ * @author       Patrick Sletvold
+ * @author       jdotr <https://github.com/jdotrjs>
+ * @author       Richard Davey
+ * @license      {@link https://github.com/photonstorm/phaser3-plugin-template/blob/master/LICENSE|MIT License}
+ */
 
 var bulletID = 0;
 
@@ -263,7 +253,7 @@ function (_Phaser$GameObjects$S) {
 
   /**
    * Create a new `Bullet` object. Bullets are used by the `Weapon` class, and are normal Sprites,
-   * with a few extra properties in the data object to handle Weapon specific features.
+   * with a few extra properties in the data manager to handle Weapon specific features.
    *
    * @param {Phaser.Scene} scene - A reference to the currently running scene.
    * @param {number} x - The x coordinate (in world space) to position the Particle at.
@@ -282,7 +272,7 @@ function (_Phaser$GameObjects$S) {
     _this.bulletID = bulletID;
     bulletID++;
 
-    _this.scene.physics.add.existing(_assertThisInitialized(_assertThisInitialized(_this)));
+    _this.scene.physics.add.existing(_assertThisInitialized(_this));
 
     _this.setDataEnabled();
 
@@ -313,8 +303,8 @@ function (_Phaser$GameObjects$S) {
       this.setVisible(true);
       this.body.enable = true;
       this.body.reset(x, y);
-      this.body.debugShowBody = this.data.bulletManager.debugPhysics;
-      this.body.debugShowVelocity = this.data.bulletManager.debugPhysics;
+      this.body.debugShowBody = this.getData('bulletManager').debugPhysics;
+      this.body.debugShowVelocity = this.getData('bulletManager').debugPhysics;
     }
     /**
      * Kills the Bullet, freeing it up for re-use by the Weapon bullet pool.
@@ -340,11 +330,11 @@ function (_Phaser$GameObjects$S) {
       // Both of those are probably premature optimizations.
 
       if (this.getData('timeEvent') !== null) {
-        this.data.timeEvent.destroy();
-        this.data.timeEvent = null;
+        this.getData('timeEvent').destroy();
+        this.setData('timeEvent', null);
       }
 
-      this.data.bulletManager.eventEmitter.emit('kill', this);
+      this.getData('bulletManager').eventEmitter.emit('kill', this);
       return this;
     }
     /**
@@ -360,22 +350,22 @@ function (_Phaser$GameObjects$S) {
         return;
       }
 
-      if (this.data.killType > _consts.default.KILL_LIFESPAN) {
-        if (this.data.killType === _consts.default.KILL_DISTANCE) {
-          if (new Phaser.Math.Vector2(this.data.fromX, this.data.fromY).distance(this) > this.data.killDistance) {
+      if (this.getData('killType') > __WEBPACK_IMPORTED_MODULE_0__consts__["a" /* default */].KILL_LIFESPAN) {
+        if (this.getData('killType') === __WEBPACK_IMPORTED_MODULE_0__consts__["a" /* default */].KILL_DISTANCE) {
+          if (new Phaser.Math.Vector2(this.getData('fromX'), this.getData('fromY')).distance(this) > this.getData('killDistance')) {
             this.kill();
           }
-        } else if (!Phaser.Geom.Intersects.RectangleToRectangle(this.data.bulletManager.bulletBounds, this.body.getBounds(this.data.bodyBounds))) {
+        } else if (!Phaser.Geom.Intersects.RectangleToRectangle(this.getData('bulletManager').bulletBounds, this.body.getBounds(this.getData('bodyBounds')))) {
           this.kill();
         }
       }
 
-      if (this.data.rotateToVelocity) {
+      if (this.getData('rotateToVelocity')) {
         this.rotation = this.body.velocity.atan();
       }
 
-      if (this.data.bulletManager.bulletWorldWrap) {
-        this.scene.physics.world.wrap(this, this.data.bulletManager.bulletWorldWrapPadding);
+      if (this.getData('bulletManager').bulletWorldWrap) {
+        this.scene.physics.world.wrap(this, this.getData('bulletManager').bulletWorldWrapPadding);
       }
     }
   }]);
@@ -383,29 +373,17 @@ function (_Phaser$GameObjects$S) {
   return Bullet;
 }(Phaser.GameObjects.Sprite);
 
-var _default = Bullet;
-exports.default = _default;
+/* harmony default export */ __webpack_exports__["a"] = (Bullet);
 
 /***/ }),
 /* 2 */
-/***/ (function(module, exports, __webpack_require__) {
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-
-
-Object.defineProperty(exports, "__esModule", {
-  value: true
-});
-exports.default = void 0;
-
-var _Weapon = _interopRequireDefault(__webpack_require__(3));
-
-var _Bullet = _interopRequireDefault(__webpack_require__(1));
-
-var _consts = _interopRequireDefault(__webpack_require__(0));
-
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
+Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__Weapon__ = __webpack_require__(3);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__Bullet__ = __webpack_require__(1);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__consts__ = __webpack_require__(0);
 function _typeof(obj) { if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
@@ -416,13 +394,22 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
 
 function _possibleConstructorReturn(self, call) { if (call && (_typeof(call) === "object" || typeof call === "function")) { return call; } return _assertThisInitialized(self); }
 
-function _assertThisInitialized(self) { if (self === void 0) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return self; }
-
 function _getPrototypeOf(o) { _getPrototypeOf = Object.setPrototypeOf ? Object.getPrototypeOf : function _getPrototypeOf(o) { return o.__proto__ || Object.getPrototypeOf(o); }; return _getPrototypeOf(o); }
+
+function _assertThisInitialized(self) { if (self === void 0) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return self; }
 
 function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function"); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, writable: true, configurable: true } }); if (superClass) _setPrototypeOf(subClass, superClass); }
 
 function _setPrototypeOf(o, p) { _setPrototypeOf = Object.setPrototypeOf || function _setPrototypeOf(o, p) { o.__proto__ = p; return o; }; return _setPrototypeOf(o, p); }
+
+/**
+ * @author       Patrick Sletvold
+ * @author       jdotr <https://github.com/jdotrjs>
+ * @author       Richard Davey
+ * @license      {@link https://github.com/photonstorm/phaser3-plugin-template/blob/master/LICENSE|MIT License}
+ */
+
+
 
 /**
  * The Weapon Plugin provides the ability to easily create a bullet pool
@@ -450,6 +437,7 @@ function _setPrototypeOf(o, p) { _setPrototypeOf = Object.setPrototypeOf || func
  * this.input.onDown.add(weapon.fire, this); // Update this
  * ```
  */
+
 var WeaponPlugin =
 /*#__PURE__*/
 function (_Phaser$Plugins$Scene) {
@@ -467,8 +455,10 @@ function (_Phaser$Plugins$Scene) {
 
     _this = _possibleConstructorReturn(this, _getPrototypeOf(WeaponPlugin).call(this, scene, pluginManager));
     _this.weapons = []; // Register our new Game Object type
-    // pluginManager.registerGameObject('weapon', this.add);
 
+    pluginManager.registerGameObject('weapon', _this.add.bind(_assertThisInitialized(_this)), function (config) {
+      return _this.add(config.bulletLimit, config.key, config.frame, config.group, config.weaponClass);
+    });
     return _this;
   }
 
@@ -476,7 +466,7 @@ function (_Phaser$Plugins$Scene) {
     key: "add",
     value: function add(bulletLimit, key, frame, group, weaponClass) {
       if (!weaponClass) {
-        weaponClass = _Weapon.default;
+        weaponClass = __WEBPACK_IMPORTED_MODULE_0__Weapon__["a" /* default */];
       }
 
       var weapon = new weaponClass(this.scene, bulletLimit, key, frame, group);
@@ -606,36 +596,32 @@ function (_Phaser$Plugins$Scene) {
   return WeaponPlugin;
 }(Phaser.Plugins.ScenePlugin);
 
-WeaponPlugin.Weapon = _Weapon.default;
-WeaponPlugin.Bullet = _Bullet.default;
-WeaponPlugin.consts = _consts.default; //  Make sure you export the plugin for webpack to expose
+WeaponPlugin.Weapon = __WEBPACK_IMPORTED_MODULE_0__Weapon__["a" /* default */];
+WeaponPlugin.Bullet = __WEBPACK_IMPORTED_MODULE_1__Bullet__["a" /* default */];
+WeaponPlugin.consts = __WEBPACK_IMPORTED_MODULE_2__consts__["a" /* default */]; //  Make sure you export the plugin for webpack to expose
 
-var _default = WeaponPlugin;
-exports.default = _default;
+/* harmony default export */ __webpack_exports__["default"] = (WeaponPlugin);
 
 /***/ }),
 /* 3 */
-/***/ (function(module, exports, __webpack_require__) {
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-
-
-Object.defineProperty(exports, "__esModule", {
-  value: true
-});
-exports.default = void 0;
-
-var _Bullet = _interopRequireDefault(__webpack_require__(1));
-
-var _consts = _interopRequireDefault(__webpack_require__(0));
-
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__Bullet__ = __webpack_require__(1);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__consts__ = __webpack_require__(0);
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
 function _defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } }
 
 function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _defineProperties(Constructor.prototype, protoProps); if (staticProps) _defineProperties(Constructor, staticProps); return Constructor; }
+
+/**
+ * @author       Patrick Sletvold
+ * @author       jdotr <https://github.com/jdotrjs>
+ * @author       Richard Davey
+ * @license      {@link https://github.com/photonstorm/phaser3-plugin-template/blob/master/LICENSE|MIT License}
+ */
+
 
 /**
  * The Weapon provides the ability to easily create a bullet pool and manager.
@@ -662,6 +648,7 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
  * this.input.onDown.add(weapon.fire, this); // Update this
  * ```
  */
+
 var Weapon =
 /*#__PURE__*/
 function () {
@@ -751,7 +738,7 @@ function () {
      * @default
      */
 
-    this.fireAngle = _consts.default.ANGLE_UP;
+    this.fireAngle = __WEBPACK_IMPORTED_MODULE_1__consts__["a" /* default */].ANGLE_UP;
     /**
      * When a Bullet is fired it can optionally inherit the velocity of the `trackedSprite` if set.
      * @type {boolean}
@@ -894,7 +881,7 @@ function () {
      * @private
      */
 
-    this._bulletClass = _Bullet.default;
+    this._bulletClass = __WEBPACK_IMPORTED_MODULE_0__Bullet__["a" /* default */];
     /**
      * Private var that holds the public `bulletCollideWorldBounds` property.
      * @type {boolean}
@@ -908,7 +895,7 @@ function () {
      * @private
      */
 
-    this._bulletKillType = _consts.default.KILL_WORLD_BOUNDS;
+    this._bulletKillType = __WEBPACK_IMPORTED_MODULE_1__consts__["a" /* default */].KILL_WORLD_BOUNDS;
     /**
      * Holds internal data about custom bullet body sizes.
      *
@@ -1047,43 +1034,52 @@ function () {
     this.createBullets(bulletLimit, key, frame, group);
   }
   /**
-   * This method performs two actions: First it will check to see if the
-   * {@link #bullets} Group exists or not, and if not it creates it, adding its
-   * children to the `group` given as the 4th argument.
+   * The Class of the bullets that are launched by this Weapon. Defaults to {@link Phaser.Bullet}, but can be
+   * overridden before calling `createBullets` and set to your own class type.
    *
-   * Then it will seed the bullet pool with the `quantity` number of Bullets,
-   * using the texture key and frame provided (if any).
+   * It should be a constructor function accepting `(game, x, y, key, frame)`.
    *
-   * If for example you set the quantity to be 10, then this Weapon will only
-   * ever be able to have 10 bullets in-flight simultaneously. If you try to
-   * fire an 11th bullet then nothing will happen until one, or more, of the
-   * in-flight bullets have been killed, freeing them up for use by the Weapon
-   * again.
-   *
-   * If you do not wish to have a limit set, then pass in -1 as the quantity.
-   * In this instance the Weapon will keep increasing the size of the bullet
-   * pool as needed. It will never reduce the size of the pool however, so be
-   * careful it doesn't grow too large.
-   *
-   * You can either set the texture key and frame here, or via the
-   * {@link #bulletKey} and {@link #bulletFrame} properties. You can also
-   * animate bullets, or set them to use random frames. All Bullets belonging
-   * to a single Weapon instance must share the same texture key however.
-   *
-   * @param {integer} [quantity=1] - The quantity of bullets to seed the Weapon
-   *  with. If -1 it will set the pool to automatically expand.
-   * @param {string} [key] - The Game.cache key of the image that this Sprite
-   *  will use.
-   * @param {integer|string} [frame] - If the Sprite image contains multiple
-   *  frames you can specify which one to use here.
-   * @param {Phaser.GameObjects.Group} [group] - Optional Group to add the
-   *  object to. If not specified it will be added to the World group.
-   * @return {Weapon} This Weapon instance.
-   */
+   * @property {function} bulletClass
+  */
 
 
   _createClass(Weapon, [{
     key: "createBullets",
+
+    /**
+     * This method performs two actions: First it will check to see if the
+     * {@link #bullets} Group exists or not, and if not it creates it, adding its
+     * children to the `group` given as the 4th argument.
+     *
+     * Then it will seed the bullet pool with the `quantity` number of Bullets,
+     * using the texture key and frame provided (if any).
+     *
+     * If for example you set the quantity to be 10, then this Weapon will only
+     * ever be able to have 10 bullets in-flight simultaneously. If you try to
+     * fire an 11th bullet then nothing will happen until one, or more, of the
+     * in-flight bullets have been killed, freeing them up for use by the Weapon
+     * again.
+     *
+     * If you do not wish to have a limit set, then pass in -1 as the quantity.
+     * In this instance the Weapon will keep increasing the size of the bullet
+     * pool as needed. It will never reduce the size of the pool however, so be
+     * careful it doesn't grow too large.
+     *
+     * You can either set the texture key and frame here, or via the
+     * {@link #bulletKey} and {@link #bulletFrame} properties. You can also
+     * animate bullets, or set them to use random frames. All Bullets belonging
+     * to a single Weapon instance must share the same texture key however.
+     *
+     * @param {integer} [quantity=1] - The quantity of bullets to seed the Weapon
+     *  with. If -1 it will set the pool to automatically expand.
+     * @param {string} [key] - The Game.cache key of the image that this Sprite
+     *  will use.
+     * @param {integer|string} [frame] - If the Sprite image contains multiple
+     *  frames you can specify which one to use here.
+     * @param {Phaser.GameObjects.Group} [group] - Optional Group to add the
+     *  object to. If not specified it will be added to the World group.
+     * @return {Weapon} This Weapon instance.
+     */
     value: function createBullets(quantity, key, frame, group, bulletClass) {
       if (quantity === undefined) {
         quantity = 1;
@@ -1123,7 +1119,7 @@ function () {
           visible: false
         });
         this.bullets.children.each(function (child) {
-          child.data.bulletManager = this;
+          child.setData('bulletManager', this);
         }, this);
         this.bulletKey = key;
         this.bulletFrame = frame;
@@ -1172,8 +1168,8 @@ function () {
       this.bullets.children.each(function (child) {
         child.body.enable = false;
 
-        if (child.data.timeEvent !== null) {
-          child.data.timeEvent.paused = true;
+        if (child.getData('timeEvent') !== null) {
+          child.getData('timeEvent').paused = true;
         }
       }, this);
       return this;
@@ -1192,8 +1188,8 @@ function () {
       this.bullets.children.each(function (child) {
         child.body.enable = true;
 
-        if (child.data.timeEvent !== null) {
-          child.data.timeEvent.paused = false;
+        if (child.getData('timeEvent') !== null) {
+          child.getData('timeEvent').paused = false;
         }
       }, this);
       return this;
@@ -1570,30 +1566,32 @@ function () {
 
       if (this.autoExpandBulletsGroup) {
         bullet = this.bullets.getFirstDead(true, fromX, fromY, this.bulletKey, this.bulletFrame);
-        bullet.data.bulletManager = this;
+        bullet.setData('bulletManager', this);
       } else {
         bullet = this.bullets.getFirstDead(false);
       }
 
       if (bullet) {
         bullet.prepare(fromX, fromY);
-        bullet.data.fromX = fromX;
-        bullet.data.fromY = fromY;
-        bullet.data.killType = this.bulletKillType;
-        bullet.data.killDistance = this.bulletKillDistance;
-        bullet.data.rotateToVelocity = this.bulletRotateToVelocity;
+        bullet.setData({
+          fromX: fromX,
+          fromY: fromY,
+          killType: this.bulletKillType,
+          killDistance: this.bulletKillDistance,
+          rotateToVelocity: this.bulletRotateToVelocity
+        });
 
-        if (this.bulletKillType === _consts.default.KILL_LIFESPAN) {
+        if (this.bulletKillType === __WEBPACK_IMPORTED_MODULE_1__consts__["a" /* default */].KILL_LIFESPAN) {
           if (this.bulletLifespan <= 0) {
             throw new Error('Invalid bulletLifespan; must be > 0');
           }
 
-          bullet.data.timeEvent = this.scene.time.addEvent({
+          bullet.setData('timeEvent', this.scene.time.addEvent({
             delay: this.bulletLifespan,
             // TODO: test to see if we can just pass callbackContext: bullet and
             // have it work. no need to re-bind every time we fire a bullet
             callback: bullet.kill.bind(bullet)
-          });
+          }));
           bullet.lifespan = this.bulletLifespan;
         }
 
@@ -1613,14 +1611,14 @@ function () {
           bullet.setTexture(this.bulletKey, nextFrame);
         }
 
-        if (bullet.data.bodyDirty) {
+        if (bullet.getData('bodyDirty')) {
           if (this._data.customBody) {
             bullet.body.setSize(this._data.width, this._data.height);
             bullet.body.setOffset(this._data.offsetX, this._data.offsetY);
           }
 
           bullet.body.collideWorldBounds = this.bulletCollideWorldBounds;
-          bullet.data.bodyDirty = false;
+          bullet.setData('bodyDirty', false);
         }
 
         bullet.body.setVelocity(moveX, moveY);
@@ -1731,10 +1729,10 @@ function () {
     key: "setBulletFrames",
     value: function setBulletFrames(min, max, selectionMethod) {
       if (selectionMethod === undefined) {
-        selectionMethod = _consts.default.BULLET_FRAME_STABLE;
+        selectionMethod = __WEBPACK_IMPORTED_MODULE_1__consts__["a" /* default */].BULLET_FRAME_STABLE;
       }
 
-      if (typeof selectionMethod !== 'number' || selectionMethod < _consts.default.BULLET_FRAME_STABLE || selectionMethod > _consts.default.BULLET_FRAME_RANDOM) {
+      if (typeof selectionMethod !== 'number' || selectionMethod < __WEBPACK_IMPORTED_MODULE_1__consts__["a" /* default */].BULLET_FRAME_STABLE || selectionMethod > __WEBPACK_IMPORTED_MODULE_1__consts__["a" /* default */].BULLET_FRAME_RANDOM) {
         throw new Error("Invalid bullet frame selection method specified: ".concat(selectionMethod));
       }
 
@@ -1744,8 +1742,8 @@ function () {
 
       this.bulletFrames = Phaser.Utils.Array.NumberArray(min, max);
       this.bulletFrameIndex = 0;
-      this.bulletFrameCycle = selectionMethod === _consts.default.BULLET_FRAME_CYCLE;
-      this.bulletFrameRandom = selectionMethod === _consts.default.BULLET_FRAME_RANDOM;
+      this.bulletFrameCycle = selectionMethod === __WEBPACK_IMPORTED_MODULE_1__consts__["a" /* default */].BULLET_FRAME_CYCLE;
+      this.bulletFrameRandom = selectionMethod === __WEBPACK_IMPORTED_MODULE_1__consts__["a" /* default */].BULLET_FRAME_RANDOM;
       return this;
     }
     /**
@@ -1823,7 +1821,7 @@ function () {
   }, {
     key: "update",
     value: function update() {
-      if (this._bulletKillType === _consts.default.KILL_WEAPON_BOUNDS) {
+      if (this._bulletKillType === __WEBPACK_IMPORTED_MODULE_1__consts__["a" /* default */].KILL_WEAPON_BOUNDS) {
         if (this.trackedSprite) {
           this.trackedSprite.updateTransform();
           this.bounds.centerOn(this.trackedSprite.x, this.trackedSprite.y);
@@ -1865,142 +1863,127 @@ function () {
       this.scene = null;
       this.bullets.destroy(true);
     }
+  }, {
+    key: "bulletClass",
+    get: function get() {
+      return this._bulletClass;
+    },
+    set: function set(classType) {
+      this._bulletClass = classType; // `this.bullets` exists only after createBullets()
+
+      if (this.bullets) {
+        this.bullets.classType = this._bulletClass;
+      }
+    }
+    /**
+     * This controls how the bullets will be killed. The default is `consts.KILL_WORLD_BOUNDS`.
+     *
+     * There are 7 different "kill types" available:
+     *
+     * * `consts.KILL_NEVER`
+     * The bullets are never destroyed by the Weapon. It's up to you to destroy them via your own code.
+     *
+     * * `consts.KILL_LIFESPAN`
+     * The bullets are automatically killed when their `bulletLifespan` amount expires.
+     *
+     * * `consts.KILL_DISTANCE`
+     * The bullets are automatically killed when they
+     * exceed `bulletDistance` pixels away from their original launch position.
+     *
+     * * `consts.KILL_WEAPON_BOUNDS`
+     * The bullets are automatically killed when they no longer intersect with the {@link #bounds} rectangle.
+     *
+     * * `consts.KILL_CAMERA_BOUNDS`
+     * The bullets are automatically killed when they no longer intersect with the {@link Phaser.Camera#bounds} rectangle.
+     *
+     * * `consts.KILL_WORLD_BOUNDS`
+     * The bullets are automatically killed when they no longer intersect with the {@link Phaser.World#bounds} rectangle.
+     *
+     * * `consts.KILL_STATIC_BOUNDS`
+     * The bullets are automatically killed when they no longer intersect with the {@link #bounds} rectangle.
+     * The difference between static bounds and weapon bounds, is that a static bounds will never be adjusted to
+     * match the position of a tracked sprite or pointer.
+     *
+     * @property {integer} bulletKillType
+    */
+
+  }, {
+    key: "bulletKillType",
+    get: function get() {
+      return this._bulletKillType;
+    },
+    set: function set(type) {
+      switch (type) {
+        case __WEBPACK_IMPORTED_MODULE_1__consts__["a" /* default */].KILL_STATIC_BOUNDS:
+        case __WEBPACK_IMPORTED_MODULE_1__consts__["a" /* default */].KILL_WEAPON_BOUNDS:
+          this.bulletBounds = this.bounds;
+          break;
+
+        case __WEBPACK_IMPORTED_MODULE_1__consts__["a" /* default */].KILL_CAMERA_BOUNDS:
+          this.bulletBounds = this.scene.sys.cameras.main._bounds;
+          break;
+
+        case __WEBPACK_IMPORTED_MODULE_1__consts__["a" /* default */].KILL_WORLD_BOUNDS:
+          this.bulletBounds = this.scene.physics.world.bounds;
+          break;
+      }
+
+      this._bulletKillType = type;
+    }
+    /**
+     * Should bullets collide with the World bounds or not?
+     *
+     * @property {boolean} bulletCollideWorldBounds
+    */
+
+  }, {
+    key: "bulletCollideWorldBounds",
+    get: function get() {
+      return this._bulletCollideWorldBounds;
+    },
+    set: function set(value) {
+      this._bulletCollideWorldBounds = value;
+      this.bullets.children.each(function (child) {
+        child.body.collideWorldBounds = value;
+        child.setData('bodyDirty', false);
+      });
+    }
+    /**
+     * The x coordinate from which bullets are fired. This is the same as `Weapon.fireFrom.x`, and
+     * can be overridden by the {@link #fire} arguments.
+     *
+     * @property {number} x
+    */
+
+  }, {
+    key: "x",
+    get: function get() {
+      return this.fireFrom.x;
+    },
+    set: function set(value) {
+      this.fireFrom.x = value;
+    }
+    /**
+     * The y coordinate from which bullets are fired. This is the same as `Weapon.fireFrom.y`, and
+     * can be overridden by the {@link #fire} arguments.
+     *
+     * @property {number} y
+    */
+
+  }, {
+    key: "y",
+    get: function get() {
+      return this.fireFrom.y;
+    },
+    set: function set(value) {
+      this.fireFrom.y = value;
+    }
   }]);
 
   return Weapon;
 }();
-/**
- * The Class of the bullets that are launched by this Weapon. Defaults to {@link Phaser.Bullet}, but can be
- * overridden before calling `createBullets` and set to your own class type.
- *
- * It should be a constructor function accepting `(game, x, y, key, frame)`.
- *
- * @name Weapon#bulletClass
- * @property {function} bulletClass
- */
 
-
-Object.defineProperty(Weapon.prototype, 'bulletClass', {
-  get: function get() {
-    return this._bulletClass;
-  },
-  set: function set(classType) {
-    this._bulletClass = classType; // `this.bullets` exists only after createBullets()
-
-    if (this.bullets) {
-      this.bullets.classType = this._bulletClass;
-    }
-  }
-});
-/**
- * This controls how the bullets will be killed. The default is `consts.KILL_WORLD_BOUNDS`.
- *
- * There are 7 different "kill types" available:
- *
- * * `consts.KILL_NEVER`
- * The bullets are never destroyed by the Weapon. It's up to you to destroy them via your own code.
- *
- * * `consts.KILL_LIFESPAN`
- * The bullets are automatically killed when their `bulletLifespan` amount expires.
- *
- * * `consts.KILL_DISTANCE`
- * The bullets are automatically killed when they
- * exceed `bulletDistance` pixels away from their original launch position.
- *
- * * `consts.KILL_WEAPON_BOUNDS`
- * The bullets are automatically killed when they no longer intersect with the {@link #bounds} rectangle.
- *
- * * `consts.KILL_CAMERA_BOUNDS`
- * The bullets are automatically killed when they no longer intersect with the {@link Phaser.Camera#bounds} rectangle.
- *
- * * `consts.KILL_WORLD_BOUNDS`
- * The bullets are automatically killed when they no longer intersect with the {@link Phaser.World#bounds} rectangle.
- *
- * * `consts.KILL_STATIC_BOUNDS`
- * The bullets are automatically killed when they no longer intersect with the {@link #bounds} rectangle.
- * The difference between static bounds and weapon bounds, is that a static bounds will never be adjusted to
- * match the position of a tracked sprite or pointer.
- *
- * @name Weapon#bulletKillType
- * @property {integer} bulletKillType
- */
-
-Object.defineProperty(Weapon.prototype, 'bulletKillType', {
-  get: function get() {
-    return this._bulletKillType;
-  },
-  set: function set(type) {
-    switch (type) {
-      case _consts.default.KILL_STATIC_BOUNDS:
-      case _consts.default.KILL_WEAPON_BOUNDS:
-        this.bulletBounds = this.bounds;
-        break;
-
-      case _consts.default.KILL_CAMERA_BOUNDS:
-        this.bulletBounds = this.scene.sys.cameras.main._bounds;
-        break;
-
-      case _consts.default.KILL_WORLD_BOUNDS:
-        this.bulletBounds = this.scene.physics.world.bounds;
-        break;
-    }
-
-    this._bulletKillType = type;
-  }
-});
-/**
- * Should bullets collide with the World bounds or not?
- *
- * @name Weapon#bulletCollideWorldBounds
- * @property {boolean} bulletCollideWorldBounds
- */
-
-Object.defineProperty(Weapon.prototype, 'bulletCollideWorldBounds', {
-  get: function get() {
-    return this._bulletCollideWorldBounds;
-  },
-  set: function set(value) {
-    this._bulletCollideWorldBounds = value;
-    this.bullets.children.each(function (child) {
-      child.body.collideWorldBounds = value;
-      child.data.bodyDirty = false;
-    });
-  }
-});
-/**
- * The x coordinate from which bullets are fired. This is the same as `Weapon.fireFrom.x`, and
- * can be overridden by the {@link #fire} arguments.
- *
- * @name Weapon#x
- * @property {number} x
- */
-
-Object.defineProperty(Weapon.prototype, 'x', {
-  get: function get() {
-    return this.fireFrom.x;
-  },
-  set: function set(value) {
-    this.fireFrom.x = value;
-  }
-});
-/**
- * The y coordinate from which bullets are fired. This is the same as `Weapon.fireFrom.y`, and
- * can be overridden by the {@link #fire} arguments.
- *
- * @name Weapon#y
- * @property {number} y
- */
-
-Object.defineProperty(Weapon.prototype, 'y', {
-  get: function get() {
-    return this.fireFrom.y;
-  },
-  set: function set(value) {
-    this.fireFrom.y = value;
-  }
-});
-var _default = Weapon;
-exports.default = _default;
+/* harmony default export */ __webpack_exports__["a"] = (Weapon);
 
 /***/ })
 /******/ ])["default"];
