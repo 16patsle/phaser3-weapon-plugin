@@ -27,7 +27,7 @@ function preload() {
 function create() {
 
   //  Creates 1 single bullet, using the 'bullet' graphic
-  this.weapon = this.weapons.add(1, 'bullet');
+  this.weapon = this.add.weapon(1, 'bullet');
 
   // Enable physics debugging for the bullets
   this.weapon.debugPhysics = true

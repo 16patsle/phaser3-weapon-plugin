@@ -30,7 +30,7 @@ function preload() {
 function create() {
 
   //  Creates 30 bullets, using the 'bullet' graphic
-  this.weapon = this.weapons.add(40, 'bullet');
+  this.weapon = this.add.weapon(40, 'bullet');
 
   // Enable physics debugging for the bullets
   this.weapon.debugPhysics = false
