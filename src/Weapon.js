@@ -1061,9 +1061,6 @@ class Weapon {
     if (bulletClass) {
       this._bulletClass = bulletClass;
     }
-    /*if (group === undefined) {
-      group = this.game.world;
-    }*/
 
     if (this.bullets && !this.bullets.scene) {
       this.bullets = null;
@@ -1666,8 +1663,8 @@ class Weapon {
     this.bullets.children.each(child => {
       child.body.setSize(width, height);
       child.body.setOffset(offsetX, offsetY);
+      child.setData('bodyDirty', false);
     });
-    //this.bullets.setAll('data.bodyDirty', false);
 
     return this;
   }
