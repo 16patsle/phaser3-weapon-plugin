@@ -1,6 +1,6 @@
 import Bullet from './Bullet';
 import consts from './consts';
-import validateConfig from './validateConfig';
+import validateConfig, { log } from './validateConfig';
 
 /**
  * The Weapon provides the ability to easily create a bullet pool and manager.
@@ -1700,11 +1700,11 @@ class Weapon {
       selectionMethod < consts.BULLET_FRAME_STABLE ||
       selectionMethod > consts.BULLET_FRAME_RANDOM
     ) {
-      throw new Error(`Invalid bullet frame selection method specified: ${selectionMethod}`);
+      log(`Invalid bullet frame selection method specified: ${selectionMethod}`, this.logLevel);
     }
 
     if (min > max) {
-      throw new Error(`min frame (${min}) must be <= max frame ${max}`);
+      log(`min frame (${min}) must be <= max frame (${max})`, this.logLevel);
     }
 
     this.bulletFrames = Phaser.Utils.Array.NumberArray(min, max);

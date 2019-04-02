@@ -18,7 +18,7 @@ function log(text, logLevel){
  * @param {Weapon} weapon - The weapon being validated
  * @param {string} property - The property of the weapon being validated
  */
-export default function validateConfig(weapon, property){
+function validateConfig(weapon, property){
   if (
     ['bulletWorldWrap', 'bulletKillType'].includes(property) && 
     weapon.bulletWorldWrap && 
@@ -48,3 +48,6 @@ export default function validateConfig(weapon, property){
     log('Invalid ' + property + '; must be >= 0', weapon.logLevel);
   }
 }
+
+export { log };
+export default validateConfig;
