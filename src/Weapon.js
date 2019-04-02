@@ -1559,9 +1559,8 @@ class Weapon {
       if (this.bulletKillType === consts.KILL_LIFESPAN) {
         bullet.setData('timeEvent', this.scene.time.addEvent({
           delay: this.bulletLifespan,
-          // TODO: test to see if we can just pass callbackContext: bullet and
-          // have it work. no need to re-bind every time we fire a bullet
-          callback: bullet.kill.bind(bullet),
+          callback: bullet.kill,
+          callbackScope: bullet,
         }));
         bullet.lifespan = this.bulletLifespan;
       }
