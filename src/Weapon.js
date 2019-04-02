@@ -1054,10 +1054,7 @@ class Weapon {
    *  object to. If not specified it will be added to the World group.
    * @return {Weapon} This Weapon instance.
    */
-  createBullets(quantity, key, frame, group, bulletClass) {
-    if (quantity === undefined) {
-      quantity = 1;
-    }
+  createBullets(quantity = 1, key, frame, group, bulletClass) {
     if (bulletClass) {
       this._bulletClass = bulletClass;
     }
@@ -1212,17 +1209,7 @@ class Weapon {
    * @param {boolean} [trackRotation=false] - Should the Weapon also track the Sprites rotation?
    * @return {Weapon} This Weapon instance.
    */
-  trackSprite(sprite, offsetX, offsetY, trackRotation) {
-    if (offsetX === undefined) {
-      offsetX = 0;
-    }
-    if (offsetY === undefined) {
-      offsetY = 0;
-    }
-    if (trackRotation === undefined) {
-      trackRotation = false;
-    }
-
+  trackSprite(sprite, offsetX = 0, offsetY = 0, trackRotation = false) {
     this.trackedPointer = null;
     this.trackedSprite = sprite;
     this.trackRotation = trackRotation;
@@ -1248,15 +1235,9 @@ class Weapon {
    * @param {integer} [offsetY=0] - The vertical offset from the Pointers position to be applied to the Weapon.
    * @return {Weapon} This Weapon instance.
    */
-  trackPointer(pointer, offsetX, offsetY) {
+  trackPointer(pointer, offsetX = 0, offsetY = 0) {
     if (pointer === undefined && this.scene.input) {
       pointer = this.scene.input.activePointer;
-    }
-    if (offsetX === undefined) {
-      offsetX = 0;
-    }
-    if (offsetY === undefined) {
-      offsetY = 0;
     }
 
     this.trackedPointer = pointer;
@@ -1333,14 +1314,7 @@ class Weapon {
    * as set with {@link #trackSprite}.
    * @return {Bullet} The fired bullet, if a launch was successful, otherwise `null`.
    */
-  fireOffset(offsetX, offsetY) {
-    if (offsetX === undefined) {
-      offsetX = 0;
-    }
-    if (offsetY === undefined) {
-      offsetY = 0;
-    }
-
+  fireOffset(offsetX = 0, offsetY = 0) {
     return this.fire(null, null, null, offsetX, offsetY);
   }
 
@@ -1415,14 +1389,7 @@ class Weapon {
    * or the `from` argument is set, this applies a vertical offset from the launch position.
    * @return {Bullet} The fired bullet, if a launch was successful, otherwise `null`.
    */
-  fire(from, x, y, offsetX, offsetY) {
-    if (x === undefined) {
-      x = null;
-    }
-    if (y === undefined) {
-      y = null;
-    }
-
+  fire(from, x = null, y = null, offsetX = 0, offsetY = 0) {
     if (
       this.scene.time.now < this._nextFire ||
       (this.fireLimit > 0 && this.shots === this.fireLimit)
@@ -1488,13 +1455,8 @@ class Weapon {
       }
     }
 
-    if (offsetX !== undefined) {
-      this.fireFrom.x += offsetX;
-    }
-
-    if (offsetY !== undefined) {
-      this.fireFrom.y += offsetY;
-    }
+    this.fireFrom.x += offsetX;
+    this.fireFrom.y += offsetY;
 
     const randomX = this.fireFrom.x + Math.random() * this.fireFrom.width;
     const randomY = this.fireFrom.y + Math.random() * this.fireFrom.height;
@@ -1641,18 +1603,11 @@ class Weapon {
    *
    * @param {number} width - The width of the Body.
    * @param {number} height - The height of the Body.
-   * @param {number} [offsetX] - The X offset of the Body from the top-left of the Sprites texture.
-   * @param {number} [offsetY] - The Y offset of the Body from the top-left of the Sprites texture.
+   * @param {number} [offsetX=0] - The X offset of the Body from the top-left of the Sprites texture.
+   * @param {number} [offsetY=0] - The Y offset of the Body from the top-left of the Sprites texture.
    * @return {Weapon} The Weapon Plugin.
    */
-  setBulletBodyOffset(width, height, offsetX, offsetY) {
-    if (offsetX === undefined) {
-      offsetX = 0;
-    }
-    if (offsetY === undefined) {
-      offsetY = 0;
-    }
-
+  setBulletBodyOffset(width, height, offsetX=0, offsetY=0) {
     this._data.customBody = true;
     this._data.width = width;
     this._data.height = height;
@@ -1688,10 +1643,7 @@ class Weapon {
    *  for options.
    * @return {Weapon} The Weapon Plugin.
    */
-  setBulletFrames(min, max, selectionMethod) {
-    if (selectionMethod === undefined) {
-      selectionMethod = consts.BULLET_FRAME_STABLE;
-    }
+  setBulletFrames(min, max, selectionMethod = consts.BULLET_FRAME_STABLE) {
     if (
       typeof selectionMethod !== 'number' ||
       selectionMethod < consts.BULLET_FRAME_STABLE ||
