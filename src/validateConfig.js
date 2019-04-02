@@ -1,5 +1,10 @@
 import consts from './consts';
 
+/**
+ * Log text to the console or throw an error
+ * @param {string} text - Text to be logged
+ * @param {string} logLevel - The log level, either `warn`, `error' or `off`
+ */
 function log(text, logLevel){
   if(logLevel === 'warn'){
     console.warn(text);
@@ -8,6 +13,11 @@ function log(text, logLevel){
   }
 }
 
+/**
+ * Check the config of the weapon for common errors and weird configurations.
+ * @param {Weapon} weapon - The weapon being validated
+ * @param {string} property - The property of the weapon being validated
+ */
 export default function validateConfig(weapon, property){
   if (
     ['bulletWorldWrap', 'bulletKillType'].includes(property) && 

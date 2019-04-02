@@ -1,10 +1,3 @@
-/**
- * @author       Patrick Sletvold
- * @author       jdotr <https://github.com/jdotrjs>
- * @author       Richard Davey
- * @license      {@link https://github.com/photonstorm/phaser3-plugin-template/blob/master/LICENSE|MIT License}
- */
-
 import consts from './consts';
 
 let bulletID = 0;
@@ -46,6 +39,7 @@ class Bullet extends Phaser.GameObjects.Sprite {
   /**
    * Prepares this bullet to be fired and interact with the rest of the scene
    * again.
+   * @returns {void}
    */
   prepare(x, y) {
     this.setActive(true);

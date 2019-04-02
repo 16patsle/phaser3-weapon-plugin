@@ -1,9 +1,3 @@
-/**
- * @author       Patrick Sletvold
- * @author       jdotr <https://github.com/jdotrjs>
- * @author       Richard Davey
- * @license      {@link https://github.com/photonstorm/phaser3-plugin-template/blob/master/LICENSE|MIT License}
- */
 import Bullet from './Bullet';
 import consts from './consts';
 import validateConfig from './validateConfig';
@@ -13,12 +7,11 @@ import validateConfig from './validateConfig';
  *
  * Weapons fire {@link Bullet} objects, which are essentially Sprites with a
  * few extra properties. The Bullets are enabled for Arcade Physics. They do
- * not currently work with P2 Physics.
+ * not currently work with Impact or Matter Physics.
  *
  * The Bullets are created inside of {@link #bullets weapon.bullets}, which is
  * a {@link Phaser.GameObjects.Group} instance. Anything you can usually do
- * with a Group, such as move it around the display list, iterate it, etc can
- * be done to the bullets Group too.
+ * with a Group, like iterate it, etc can be done to the bullets Group too.
  *
  * Bullets can have textures and even animations. You can control the speed at
  * which they are fired, the firing rate, the firing angle, and even set things
@@ -29,8 +22,8 @@ import validateConfig from './validateConfig';
  *
  * ```javascript
  * var weapon = this.add.weapon(10, 'bullet');
- * weapon.fireFrom.set(300, 300);
- * this.input.onDown.add(weapon.fire, this); // Update this
+ * weapon.fireFrom.setPosition(300, 300);
+ * this.input.on('pointerdown', weapon.fire, this);
  * ```
  */
 class Weapon {

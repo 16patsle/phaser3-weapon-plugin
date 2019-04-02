@@ -2,7 +2,7 @@
  * @author       Patrick Sletvold
  * @author       jdotr <https://github.com/jdotrjs>
  * @author       Richard Davey
- * @license      {@link https://github.com/photonstorm/phaser3-plugin-template/blob/master/LICENSE|MIT License}
+ * @license      {@link https://github.com/16patsle/phaser3-weapon-plugin/blob/master/LICENSE|MIT License}
  */
 import Weapon from './Weapon';
 import Bullet from './Bullet';
@@ -18,8 +18,7 @@ import consts from './consts';
  *
  * The Bullets are created inside of {@link #bullets weapon.bullets}, which is
  * a {@link Phaser.GameObjects.Group} instance. Anything you can usually do
- * with a Group, such as move it around the display list, iterate it, etc can
- * be done to the bullets Group too.
+ * with a Group, like iterate it, etc can be done to the bullets Group too.
  *
  * Bullets can have textures and even animations. You can control the speed at
  * which they are fired, the firing rate, the firing angle, and even set things
@@ -30,8 +29,8 @@ import consts from './consts';
  *
  * ```javascript
  * var weapon = this.add.weapon(10, 'bullet');
- * weapon.fireFrom.set(300, 300);
- * this.input.onDown.add(weapon.fire, this); // Update this
+ * weapon.fireFrom.setPosition(300, 300);
+ * this.input.on('pointerdown', weapon.fire, this);
  * ```
  */
 class WeaponPlugin extends Phaser.Plugins.ScenePlugin {
@@ -82,46 +81,20 @@ class WeaponPlugin extends Phaser.Plugins.ScenePlugin {
   boot() {
     const eventEmitter = this.systems.events;
 
-    //  Listening to the following events is entirely optional,
-    //  although we would recommend cleanly shutting down and destroying at least.
-    //  If you don't need any of these events then remove the listeners and the relevant methods too.
-
-    eventEmitter.on('preupdate', this.preUpdate, this);
     eventEmitter.on('update', this.update, this);
-    eventEmitter.on('postupdate', this.postUpdate, this);
-
-    eventEmitter.on('pause', this.pause, this);
-    eventEmitter.on('resume', this.resume, this);
-
-    eventEmitter.on('sleep', this.sleep, this);
-    eventEmitter.on('wake', this.wake, this);
-
-    eventEmitter.on('shutdown', this.shutdown, this);
     eventEmitter.on('destroy', this.destroy, this);
-  }
-
-  //  Called every Scene step - phase 1
-  preUpdate(time, delta) {
-    // Empty
   }
 
   /**
    * Internal update method, called by the PluginManager.
    *
    * @protected
-   * @param {number} time - Current game time
-   * @param {number} delta - Time since last call
    * @returns {void}
    */
-  update(time, delta) {
+  update() {
     this.weapons.forEach(weapon => {
       weapon.update();
     });
-  }
-
-  //  Called every Scene step - phase 3
-  postUpdate(time, delta) {
-    // Empty
   }
 
   /**
@@ -134,33 +107,6 @@ class WeaponPlugin extends Phaser.Plugins.ScenePlugin {
     this.weapons.forEach(weapon => {
       weapon.postRender();
     });
-  }
-
-  //  Called when a Scene is paused. A paused scene doesn't have its Step run, but still renders.
-  pause() {
-    // Empty
-  }
-
-  //  Called when a Scene is resumed from a paused state.
-  resume() {
-    // Empty
-  }
-
-  //  Called when a Scene is put to sleep.
-  //  A sleeping scene doesn't update or render, but isn't destroyed or shutdown. preUpdate events still fire.
-  sleep() {
-    // Empty
-  }
-
-  //  Called when a Scene is woken from a sleeping state.
-  wake() {
-    // Empty
-  }
-
-  //  Called when a Scene shuts down,
-  //  it may then come back again later (which will invoke the 'start' event) but should be considered dormant.
-  shutdown() {
-    // Empty
   }
 
   /**
@@ -176,11 +122,10 @@ class WeaponPlugin extends Phaser.Plugins.ScenePlugin {
   }
 }
 
+// Set up shortcuts to the classes and constants
 WeaponPlugin.Weapon = Weapon;
 WeaponPlugin.Bullet = Bullet;
-
 WeaponPlugin.consts = consts;
 
-//  Make sure you export the plugin for webpack to expose
 
 export default WeaponPlugin;
