@@ -1752,37 +1752,6 @@ class Weapon {
   }
 
   /**
-   * Uses `Game.Debug` to draw some useful information about this Weapon, including the number of bullets
-   * both in-flight, and available. And optionally the physics debug bodies of the bullets.
-   *
-   * @param {integer} [x=16] - The coordinate, in screen space, at which to draw the Weapon debug data.
-   * @param {integer} [y=32] - The coordinate, in screen space, at which to draw the Weapon debug data.
-   * @param {boolean} [debugBodies=false] - Optionally draw the physics body of every bullet in-flight.
-   */
-  debug(x, y, debugBodies) {
-    /*if (x === undefined) {
-      x = 16;
-    }
-    if (y === undefined) {
-      y = 32;
-    }
-    if (debugBodies === undefined) {
-      debugBodies = false;
-    }
-
-    this.game.debug.text('Weapon Plugin', x, y);
-    this.game.debug.text(
-      'Bullets Alive: ' + this.bullets.total + ' - Total: ' + this.bullets.length,
-      x,
-      y + 24
-    );
-
-    if (debugBodies) {
-      this.bullets.forEachExists(this.game.debug.body, this.game.debug, 'rgba(255, 0, 255, 0.8)');
-    }*/
-  }
-
-  /**
    * Internal update method, called by the Weapon Plugin.
    * @returns {void}
    */
