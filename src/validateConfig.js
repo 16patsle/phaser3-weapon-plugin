@@ -32,7 +32,7 @@ function validateConfig(weapon, property){
   }
   if (['bulletKillType', 'bulletLifespan'].includes(property) && 
   weapon.bulletKillType === consts.KILL_LIFESPAN && 
-  weapon.bulletLifespan <= 0
+  weapon.bulletLifespan < 0
   ) {
     log('Invalid bulletLifespan; must be > 0', weapon.logLevel);
   }
