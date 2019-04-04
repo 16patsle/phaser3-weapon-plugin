@@ -1406,7 +1406,7 @@ class Weapon {
 
     if (from) {
       if (this.fireFrom.width > 1) {
-        this.fireFrom.CenterOn(from.x, from.y);
+        Phaser.Geom.Rectangle.CenterOn(this.fireFrom, from.x, from.y);
       } else {
         this.fireFrom.x = from.x;
         this.fireFrom.y = from.y;
@@ -1425,13 +1425,14 @@ class Weapon {
         );
 
         if (this.fireFrom.width > 1) {
-          this.fireFrom.CenterOn(this._rotatedPoint.x, this._rotatedPoint.y);
+          Phaser.Geom.Rectangle.CenterOn(this.fireFrom,this._rotatedPoint.x, this._rotatedPoint.y);
         } else {
           this.fireFrom.x = this._rotatedPoint.x;
           this.fireFrom.y = this._rotatedPoint.y;
         }
       } else if (this.fireFrom.width > 1) {
-        this.fireFrom.CenterOn(
+        Phaser.Geom.Rectangle.CenterOn(
+          this.fireFrom,
           this.trackedSprite.x + this.trackOffset.x,
           this.trackedSprite.y + this.trackOffset.y
         );
@@ -1445,7 +1446,8 @@ class Weapon {
       }
     } else if (this.trackedPointer) {
       if (this.fireFrom.width > 1) {
-        this.fireFrom.CenterOn(
+        Phaser.Geom.Rectangle.CenterOn(
+          this.fireFrom,
           this.trackedPointer.x + this.trackOffset.x,
           this.trackedPointer.y + this.trackOffset.y
         );
@@ -1708,9 +1710,9 @@ class Weapon {
     if (this._bulletKillType === consts.KILL_WEAPON_BOUNDS) {
       if (this.trackedSprite) {
         this.trackedSprite.updateTransform();
-        this.bounds.centerOn(this.trackedSprite.x, this.trackedSprite.y);
+        Phaser.Geom.Rectangle.CenterOn(this.bounds,this.trackedSprite.x, this.trackedSprite.y);
       } else if (this.trackedPointer) {
-        this.bounds.centerOn(this.trackedPointer.x, this.trackedPointer.y);
+        Phaser.Geom.Rectangle.CenterOn(this.bounds,this.trackedPointer.x, this.trackedPointer.y);
       }
     }
 
