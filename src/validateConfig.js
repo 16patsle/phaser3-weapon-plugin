@@ -34,7 +34,7 @@ function validateConfig(weapon, property){
   weapon.bulletKillType === consts.KILL_LIFESPAN && 
   weapon.bulletLifespan < 0
   ) {
-    log('Invalid bulletLifespan; must be > 0', weapon.logLevel);
+    log('Invalid bulletLifespan; must be > 0; currently ' + weapon.bulletLifespan, weapon.logLevel);
   }
   if (
     ['fireLimit', 
@@ -45,7 +45,7 @@ function validateConfig(weapon, property){
       'bulletKillDistance'].includes(property) && 
     weapon[property] < 0
   ){
-    log('Invalid ' + property + '; must be >= 0', weapon.logLevel);
+    log('Invalid ' + property + '; must be >= 0; currently ' + weapon[property], weapon.logLevel);
   }
 }
 
