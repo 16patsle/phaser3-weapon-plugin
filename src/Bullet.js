@@ -65,15 +65,8 @@ class Bullet extends Phaser.GameObjects.Sprite {
     this.body.debugShowBody = false;
     this.body.debugShowVelocity = false;
 
-    // TODO: potentially we don't need to destroy the time event and we can
-    // just pause when the bullet is killed and restart it when it's refired.
-    // For now though do the simple thing and discard it.
-    // Another option would be to use Date.now() and manually process pause
-    // events with a flag and some math.
-    // Both of those are probably premature optimizations.
     if (this.getData('timeEvent') !== null) {
-      this.getData('timeEvent').destroy();
-      this.setData('timeEvent', null);
+      this.getData('timeEvent').paused = true;
     }
 
     this.getData('bulletManager').eventEmitter.emit('kill', this);

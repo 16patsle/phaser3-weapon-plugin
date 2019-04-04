@@ -1509,11 +1509,19 @@ class Weapon {
       });
 
       if (this.bulletKillType === consts.KILL_LIFESPAN) {
-        bullet.setData('timeEvent', this.scene.time.addEvent({
+        const config = {
           delay: this.bulletLifespan,
           callback: bullet.kill,
           callbackScope: bullet,
-        }));
+        };
+
+        if (bullet.getData('timeEvent') !== null) {
+          const timeEvent = bullet.getData('timeEvent').reset(config);
+          this.scene.time._pendingInsertion.push(timeEvent);
+        } else {
+          bullet.setData('timeEvent', this.scene.time.addEvent(config));
+        }
+        
         bullet.lifespan = this.bulletLifespan;
       }
 
