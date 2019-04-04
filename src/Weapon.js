@@ -1404,14 +1404,18 @@ class Weapon {
       speed += Phaser.Math.Between(-this.bulletSpeedVariance, this.bulletSpeedVariance);
     }
 
+    // Position the fireFrom rectangle
     if (from) {
+      // Fire based on passed coordinates
       if (this.fireFrom.width > 1) {
+        // If size is larger than 1, center on coordinates
         Phaser.Geom.Rectangle.CenterOn(this.fireFrom, from.x, from.y);
       } else {
         this.fireFrom.x = from.x;
         this.fireFrom.y = from.y;
       }
     } else if (this.trackedSprite) {
+      // Fire based on tracked sprite
       if (this.trackRotation) {
         this._rotatedPoint.set(
           this.trackedSprite.x + this.trackOffset.x,
@@ -1425,12 +1429,14 @@ class Weapon {
         );
 
         if (this.fireFrom.width > 1) {
+          // If size is larger than 1, center on rotated coordinates
           Phaser.Geom.Rectangle.CenterOn(this.fireFrom,this._rotatedPoint.x, this._rotatedPoint.y);
         } else {
           this.fireFrom.x = this._rotatedPoint.x;
           this.fireFrom.y = this._rotatedPoint.y;
         }
       } else if (this.fireFrom.width > 1) {
+        // If size is larger than 1, center on coordinates
         Phaser.Geom.Rectangle.CenterOn(
           this.fireFrom,
           this.trackedSprite.x + this.trackOffset.x,
@@ -1445,7 +1451,9 @@ class Weapon {
         speed += this.trackedSprite.body.speed;
       }
     } else if (this.trackedPointer) {
+      // Fire based on tracked pointer
       if (this.fireFrom.width > 1) {
+        // If size is larger than 1, center on coordinates
         Phaser.Geom.Rectangle.CenterOn(
           this.fireFrom,
           this.trackedPointer.x + this.trackOffset.x,
@@ -1457,9 +1465,11 @@ class Weapon {
       }
     }
 
+    // Take offset into account
     this.fireFrom.x += offsetX;
     this.fireFrom.y += offsetY;
 
+    // Pick a random coordinate inside the fireFrom rectangle
     const randomX = this.fireFrom.x + Math.random() * this.fireFrom.width;
     const randomY = this.fireFrom.y + Math.random() * this.fireFrom.height;
 
@@ -1481,18 +1491,22 @@ class Weapon {
     let moveX = 0;
     let moveY = 0;
 
-    //  Avoid sin/cos for right-angled shots
+    //  Avoid unnecessary sin/cos for right-angled shots
     if (angle === 0 || angle === 180) {
+      // Only cos needed
       moveX = Math.cos(Phaser.Math.DegToRad(angle)) * speed;
     } else if (angle === 90 || angle === 270) {
+      // Only sin needed
       moveY = Math.sin(Phaser.Math.DegToRad(angle)) * speed;
     } else {
+      // Need to calculate both
       moveX = Math.cos(Phaser.Math.DegToRad(angle)) * speed;
       moveY = Math.sin(Phaser.Math.DegToRad(angle)) * speed;
     }
 
     let bullet = null;
 
+    // Attempt to get a bullet instance to use
     if (this.autoExpandBulletsGroup) {
       bullet = this.bullets.getFirstDead(true, fromX, fromY, this.bulletKey, this.bulletFrame);
       bullet.setData('bulletManager', this);
@@ -1500,6 +1514,7 @@ class Weapon {
       bullet = this.bullets.getFirstDead(false);
     }
 
+    // Fire the bullet
     if (bullet) {
       bullet.prepare(fromX, fromY);
       bullet.setData({
@@ -1510,6 +1525,7 @@ class Weapon {
         rotateToVelocity: this.bulletRotateToVelocity,
       });
 
+      // Prepare timer for bullet lifespan
       if (this.bulletKillType === consts.KILL_LIFESPAN) {
         bullet.setData('timeEvent', this.scene.time.addEvent({
           delay: this.bulletLifespan,
@@ -1525,12 +1541,14 @@ class Weapon {
       if (this.bulletAnimation) {
         bullet.anims.play(this.bulletAnimation);
       } else if (this.bulletFrameCycle) {
+        // Calculate bullet frame to use
         if (this.bulletFrameIndex >= this.bulletFrames.length) {
           this.bulletFrameIndex = 0;
         }
         bullet.setTexture(this.bulletKey, this.bulletFrameIndex);
         this.bulletFrameIndex++;
       } else if (this.bulletFrameRandom) {
+        // Pick a bullet frame at random
         const nextFrame = Math.floor(Math.random() * this.bulletFrames.length);
         bullet.setTexture(this.bulletKey, nextFrame);
       }
@@ -1551,6 +1569,7 @@ class Weapon {
 
       let next = 0;
 
+      // Calculate when to fire next bullet, taking into account speed variance
       if (this.bulletSpeedVariance !== 0) {
         let rate = this.fireRate;
 
@@ -1565,6 +1584,7 @@ class Weapon {
         next = this.scene.time.now + this.fireRate;
       }
 
+      // Prepare for next shot
       if (this.multiFire) {
         if (!this._hasFired) {
           //  We only add 1 to the 'shots' count for multiFire shots
@@ -1578,6 +1598,7 @@ class Weapon {
         this.shots++;
       }
 
+      // Emit events
       this.eventEmitter.emit('fire', bullet, this, speed);
 
       if (this.fireLimit > 0 && this.shots === this.fireLimit) {
