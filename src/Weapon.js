@@ -1407,13 +1407,7 @@ class Weapon {
     // Position the fireFrom rectangle
     if (from) {
       // Fire based on passed coordinates
-      if (this.fireFrom.width > 1) {
-        // If size is larger than 1, center on coordinates
-        Phaser.Geom.Rectangle.CenterOn(this.fireFrom, from.x, from.y);
-      } else {
-        this.fireFrom.x = from.x;
-        this.fireFrom.y = from.y;
-      }
+      this.updateFireFrom(from.x, from.y);
     } else if (this.trackedSprite) {
       // Fire based on tracked sprite
       if (this.trackRotation) {
@@ -1428,23 +1422,9 @@ class Weapon {
           this.trackedSprite.rotation
         );
 
-        if (this.fireFrom.width > 1) {
-          // If size is larger than 1, center on rotated coordinates
-          Phaser.Geom.Rectangle.CenterOn(this.fireFrom,this._rotatedPoint.x, this._rotatedPoint.y);
-        } else {
-          this.fireFrom.x = this._rotatedPoint.x;
-          this.fireFrom.y = this._rotatedPoint.y;
-        }
-      } else if (this.fireFrom.width > 1) {
-        // If size is larger than 1, center on coordinates
-        Phaser.Geom.Rectangle.CenterOn(
-          this.fireFrom,
-          this.trackedSprite.x + this.trackOffset.x,
-          this.trackedSprite.y + this.trackOffset.y
-        );
+        this.updateFireFrom(this._rotatedPoint.x, this._rotatedPoint.y);
       } else {
-        this.fireFrom.x = this.trackedSprite.x + this.trackOffset.x;
-        this.fireFrom.y = this.trackedSprite.y + this.trackOffset.y;
+        this.updateFireFrom(this.trackedSprite.x, this.trackedSprite.y);
       }
 
       if (this.bulletInheritSpriteSpeed) {
@@ -1452,17 +1432,7 @@ class Weapon {
       }
     } else if (this.trackedPointer) {
       // Fire based on tracked pointer
-      if (this.fireFrom.width > 1) {
-        // If size is larger than 1, center on coordinates
-        Phaser.Geom.Rectangle.CenterOn(
-          this.fireFrom,
-          this.trackedPointer.x + this.trackOffset.x,
-          this.trackedPointer.y + this.trackOffset.y
-        );
-      } else {
-        this.fireFrom.x = this.trackedPointer.x + this.trackOffset.x;
-        this.fireFrom.y = this.trackedPointer.y + this.trackOffset.y;
-      }
+      this.updateFireFrom(this.trackedPointer.x, this.trackedPointer.y);
     }
 
     // Take offset into account
@@ -1607,6 +1577,27 @@ class Weapon {
     }
 
     return bullet;
+  }
+
+  /**
+   * Set the fireFrom rectangle based on passed coords
+   * @private
+   * @param {number} x - X coordinate for where to fire from
+   * @param {number} y - Y coordinate for where to fire from
+   * @return {void}
+   */
+  updateFireFrom(x, y){
+    if (this.fireFrom.width > 1) {
+      // If size is larger than 1, center on coordinates
+      Phaser.Geom.Rectangle.CenterOn(
+        this.fireFrom,
+        x + this.trackOffset.x,
+        y + this.trackOffset.y
+      );
+    } else {
+      this.fireFrom.x = x + this.trackOffset.x;
+      this.fireFrom.y = y + this.trackOffset.y;
+    }
   }
 
   /**
