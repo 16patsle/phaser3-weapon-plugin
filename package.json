@@ -22,10 +22,10 @@
   },
   "homepage": "https://github.com/16patsle/phaser3-weapon-plugin#readme",
   "devDependencies": {
-    "@babel/core": "^7.3.4",
-    "@babel/preset-env": "^7.3.4",
+    "@babel/core": "^7.4.3",
+    "@babel/preset-env": "^7.4.3",
     "babel-loader": "^8.0.5",
-    "eslint": "^5.15.1",
+    "eslint": "^5.16.0",
     "http-server": "^0.11.1",
     "webpack": "^3.10.0"
   },
