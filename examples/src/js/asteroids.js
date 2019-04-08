@@ -21,6 +21,8 @@ function preload() {
   this.load.image('bullet', 'assets/sprites/shmup-bullet.png');
   this.load.image('ship', 'assets/sprites/thrust_ship.png');
   this.load.scenePlugin('WeaponPlugin', './WeaponPlugin.js', null, 'weapons');
+  //  Alternatively:
+  //  this.plugins.installScenePlugin('WeaponPlugin', WeaponPlugin, 'weapons', this);
 
 }
 
@@ -28,8 +30,8 @@ function create() {
 
   //  Creates 30 bullets, using the 'bullet' graphic
   this.weapon = this.add.weapon(30, 'bullet');
-  // Alternatively:
-  // this.weapon = this.make.weapon({bulletLimit: 30, key: 'bullet'});
+  //  Alternatively:
+  //  this.weapon = this.make.weapon({bulletLimit: 30, key: 'bullet'});
 
   // Enable physics debugging for the bullets
   this.weapon.debugPhysics = true
