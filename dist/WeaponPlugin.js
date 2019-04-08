@@ -237,12 +237,6 @@ function _inherits(subClass, superClass) { if (typeof superClass !== "function" 
 
 function _setPrototypeOf(o, p) { _setPrototypeOf = Object.setPrototypeOf || function _setPrototypeOf(o, p) { o.__proto__ = p; return o; }; return _setPrototypeOf(o, p); }
 
-/**
- * @author       Patrick Sletvold
- * @author       jdotr <https://github.com/jdotrjs>
- * @author       Richard Davey
- * @license      {@link https://github.com/photonstorm/phaser3-plugin-template/blob/master/LICENSE|MIT License}
- */
 
 var bulletID = 0;
 
@@ -293,6 +287,7 @@ function (_Phaser$GameObjects$S) {
   /**
    * Prepares this bullet to be fired and interact with the rest of the scene
    * again.
+   * @returns {void}
    */
 
 
@@ -406,7 +401,7 @@ function _setPrototypeOf(o, p) { _setPrototypeOf = Object.setPrototypeOf || func
  * @author       Patrick Sletvold
  * @author       jdotr <https://github.com/jdotrjs>
  * @author       Richard Davey
- * @license      {@link https://github.com/photonstorm/phaser3-plugin-template/blob/master/LICENSE|MIT License}
+ * @license      {@link https://github.com/16patsle/phaser3-weapon-plugin/blob/master/LICENSE|MIT License}
  */
 
 
@@ -421,8 +416,7 @@ function _setPrototypeOf(o, p) { _setPrototypeOf = Object.setPrototypeOf || func
  *
  * The Bullets are created inside of {@link #bullets weapon.bullets}, which is
  * a {@link Phaser.GameObjects.Group} instance. Anything you can usually do
- * with a Group, such as move it around the display list, iterate it, etc can
- * be done to the bullets Group too.
+ * with a Group, like iterate it, etc can be done to the bullets Group too.
  *
  * Bullets can have textures and even animations. You can control the speed at
  * which they are fired, the firing rate, the firing angle, and even set things
@@ -433,8 +427,8 @@ function _setPrototypeOf(o, p) { _setPrototypeOf = Object.setPrototypeOf || func
  *
  * ```javascript
  * var weapon = this.add.weapon(10, 'bullet');
- * weapon.fireFrom.set(300, 300);
- * this.input.onDown.add(weapon.fire, this); // Update this
+ * weapon.fireFrom.setPosition(300, 300);
+ * this.input.on('pointerdown', weapon.fire, this);
  * ```
  */
 
@@ -496,46 +490,24 @@ function (_Phaser$Plugins$Scene) {
   }, {
     key: "boot",
     value: function boot() {
-      var eventEmitter = this.systems.events; //  Listening to the following events is entirely optional,
-      //  although we would recommend cleanly shutting down and destroying at least.
-      //  If you don't need any of these events then remove the listeners and the relevant methods too.
-
-      eventEmitter.on('preupdate', this.preUpdate, this);
+      var eventEmitter = this.systems.events;
       eventEmitter.on('update', this.update, this);
-      eventEmitter.on('postupdate', this.postUpdate, this);
-      eventEmitter.on('pause', this.pause, this);
-      eventEmitter.on('resume', this.resume, this);
-      eventEmitter.on('sleep', this.sleep, this);
-      eventEmitter.on('wake', this.wake, this);
-      eventEmitter.on('shutdown', this.shutdown, this);
       eventEmitter.on('destroy', this.destroy, this);
-    } //  Called every Scene step - phase 1
-
-  }, {
-    key: "preUpdate",
-    value: function preUpdate(time, delta) {} // Empty
-
+    }
     /**
      * Internal update method, called by the PluginManager.
      *
      * @protected
-     * @param {number} time - Current game time
-     * @param {number} delta - Time since last call
      * @returns {void}
      */
 
   }, {
     key: "update",
-    value: function update(time, delta) {
+    value: function update() {
       this.weapons.forEach(function (weapon) {
         weapon.update();
       });
-    } //  Called every Scene step - phase 3
-
-  }, {
-    key: "postUpdate",
-    value: function postUpdate(time, delta) {} // Empty
-
+    }
     /**
      * Internal update method, called by the PluginManager.
      *
@@ -549,34 +521,7 @@ function (_Phaser$Plugins$Scene) {
       this.weapons.forEach(function (weapon) {
         weapon.postRender();
       });
-    } //  Called when a Scene is paused. A paused scene doesn't have its Step run, but still renders.
-
-  }, {
-    key: "pause",
-    value: function pause() {} // Empty
-    //  Called when a Scene is resumed from a paused state.
-
-  }, {
-    key: "resume",
-    value: function resume() {} // Empty
-    //  Called when a Scene is put to sleep.
-    //  A sleeping scene doesn't update or render, but isn't destroyed or shutdown. preUpdate events still fire.
-
-  }, {
-    key: "sleep",
-    value: function sleep() {} // Empty
-    //  Called when a Scene is woken from a sleeping state.
-
-  }, {
-    key: "wake",
-    value: function wake() {} // Empty
-    //  Called when a Scene shuts down,
-    //  it may then come back again later (which will invoke the 'start' event) but should be considered dormant.
-
-  }, {
-    key: "shutdown",
-    value: function shutdown() {} // Empty
-
+    }
     /**
      * Destroys this Weapon.
      * You must release everything in here, all references, all objects, free it all up.
@@ -594,12 +539,12 @@ function (_Phaser$Plugins$Scene) {
   }]);
 
   return WeaponPlugin;
-}(Phaser.Plugins.ScenePlugin);
+}(Phaser.Plugins.ScenePlugin); // Set up shortcuts to the classes and constants
+
 
 WeaponPlugin.Weapon = __WEBPACK_IMPORTED_MODULE_0__Weapon__["a" /* default */];
 WeaponPlugin.Bullet = __WEBPACK_IMPORTED_MODULE_1__Bullet__["a" /* default */];
-WeaponPlugin.consts = __WEBPACK_IMPORTED_MODULE_2__consts__["a" /* default */]; //  Make sure you export the plugin for webpack to expose
-
+WeaponPlugin.consts = __WEBPACK_IMPORTED_MODULE_2__consts__["a" /* default */];
 /* harmony default export */ __webpack_exports__["default"] = (WeaponPlugin);
 
 /***/ }),
@@ -609,18 +554,14 @@ WeaponPlugin.consts = __WEBPACK_IMPORTED_MODULE_2__consts__["a" /* default */]; 
 "use strict";
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__Bullet__ = __webpack_require__(1);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__consts__ = __webpack_require__(0);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__validateConfig__ = __webpack_require__(4);
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
 function _defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } }
 
 function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _defineProperties(Constructor.prototype, protoProps); if (staticProps) _defineProperties(Constructor, staticProps); return Constructor; }
 
-/**
- * @author       Patrick Sletvold
- * @author       jdotr <https://github.com/jdotrjs>
- * @author       Richard Davey
- * @license      {@link https://github.com/photonstorm/phaser3-plugin-template/blob/master/LICENSE|MIT License}
- */
+
 
 
 /**
@@ -628,12 +569,11 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
  *
  * Weapons fire {@link Bullet} objects, which are essentially Sprites with a
  * few extra properties. The Bullets are enabled for Arcade Physics. They do
- * not currently work with P2 Physics.
+ * not currently work with Impact or Matter Physics.
  *
  * The Bullets are created inside of {@link #bullets weapon.bullets}, which is
  * a {@link Phaser.GameObjects.Group} instance. Anything you can usually do
- * with a Group, such as move it around the display list, iterate it, etc can
- * be done to the bullets Group too.
+ * with a Group, like iterate it, etc can be done to the bullets Group too.
  *
  * Bullets can have textures and even animations. You can control the speed at
  * which they are fired, the firing rate, the firing angle, and even set things
@@ -644,8 +584,8 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
  *
  * ```javascript
  * var weapon = this.add.weapon(10, 'bullet');
- * weapon.fireFrom.set(300, 300);
- * this.input.onDown.add(weapon.fire, this); // Update this
+ * weapon.fireFrom.setPosition(300, 300);
+ * this.input.on('pointerdown', weapon.fire, this);
  * ```
  */
 
@@ -667,214 +607,180 @@ function () {
     this.scene = scene;
     this.debugPhysics = null;
     /**
-     * This is the Phaser.Group that contains all of the bullets managed by this plugin.
+     * Private var that holds the public `bullets` property.
      * @type {Phaser.GameObjects.Group}
+     * @private
      */
 
-    this.bullets = null;
+    this._bullets = null;
     /**
-     * Should the bullet pool run out of bullets (i.e. they are all in flight) then this
-     * boolean controls if the Group will create a brand new bullet object or not.
+     * Private var that holds the public `autoExpandBulletsGroup` property.
      * @type {boolean}
-     * @default
+     * @private
      */
 
-    this.autoExpandBulletsGroup = false;
+    this._autoExpandBulletsGroup = false;
     /**
-     * Will this weapon auto fire? If set to true then a new bullet will be fired
-     * based on the {@link #fireRate} value.
+     * Private var that holds the public `autofire` property.
      * @type {boolean}
-     * @default
+     * @private
      */
 
-    this.autofire = false;
+    this._autofire = false;
     /**
-     * The total number of bullets this Weapon has fired so far.
-     * You can limit the number of shots allowed (via {@link #fireLimit}), and reset
-     * this total via {@link #resetShots}.
+     * Private var that holds the public `shots` property.
      * @type {number}
-     * @default
+     * @private
      */
 
-    this.shots = 0;
+    this._shots = 0;
     /**
-     * The maximum number of shots that this Weapon is allowed to fire before it stops.
-     * When the limit is his the {@link #onFireLimit} Signal is dispatched.
-     * You can reset the shot counter via {@link #resetShots}.
+     * Private var that holds the public `fireLimit` property.
      * @type {number}
-     * @default
+     * @private
      */
 
-    this.fireLimit = 0;
+    this._fireLimit = 0;
     /**
-     * The minimum interval between shots, in milliseconds.
+     * Private var that holds the public `fireRate` property.
      * @type {number}
-     * @default
+     * @private
      */
 
-    this.fireRate = 100;
+    this._fireRate = 100;
     /**
-     * This is a modifier that is added to the {@link #fireRate} each update to add variety
-     * to the firing rate of the Weapon. The value is given in milliseconds.
-     * If you've a `fireRate` of 200 and a `fireRateVariance` of 50 then the actual
-     * firing rate of the Weapon will be between 150 and 250.
+     * Private var that holds the public `fireRateVariance` property.
      * @type {number}
-     * @default
+     * @private
      */
 
-    this.fireRateVariance = 0;
+    this._fireRateVariance = 0;
     /**
-     * This is a Rectangle from within which the bullets are fired. By default it's a 1x1
-     * rectangle, the equivalent of a Point. But you can change the width and height, and if
-     * larger than 1x1 it'll pick a random point within the rectangle to launch the bullet from.
+     * Private var that holds the public `fireFrom` property.
      * @type {Phaser.Geom.Rectangle}
+     * @private
      */
 
-    this.fireFrom = new Phaser.Geom.Rectangle(0, 0, 1, 1);
+    this._fireFrom = new Phaser.Geom.Rectangle(0, 0, 1, 1);
     /**
-     * The angle at which the bullets are fired. This can be a const such as Phaser.ANGLE_UP
-     * or it can be any number from 0 to 360 inclusive, where 0 degrees is to the right.
+     * Private var that holds the public `fireAngle` property.
      * @type {integer}
-     * @default
+     * @private
      */
 
-    this.fireAngle = __WEBPACK_IMPORTED_MODULE_1__consts__["a" /* default */].ANGLE_UP;
+    this._fireAngle = __WEBPACK_IMPORTED_MODULE_1__consts__["a" /* default */].ANGLE_UP;
     /**
-     * When a Bullet is fired it can optionally inherit the velocity of the `trackedSprite` if set.
+     * Private var that holds the public `bulletInheritSpriteSpeed` property.
      * @type {boolean}
-     * @default
+     * @private
      */
 
-    this.bulletInheritSpriteSpeed = false;
+    this._bulletInheritSpriteSpeed = false;
     /**
-     * The string based name of the animation that the Bullet will be given on launch.
-     * This is set via {@link #addBulletAnimation}.
+     * Private var that holds the public `bulletAnimation` property.
      * @type {string}
-     * @default
+     * @private
      */
 
-    this.bulletAnimation = '';
+    this._bulletAnimation = '';
     /**
-     * If you've added a set of frames via {@link #setBulletFrames} then you can optionally
-     * chose for each Bullet fired to pick a random frame from the set.
+     * Private var that holds the public `bulletFrameRandom` property.
      * @type {boolean}
-     * @default
+     * @private
      */
 
-    this.bulletFrameRandom = false;
+    this._bulletFrameRandom = false;
     /**
-     * If you've added a set of frames via {@link #setBulletFrames} then you can optionally
-     * chose for each Bullet fired to use the next frame in the set. The frame index is then
-     * advanced one frame until it reaches the end of the set, then it starts from the start
-     * again. Cycling frames like this allows you to create varied bullet effects via
-     * sprite sheets.
+     * Private var that holds the public `bulletFrameCycle` property.
      * @type {boolean}
-     * @default
+     * @private
      */
 
-    this.bulletFrameCycle = false;
+    this._bulletFrameCycle = false;
     /**
-     * Should the Bullets wrap around the world bounds? This automatically calls
-     * `World.wrap` on the Bullet each frame. See the docs for that method for details.
+     * Private var that holds the public `bulletWorldWrap` property.
      * @type {boolean}
-     * @default
+     * @private
      */
 
-    this.bulletWorldWrap = false;
+    this._bulletWorldWrap = false;
     /**
-     * If `bulletWorldWrap` is true then you can provide an optional padding value with this
-     * property. It's added to the calculations determining when the Bullet should wrap around
-     * the world or not. The value is given in pixels.
+     * Private var that holds the public `bulletWorldWrapPadding` property.
      * @type {integer}
-     * @default
+     * @private
      */
 
-    this.bulletWorldWrapPadding = 0;
+    this._bulletWorldWrapPadding = 0;
     /**
-     * An optional angle offset applied to the Bullets when they are launched.
-     * This is useful if for example your bullet sprites have been drawn facing up, instead of
-     * to the right, and you want to fire them at an angle. In which case you can set the
-     * angle offset to be 90 and they'll be properly rotated when fired.
+     * Private var that holds the public `bulletAngleOffset` property.
      * @type {number}
-     * @default
+     * @private
      */
 
-    this.bulletAngleOffset = 0;
+    this._bulletAngleOffset = 0;
     /**
-     * This is a variance added to the angle of Bullets when they are fired.
-     * If you fire from an angle of 90 and have a `bulletAngleVariance` of 20 then the actual
-     * angle of the Bullets will be between 70 and 110 degrees. This is a quick way to add a
-     * great 'spread' effect to a Weapon.
+     * Private var that holds the public `bulletAngleVariance` property.
      * @type {number}
-     * @default
+     * @private
      */
 
-    this.bulletAngleVariance = 0;
+    this._bulletAngleVariance = 0;
     /**
-     * The initial velocity of fired bullets, in pixels per second.
+     * Private var that holds the public `bulletSpeed` property.
      * @type {number}
-     * @default
+     * @private
      */
 
-    this.bulletSpeed = 200;
+    this._bulletSpeed = 200;
     /**
-     * This is a variance added to the speed of Bullets when they are fired.
-     * If bullets have a {@link #bulletSpeed} value of 200, and a `bulletSpeedVariance` of 50
-     * then the actual speed of the Bullets will be between 150 and 250 pixels per second.
+     * Private var that holds the public `bulletSpeedVariance` property.
      * @type {number}
-     * @default
+     * @private
      */
 
-    this.bulletSpeedVariance = 0;
+    this._bulletSpeedVariance = 0;
     /**
-     * If you've set {@link #bulletKillType} to `consts.KILL_LIFESPAN` this controls the amount
-     * of lifespan the Bullets have set on launch. The value is given in milliseconds.
-     * When a Bullet hits its lifespan limit it will be automatically killed.
+     * Private var that holds the public `bulletLifespan` property.
      * @type {number}
-     * @default
+     * @private
      */
 
-    this.bulletLifespan = 0;
+    this._bulletLifespan = 0;
     /**
-     * If you've set {@link #bulletKillType} to `consts.KILL_DISTANCE` this controls the distance
-     * the Bullet can travel before it is automatically killed. The distance is given in pixels.
+     * Private var that holds the public `bulletKillDistance` property.
      * @type {number}
-     * @default
+     * @private
      */
 
-    this.bulletKillDistance = 0;
+    this._bulletKillDistance = 0;
     /**
-     * This is the amount of {@link Phaser.Physics.Arcade.Body#gravity} added to the Bullets physics body when fired.
-     * Gravity is expressed in pixels / second / second.
+     * Private var that holds the public `bulletGravity` property.
      * @type {Phaser.Math.Vector2}
+     * @private
      */
 
-    this.bulletGravity = new Phaser.Math.Vector2(0, 0);
+    this._bulletGravity = new Phaser.Math.Vector2(0, 0);
     /**
-     * Bullets can optionally adjust their rotation in-flight to match their velocity.
-     * This can create the effect of a bullet 'pointing' to the path it is following, for example
-     * an arrow being fired from a bow, and works especially well when added to {@link #bulletGravity}.
+     * Private var that holds the public `bulletRotateToVelocity` property.
      * @type {boolean}
-     * @default
+     * @private
      */
 
-    this.bulletRotateToVelocity = false;
+    this._bulletRotateToVelocity = false;
     /**
-     * The Texture Key that the Bullets use when rendering.
-     * Changing this has no effect on bullets in-flight, only on newly spawned bullets.
+     * Private var that holds the public `bulletKey` property.
      * @type {string}
-     * @default
+     * @private
      */
 
-    this.bulletKey = key || '';
+    this._bulletKey = key || '';
     /**
-     * The Texture Frame that the Bullets use when rendering.
-     * Changing this has no effect on bullets in-flight, only on newly spawned bullets.
+     * Private var that holds the public `bulletFrame` property.
      * @type {string|integer}
-     * @default
+     * @private
      */
 
-    this.bulletFrame = frame || '';
+    this._bulletFrame = frame || '';
     /**
      * Private var that holds the public `bulletClass` property.
      * @type {function}
@@ -911,23 +817,19 @@ function () {
       offsetY: 0
     };
     /**
-     * This Rectangle defines the bounds that are used when determining if a Bullet should be killed or not.
-     * It's used in combination with {@link #bulletKillType} when that is set to either `consts.KILL_WEAPON_BOUNDS`
-     * or `consts.KILL_STATIC_BOUNDS`. If you are not using either of these kill types then the bounds are ignored.
-     * If you are tracking a Sprite or Point then the bounds are centered on that object every frame.
-     *
-     * @type {Phaser.Geom.Rectangle}
-     */
-
-    this.bounds = new Phaser.Geom.Rectangle();
-    /**
-     * The Rectangle used to calculate the bullet bounds from.
-     *
+     * Private var that holds the public `bounds` property.
      * @type {Phaser.Geom.Rectangle}
      * @private
      */
 
-    this.bulletBounds = this.scene.physics.world.bounds;
+    this._bounds = new Phaser.Geom.Rectangle();
+    /**
+     * Private var that holds the public `bulletBounds` property.
+     * @type {Phaser.Geom.Rectangle}
+     * @private
+     */
+
+    this._bulletBounds = this.scene.physics.world.bounds;
     /**
      * This array stores the frames added via @link #setBulletFrames.
      *
@@ -935,15 +837,14 @@ function () {
      * @protected
      */
 
-    this.bulletFrames = [];
+    this._bulletFrames = [];
     /**
-     * The index of the frame within {@link #bulletFrames} that is currently being used.
-     * This value is only used if {@link #bulletFrameCycle} is set to `true`.
+     * Private var that holds the public `bulletFrameIndex` property.
      * @type {number}
      * @private
      */
 
-    this.bulletFrameIndex = 0;
+    this._bulletFrameIndex = 0;
     /**
      * An internal object that stores the animation data added via {@link #addBulletAnimation}.
      * @type {Object}
@@ -952,60 +853,48 @@ function () {
 
     this.anims = {};
     /**
-     * The Sprite currently being tracked by the Weapon, if any.
-     * This is set via the {@link #trackSprite} method.
-     *
+     * Private var that holds the public `trackedSprite` property.
      * @type {Phaser.GameObjects.Sprite|Object}
+     * @private
      */
 
-    this.trackedSprite = null;
+    this._trackedSprite = null;
     /**
-     * The Pointer currently being tracked by the Weapon, if any.
-     * This is set via the {@link #trackPointer} method.
-     *
+     * Private var that holds the public `trackedPointer` property.
      * @type {Phaser.Input.Pointer}
+     * @private
      */
 
-    this.trackedPointer = null;
+    this._trackedPointer = null;
     /**
-     * If you want this Weapon to be able to fire more than 1 bullet in a single
-     * update, then set this property to `true`. When `true` the Weapon plugin won't
-     * set the shot / firing timers until the `postRender` phase of the game loop.
-     * This means you can call `fire` (and similar methods) as often as you like in one
-     * single game update.
-     *
+     * Private var that holds the public `multiFire` property.
      * @type {boolean}
-     * @default
+     * @private
      */
 
-    this.multiFire = false;
+    this._multiFire = false;
     /**
      * Internal multiFire test flag.
      *
      * @type {boolean}
+     * @private
      */
 
     this._hasFired = false;
     /**
-     * If the Weapon is tracking a Sprite, should it also track the Sprites rotation?
-     * This is useful for a game such as Asteroids, where you want the weapon to fire based
-     * on the sprites rotation.
-     *
+     * Private var that holds the public `trackRotation` property.
      * @type {boolean}
-     * @default
+     * @private
      */
 
-    this.trackRotation = false;
+    this._trackRotation = false;
     /**
-     * The Track Offset is a Vector2 object that allows you to specify a pixel offset that bullets use
-     * when launching from a tracked Sprite or Pointer. For example if you've got a bullet that is 2x2 pixels
-     * in size, but you're tracking a Sprite that is 32x32, then you can set `trackOffset.x = 16` to have
-     * the bullet launched from the center of the Sprite.
-     *
+     * Private var that holds the public `trackOffset` property.
      * @type {Phaser.Math.Vector2}
+     * @private
      */
 
-    this.trackOffset = new Phaser.Math.Vector2();
+    this._trackOffset = new Phaser.Math.Vector2();
     /**
      * Internal firing rate time tracking variable.
      *
@@ -1030,17 +919,22 @@ function () {
      */
 
     this._rotatedPoint = new Phaser.Math.Vector2();
+    /**
+     * Log level for this weapon. Either `warn`, `error' or `off`. `warn` is the default.
+     * If you change this, please do so before setting any other properties.
+     * 
+     * @type {string}
+     */
+
+    this.logLevel = 'warn';
     this.eventEmitter = new Phaser.Events.EventEmitter();
+    Object(__WEBPACK_IMPORTED_MODULE_2__validateConfig__["a" /* default */])(this);
     this.createBullets(bulletLimit, key, frame, group);
   }
   /**
-   * The Class of the bullets that are launched by this Weapon. Defaults to {@link Phaser.Bullet}, but can be
-   * overridden before calling `createBullets` and set to your own class type.
-   *
-   * It should be a constructor function accepting `(game, x, y, key, frame)`.
-   *
-   * @property {function} bulletClass
-  */
+   * This is the Phaser.Group that contains all of the bullets managed by this plugin.
+   * @type {Phaser.GameObjects.Group}
+   */
 
 
   _createClass(Weapon, [{
@@ -1080,18 +974,16 @@ function () {
      *  object to. If not specified it will be added to the World group.
      * @return {Weapon} This Weapon instance.
      */
-    value: function createBullets(quantity, key, frame, group, bulletClass) {
-      if (quantity === undefined) {
-        quantity = 1;
-      }
+    value: function createBullets() {
+      var quantity = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : 1;
+      var key = arguments.length > 1 ? arguments[1] : undefined;
+      var frame = arguments.length > 2 ? arguments[2] : undefined;
+      var group = arguments.length > 3 ? arguments[3] : undefined;
+      var bulletClass = arguments.length > 4 ? arguments[4] : undefined;
 
       if (bulletClass) {
         this._bulletClass = bulletClass;
       }
-      /*if (group === undefined) {
-        group = this.game.world;
-      }*/
-
 
       if (this.bullets && !this.bullets.scene) {
         this.bullets = null;
@@ -1251,19 +1143,10 @@ function () {
 
   }, {
     key: "trackSprite",
-    value: function trackSprite(sprite, offsetX, offsetY, trackRotation) {
-      if (offsetX === undefined) {
-        offsetX = 0;
-      }
-
-      if (offsetY === undefined) {
-        offsetY = 0;
-      }
-
-      if (trackRotation === undefined) {
-        trackRotation = false;
-      }
-
+    value: function trackSprite(sprite) {
+      var offsetX = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : 0;
+      var offsetY = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : 0;
+      var trackRotation = arguments.length > 3 && arguments[3] !== undefined ? arguments[3] : false;
       this.trackedPointer = null;
       this.trackedSprite = sprite;
       this.trackRotation = trackRotation;
@@ -1289,17 +1172,12 @@ function () {
 
   }, {
     key: "trackPointer",
-    value: function trackPointer(pointer, offsetX, offsetY) {
+    value: function trackPointer(pointer) {
+      var offsetX = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : 0;
+      var offsetY = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : 0;
+
       if (pointer === undefined && this.scene.input) {
         pointer = this.scene.input.activePointer;
-      }
-
-      if (offsetX === undefined) {
-        offsetX = 0;
-      }
-
-      if (offsetY === undefined) {
-        offsetY = 0;
       }
 
       this.trackedPointer = pointer;
@@ -1379,15 +1257,9 @@ function () {
 
   }, {
     key: "fireOffset",
-    value: function fireOffset(offsetX, offsetY) {
-      if (offsetX === undefined) {
-        offsetX = 0;
-      }
-
-      if (offsetY === undefined) {
-        offsetY = 0;
-      }
-
+    value: function fireOffset() {
+      var offsetX = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : 0;
+      var offsetY = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : 0;
       return this.fire(null, null, null, offsetX, offsetY);
     }
     /**
@@ -1470,14 +1342,11 @@ function () {
 
   }, {
     key: "fire",
-    value: function fire(from, x, y, offsetX, offsetY) {
-      if (x === undefined) {
-        x = null;
-      }
-
-      if (y === undefined) {
-        y = null;
-      }
+    value: function fire(from) {
+      var x = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : null;
+      var y = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : null;
+      var offsetX = arguments.length > 3 && arguments[3] !== undefined ? arguments[3] : 0;
+      var offsetY = arguments.length > 4 && arguments[4] !== undefined ? arguments[4] : 0;
 
       if (this.scene.time.now < this._nextFire || this.fireLimit > 0 && this.shots === this.fireLimit) {
         return null;
@@ -1487,53 +1356,34 @@ function () {
 
       if (this.bulletSpeedVariance !== 0) {
         speed += Phaser.Math.Between(-this.bulletSpeedVariance, this.bulletSpeedVariance);
-      }
+      } // Position the fireFrom rectangle
+
 
       if (from) {
-        if (this.fireFrom.width > 1) {
-          this.fireFrom.CenterOn(from.x, from.y);
-        } else {
-          this.fireFrom.x = from.x;
-          this.fireFrom.y = from.y;
-        }
+        // Fire based on passed coordinates
+        this.updateFireFrom(from.x, from.y);
       } else if (this.trackedSprite) {
+        // Fire based on tracked sprite
         if (this.trackRotation) {
           this._rotatedPoint.set(this.trackedSprite.x + this.trackOffset.x, this.trackedSprite.y + this.trackOffset.y);
 
           Phaser.Math.RotateAround(this._rotatedPoint, this.trackedSprite.x, this.trackedSprite.y, this.trackedSprite.rotation);
-
-          if (this.fireFrom.width > 1) {
-            this.fireFrom.CenterOn(this._rotatedPoint.x, this._rotatedPoint.y);
-          } else {
-            this.fireFrom.x = this._rotatedPoint.x;
-            this.fireFrom.y = this._rotatedPoint.y;
-          }
-        } else if (this.fireFrom.width > 1) {
-          this.fireFrom.CenterOn(this.trackedSprite.x + this.trackOffset.x, this.trackedSprite.y + this.trackOffset.y);
+          this.updateFireFrom(this._rotatedPoint.x, this._rotatedPoint.y);
         } else {
-          this.fireFrom.x = this.trackedSprite.x + this.trackOffset.x;
-          this.fireFrom.y = this.trackedSprite.y + this.trackOffset.y;
+          this.updateFireFrom(this.trackedSprite.x, this.trackedSprite.y);
         }
 
         if (this.bulletInheritSpriteSpeed) {
           speed += this.trackedSprite.body.speed;
         }
       } else if (this.trackedPointer) {
-        if (this.fireFrom.width > 1) {
-          this.fireFrom.CenterOn(this.trackedPointer.x + this.trackOffset.x, this.trackedPointer.y + this.trackOffset.y);
-        } else {
-          this.fireFrom.x = this.trackedPointer.x + this.trackOffset.x;
-          this.fireFrom.y = this.trackedPointer.y + this.trackOffset.y;
-        }
-      }
+        // Fire based on tracked pointer
+        this.updateFireFrom(this.trackedPointer.x, this.trackedPointer.y);
+      } // Take offset into account
 
-      if (offsetX !== undefined) {
-        this.fireFrom.x += offsetX;
-      }
 
-      if (offsetY !== undefined) {
-        this.fireFrom.y += offsetY;
-      }
+      this.fireFrom.x += offsetX;
+      this.fireFrom.y += offsetY; // Pick a random coordinate inside the fireFrom rectangle
 
       var randomX = this.fireFrom.x + Math.random() * this.fireFrom.width;
       var randomY = this.fireFrom.y + Math.random() * this.fireFrom.height;
@@ -1551,25 +1401,29 @@ function () {
       }
 
       var moveX = 0;
-      var moveY = 0; //  Avoid sin/cos for right-angled shots
+      var moveY = 0; //  Avoid unnecessary sin/cos for right-angled shots
 
       if (angle === 0 || angle === 180) {
+        // Only cos needed
         moveX = Math.cos(Phaser.Math.DegToRad(angle)) * speed;
       } else if (angle === 90 || angle === 270) {
+        // Only sin needed
         moveY = Math.sin(Phaser.Math.DegToRad(angle)) * speed;
       } else {
+        // Need to calculate both
         moveX = Math.cos(Phaser.Math.DegToRad(angle)) * speed;
         moveY = Math.sin(Phaser.Math.DegToRad(angle)) * speed;
       }
 
-      var bullet = null;
+      var bullet = null; // Attempt to get a bullet instance to use
 
       if (this.autoExpandBulletsGroup) {
         bullet = this.bullets.getFirstDead(true, fromX, fromY, this.bulletKey, this.bulletFrame);
         bullet.setData('bulletManager', this);
       } else {
         bullet = this.bullets.getFirstDead(false);
-      }
+      } // Prepare and fire the bullet
+
 
       if (bullet) {
         bullet.prepare(fromX, fromY);
@@ -1579,18 +1433,13 @@ function () {
           killType: this.bulletKillType,
           killDistance: this.bulletKillDistance,
           rotateToVelocity: this.bulletRotateToVelocity
-        });
+        }); // Prepare timer for bullet lifespan
 
         if (this.bulletKillType === __WEBPACK_IMPORTED_MODULE_1__consts__["a" /* default */].KILL_LIFESPAN) {
-          if (this.bulletLifespan <= 0) {
-            throw new Error('Invalid bulletLifespan; must be > 0');
-          }
-
           bullet.setData('timeEvent', this.scene.time.addEvent({
             delay: this.bulletLifespan,
-            // TODO: test to see if we can just pass callbackContext: bullet and
-            // have it work. no need to re-bind every time we fire a bullet
-            callback: bullet.kill.bind(bullet)
+            callback: bullet.kill,
+            callbackScope: bullet
           }));
           bullet.lifespan = this.bulletLifespan;
         }
@@ -1600,6 +1449,7 @@ function () {
         if (this.bulletAnimation) {
           bullet.anims.play(this.bulletAnimation);
         } else if (this.bulletFrameCycle) {
+          // Calculate bullet frame to use
           if (this.bulletFrameIndex >= this.bulletFrames.length) {
             this.bulletFrameIndex = 0;
           }
@@ -1607,9 +1457,11 @@ function () {
           bullet.setTexture(this.bulletKey, this.bulletFrameIndex);
           this.bulletFrameIndex++;
         } else if (this.bulletFrameRandom) {
+          // Pick a bullet frame at random
           var nextFrame = Math.floor(Math.random() * this.bulletFrames.length);
           bullet.setTexture(this.bulletKey, nextFrame);
-        }
+        } // Set correct size and position for bullet body
+
 
         if (bullet.getData('bodyDirty')) {
           if (this._data.customBody) {
@@ -1623,7 +1475,7 @@ function () {
 
         bullet.body.setVelocity(moveX, moveY);
         bullet.body.setGravity(this.bulletGravity.x, this.bulletGravity.y);
-        var next = 0;
+        var next = 0; // Calculate when to fire next bullet, taking into account speed variance
 
         if (this.bulletSpeedVariance !== 0) {
           var rate = this.fireRate;
@@ -1636,7 +1488,8 @@ function () {
           next = this.scene.time.now + rate;
         } else {
           next = this.scene.time.now + this.fireRate;
-        }
+        } // Prepare for next shot
+
 
         if (this.multiFire) {
           if (!this._hasFired) {
@@ -1648,7 +1501,8 @@ function () {
         } else {
           this._nextFire = next;
           this.shots++;
-        }
+        } // Emit events
+
 
         this.eventEmitter.emit('fire', bullet, this, speed);
 
@@ -1658,6 +1512,25 @@ function () {
       }
 
       return bullet;
+    }
+    /**
+     * Set the fireFrom rectangle based on passed coords
+     * @private
+     * @param {number} x - X coordinate for where to fire from
+     * @param {number} y - Y coordinate for where to fire from
+     * @return {void}
+     */
+
+  }, {
+    key: "updateFireFrom",
+    value: function updateFireFrom(x, y) {
+      if (this.fireFrom.width > 1) {
+        // If size is larger than 1, center on coordinates
+        Phaser.Geom.Rectangle.CenterOn(this.fireFrom, x + this.trackOffset.x, y + this.trackOffset.y);
+      } else {
+        this.fireFrom.x = x + this.trackOffset.x;
+        this.fireFrom.y = y + this.trackOffset.y;
+      }
     }
     /**
      * You can modify the size of the physics Body the Bullets use to be any dimension you need.
@@ -1676,22 +1549,16 @@ function () {
      *
      * @param {number} width - The width of the Body.
      * @param {number} height - The height of the Body.
-     * @param {number} [offsetX] - The X offset of the Body from the top-left of the Sprites texture.
-     * @param {number} [offsetY] - The Y offset of the Body from the top-left of the Sprites texture.
+     * @param {number} [offsetX=0] - The X offset of the Body from the top-left of the Sprites texture.
+     * @param {number} [offsetY=0] - The Y offset of the Body from the top-left of the Sprites texture.
      * @return {Weapon} The Weapon Plugin.
      */
 
   }, {
     key: "setBulletBodyOffset",
-    value: function setBulletBodyOffset(width, height, offsetX, offsetY) {
-      if (offsetX === undefined) {
-        offsetX = 0;
-      }
-
-      if (offsetY === undefined) {
-        offsetY = 0;
-      }
-
+    value: function setBulletBodyOffset(width, height) {
+      var offsetX = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : 0;
+      var offsetY = arguments.length > 3 && arguments[3] !== undefined ? arguments[3] : 0;
       this._data.customBody = true;
       this._data.width = width;
       this._data.height = height;
@@ -1701,8 +1568,8 @@ function () {
       this.bullets.children.each(function (child) {
         child.body.setSize(width, height);
         child.body.setOffset(offsetX, offsetY);
-      }); //this.bullets.setAll('data.bodyDirty', false);
-
+        child.setData('bodyDirty', false);
+      });
       return this;
     }
     /**
@@ -1727,17 +1594,15 @@ function () {
 
   }, {
     key: "setBulletFrames",
-    value: function setBulletFrames(min, max, selectionMethod) {
-      if (selectionMethod === undefined) {
-        selectionMethod = __WEBPACK_IMPORTED_MODULE_1__consts__["a" /* default */].BULLET_FRAME_STABLE;
-      }
+    value: function setBulletFrames(min, max) {
+      var selectionMethod = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : __WEBPACK_IMPORTED_MODULE_1__consts__["a" /* default */].BULLET_FRAME_STABLE;
 
       if (typeof selectionMethod !== 'number' || selectionMethod < __WEBPACK_IMPORTED_MODULE_1__consts__["a" /* default */].BULLET_FRAME_STABLE || selectionMethod > __WEBPACK_IMPORTED_MODULE_1__consts__["a" /* default */].BULLET_FRAME_RANDOM) {
-        throw new Error("Invalid bullet frame selection method specified: ".concat(selectionMethod));
+        Object(__WEBPACK_IMPORTED_MODULE_2__validateConfig__["b" /* log */])("Invalid bullet frame selection method specified: ".concat(selectionMethod), this.logLevel);
       }
 
       if (min > max) {
-        throw new Error("min frame (".concat(min, ") must be <= max frame ").concat(max));
+        Object(__WEBPACK_IMPORTED_MODULE_2__validateConfig__["b" /* log */])("min frame (".concat(min, ") must be <= max frame (").concat(max, ")"), this.logLevel);
       }
 
       this.bulletFrames = Phaser.Utils.Array.NumberArray(min, max);
@@ -1783,37 +1648,6 @@ function () {
       return this;
     }
     /**
-     * Uses `Game.Debug` to draw some useful information about this Weapon, including the number of bullets
-     * both in-flight, and available. And optionally the physics debug bodies of the bullets.
-     *
-     * @param {integer} [x=16] - The coordinate, in screen space, at which to draw the Weapon debug data.
-     * @param {integer} [y=32] - The coordinate, in screen space, at which to draw the Weapon debug data.
-     * @param {boolean} [debugBodies=false] - Optionally draw the physics body of every bullet in-flight.
-     */
-
-  }, {
-    key: "debug",
-    value: function debug(x, y, debugBodies) {}
-    /*if (x === undefined) {
-      x = 16;
-    }
-    if (y === undefined) {
-      y = 32;
-    }
-    if (debugBodies === undefined) {
-      debugBodies = false;
-    }
-     this.game.debug.text('Weapon Plugin', x, y);
-    this.game.debug.text(
-      'Bullets Alive: ' + this.bullets.total + ' - Total: ' + this.bullets.length,
-      x,
-      y + 24
-    );
-     if (debugBodies) {
-      this.bullets.forEachExists(this.game.debug.body, this.game.debug, 'rgba(255, 0, 255, 0.8)');
-    }*/
-
-    /**
      * Internal update method, called by the Weapon Plugin.
      * @returns {void}
      */
@@ -1824,9 +1658,9 @@ function () {
       if (this._bulletKillType === __WEBPACK_IMPORTED_MODULE_1__consts__["a" /* default */].KILL_WEAPON_BOUNDS) {
         if (this.trackedSprite) {
           this.trackedSprite.updateTransform();
-          this.bounds.centerOn(this.trackedSprite.x, this.trackedSprite.y);
+          Phaser.Geom.Rectangle.CenterOn(this.bounds, this.trackedSprite.x, this.trackedSprite.y);
         } else if (this.trackedPointer) {
-          this.bounds.centerOn(this.trackedPointer.x, this.trackedPointer.y);
+          Phaser.Geom.Rectangle.CenterOn(this.bounds, this.trackedPointer.x, this.trackedPointer.y);
         }
       }
 
@@ -1864,6 +1698,419 @@ function () {
       this.bullets.destroy(true);
     }
   }, {
+    key: "bullets",
+    get: function get() {
+      return this._bullets;
+    },
+    set: function set(value) {
+      this._bullets = value;
+      Object(__WEBPACK_IMPORTED_MODULE_2__validateConfig__["a" /* default */])(this, 'bullets');
+    }
+    /**
+     * Should the bullet pool run out of bullets (i.e. they are all in flight) then this
+     * boolean controls if the Group will create a brand new bullet object or not.
+     * @type {boolean}
+     * @default
+     */
+
+  }, {
+    key: "autoExpandBulletsGroup",
+    get: function get() {
+      return this._autoExpandBulletsGroup;
+    },
+    set: function set(value) {
+      this._autoExpandBulletsGroup = value;
+      Object(__WEBPACK_IMPORTED_MODULE_2__validateConfig__["a" /* default */])(this, 'autoExpandBulletsGroup');
+    }
+    /**
+     * Will this weapon auto fire? If set to true then a new bullet will be fired
+     * based on the {@link #fireRate} value.
+     * @type {boolean}
+     * @default
+     */
+
+  }, {
+    key: "autofire",
+    get: function get() {
+      return this._autofire;
+    },
+    set: function set(value) {
+      this._autofire = value;
+      Object(__WEBPACK_IMPORTED_MODULE_2__validateConfig__["a" /* default */])(this, 'autofire');
+    }
+    /**
+    * The total number of bullets this Weapon has fired so far.
+    * You can limit the number of shots allowed (via {@link #fireLimit}), and reset
+    * this total via {@link #resetShots}.
+    * @type {number}
+    * @default
+    */
+
+  }, {
+    key: "shots",
+    get: function get() {
+      return this._shots;
+    },
+    set: function set(value) {
+      this._shots = value;
+      Object(__WEBPACK_IMPORTED_MODULE_2__validateConfig__["a" /* default */])(this, 'shots');
+    }
+    /**
+    * The maximum number of shots that this Weapon is allowed to fire before it stops.
+    * When the limit is hit the {@link #onFireLimit} event is dispatched.
+    * You can reset the shot counter via {@link #resetShots}.
+    * @type {number}
+    * @default
+    */
+
+  }, {
+    key: "fireLimit",
+    get: function get() {
+      return this._fireLimit;
+    },
+    set: function set(value) {
+      this._fireLimit = value;
+      Object(__WEBPACK_IMPORTED_MODULE_2__validateConfig__["a" /* default */])(this, 'fireLimit');
+    }
+    /**
+    * The minimum interval between shots, in milliseconds.
+    * @type {number}
+    * @default
+    */
+
+  }, {
+    key: "fireRate",
+    get: function get() {
+      return this._fireRate;
+    },
+    set: function set(value) {
+      this._fireRate = value;
+      Object(__WEBPACK_IMPORTED_MODULE_2__validateConfig__["a" /* default */])(this, 'fireRate');
+    }
+    /**
+    * This is a modifier that is added to the {@link #fireRate} each update to add variety
+    * to the firing rate of the Weapon. The value is given in milliseconds.
+    * If you've a `fireRate` of 200 and a `fireRateVariance` of 50 then the actual
+    * firing rate of the Weapon will be between 150 and 250.
+    * @type {number}
+    * @default
+    */
+
+  }, {
+    key: "fireRateVariance",
+    get: function get() {
+      return this._fireRateVariance;
+    },
+    set: function set(value) {
+      this._fireRateVariance = value;
+      Object(__WEBPACK_IMPORTED_MODULE_2__validateConfig__["a" /* default */])(this, 'fireRateVariance');
+    }
+    /**
+    * This is a Rectangle from within which the bullets are fired. By default it's a 1x1
+    * rectangle, the equivalent of a Point. But you can change the width and height, and if
+    * larger than 1x1 it'll pick a random point within the rectangle to launch the bullet from.
+    * @type {Phaser.Geom.Rectangle}
+    */
+
+  }, {
+    key: "fireFrom",
+    get: function get() {
+      return this._fireFrom;
+    },
+    set: function set(value) {
+      this._fireFrom = value;
+      Object(__WEBPACK_IMPORTED_MODULE_2__validateConfig__["a" /* default */])(this, 'fireFrom');
+    }
+    /**
+    * The angle at which the bullets are fired. This can be a const such as Phaser.ANGLE_UP
+    * or it can be any number from 0 to 360 inclusive, where 0 degrees is to the right.
+    * @type {integer}
+    * @default
+    */
+
+  }, {
+    key: "fireAngle",
+    get: function get() {
+      return this._fireAngle;
+    },
+    set: function set(value) {
+      this._fireAngle = value;
+      Object(__WEBPACK_IMPORTED_MODULE_2__validateConfig__["a" /* default */])(this, 'fireAngle');
+    }
+    /**
+    * When a Bullet is fired it can optionally inherit the velocity of the `trackedSprite` if set.
+    * @type {boolean}
+    * @default
+    */
+
+  }, {
+    key: "bulletInheritSpriteSpeed",
+    get: function get() {
+      return this._bulletInheritSpriteSpeed;
+    },
+    set: function set(value) {
+      this._bulletInheritSpriteSpeed = value;
+      Object(__WEBPACK_IMPORTED_MODULE_2__validateConfig__["a" /* default */])(this, 'bulletInheritSpriteSpeed');
+    }
+    /**
+    * The string based name of the animation that the Bullet will be given on launch.
+    * This is set via {@link #addBulletAnimation}.
+    * @type {string}
+    * @default
+    */
+
+  }, {
+    key: "bulletAnimation",
+    get: function get() {
+      return this._bulletAnimation;
+    },
+    set: function set(value) {
+      this._bulletAnimation = value;
+      Object(__WEBPACK_IMPORTED_MODULE_2__validateConfig__["a" /* default */])(this, 'bulletAnimation');
+    }
+    /**
+    * If you've added a set of frames via {@link #setBulletFrames} then you can optionally
+    * chose for each Bullet fired to pick a random frame from the set.
+    * @type {boolean}
+    * @default
+    */
+
+  }, {
+    key: "bulletFrameRandom",
+    get: function get() {
+      return this._bulletFrameRandom;
+    },
+    set: function set(value) {
+      this._bulletFrameRandom = value;
+      Object(__WEBPACK_IMPORTED_MODULE_2__validateConfig__["a" /* default */])(this, 'bulletFrameRandom');
+    }
+    /**
+    * If you've added a set of frames via {@link #setBulletFrames} then you can optionally
+    * chose for each Bullet fired to use the next frame in the set. The frame index is then
+    * advanced one frame until it reaches the end of the set, then it starts from the start
+    * again. Cycling frames like this allows you to create varied bullet effects via
+    * sprite sheets.
+    * @type {boolean}
+    * @default
+    */
+
+  }, {
+    key: "bulletFrameCycle",
+    get: function get() {
+      return this._bulletFrameCycle;
+    },
+    set: function set(value) {
+      this._bulletFrameCycle = value;
+      Object(__WEBPACK_IMPORTED_MODULE_2__validateConfig__["a" /* default */])(this, 'bulletFrameCycle');
+    }
+    /**
+     * Should the Bullets wrap around the world bounds? This automatically calls
+     * `World.wrap` on the Bullet each frame. See the docs for that method for details.
+     * @type {boolean}
+     * @default
+     */
+
+  }, {
+    key: "bulletWorldWrap",
+    get: function get() {
+      return this._bulletWorldWrap;
+    },
+    set: function set(value) {
+      this._bulletWorldWrap = value;
+      Object(__WEBPACK_IMPORTED_MODULE_2__validateConfig__["a" /* default */])(this, 'bulletWorldWrap');
+    }
+    /**
+    * If `bulletWorldWrap` is true then you can provide an optional padding value with this
+    * property. It's added to the calculations determining when the Bullet should wrap around
+    * the world or not. The value is given in pixels.
+    * @type {integer}
+    * @default
+    */
+
+  }, {
+    key: "bulletWorldWrapPadding",
+    get: function get() {
+      return this._bulletWorldWrapPadding;
+    },
+    set: function set(value) {
+      this._bulletWorldWrapPadding = value;
+      Object(__WEBPACK_IMPORTED_MODULE_2__validateConfig__["a" /* default */])(this, 'bulletWorldWrapPadding');
+    }
+    /**
+    * An optional angle offset applied to the Bullets when they are launched.
+    * This is useful if for example your bullet sprites have been drawn facing up, instead of
+    * to the right, and you want to fire them at an angle. In which case you can set the
+    * angle offset to be 90 and they'll be properly rotated when fired.
+    * @type {number}
+    * @default
+    */
+
+  }, {
+    key: "bulletAngleOffset",
+    get: function get() {
+      return this._bulletAngleOffset;
+    },
+    set: function set(value) {
+      this._bulletAngleOffset = value;
+      Object(__WEBPACK_IMPORTED_MODULE_2__validateConfig__["a" /* default */])(this, 'bulletAngleOffset');
+    }
+    /**
+    * This is a variance added to the angle of Bullets when they are fired.
+    * If you fire from an angle of 90 and have a `bulletAngleVariance` of 20 then the actual
+    * angle of the Bullets will be between 70 and 110 degrees. This is a quick way to add a
+    * great 'spread' effect to a Weapon.
+    * @type {number}
+    * @default
+    */
+
+  }, {
+    key: "bulletAngleVariance",
+    get: function get() {
+      return this._bulletAngleVariance;
+    },
+    set: function set(value) {
+      this._bulletAngleVariance = value;
+      Object(__WEBPACK_IMPORTED_MODULE_2__validateConfig__["a" /* default */])(this, 'bulletAngleVariance');
+    }
+    /**
+    * The initial velocity of fired bullets, in pixels per second.
+    * @type {number}
+    * @default
+    */
+
+  }, {
+    key: "bulletSpeed",
+    get: function get() {
+      return this._bulletSpeed;
+    },
+    set: function set(value) {
+      this._bulletSpeed = value;
+      Object(__WEBPACK_IMPORTED_MODULE_2__validateConfig__["a" /* default */])(this, 'bulletSpeed');
+    }
+    /**
+    * This is a variance added to the speed of Bullets when they are fired.
+    * If bullets have a {@link #bulletSpeed} value of 200, and a `bulletSpeedVariance` of 50
+    * then the actual speed of the Bullets will be between 150 and 250 pixels per second.
+    * @type {number}
+    * @default
+    */
+
+  }, {
+    key: "bulletSpeedVariance",
+    get: function get() {
+      return this._bulletSpeedVariance;
+    },
+    set: function set(value) {
+      this._bulletSpeedVariance = value;
+      Object(__WEBPACK_IMPORTED_MODULE_2__validateConfig__["a" /* default */])(this, 'bulletSpeedVariance');
+    }
+    /**
+    * If you've set {@link #bulletKillType} to `consts.KILL_LIFESPAN` this controls the amount
+    * of lifespan the Bullets have set on launch. The value is given in milliseconds.
+    * When a Bullet hits its lifespan limit it will be automatically killed.
+    * @type {number}
+    * @default
+    */
+
+  }, {
+    key: "bulletLifespan",
+    get: function get() {
+      return this._bulletLifespan;
+    },
+    set: function set(value) {
+      this._bulletLifespan = value;
+      Object(__WEBPACK_IMPORTED_MODULE_2__validateConfig__["a" /* default */])(this, 'bulletLifespan');
+    }
+    /**
+    * If you've set {@link #bulletKillType} to `consts.KILL_DISTANCE` this controls the distance
+    * the Bullet can travel before it is automatically killed. The distance is given in pixels.
+    * @type {number}
+    * @default
+    */
+
+  }, {
+    key: "bulletKillDistance",
+    get: function get() {
+      return this._bulletKillDistance;
+    },
+    set: function set(value) {
+      this._bulletKillDistance = value;
+      Object(__WEBPACK_IMPORTED_MODULE_2__validateConfig__["a" /* default */])(this, 'bulletKillDistance');
+    }
+    /**
+    * This is the amount of {@link Phaser.Physics.Arcade.Body#gravity} added to the Bullets physics body when fired.
+    * Gravity is expressed in pixels / second / second.
+    * @type {Phaser.Math.Vector2}
+    */
+
+  }, {
+    key: "bulletGravity",
+    get: function get() {
+      return this._bulletGravity;
+    },
+    set: function set(value) {
+      this._bulletGravity = value;
+      Object(__WEBPACK_IMPORTED_MODULE_2__validateConfig__["a" /* default */])(this, 'bulletGravity');
+    }
+    /**
+    * Bullets can optionally adjust their rotation in-flight to match their velocity.
+    * This can create the effect of a bullet 'pointing' to the path it is following, for example
+    * an arrow being fired from a bow, and works especially well when added to {@link #bulletGravity}.
+    * @type {boolean}
+    * @default
+    */
+
+  }, {
+    key: "bulletRotateToVelocity",
+    get: function get() {
+      return this._bulletRotateToVelocity;
+    },
+    set: function set(value) {
+      this._bulletRotateToVelocity = value;
+      Object(__WEBPACK_IMPORTED_MODULE_2__validateConfig__["a" /* default */])(this, 'bulletRotateToVelocity');
+    }
+    /**
+    * The Texture Key that the Bullets use when rendering.
+    * Changing this has no effect on bullets in-flight, only on newly spawned bullets.
+    * @type {string}
+    * @default
+    */
+
+  }, {
+    key: "bulletKey",
+    get: function get() {
+      return this._bulletKey;
+    },
+    set: function set(value) {
+      this._bulletKey = value;
+      Object(__WEBPACK_IMPORTED_MODULE_2__validateConfig__["a" /* default */])(this, 'bulletKey');
+    }
+    /**
+    * The Texture Frame that the Bullets use when rendering.
+    * Changing this has no effect on bullets in-flight, only on newly spawned bullets.
+    * @type {string|integer}
+    * @default
+    */
+
+  }, {
+    key: "bulletFrame",
+    get: function get() {
+      return this._bulletFrame;
+    },
+    set: function set(value) {
+      this._bulletFrame = value;
+      Object(__WEBPACK_IMPORTED_MODULE_2__validateConfig__["a" /* default */])(this, 'bulletFrame');
+    }
+    /**
+     * The Class of the bullets that are launched by this Weapon. Defaults to {@link Phaser.Bullet}, but can be
+     * overridden before calling `createBullets` and set to your own class type.
+     *
+     * It should be a constructor function accepting `(game, x, y, key, frame)`.
+     *
+     * @property {function} bulletClass
+    */
+
+  }, {
     key: "bulletClass",
     get: function get() {
       return this._bulletClass;
@@ -1874,37 +2121,58 @@ function () {
       if (this.bullets) {
         this.bullets.classType = this._bulletClass;
       }
+
+      Object(__WEBPACK_IMPORTED_MODULE_2__validateConfig__["a" /* default */])(this, 'bulletClass');
     }
     /**
-     * This controls how the bullets will be killed. The default is `consts.KILL_WORLD_BOUNDS`.
-     *
-     * There are 7 different "kill types" available:
-     *
-     * * `consts.KILL_NEVER`
-     * The bullets are never destroyed by the Weapon. It's up to you to destroy them via your own code.
-     *
-     * * `consts.KILL_LIFESPAN`
-     * The bullets are automatically killed when their `bulletLifespan` amount expires.
-     *
-     * * `consts.KILL_DISTANCE`
-     * The bullets are automatically killed when they
-     * exceed `bulletDistance` pixels away from their original launch position.
-     *
-     * * `consts.KILL_WEAPON_BOUNDS`
-     * The bullets are automatically killed when they no longer intersect with the {@link #bounds} rectangle.
-     *
-     * * `consts.KILL_CAMERA_BOUNDS`
-     * The bullets are automatically killed when they no longer intersect with the {@link Phaser.Camera#bounds} rectangle.
-     *
-     * * `consts.KILL_WORLD_BOUNDS`
-     * The bullets are automatically killed when they no longer intersect with the {@link Phaser.World#bounds} rectangle.
-     *
-     * * `consts.KILL_STATIC_BOUNDS`
-     * The bullets are automatically killed when they no longer intersect with the {@link #bounds} rectangle.
-     * The difference between static bounds and weapon bounds, is that a static bounds will never be adjusted to
-     * match the position of a tracked sprite or pointer.
-     *
-     * @property {integer} bulletKillType
+    * Should bullets collide with the World bounds or not?
+    *
+    * @property {boolean} bulletCollideWorldBounds
+    */
+
+  }, {
+    key: "bulletCollideWorldBounds",
+    get: function get() {
+      return this._bulletCollideWorldBounds;
+    },
+    set: function set(value) {
+      this._bulletCollideWorldBounds = value;
+      this.bullets.children.each(function (child) {
+        child.body.collideWorldBounds = value;
+        child.setData('bodyDirty', false);
+      });
+      Object(__WEBPACK_IMPORTED_MODULE_2__validateConfig__["a" /* default */])(this, 'bulletCollideWorldBounds');
+    }
+    /**
+    * This controls how the bullets will be killed. The default is `consts.KILL_WORLD_BOUNDS`.
+    *
+    * There are 7 different "kill types" available:
+    *
+    * * `consts.KILL_NEVER`
+    * The bullets are never destroyed by the Weapon. It's up to you to destroy them via your own code.
+    *
+    * * `consts.KILL_LIFESPAN`
+    * The bullets are automatically killed when their `bulletLifespan` amount expires.
+    *
+    * * `consts.KILL_DISTANCE`
+    * The bullets are automatically killed when they
+    * exceed `bulletDistance` pixels away from their original launch position.
+    *
+    * * `consts.KILL_WEAPON_BOUNDS`
+    * The bullets are automatically killed when they no longer intersect with the {@link #bounds} rectangle.
+    *
+    * * `consts.KILL_CAMERA_BOUNDS`
+    * The bullets are automatically killed when they no longer intersect with the {@link Phaser.Camera#bounds} rectangle.
+    *
+    * * `consts.KILL_WORLD_BOUNDS`
+    * The bullets are automatically killed when they no longer intersect with the {@link Phaser.World#bounds} rectangle.
+    *
+    * * `consts.KILL_STATIC_BOUNDS`
+    * The bullets are automatically killed when they no longer intersect with the {@link #bounds} rectangle.
+    * The difference between static bounds and weapon bounds, is that a static bounds will never be adjusted to
+    * match the position of a tracked sprite or pointer.
+    *
+    * @property {integer} bulletKillType
     */
 
   }, {
@@ -1929,24 +2197,161 @@ function () {
       }
 
       this._bulletKillType = type;
+      Object(__WEBPACK_IMPORTED_MODULE_2__validateConfig__["a" /* default */])(this, 'bulletKillType');
     }
     /**
-     * Should bullets collide with the World bounds or not?
-     *
-     * @property {boolean} bulletCollideWorldBounds
+    * This Rectangle defines the bounds that are used when determining if a Bullet should be killed or not.
+    * It's used in combination with {@link #bulletKillType} when that is set to either `consts.KILL_WEAPON_BOUNDS`
+    * or `consts.KILL_STATIC_BOUNDS`. If you are not using either of these kill types then the bounds are ignored.
+    * If you are tracking a Sprite or Point then the bounds are centered on that object every frame.
+    *
+    * @type {Phaser.Geom.Rectangle}
     */
 
   }, {
-    key: "bulletCollideWorldBounds",
+    key: "bounds",
     get: function get() {
-      return this._bulletCollideWorldBounds;
+      return this._bounds;
     },
     set: function set(value) {
-      this._bulletCollideWorldBounds = value;
-      this.bullets.children.each(function (child) {
-        child.body.collideWorldBounds = value;
-        child.setData('bodyDirty', false);
-      });
+      this._bounds = value;
+      Object(__WEBPACK_IMPORTED_MODULE_2__validateConfig__["a" /* default */])(this, 'bounds');
+    }
+    /**
+    * The Rectangle used to calculate the bullet bounds from.
+    *
+    * @type {Phaser.Geom.Rectangle}
+    * @private
+    */
+
+  }, {
+    key: "bulletBounds",
+    get: function get() {
+      return this._bulletBounds;
+    },
+    set: function set(value) {
+      this._bulletBounds = value;
+      Object(__WEBPACK_IMPORTED_MODULE_2__validateConfig__["a" /* default */])(this, 'bulletBounds');
+    }
+    /**
+    * This array stores the frames added via @link #setBulletFrames.
+    *
+    * @type {Array}
+    * @protected
+    */
+
+  }, {
+    key: "bulletFrames",
+    get: function get() {
+      return this._bulletFrames;
+    },
+    set: function set(value) {
+      this._bulletFrames = value;
+      Object(__WEBPACK_IMPORTED_MODULE_2__validateConfig__["a" /* default */])(this, 'bulletFrames');
+    }
+    /**
+    * The index of the frame within {@link #bulletFrames} that is currently being used.
+    * This value is only used if {@link #bulletFrameCycle} is set to `true`.
+    * @type {number}
+    * @private
+    */
+
+  }, {
+    key: "bulletFrameIndex",
+    get: function get() {
+      return this._bulletFrameIndex;
+    },
+    set: function set(value) {
+      this._bulletFrameIndex = value;
+      Object(__WEBPACK_IMPORTED_MODULE_2__validateConfig__["a" /* default */])(this, 'bulletFrameIndex');
+    }
+    /**
+    * The Sprite currently being tracked by the Weapon, if any.
+    * This is set via the {@link #trackSprite} method.
+    *
+    * @type {Phaser.GameObjects.Sprite|Object}
+    */
+
+  }, {
+    key: "trackedSprite",
+    get: function get() {
+      return this._trackedSprite;
+    },
+    set: function set(value) {
+      this._trackedSprite = value;
+      Object(__WEBPACK_IMPORTED_MODULE_2__validateConfig__["a" /* default */])(this, 'trackedSprite');
+    }
+    /**
+    * The Pointer currently being tracked by the Weapon, if any.
+    * This is set via the {@link #trackPointer} method.
+    *
+    * @type {Phaser.Input.Pointer}
+    */
+
+  }, {
+    key: "trackedPointer",
+    get: function get() {
+      return this._trackedPointer;
+    },
+    set: function set(value) {
+      this._trackedPointer = value;
+      Object(__WEBPACK_IMPORTED_MODULE_2__validateConfig__["a" /* default */])(this, 'trackedPointer');
+    }
+    /**
+    * If you want this Weapon to be able to fire more than 1 bullet in a single
+    * update, then set this property to `true`. When `true` the Weapon plugin won't
+    * set the shot / firing timers until the `postRender` phase of the game loop.
+    * This means you can call `fire` (and similar methods) as often as you like in one
+    * single game update.
+    *
+    * @type {boolean}
+    * @default
+    */
+
+  }, {
+    key: "multiFire",
+    get: function get() {
+      return this._multiFire;
+    },
+    set: function set(value) {
+      this._multiFire = value;
+      Object(__WEBPACK_IMPORTED_MODULE_2__validateConfig__["a" /* default */])(this, 'multiFire');
+    }
+    /**
+    * If the Weapon is tracking a Sprite, should it also track the Sprites rotation?
+    * This is useful for a game such as Asteroids, where you want the weapon to fire based
+    * on the sprites rotation.
+    *
+    * @type {boolean}
+    * @default
+    */
+
+  }, {
+    key: "trackRotation",
+    get: function get() {
+      return this._trackRotation;
+    },
+    set: function set(value) {
+      this._trackRotation = value;
+      Object(__WEBPACK_IMPORTED_MODULE_2__validateConfig__["a" /* default */])(this, 'trackRotation');
+    }
+    /**
+    * The Track Offset is a Vector2 object that allows you to specify a pixel offset that bullets use
+    * when launching from a tracked Sprite or Pointer. For example if you've got a bullet that is 2x2 pixels
+    * in size, but you're tracking a Sprite that is 32x32, then you can set `trackOffset.x = 16` to have
+    * the bullet launched from the center of the Sprite.
+    *
+    * @type {Phaser.Math.Vector2}
+    */
+
+  }, {
+    key: "trackOffset",
+    get: function get() {
+      return this._trackOffset;
+    },
+    set: function set(value) {
+      this._trackOffset = value;
+      Object(__WEBPACK_IMPORTED_MODULE_2__validateConfig__["a" /* default */])(this, 'trackOffset');
     }
     /**
      * The x coordinate from which bullets are fired. This is the same as `Weapon.fireFrom.x`, and
@@ -1984,6 +2389,51 @@ function () {
 }();
 
 /* harmony default export */ __webpack_exports__["a"] = (Weapon);
+
+/***/ }),
+/* 4 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "b", function() { return log; });
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__consts__ = __webpack_require__(0);
+
+/**
+ * Log text to the console or throw an error
+ * @param {string} text - Text to be logged
+ * @param {string} logLevel - The log level, either `warn`, `error' or `off`
+ */
+
+function log(text, logLevel) {
+  if (logLevel === 'warn') {
+    console.warn(text);
+  } else if (logLevel === 'error') {
+    throw new Error(text);
+  }
+}
+/**
+ * Check the config of the weapon for common errors and weird configurations.
+ * @param {Weapon} weapon - The weapon being validated
+ * @param {string} property - The property of the weapon being validated
+ */
+
+
+function validateConfig(weapon, property) {
+  if (['bulletWorldWrap', 'bulletKillType'].includes(property) && weapon.bulletWorldWrap && (weapon.bulletKillType === __WEBPACK_IMPORTED_MODULE_0__consts__["a" /* default */].KILL_WORLD_BOUNDS || weapon.bulletKillType === __WEBPACK_IMPORTED_MODULE_0__consts__["a" /* default */].KILL_WEAPON_BOUNDS)) {
+    log('Warning: KILL_WORLD_BOUNDS and KILL_WEAPON_BOUNDS does not work well with bulletWorldWrap set to true.', weapon.logLevel);
+  }
+
+  if (['bulletKillType', 'bulletLifespan'].includes(property) && weapon.bulletKillType === __WEBPACK_IMPORTED_MODULE_0__consts__["a" /* default */].KILL_LIFESPAN && weapon.bulletLifespan < 0) {
+    log('Invalid bulletLifespan; must be > 0; currently ' + weapon.bulletLifespan, weapon.logLevel);
+  }
+
+  if (['fireLimit', 'fireRate', 'fireRateVariance', 'bulletAngleVariance', 'bulletSpeedVariance', 'bulletKillDistance'].includes(property) && weapon[property] < 0) {
+    log('Invalid ' + property + '; must be >= 0; currently ' + weapon[property], weapon.logLevel);
+  }
+}
+
+
+/* harmony default export */ __webpack_exports__["a"] = (validateConfig);
 
 /***/ })
 /******/ ])["default"];
