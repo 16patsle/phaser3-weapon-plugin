@@ -1484,7 +1484,7 @@ class Weapon {
       bullet = this.bullets.getFirstDead(false);
     }
 
-    // Fire the bullet
+    // Prepare and fire the bullet
     if (bullet) {
       bullet.prepare(fromX, fromY);
       bullet.setData({
@@ -1523,6 +1523,7 @@ class Weapon {
         bullet.setTexture(this.bulletKey, nextFrame);
       }
 
+      // Set correct size and position for bullet body
       if (bullet.getData('bodyDirty')) {
         if (this._data.customBody) {
           bullet.body.setSize(this._data.width, this._data.height);
