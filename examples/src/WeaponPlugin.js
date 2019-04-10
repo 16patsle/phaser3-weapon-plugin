@@ -7,7 +7,7 @@
 		exports["WeaponPlugin"] = factory();
 	else
 		root["WeaponPlugin"] = factory();
-})(typeof self !== 'undefined' ? self : this, function() {
+})(window, function() {
 return /******/ (function(modules) { // webpackBootstrap
 /******/ 	// The module cache
 /******/ 	var installedModules = {};
@@ -46,12 +46,32 @@ return /******/ (function(modules) { // webpackBootstrap
 /******/ 	// define getter function for harmony exports
 /******/ 	__webpack_require__.d = function(exports, name, getter) {
 /******/ 		if(!__webpack_require__.o(exports, name)) {
-/******/ 			Object.defineProperty(exports, name, {
-/******/ 				configurable: false,
-/******/ 				enumerable: true,
-/******/ 				get: getter
-/******/ 			});
+/******/ 			Object.defineProperty(exports, name, { enumerable: true, get: getter });
 /******/ 		}
+/******/ 	};
+/******/
+/******/ 	// define __esModule on exports
+/******/ 	__webpack_require__.r = function(exports) {
+/******/ 		if(typeof Symbol !== 'undefined' && Symbol.toStringTag) {
+/******/ 			Object.defineProperty(exports, Symbol.toStringTag, { value: 'Module' });
+/******/ 		}
+/******/ 		Object.defineProperty(exports, '__esModule', { value: true });
+/******/ 	};
+/******/
+/******/ 	// create a fake namespace object
+/******/ 	// mode & 1: value is a module id, require it
+/******/ 	// mode & 2: merge all properties of value into the ns
+/******/ 	// mode & 4: return value when already ns object
+/******/ 	// mode & 8|1: behave like require
+/******/ 	__webpack_require__.t = function(value, mode) {
+/******/ 		if(mode & 1) value = __webpack_require__(value);
+/******/ 		if(mode & 8) return value;
+/******/ 		if((mode & 4) && typeof value === 'object' && value && value.__esModule) return value;
+/******/ 		var ns = Object.create(null);
+/******/ 		__webpack_require__.r(ns);
+/******/ 		Object.defineProperty(ns, 'default', { enumerable: true, value: value });
+/******/ 		if(mode & 2 && typeof value != 'string') for(var key in value) __webpack_require__.d(ns, key, function(key) { return value[key]; }.bind(null, key));
+/******/ 		return ns;
 /******/ 	};
 /******/
 /******/ 	// getDefaultExport function for compatibility with non-harmony modules
@@ -69,8 +89,9 @@ return /******/ (function(modules) { // webpackBootstrap
 /******/ 	// __webpack_public_path__
 /******/ 	__webpack_require__.p = "";
 /******/
+/******/
 /******/ 	// Load entry module and return exports
-/******/ 	return __webpack_require__(__webpack_require__.s = 2);
+/******/ 	return __webpack_require__(__webpack_require__.s = 0);
 /******/ })
 /************************************************************************/
 /******/ ([
@@ -78,307 +99,10 @@ return /******/ (function(modules) { // webpackBootstrap
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-/* harmony default export */ __webpack_exports__["a"] = ({
-  /**
-   * A {@link #bulletKillType} constant that stops the bullets from ever being destroyed automatically.
-   * @constant
-   * @type {integer}
-   */
-  KILL_NEVER: 0,
-
-  /**
-   * A {@link #bulletKillType} constant that automatically kills the bullets
-   * when their {@link #bulletLifespan} expires.
-   * @constant
-   * @type {integer}
-   */
-  KILL_LIFESPAN: 1,
-
-  /**
-   * A {@link #bulletKillType} constant that automatically kills the bullets after they
-   * exceed the {@link #bulletDistance} from their original firing position.
-   * @constant
-   * @type {integer}
-   */
-  KILL_DISTANCE: 2,
-
-  /**
-   * A {@link #bulletKillType} constant that automatically kills the bullets
-   * when they leave the {@link #bounds} rectangle.
-   * @constant
-   * @type {integer}
-   */
-  KILL_WEAPON_BOUNDS: 3,
-
-  /**
-   * A {@link #bulletKillType} constant that automatically kills the bullets
-   * when they leave the {@link Phaser.Camera#bounds} rectangle.
-   * @constant
-   * @type {integer}
-   */
-  KILL_CAMERA_BOUNDS: 4,
-
-  /**
-   * A {@link #bulletKillType} constant that automatically kills the bullets
-   * when they leave the {@link Phaser.World#bounds} rectangle.
-   * @constant
-   * @type {integer}
-   */
-  KILL_WORLD_BOUNDS: 5,
-
-  /**
-   * A {@link #bulletKillType} constant that automatically kills the bullets
-   * when they leave the {@link #bounds} rectangle.
-   * @constant
-   * @type {integer}
-   */
-  KILL_STATIC_BOUNDS: 6,
-
-  /**
-   * The Angle (in degrees) a Game Object needs to be set to in order to face up.
-   * @constant
-   * @type {integer}
-   */
-  ANGLE_UP: 270,
-
-  /**
-   * The Angle (in degrees) a Game Object needs to be set to in order to face down.
-   * @constant
-   * @type {integer}
-   */
-  ANGLE_DOWN: 90,
-
-  /**
-   * The Angle (in degrees) a Game Object needs to be set to in order to face left.
-   * @constant
-   * @type {integer}
-   */
-  ANGLE_LEFT: 180,
-
-  /**
-   * The Angle (in degrees) a Game Object needs to be set to in order to face right.
-   * @constant
-   * @type {integer}
-   */
-  ANGLE_RIGHT: 0,
-
-  /**
-   * The Angle (in degrees) a Game Object needs to be set to in order to face north east.
-   * @constant Phaser.ANGLE_NORTH_EAST
-   * @type {integer}
-   */
-  ANGLE_NORTH_EAST: 315,
-
-  /**
-   * The Angle (in degrees) a Game Object needs to be set to in order to face north west.
-   * @constant
-   * @type {integer}
-   */
-  ANGLE_NORTH_WEST: 225,
-
-  /**
-   * The Angle (in degrees) a Game Object needs to be set to in order to face south east.
-   * @constant
-   * @type {integer}
-   */
-  ANGLE_SOUTH_EAST: 45,
-
-  /**
-   * The Angle (in degrees) a Game Object needs to be set to in order to face south west.
-   * @constant
-   * @type {integer}
-   */
-  ANGLE_SOUTH_WEST: 135,
-
-  /**
-   * When selecting a bullet frame the same frame should always be used. This
-   * is the default value.
-   * @constant
-   * @type { integer }
-   */
-  BULLET_FRAME_STABLE: 0,
-
-  /**
-   * When selecting a bullet frame the next frame should be used
-   * @constant
-   * @type { integer }
-   */
-  BULLET_FRAME_CYCLE: 1,
-
-  /**
-   * When selecting a bullet frame a random frame should be used.
-   * @constant
-   * @type { integer }
-   */
-  BULLET_FRAME_RANDOM: 2
-});
-
-/***/ }),
-/* 1 */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__consts__ = __webpack_require__(0);
-function _typeof(obj) { if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
-
-function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-
-function _defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } }
-
-function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _defineProperties(Constructor.prototype, protoProps); if (staticProps) _defineProperties(Constructor, staticProps); return Constructor; }
-
-function _possibleConstructorReturn(self, call) { if (call && (_typeof(call) === "object" || typeof call === "function")) { return call; } return _assertThisInitialized(self); }
-
-function _getPrototypeOf(o) { _getPrototypeOf = Object.setPrototypeOf ? Object.getPrototypeOf : function _getPrototypeOf(o) { return o.__proto__ || Object.getPrototypeOf(o); }; return _getPrototypeOf(o); }
-
-function _assertThisInitialized(self) { if (self === void 0) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return self; }
-
-function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function"); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, writable: true, configurable: true } }); if (superClass) _setPrototypeOf(subClass, superClass); }
-
-function _setPrototypeOf(o, p) { _setPrototypeOf = Object.setPrototypeOf || function _setPrototypeOf(o, p) { o.__proto__ = p; return o; }; return _setPrototypeOf(o, p); }
-
-
-var bulletID = 0;
-
-var Bullet =
-/*#__PURE__*/
-function (_Phaser$GameObjects$S) {
-  _inherits(Bullet, _Phaser$GameObjects$S);
-
-  /**
-   * Create a new `Bullet` object. Bullets are used by the `Weapon` class, and are normal Sprites,
-   * with a few extra properties in the data manager to handle Weapon specific features.
-   *
-   * @param {Phaser.Scene} scene - A reference to the currently running scene.
-   * @param {number} x - The x coordinate (in world space) to position the Particle at.
-   * @param {number} y - The y coordinate (in world space) to position the Particle at.
-   * @param {string} key - This is the image or texture used by the Particle during rendering.
-   * It can be a string which is a reference to the Cache entry, or an instance of a RenderTexture or PIXI.Texture.
-   * @param {string|number} frame - If this Particle is using part of a sprite sheet or texture atlas
-   * you can specify the exact frame to use by giving a string or numeric index.
-   */
-  function Bullet(scene, x, y, key, frame) {
-    var _this;
-
-    _classCallCheck(this, Bullet);
-
-    _this = _possibleConstructorReturn(this, _getPrototypeOf(Bullet).call(this, scene, x, y, key, frame));
-    _this.bulletID = bulletID;
-    bulletID++;
-
-    _this.scene.physics.add.existing(_assertThisInitialized(_this));
-
-    _this.setDataEnabled();
-
-    _this.setData({
-      timeEvent: null,
-      bulletManager: null,
-      fromX: 0,
-      fromY: 0,
-      bodyDirty: true,
-      rotateToVelocity: false,
-      killType: 0,
-      killDistance: 0,
-      bodyBounds: new Phaser.Geom.Rectangle()
-    });
-
-    return _this;
-  }
-  /**
-   * Prepares this bullet to be fired and interact with the rest of the scene
-   * again.
-   * @returns {void}
-   */
-
-
-  _createClass(Bullet, [{
-    key: "prepare",
-    value: function prepare(x, y) {
-      this.setActive(true);
-      this.setVisible(true);
-      this.body.enable = true;
-      this.body.reset(x, y);
-      this.body.debugShowBody = this.getData('bulletManager').debugPhysics;
-      this.body.debugShowVelocity = this.getData('bulletManager').debugPhysics;
-    }
-    /**
-     * Kills the Bullet, freeing it up for re-use by the Weapon bullet pool.
-     * Also dispatches the `Weapon`s kill signal.
-     * @returns {Bullet} This instance of the bullet class
-     */
-
-  }, {
-    key: "kill",
-    value: function kill() {
-      // Reproduce Phaser.Physics.Arcade.Components.Enable.disableBody because
-      // we can't assume that the bullet class has it built in.
-      this.body.stop();
-      this.body.enable = false;
-      this.setActive(false);
-      this.setVisible(false);
-      this.body.debugShowBody = false;
-      this.body.debugShowVelocity = false; // TODO: potentially we don't need to destroy the time event and we can
-      // just pause when the bullet is killed and restart it when it's refired.
-      // For now though do the simple thing and discard it.
-      // Another option would be to use Date.now() and manually process pause
-      // events with a flag and some math.
-      // Both of those are probably premature optimizations.
-
-      if (this.getData('timeEvent') !== null) {
-        this.getData('timeEvent').destroy();
-        this.setData('timeEvent', null);
-      }
-
-      this.getData('bulletManager').eventEmitter.emit('kill', this);
-      return this;
-    }
-    /**
-     * Updates the Bullet, killing as required.
-     * @returns {Bullet} This instance of the bullet class
-     */
-
-  }, {
-    key: "update",
-    value: function update() {
-      if (!this.active) {
-        // this was previously a check to this.exists
-        return;
-      }
-
-      if (this.getData('killType') > __WEBPACK_IMPORTED_MODULE_0__consts__["a" /* default */].KILL_LIFESPAN) {
-        if (this.getData('killType') === __WEBPACK_IMPORTED_MODULE_0__consts__["a" /* default */].KILL_DISTANCE) {
-          if (new Phaser.Math.Vector2(this.getData('fromX'), this.getData('fromY')).distance(this) > this.getData('killDistance')) {
-            this.kill();
-          }
-        } else if (!Phaser.Geom.Intersects.RectangleToRectangle(this.getData('bulletManager').bulletBounds, this.body.getBounds(this.getData('bodyBounds')))) {
-          this.kill();
-        }
-      }
-
-      if (this.getData('rotateToVelocity')) {
-        this.rotation = this.body.velocity.atan();
-      }
-
-      if (this.getData('bulletManager').bulletWorldWrap) {
-        this.scene.physics.world.wrap(this, this.getData('bulletManager').bulletWorldWrapPadding);
-      }
-    }
-  }]);
-
-  return Bullet;
-}(Phaser.GameObjects.Sprite);
-
-/* harmony default export */ __webpack_exports__["a"] = (Bullet);
-
-/***/ }),
-/* 2 */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__Weapon__ = __webpack_require__(3);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__Bullet__ = __webpack_require__(1);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__consts__ = __webpack_require__(0);
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _Weapon__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(1);
+/* harmony import */ var _Bullet__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(2);
+/* harmony import */ var _consts__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(3);
 function _typeof(obj) { if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
@@ -460,7 +184,7 @@ function (_Phaser$Plugins$Scene) {
     key: "add",
     value: function add(bulletLimit, key, frame, group, weaponClass) {
       if (!weaponClass) {
-        weaponClass = __WEBPACK_IMPORTED_MODULE_0__Weapon__["a" /* default */];
+        weaponClass = _Weapon__WEBPACK_IMPORTED_MODULE_0__["default"];
       }
 
       var weapon = new weaponClass(this.scene, bulletLimit, key, frame, group);
@@ -542,19 +266,20 @@ function (_Phaser$Plugins$Scene) {
 }(Phaser.Plugins.ScenePlugin); // Set up shortcuts to the classes and constants
 
 
-WeaponPlugin.Weapon = __WEBPACK_IMPORTED_MODULE_0__Weapon__["a" /* default */];
-WeaponPlugin.Bullet = __WEBPACK_IMPORTED_MODULE_1__Bullet__["a" /* default */];
-WeaponPlugin.consts = __WEBPACK_IMPORTED_MODULE_2__consts__["a" /* default */];
+WeaponPlugin.Weapon = _Weapon__WEBPACK_IMPORTED_MODULE_0__["default"];
+WeaponPlugin.Bullet = _Bullet__WEBPACK_IMPORTED_MODULE_1__["default"];
+WeaponPlugin.consts = _consts__WEBPACK_IMPORTED_MODULE_2__["default"];
 /* harmony default export */ __webpack_exports__["default"] = (WeaponPlugin);
 
 /***/ }),
-/* 3 */
+/* 1 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__Bullet__ = __webpack_require__(1);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__consts__ = __webpack_require__(0);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__validateConfig__ = __webpack_require__(4);
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _Bullet__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(2);
+/* harmony import */ var _consts__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(3);
+/* harmony import */ var _validateConfig__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(4);
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
 function _defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } }
@@ -668,7 +393,7 @@ function () {
      * @private
      */
 
-    this._fireAngle = __WEBPACK_IMPORTED_MODULE_1__consts__["a" /* default */].ANGLE_UP;
+    this._fireAngle = _consts__WEBPACK_IMPORTED_MODULE_1__["default"].ANGLE_UP;
     /**
      * Private var that holds the public `bulletInheritSpriteSpeed` property.
      * @type {boolean}
@@ -787,7 +512,7 @@ function () {
      * @private
      */
 
-    this._bulletClass = __WEBPACK_IMPORTED_MODULE_0__Bullet__["a" /* default */];
+    this._bulletClass = _Bullet__WEBPACK_IMPORTED_MODULE_0__["default"];
     /**
      * Private var that holds the public `bulletCollideWorldBounds` property.
      * @type {boolean}
@@ -801,7 +526,7 @@ function () {
      * @private
      */
 
-    this._bulletKillType = __WEBPACK_IMPORTED_MODULE_1__consts__["a" /* default */].KILL_WORLD_BOUNDS;
+    this._bulletKillType = _consts__WEBPACK_IMPORTED_MODULE_1__["default"].KILL_WORLD_BOUNDS;
     /**
      * Holds internal data about custom bullet body sizes.
      *
@@ -928,7 +653,7 @@ function () {
 
     this.logLevel = 'warn';
     this.eventEmitter = new Phaser.Events.EventEmitter();
-    Object(__WEBPACK_IMPORTED_MODULE_2__validateConfig__["a" /* default */])(this);
+    Object(_validateConfig__WEBPACK_IMPORTED_MODULE_2__["default"])(this);
     this.createBullets(bulletLimit, key, frame, group);
   }
   /**
@@ -1435,7 +1160,7 @@ function () {
           rotateToVelocity: this.bulletRotateToVelocity
         }); // Prepare timer for bullet lifespan
 
-        if (this.bulletKillType === __WEBPACK_IMPORTED_MODULE_1__consts__["a" /* default */].KILL_LIFESPAN) {
+        if (this.bulletKillType === _consts__WEBPACK_IMPORTED_MODULE_1__["default"].KILL_LIFESPAN) {
           bullet.setData('timeEvent', this.scene.time.addEvent({
             delay: this.bulletLifespan,
             callback: bullet.kill,
@@ -1595,20 +1320,20 @@ function () {
   }, {
     key: "setBulletFrames",
     value: function setBulletFrames(min, max) {
-      var selectionMethod = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : __WEBPACK_IMPORTED_MODULE_1__consts__["a" /* default */].BULLET_FRAME_STABLE;
+      var selectionMethod = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : _consts__WEBPACK_IMPORTED_MODULE_1__["default"].BULLET_FRAME_STABLE;
 
-      if (typeof selectionMethod !== 'number' || selectionMethod < __WEBPACK_IMPORTED_MODULE_1__consts__["a" /* default */].BULLET_FRAME_STABLE || selectionMethod > __WEBPACK_IMPORTED_MODULE_1__consts__["a" /* default */].BULLET_FRAME_RANDOM) {
-        Object(__WEBPACK_IMPORTED_MODULE_2__validateConfig__["b" /* log */])("Invalid bullet frame selection method specified: ".concat(selectionMethod), this.logLevel);
+      if (typeof selectionMethod !== 'number' || selectionMethod < _consts__WEBPACK_IMPORTED_MODULE_1__["default"].BULLET_FRAME_STABLE || selectionMethod > _consts__WEBPACK_IMPORTED_MODULE_1__["default"].BULLET_FRAME_RANDOM) {
+        Object(_validateConfig__WEBPACK_IMPORTED_MODULE_2__["log"])("Invalid bullet frame selection method specified: ".concat(selectionMethod), this.logLevel);
       }
 
       if (min > max) {
-        Object(__WEBPACK_IMPORTED_MODULE_2__validateConfig__["b" /* log */])("min frame (".concat(min, ") must be <= max frame (").concat(max, ")"), this.logLevel);
+        Object(_validateConfig__WEBPACK_IMPORTED_MODULE_2__["log"])("min frame (".concat(min, ") must be <= max frame (").concat(max, ")"), this.logLevel);
       }
 
       this.bulletFrames = Phaser.Utils.Array.NumberArray(min, max);
       this.bulletFrameIndex = 0;
-      this.bulletFrameCycle = selectionMethod === __WEBPACK_IMPORTED_MODULE_1__consts__["a" /* default */].BULLET_FRAME_CYCLE;
-      this.bulletFrameRandom = selectionMethod === __WEBPACK_IMPORTED_MODULE_1__consts__["a" /* default */].BULLET_FRAME_RANDOM;
+      this.bulletFrameCycle = selectionMethod === _consts__WEBPACK_IMPORTED_MODULE_1__["default"].BULLET_FRAME_CYCLE;
+      this.bulletFrameRandom = selectionMethod === _consts__WEBPACK_IMPORTED_MODULE_1__["default"].BULLET_FRAME_RANDOM;
       return this;
     }
     /**
@@ -1655,7 +1380,7 @@ function () {
   }, {
     key: "update",
     value: function update() {
-      if (this._bulletKillType === __WEBPACK_IMPORTED_MODULE_1__consts__["a" /* default */].KILL_WEAPON_BOUNDS) {
+      if (this._bulletKillType === _consts__WEBPACK_IMPORTED_MODULE_1__["default"].KILL_WEAPON_BOUNDS) {
         if (this.trackedSprite) {
           this.trackedSprite.updateTransform();
           Phaser.Geom.Rectangle.CenterOn(this.bounds, this.trackedSprite.x, this.trackedSprite.y);
@@ -1704,7 +1429,7 @@ function () {
     },
     set: function set(value) {
       this._bullets = value;
-      Object(__WEBPACK_IMPORTED_MODULE_2__validateConfig__["a" /* default */])(this, 'bullets');
+      Object(_validateConfig__WEBPACK_IMPORTED_MODULE_2__["default"])(this, 'bullets');
     }
     /**
      * Should the bullet pool run out of bullets (i.e. they are all in flight) then this
@@ -1720,7 +1445,7 @@ function () {
     },
     set: function set(value) {
       this._autoExpandBulletsGroup = value;
-      Object(__WEBPACK_IMPORTED_MODULE_2__validateConfig__["a" /* default */])(this, 'autoExpandBulletsGroup');
+      Object(_validateConfig__WEBPACK_IMPORTED_MODULE_2__["default"])(this, 'autoExpandBulletsGroup');
     }
     /**
      * Will this weapon auto fire? If set to true then a new bullet will be fired
@@ -1736,7 +1461,7 @@ function () {
     },
     set: function set(value) {
       this._autofire = value;
-      Object(__WEBPACK_IMPORTED_MODULE_2__validateConfig__["a" /* default */])(this, 'autofire');
+      Object(_validateConfig__WEBPACK_IMPORTED_MODULE_2__["default"])(this, 'autofire');
     }
     /**
     * The total number of bullets this Weapon has fired so far.
@@ -1753,7 +1478,7 @@ function () {
     },
     set: function set(value) {
       this._shots = value;
-      Object(__WEBPACK_IMPORTED_MODULE_2__validateConfig__["a" /* default */])(this, 'shots');
+      Object(_validateConfig__WEBPACK_IMPORTED_MODULE_2__["default"])(this, 'shots');
     }
     /**
     * The maximum number of shots that this Weapon is allowed to fire before it stops.
@@ -1770,7 +1495,7 @@ function () {
     },
     set: function set(value) {
       this._fireLimit = value;
-      Object(__WEBPACK_IMPORTED_MODULE_2__validateConfig__["a" /* default */])(this, 'fireLimit');
+      Object(_validateConfig__WEBPACK_IMPORTED_MODULE_2__["default"])(this, 'fireLimit');
     }
     /**
     * The minimum interval between shots, in milliseconds.
@@ -1785,7 +1510,7 @@ function () {
     },
     set: function set(value) {
       this._fireRate = value;
-      Object(__WEBPACK_IMPORTED_MODULE_2__validateConfig__["a" /* default */])(this, 'fireRate');
+      Object(_validateConfig__WEBPACK_IMPORTED_MODULE_2__["default"])(this, 'fireRate');
     }
     /**
     * This is a modifier that is added to the {@link #fireRate} each update to add variety
@@ -1803,7 +1528,7 @@ function () {
     },
     set: function set(value) {
       this._fireRateVariance = value;
-      Object(__WEBPACK_IMPORTED_MODULE_2__validateConfig__["a" /* default */])(this, 'fireRateVariance');
+      Object(_validateConfig__WEBPACK_IMPORTED_MODULE_2__["default"])(this, 'fireRateVariance');
     }
     /**
     * This is a Rectangle from within which the bullets are fired. By default it's a 1x1
@@ -1819,7 +1544,7 @@ function () {
     },
     set: function set(value) {
       this._fireFrom = value;
-      Object(__WEBPACK_IMPORTED_MODULE_2__validateConfig__["a" /* default */])(this, 'fireFrom');
+      Object(_validateConfig__WEBPACK_IMPORTED_MODULE_2__["default"])(this, 'fireFrom');
     }
     /**
     * The angle at which the bullets are fired. This can be a const such as Phaser.ANGLE_UP
@@ -1835,7 +1560,7 @@ function () {
     },
     set: function set(value) {
       this._fireAngle = value;
-      Object(__WEBPACK_IMPORTED_MODULE_2__validateConfig__["a" /* default */])(this, 'fireAngle');
+      Object(_validateConfig__WEBPACK_IMPORTED_MODULE_2__["default"])(this, 'fireAngle');
     }
     /**
     * When a Bullet is fired it can optionally inherit the velocity of the `trackedSprite` if set.
@@ -1850,7 +1575,7 @@ function () {
     },
     set: function set(value) {
       this._bulletInheritSpriteSpeed = value;
-      Object(__WEBPACK_IMPORTED_MODULE_2__validateConfig__["a" /* default */])(this, 'bulletInheritSpriteSpeed');
+      Object(_validateConfig__WEBPACK_IMPORTED_MODULE_2__["default"])(this, 'bulletInheritSpriteSpeed');
     }
     /**
     * The string based name of the animation that the Bullet will be given on launch.
@@ -1866,7 +1591,7 @@ function () {
     },
     set: function set(value) {
       this._bulletAnimation = value;
-      Object(__WEBPACK_IMPORTED_MODULE_2__validateConfig__["a" /* default */])(this, 'bulletAnimation');
+      Object(_validateConfig__WEBPACK_IMPORTED_MODULE_2__["default"])(this, 'bulletAnimation');
     }
     /**
     * If you've added a set of frames via {@link #setBulletFrames} then you can optionally
@@ -1882,7 +1607,7 @@ function () {
     },
     set: function set(value) {
       this._bulletFrameRandom = value;
-      Object(__WEBPACK_IMPORTED_MODULE_2__validateConfig__["a" /* default */])(this, 'bulletFrameRandom');
+      Object(_validateConfig__WEBPACK_IMPORTED_MODULE_2__["default"])(this, 'bulletFrameRandom');
     }
     /**
     * If you've added a set of frames via {@link #setBulletFrames} then you can optionally
@@ -1901,7 +1626,7 @@ function () {
     },
     set: function set(value) {
       this._bulletFrameCycle = value;
-      Object(__WEBPACK_IMPORTED_MODULE_2__validateConfig__["a" /* default */])(this, 'bulletFrameCycle');
+      Object(_validateConfig__WEBPACK_IMPORTED_MODULE_2__["default"])(this, 'bulletFrameCycle');
     }
     /**
      * Should the Bullets wrap around the world bounds? This automatically calls
@@ -1917,7 +1642,7 @@ function () {
     },
     set: function set(value) {
       this._bulletWorldWrap = value;
-      Object(__WEBPACK_IMPORTED_MODULE_2__validateConfig__["a" /* default */])(this, 'bulletWorldWrap');
+      Object(_validateConfig__WEBPACK_IMPORTED_MODULE_2__["default"])(this, 'bulletWorldWrap');
     }
     /**
     * If `bulletWorldWrap` is true then you can provide an optional padding value with this
@@ -1934,7 +1659,7 @@ function () {
     },
     set: function set(value) {
       this._bulletWorldWrapPadding = value;
-      Object(__WEBPACK_IMPORTED_MODULE_2__validateConfig__["a" /* default */])(this, 'bulletWorldWrapPadding');
+      Object(_validateConfig__WEBPACK_IMPORTED_MODULE_2__["default"])(this, 'bulletWorldWrapPadding');
     }
     /**
     * An optional angle offset applied to the Bullets when they are launched.
@@ -1952,7 +1677,7 @@ function () {
     },
     set: function set(value) {
       this._bulletAngleOffset = value;
-      Object(__WEBPACK_IMPORTED_MODULE_2__validateConfig__["a" /* default */])(this, 'bulletAngleOffset');
+      Object(_validateConfig__WEBPACK_IMPORTED_MODULE_2__["default"])(this, 'bulletAngleOffset');
     }
     /**
     * This is a variance added to the angle of Bullets when they are fired.
@@ -1970,7 +1695,7 @@ function () {
     },
     set: function set(value) {
       this._bulletAngleVariance = value;
-      Object(__WEBPACK_IMPORTED_MODULE_2__validateConfig__["a" /* default */])(this, 'bulletAngleVariance');
+      Object(_validateConfig__WEBPACK_IMPORTED_MODULE_2__["default"])(this, 'bulletAngleVariance');
     }
     /**
     * The initial velocity of fired bullets, in pixels per second.
@@ -1985,7 +1710,7 @@ function () {
     },
     set: function set(value) {
       this._bulletSpeed = value;
-      Object(__WEBPACK_IMPORTED_MODULE_2__validateConfig__["a" /* default */])(this, 'bulletSpeed');
+      Object(_validateConfig__WEBPACK_IMPORTED_MODULE_2__["default"])(this, 'bulletSpeed');
     }
     /**
     * This is a variance added to the speed of Bullets when they are fired.
@@ -2002,7 +1727,7 @@ function () {
     },
     set: function set(value) {
       this._bulletSpeedVariance = value;
-      Object(__WEBPACK_IMPORTED_MODULE_2__validateConfig__["a" /* default */])(this, 'bulletSpeedVariance');
+      Object(_validateConfig__WEBPACK_IMPORTED_MODULE_2__["default"])(this, 'bulletSpeedVariance');
     }
     /**
     * If you've set {@link #bulletKillType} to `consts.KILL_LIFESPAN` this controls the amount
@@ -2019,7 +1744,7 @@ function () {
     },
     set: function set(value) {
       this._bulletLifespan = value;
-      Object(__WEBPACK_IMPORTED_MODULE_2__validateConfig__["a" /* default */])(this, 'bulletLifespan');
+      Object(_validateConfig__WEBPACK_IMPORTED_MODULE_2__["default"])(this, 'bulletLifespan');
     }
     /**
     * If you've set {@link #bulletKillType} to `consts.KILL_DISTANCE` this controls the distance
@@ -2035,7 +1760,7 @@ function () {
     },
     set: function set(value) {
       this._bulletKillDistance = value;
-      Object(__WEBPACK_IMPORTED_MODULE_2__validateConfig__["a" /* default */])(this, 'bulletKillDistance');
+      Object(_validateConfig__WEBPACK_IMPORTED_MODULE_2__["default"])(this, 'bulletKillDistance');
     }
     /**
     * This is the amount of {@link Phaser.Physics.Arcade.Body#gravity} added to the Bullets physics body when fired.
@@ -2050,7 +1775,7 @@ function () {
     },
     set: function set(value) {
       this._bulletGravity = value;
-      Object(__WEBPACK_IMPORTED_MODULE_2__validateConfig__["a" /* default */])(this, 'bulletGravity');
+      Object(_validateConfig__WEBPACK_IMPORTED_MODULE_2__["default"])(this, 'bulletGravity');
     }
     /**
     * Bullets can optionally adjust their rotation in-flight to match their velocity.
@@ -2067,7 +1792,7 @@ function () {
     },
     set: function set(value) {
       this._bulletRotateToVelocity = value;
-      Object(__WEBPACK_IMPORTED_MODULE_2__validateConfig__["a" /* default */])(this, 'bulletRotateToVelocity');
+      Object(_validateConfig__WEBPACK_IMPORTED_MODULE_2__["default"])(this, 'bulletRotateToVelocity');
     }
     /**
     * The Texture Key that the Bullets use when rendering.
@@ -2083,7 +1808,7 @@ function () {
     },
     set: function set(value) {
       this._bulletKey = value;
-      Object(__WEBPACK_IMPORTED_MODULE_2__validateConfig__["a" /* default */])(this, 'bulletKey');
+      Object(_validateConfig__WEBPACK_IMPORTED_MODULE_2__["default"])(this, 'bulletKey');
     }
     /**
     * The Texture Frame that the Bullets use when rendering.
@@ -2099,7 +1824,7 @@ function () {
     },
     set: function set(value) {
       this._bulletFrame = value;
-      Object(__WEBPACK_IMPORTED_MODULE_2__validateConfig__["a" /* default */])(this, 'bulletFrame');
+      Object(_validateConfig__WEBPACK_IMPORTED_MODULE_2__["default"])(this, 'bulletFrame');
     }
     /**
      * The Class of the bullets that are launched by this Weapon. Defaults to {@link Phaser.Bullet}, but can be
@@ -2122,7 +1847,7 @@ function () {
         this.bullets.classType = this._bulletClass;
       }
 
-      Object(__WEBPACK_IMPORTED_MODULE_2__validateConfig__["a" /* default */])(this, 'bulletClass');
+      Object(_validateConfig__WEBPACK_IMPORTED_MODULE_2__["default"])(this, 'bulletClass');
     }
     /**
     * Should bullets collide with the World bounds or not?
@@ -2141,7 +1866,7 @@ function () {
         child.body.collideWorldBounds = value;
         child.setData('bodyDirty', false);
       });
-      Object(__WEBPACK_IMPORTED_MODULE_2__validateConfig__["a" /* default */])(this, 'bulletCollideWorldBounds');
+      Object(_validateConfig__WEBPACK_IMPORTED_MODULE_2__["default"])(this, 'bulletCollideWorldBounds');
     }
     /**
     * This controls how the bullets will be killed. The default is `consts.KILL_WORLD_BOUNDS`.
@@ -2182,22 +1907,22 @@ function () {
     },
     set: function set(type) {
       switch (type) {
-        case __WEBPACK_IMPORTED_MODULE_1__consts__["a" /* default */].KILL_STATIC_BOUNDS:
-        case __WEBPACK_IMPORTED_MODULE_1__consts__["a" /* default */].KILL_WEAPON_BOUNDS:
+        case _consts__WEBPACK_IMPORTED_MODULE_1__["default"].KILL_STATIC_BOUNDS:
+        case _consts__WEBPACK_IMPORTED_MODULE_1__["default"].KILL_WEAPON_BOUNDS:
           this.bulletBounds = this.bounds;
           break;
 
-        case __WEBPACK_IMPORTED_MODULE_1__consts__["a" /* default */].KILL_CAMERA_BOUNDS:
+        case _consts__WEBPACK_IMPORTED_MODULE_1__["default"].KILL_CAMERA_BOUNDS:
           this.bulletBounds = this.scene.sys.cameras.main._bounds;
           break;
 
-        case __WEBPACK_IMPORTED_MODULE_1__consts__["a" /* default */].KILL_WORLD_BOUNDS:
+        case _consts__WEBPACK_IMPORTED_MODULE_1__["default"].KILL_WORLD_BOUNDS:
           this.bulletBounds = this.scene.physics.world.bounds;
           break;
       }
 
       this._bulletKillType = type;
-      Object(__WEBPACK_IMPORTED_MODULE_2__validateConfig__["a" /* default */])(this, 'bulletKillType');
+      Object(_validateConfig__WEBPACK_IMPORTED_MODULE_2__["default"])(this, 'bulletKillType');
     }
     /**
     * This Rectangle defines the bounds that are used when determining if a Bullet should be killed or not.
@@ -2215,7 +1940,7 @@ function () {
     },
     set: function set(value) {
       this._bounds = value;
-      Object(__WEBPACK_IMPORTED_MODULE_2__validateConfig__["a" /* default */])(this, 'bounds');
+      Object(_validateConfig__WEBPACK_IMPORTED_MODULE_2__["default"])(this, 'bounds');
     }
     /**
     * The Rectangle used to calculate the bullet bounds from.
@@ -2231,7 +1956,7 @@ function () {
     },
     set: function set(value) {
       this._bulletBounds = value;
-      Object(__WEBPACK_IMPORTED_MODULE_2__validateConfig__["a" /* default */])(this, 'bulletBounds');
+      Object(_validateConfig__WEBPACK_IMPORTED_MODULE_2__["default"])(this, 'bulletBounds');
     }
     /**
     * This array stores the frames added via @link #setBulletFrames.
@@ -2247,7 +1972,7 @@ function () {
     },
     set: function set(value) {
       this._bulletFrames = value;
-      Object(__WEBPACK_IMPORTED_MODULE_2__validateConfig__["a" /* default */])(this, 'bulletFrames');
+      Object(_validateConfig__WEBPACK_IMPORTED_MODULE_2__["default"])(this, 'bulletFrames');
     }
     /**
     * The index of the frame within {@link #bulletFrames} that is currently being used.
@@ -2263,7 +1988,7 @@ function () {
     },
     set: function set(value) {
       this._bulletFrameIndex = value;
-      Object(__WEBPACK_IMPORTED_MODULE_2__validateConfig__["a" /* default */])(this, 'bulletFrameIndex');
+      Object(_validateConfig__WEBPACK_IMPORTED_MODULE_2__["default"])(this, 'bulletFrameIndex');
     }
     /**
     * The Sprite currently being tracked by the Weapon, if any.
@@ -2279,7 +2004,7 @@ function () {
     },
     set: function set(value) {
       this._trackedSprite = value;
-      Object(__WEBPACK_IMPORTED_MODULE_2__validateConfig__["a" /* default */])(this, 'trackedSprite');
+      Object(_validateConfig__WEBPACK_IMPORTED_MODULE_2__["default"])(this, 'trackedSprite');
     }
     /**
     * The Pointer currently being tracked by the Weapon, if any.
@@ -2295,7 +2020,7 @@ function () {
     },
     set: function set(value) {
       this._trackedPointer = value;
-      Object(__WEBPACK_IMPORTED_MODULE_2__validateConfig__["a" /* default */])(this, 'trackedPointer');
+      Object(_validateConfig__WEBPACK_IMPORTED_MODULE_2__["default"])(this, 'trackedPointer');
     }
     /**
     * If you want this Weapon to be able to fire more than 1 bullet in a single
@@ -2315,7 +2040,7 @@ function () {
     },
     set: function set(value) {
       this._multiFire = value;
-      Object(__WEBPACK_IMPORTED_MODULE_2__validateConfig__["a" /* default */])(this, 'multiFire');
+      Object(_validateConfig__WEBPACK_IMPORTED_MODULE_2__["default"])(this, 'multiFire');
     }
     /**
     * If the Weapon is tracking a Sprite, should it also track the Sprites rotation?
@@ -2333,7 +2058,7 @@ function () {
     },
     set: function set(value) {
       this._trackRotation = value;
-      Object(__WEBPACK_IMPORTED_MODULE_2__validateConfig__["a" /* default */])(this, 'trackRotation');
+      Object(_validateConfig__WEBPACK_IMPORTED_MODULE_2__["default"])(this, 'trackRotation');
     }
     /**
     * The Track Offset is a Vector2 object that allows you to specify a pixel offset that bullets use
@@ -2351,7 +2076,7 @@ function () {
     },
     set: function set(value) {
       this._trackOffset = value;
-      Object(__WEBPACK_IMPORTED_MODULE_2__validateConfig__["a" /* default */])(this, 'trackOffset');
+      Object(_validateConfig__WEBPACK_IMPORTED_MODULE_2__["default"])(this, 'trackOffset');
     }
     /**
      * The x coordinate from which bullets are fired. This is the same as `Weapon.fireFrom.x`, and
@@ -2388,15 +2113,315 @@ function () {
   return Weapon;
 }();
 
-/* harmony default export */ __webpack_exports__["a"] = (Weapon);
+/* harmony default export */ __webpack_exports__["default"] = (Weapon);
+
+/***/ }),
+/* 2 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _consts__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(3);
+function _typeof(obj) { if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } }
+
+function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _defineProperties(Constructor.prototype, protoProps); if (staticProps) _defineProperties(Constructor, staticProps); return Constructor; }
+
+function _possibleConstructorReturn(self, call) { if (call && (_typeof(call) === "object" || typeof call === "function")) { return call; } return _assertThisInitialized(self); }
+
+function _getPrototypeOf(o) { _getPrototypeOf = Object.setPrototypeOf ? Object.getPrototypeOf : function _getPrototypeOf(o) { return o.__proto__ || Object.getPrototypeOf(o); }; return _getPrototypeOf(o); }
+
+function _assertThisInitialized(self) { if (self === void 0) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return self; }
+
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function"); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, writable: true, configurable: true } }); if (superClass) _setPrototypeOf(subClass, superClass); }
+
+function _setPrototypeOf(o, p) { _setPrototypeOf = Object.setPrototypeOf || function _setPrototypeOf(o, p) { o.__proto__ = p; return o; }; return _setPrototypeOf(o, p); }
+
+
+var bulletID = 0;
+
+var Bullet =
+/*#__PURE__*/
+function (_Phaser$GameObjects$S) {
+  _inherits(Bullet, _Phaser$GameObjects$S);
+
+  /**
+   * Create a new `Bullet` object. Bullets are used by the `Weapon` class, and are normal Sprites,
+   * with a few extra properties in the data manager to handle Weapon specific features.
+   *
+   * @param {Phaser.Scene} scene - A reference to the currently running scene.
+   * @param {number} x - The x coordinate (in world space) to position the Particle at.
+   * @param {number} y - The y coordinate (in world space) to position the Particle at.
+   * @param {string} key - This is the image or texture used by the Particle during rendering.
+   * It can be a string which is a reference to the Cache entry, or an instance of a RenderTexture or PIXI.Texture.
+   * @param {string|number} frame - If this Particle is using part of a sprite sheet or texture atlas
+   * you can specify the exact frame to use by giving a string or numeric index.
+   */
+  function Bullet(scene, x, y, key, frame) {
+    var _this;
+
+    _classCallCheck(this, Bullet);
+
+    _this = _possibleConstructorReturn(this, _getPrototypeOf(Bullet).call(this, scene, x, y, key, frame));
+    _this.bulletID = bulletID;
+    bulletID++;
+
+    _this.scene.physics.add.existing(_assertThisInitialized(_this));
+
+    _this.setDataEnabled();
+
+    _this.setData({
+      timeEvent: null,
+      bulletManager: null,
+      fromX: 0,
+      fromY: 0,
+      bodyDirty: true,
+      rotateToVelocity: false,
+      killType: 0,
+      killDistance: 0,
+      bodyBounds: new Phaser.Geom.Rectangle()
+    });
+
+    return _this;
+  }
+  /**
+   * Prepares this bullet to be fired and interact with the rest of the scene
+   * again.
+   * @returns {void}
+   */
+
+
+  _createClass(Bullet, [{
+    key: "prepare",
+    value: function prepare(x, y) {
+      this.setActive(true);
+      this.setVisible(true);
+      this.body.enable = true;
+      this.body.reset(x, y);
+      this.body.debugShowBody = this.getData('bulletManager').debugPhysics;
+      this.body.debugShowVelocity = this.getData('bulletManager').debugPhysics;
+    }
+    /**
+     * Kills the Bullet, freeing it up for re-use by the Weapon bullet pool.
+     * Also dispatches the `Weapon`s kill signal.
+     * @returns {Bullet} This instance of the bullet class
+     */
+
+  }, {
+    key: "kill",
+    value: function kill() {
+      // Reproduce Phaser.Physics.Arcade.Components.Enable.disableBody because
+      // we can't assume that the bullet class has it built in.
+      this.body.stop();
+      this.body.enable = false;
+      this.setActive(false);
+      this.setVisible(false);
+      this.body.debugShowBody = false;
+      this.body.debugShowVelocity = false; // TODO: potentially we don't need to destroy the time event and we can
+      // just pause when the bullet is killed and restart it when it's refired.
+      // For now though do the simple thing and discard it.
+      // Another option would be to use Date.now() and manually process pause
+      // events with a flag and some math.
+      // Both of those are probably premature optimizations.
+
+      if (this.getData('timeEvent') !== null) {
+        this.getData('timeEvent').destroy();
+        this.setData('timeEvent', null);
+      }
+
+      this.getData('bulletManager').eventEmitter.emit('kill', this);
+      return this;
+    }
+    /**
+     * Updates the Bullet, killing as required.
+     * @returns {Bullet} This instance of the bullet class
+     */
+
+  }, {
+    key: "update",
+    value: function update() {
+      if (!this.active) {
+        // this was previously a check to this.exists
+        return;
+      }
+
+      if (this.getData('killType') > _consts__WEBPACK_IMPORTED_MODULE_0__["default"].KILL_LIFESPAN) {
+        if (this.getData('killType') === _consts__WEBPACK_IMPORTED_MODULE_0__["default"].KILL_DISTANCE) {
+          if (new Phaser.Math.Vector2(this.getData('fromX'), this.getData('fromY')).distance(this) > this.getData('killDistance')) {
+            this.kill();
+          }
+        } else if (!Phaser.Geom.Intersects.RectangleToRectangle(this.getData('bulletManager').bulletBounds, this.body.getBounds(this.getData('bodyBounds')))) {
+          this.kill();
+        }
+      }
+
+      if (this.getData('rotateToVelocity')) {
+        this.rotation = this.body.velocity.atan();
+      }
+
+      if (this.getData('bulletManager').bulletWorldWrap) {
+        this.scene.physics.world.wrap(this, this.getData('bulletManager').bulletWorldWrapPadding);
+      }
+    }
+  }]);
+
+  return Bullet;
+}(Phaser.GameObjects.Sprite);
+
+/* harmony default export */ __webpack_exports__["default"] = (Bullet);
+
+/***/ }),
+/* 3 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony default export */ __webpack_exports__["default"] = ({
+  /**
+   * A {@link #bulletKillType} constant that stops the bullets from ever being destroyed automatically.
+   * @constant
+   * @type {integer}
+   */
+  KILL_NEVER: 0,
+
+  /**
+   * A {@link #bulletKillType} constant that automatically kills the bullets
+   * when their {@link #bulletLifespan} expires.
+   * @constant
+   * @type {integer}
+   */
+  KILL_LIFESPAN: 1,
+
+  /**
+   * A {@link #bulletKillType} constant that automatically kills the bullets after they
+   * exceed the {@link #bulletDistance} from their original firing position.
+   * @constant
+   * @type {integer}
+   */
+  KILL_DISTANCE: 2,
+
+  /**
+   * A {@link #bulletKillType} constant that automatically kills the bullets
+   * when they leave the {@link #bounds} rectangle.
+   * @constant
+   * @type {integer}
+   */
+  KILL_WEAPON_BOUNDS: 3,
+
+  /**
+   * A {@link #bulletKillType} constant that automatically kills the bullets
+   * when they leave the {@link Phaser.Camera#bounds} rectangle.
+   * @constant
+   * @type {integer}
+   */
+  KILL_CAMERA_BOUNDS: 4,
+
+  /**
+   * A {@link #bulletKillType} constant that automatically kills the bullets
+   * when they leave the {@link Phaser.World#bounds} rectangle.
+   * @constant
+   * @type {integer}
+   */
+  KILL_WORLD_BOUNDS: 5,
+
+  /**
+   * A {@link #bulletKillType} constant that automatically kills the bullets
+   * when they leave the {@link #bounds} rectangle.
+   * @constant
+   * @type {integer}
+   */
+  KILL_STATIC_BOUNDS: 6,
+
+  /**
+   * The Angle (in degrees) a Game Object needs to be set to in order to face up.
+   * @constant
+   * @type {integer}
+   */
+  ANGLE_UP: 270,
+
+  /**
+   * The Angle (in degrees) a Game Object needs to be set to in order to face down.
+   * @constant
+   * @type {integer}
+   */
+  ANGLE_DOWN: 90,
+
+  /**
+   * The Angle (in degrees) a Game Object needs to be set to in order to face left.
+   * @constant
+   * @type {integer}
+   */
+  ANGLE_LEFT: 180,
+
+  /**
+   * The Angle (in degrees) a Game Object needs to be set to in order to face right.
+   * @constant
+   * @type {integer}
+   */
+  ANGLE_RIGHT: 0,
+
+  /**
+   * The Angle (in degrees) a Game Object needs to be set to in order to face north east.
+   * @constant Phaser.ANGLE_NORTH_EAST
+   * @type {integer}
+   */
+  ANGLE_NORTH_EAST: 315,
+
+  /**
+   * The Angle (in degrees) a Game Object needs to be set to in order to face north west.
+   * @constant
+   * @type {integer}
+   */
+  ANGLE_NORTH_WEST: 225,
+
+  /**
+   * The Angle (in degrees) a Game Object needs to be set to in order to face south east.
+   * @constant
+   * @type {integer}
+   */
+  ANGLE_SOUTH_EAST: 45,
+
+  /**
+   * The Angle (in degrees) a Game Object needs to be set to in order to face south west.
+   * @constant
+   * @type {integer}
+   */
+  ANGLE_SOUTH_WEST: 135,
+
+  /**
+   * When selecting a bullet frame the same frame should always be used. This
+   * is the default value.
+   * @constant
+   * @type { integer }
+   */
+  BULLET_FRAME_STABLE: 0,
+
+  /**
+   * When selecting a bullet frame the next frame should be used
+   * @constant
+   * @type { integer }
+   */
+  BULLET_FRAME_CYCLE: 1,
+
+  /**
+   * When selecting a bullet frame a random frame should be used.
+   * @constant
+   * @type { integer }
+   */
+  BULLET_FRAME_RANDOM: 2
+});
 
 /***/ }),
 /* 4 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "b", function() { return log; });
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__consts__ = __webpack_require__(0);
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "log", function() { return log; });
+/* harmony import */ var _consts__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(3);
 
 /**
  * Log text to the console or throw an error
@@ -2419,11 +2444,11 @@ function log(text, logLevel) {
 
 
 function validateConfig(weapon, property) {
-  if (['bulletWorldWrap', 'bulletKillType'].includes(property) && weapon.bulletWorldWrap && (weapon.bulletKillType === __WEBPACK_IMPORTED_MODULE_0__consts__["a" /* default */].KILL_WORLD_BOUNDS || weapon.bulletKillType === __WEBPACK_IMPORTED_MODULE_0__consts__["a" /* default */].KILL_WEAPON_BOUNDS)) {
+  if (['bulletWorldWrap', 'bulletKillType'].includes(property) && weapon.bulletWorldWrap && (weapon.bulletKillType === _consts__WEBPACK_IMPORTED_MODULE_0__["default"].KILL_WORLD_BOUNDS || weapon.bulletKillType === _consts__WEBPACK_IMPORTED_MODULE_0__["default"].KILL_WEAPON_BOUNDS)) {
     log('Warning: KILL_WORLD_BOUNDS and KILL_WEAPON_BOUNDS does not work well with bulletWorldWrap set to true.', weapon.logLevel);
   }
 
-  if (['bulletKillType', 'bulletLifespan'].includes(property) && weapon.bulletKillType === __WEBPACK_IMPORTED_MODULE_0__consts__["a" /* default */].KILL_LIFESPAN && weapon.bulletLifespan < 0) {
+  if (['bulletKillType', 'bulletLifespan'].includes(property) && weapon.bulletKillType === _consts__WEBPACK_IMPORTED_MODULE_0__["default"].KILL_LIFESPAN && weapon.bulletLifespan < 0) {
     log('Invalid bulletLifespan; must be > 0; currently ' + weapon.bulletLifespan, weapon.logLevel);
   }
 
@@ -2433,7 +2458,7 @@ function validateConfig(weapon, property) {
 }
 
 
-/* harmony default export */ __webpack_exports__["a"] = (validateConfig);
+/* harmony default export */ __webpack_exports__["default"] = (validateConfig);
 
 /***/ })
 /******/ ])["default"];
