@@ -10,33 +10,9 @@ module.exports = {
   "parserOptions": {
     "sourceType": "module"
   },
-  "extends": "eslint:recommended",
+  "extends": ["eslint:recommended", "plugin:prettier/recommended"],
   "rules": {
-    "indent": [
-      "error",
-      2,
-      {
-        "SwitchCase": 1
-      }
-    ],
-    "linebreak-style": [
-      "error",
-      "unix"
-    ],
-    "quotes": [
-      "error",
-      "single"
-    ],
-    "semi": [
-      "error",
-      "always"
-    ],
     "no-console": "warn",
-    "no-unused-vars": "warn",
-    "max-len": ["warn", {
-      "code": 100,
-      "comments": 120,
-      "ignoreUrls": true
-    }]
+    "no-unused-vars": "warn"
   }
 };
