@@ -9,7 +9,7 @@
     "postbuild": "cp dist/WeaponPlugin.{js,js.map} examples/src/",
     "examples": "http-server examples/src -p 2234",
     "lint": "eslint src/**/*",
-    "lint:fix": "eslint src/**/* --fix"
+    "lint:fix": "npm run lint -- --fix",
   },
   "repository": {
     "type": "git",
