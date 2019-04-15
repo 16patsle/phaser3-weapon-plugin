@@ -46,7 +46,13 @@ class WeaponPlugin extends Phaser.Plugins.ScenePlugin {
 
     // Register our new Game Object type
     pluginManager.registerGameObject('weapon', this.add.bind(this), config => {
-      return this.add(config.bulletLimit, config.key, config.frame, config.group, config.weaponClass);
+      return this.add(
+        config.bulletLimit,
+        config.key,
+        config.frame,
+        config.group,
+        config.weaponClass
+      );
     });
   }
 
@@ -126,6 +132,5 @@ class WeaponPlugin extends Phaser.Plugins.ScenePlugin {
 WeaponPlugin.Weapon = Weapon;
 WeaponPlugin.Bullet = Bullet;
 WeaponPlugin.consts = consts;
-
 
 export default WeaponPlugin;

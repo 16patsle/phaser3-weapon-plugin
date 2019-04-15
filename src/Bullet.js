@@ -94,8 +94,10 @@ class Bullet extends Phaser.GameObjects.Sprite {
     if (this.getData('killType') > consts.KILL_LIFESPAN) {
       if (this.getData('killType') === consts.KILL_DISTANCE) {
         if (
-          new Phaser.Math.Vector2(this.getData('fromX'), this.getData('fromY')).distance(this) >
-          this.getData('killDistance')
+          new Phaser.Math.Vector2(
+            this.getData('fromX'),
+            this.getData('fromY')
+          ).distance(this) > this.getData('killDistance')
         ) {
           this.kill();
         }
@@ -114,7 +116,10 @@ class Bullet extends Phaser.GameObjects.Sprite {
     }
 
     if (this.getData('bulletManager').bulletWorldWrap) {
-      this.scene.physics.world.wrap(this, this.getData('bulletManager').bulletWorldWrapPadding);
+      this.scene.physics.world.wrap(
+        this,
+        this.getData('bulletManager').bulletWorldWrapPadding
+      );
     }
   }
 }
