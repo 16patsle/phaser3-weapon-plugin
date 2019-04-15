@@ -647,7 +647,7 @@ function () {
     /**
      * Log level for this weapon. Either `warn`, `error' or `off`. `warn` is the default.
      * If you change this, please do so before setting any other properties.
-     * 
+     *
      * @type {string}
      */
 
@@ -1464,12 +1464,12 @@ function () {
       Object(_validateConfig__WEBPACK_IMPORTED_MODULE_2__["default"])(this, 'autofire');
     }
     /**
-    * The total number of bullets this Weapon has fired so far.
-    * You can limit the number of shots allowed (via {@link #fireLimit}), and reset
-    * this total via {@link #resetShots}.
-    * @type {number}
-    * @default
-    */
+     * The total number of bullets this Weapon has fired so far.
+     * You can limit the number of shots allowed (via {@link #fireLimit}), and reset
+     * this total via {@link #resetShots}.
+     * @type {number}
+     * @default
+     */
 
   }, {
     key: "shots",
@@ -1481,12 +1481,12 @@ function () {
       Object(_validateConfig__WEBPACK_IMPORTED_MODULE_2__["default"])(this, 'shots');
     }
     /**
-    * The maximum number of shots that this Weapon is allowed to fire before it stops.
-    * When the limit is hit the {@link #onFireLimit} event is dispatched.
-    * You can reset the shot counter via {@link #resetShots}.
-    * @type {number}
-    * @default
-    */
+     * The maximum number of shots that this Weapon is allowed to fire before it stops.
+     * When the limit is hit the {@link #onFireLimit} event is dispatched.
+     * You can reset the shot counter via {@link #resetShots}.
+     * @type {number}
+     * @default
+     */
 
   }, {
     key: "fireLimit",
@@ -1498,10 +1498,10 @@ function () {
       Object(_validateConfig__WEBPACK_IMPORTED_MODULE_2__["default"])(this, 'fireLimit');
     }
     /**
-    * The minimum interval between shots, in milliseconds.
-    * @type {number}
-    * @default
-    */
+     * The minimum interval between shots, in milliseconds.
+     * @type {number}
+     * @default
+     */
 
   }, {
     key: "fireRate",
@@ -1513,13 +1513,13 @@ function () {
       Object(_validateConfig__WEBPACK_IMPORTED_MODULE_2__["default"])(this, 'fireRate');
     }
     /**
-    * This is a modifier that is added to the {@link #fireRate} each update to add variety
-    * to the firing rate of the Weapon. The value is given in milliseconds.
-    * If you've a `fireRate` of 200 and a `fireRateVariance` of 50 then the actual
-    * firing rate of the Weapon will be between 150 and 250.
-    * @type {number}
-    * @default
-    */
+     * This is a modifier that is added to the {@link #fireRate} each update to add variety
+     * to the firing rate of the Weapon. The value is given in milliseconds.
+     * If you've a `fireRate` of 200 and a `fireRateVariance` of 50 then the actual
+     * firing rate of the Weapon will be between 150 and 250.
+     * @type {number}
+     * @default
+     */
 
   }, {
     key: "fireRateVariance",
@@ -1531,11 +1531,11 @@ function () {
       Object(_validateConfig__WEBPACK_IMPORTED_MODULE_2__["default"])(this, 'fireRateVariance');
     }
     /**
-    * This is a Rectangle from within which the bullets are fired. By default it's a 1x1
-    * rectangle, the equivalent of a Point. But you can change the width and height, and if
-    * larger than 1x1 it'll pick a random point within the rectangle to launch the bullet from.
-    * @type {Phaser.Geom.Rectangle}
-    */
+     * This is a Rectangle from within which the bullets are fired. By default it's a 1x1
+     * rectangle, the equivalent of a Point. But you can change the width and height, and if
+     * larger than 1x1 it'll pick a random point within the rectangle to launch the bullet from.
+     * @type {Phaser.Geom.Rectangle}
+     */
 
   }, {
     key: "fireFrom",
@@ -1547,11 +1547,11 @@ function () {
       Object(_validateConfig__WEBPACK_IMPORTED_MODULE_2__["default"])(this, 'fireFrom');
     }
     /**
-    * The angle at which the bullets are fired. This can be a const such as Phaser.ANGLE_UP
-    * or it can be any number from 0 to 360 inclusive, where 0 degrees is to the right.
-    * @type {integer}
-    * @default
-    */
+     * The angle at which the bullets are fired. This can be a const such as Phaser.ANGLE_UP
+     * or it can be any number from 0 to 360 inclusive, where 0 degrees is to the right.
+     * @type {integer}
+     * @default
+     */
 
   }, {
     key: "fireAngle",
@@ -1563,10 +1563,10 @@ function () {
       Object(_validateConfig__WEBPACK_IMPORTED_MODULE_2__["default"])(this, 'fireAngle');
     }
     /**
-    * When a Bullet is fired it can optionally inherit the velocity of the `trackedSprite` if set.
-    * @type {boolean}
-    * @default
-    */
+     * When a Bullet is fired it can optionally inherit the velocity of the `trackedSprite` if set.
+     * @type {boolean}
+     * @default
+     */
 
   }, {
     key: "bulletInheritSpriteSpeed",
@@ -1578,11 +1578,11 @@ function () {
       Object(_validateConfig__WEBPACK_IMPORTED_MODULE_2__["default"])(this, 'bulletInheritSpriteSpeed');
     }
     /**
-    * The string based name of the animation that the Bullet will be given on launch.
-    * This is set via {@link #addBulletAnimation}.
-    * @type {string}
-    * @default
-    */
+     * The string based name of the animation that the Bullet will be given on launch.
+     * This is set via {@link #addBulletAnimation}.
+     * @type {string}
+     * @default
+     */
 
   }, {
     key: "bulletAnimation",
@@ -1594,11 +1594,11 @@ function () {
       Object(_validateConfig__WEBPACK_IMPORTED_MODULE_2__["default"])(this, 'bulletAnimation');
     }
     /**
-    * If you've added a set of frames via {@link #setBulletFrames} then you can optionally
-    * chose for each Bullet fired to pick a random frame from the set.
-    * @type {boolean}
-    * @default
-    */
+     * If you've added a set of frames via {@link #setBulletFrames} then you can optionally
+     * chose for each Bullet fired to pick a random frame from the set.
+     * @type {boolean}
+     * @default
+     */
 
   }, {
     key: "bulletFrameRandom",
@@ -1610,14 +1610,14 @@ function () {
       Object(_validateConfig__WEBPACK_IMPORTED_MODULE_2__["default"])(this, 'bulletFrameRandom');
     }
     /**
-    * If you've added a set of frames via {@link #setBulletFrames} then you can optionally
-    * chose for each Bullet fired to use the next frame in the set. The frame index is then
-    * advanced one frame until it reaches the end of the set, then it starts from the start
-    * again. Cycling frames like this allows you to create varied bullet effects via
-    * sprite sheets.
-    * @type {boolean}
-    * @default
-    */
+     * If you've added a set of frames via {@link #setBulletFrames} then you can optionally
+     * chose for each Bullet fired to use the next frame in the set. The frame index is then
+     * advanced one frame until it reaches the end of the set, then it starts from the start
+     * again. Cycling frames like this allows you to create varied bullet effects via
+     * sprite sheets.
+     * @type {boolean}
+     * @default
+     */
 
   }, {
     key: "bulletFrameCycle",
@@ -1645,12 +1645,12 @@ function () {
       Object(_validateConfig__WEBPACK_IMPORTED_MODULE_2__["default"])(this, 'bulletWorldWrap');
     }
     /**
-    * If `bulletWorldWrap` is true then you can provide an optional padding value with this
-    * property. It's added to the calculations determining when the Bullet should wrap around
-    * the world or not. The value is given in pixels.
-    * @type {integer}
-    * @default
-    */
+     * If `bulletWorldWrap` is true then you can provide an optional padding value with this
+     * property. It's added to the calculations determining when the Bullet should wrap around
+     * the world or not. The value is given in pixels.
+     * @type {integer}
+     * @default
+     */
 
   }, {
     key: "bulletWorldWrapPadding",
@@ -1662,13 +1662,13 @@ function () {
       Object(_validateConfig__WEBPACK_IMPORTED_MODULE_2__["default"])(this, 'bulletWorldWrapPadding');
     }
     /**
-    * An optional angle offset applied to the Bullets when they are launched.
-    * This is useful if for example your bullet sprites have been drawn facing up, instead of
-    * to the right, and you want to fire them at an angle. In which case you can set the
-    * angle offset to be 90 and they'll be properly rotated when fired.
-    * @type {number}
-    * @default
-    */
+     * An optional angle offset applied to the Bullets when they are launched.
+     * This is useful if for example your bullet sprites have been drawn facing up, instead of
+     * to the right, and you want to fire them at an angle. In which case you can set the
+     * angle offset to be 90 and they'll be properly rotated when fired.
+     * @type {number}
+     * @default
+     */
 
   }, {
     key: "bulletAngleOffset",
@@ -1680,13 +1680,13 @@ function () {
       Object(_validateConfig__WEBPACK_IMPORTED_MODULE_2__["default"])(this, 'bulletAngleOffset');
     }
     /**
-    * This is a variance added to the angle of Bullets when they are fired.
-    * If you fire from an angle of 90 and have a `bulletAngleVariance` of 20 then the actual
-    * angle of the Bullets will be between 70 and 110 degrees. This is a quick way to add a
-    * great 'spread' effect to a Weapon.
-    * @type {number}
-    * @default
-    */
+     * This is a variance added to the angle of Bullets when they are fired.
+     * If you fire from an angle of 90 and have a `bulletAngleVariance` of 20 then the actual
+     * angle of the Bullets will be between 70 and 110 degrees. This is a quick way to add a
+     * great 'spread' effect to a Weapon.
+     * @type {number}
+     * @default
+     */
 
   }, {
     key: "bulletAngleVariance",
@@ -1698,10 +1698,10 @@ function () {
       Object(_validateConfig__WEBPACK_IMPORTED_MODULE_2__["default"])(this, 'bulletAngleVariance');
     }
     /**
-    * The initial velocity of fired bullets, in pixels per second.
-    * @type {number}
-    * @default
-    */
+     * The initial velocity of fired bullets, in pixels per second.
+     * @type {number}
+     * @default
+     */
 
   }, {
     key: "bulletSpeed",
@@ -1713,12 +1713,12 @@ function () {
       Object(_validateConfig__WEBPACK_IMPORTED_MODULE_2__["default"])(this, 'bulletSpeed');
     }
     /**
-    * This is a variance added to the speed of Bullets when they are fired.
-    * If bullets have a {@link #bulletSpeed} value of 200, and a `bulletSpeedVariance` of 50
-    * then the actual speed of the Bullets will be between 150 and 250 pixels per second.
-    * @type {number}
-    * @default
-    */
+     * This is a variance added to the speed of Bullets when they are fired.
+     * If bullets have a {@link #bulletSpeed} value of 200, and a `bulletSpeedVariance` of 50
+     * then the actual speed of the Bullets will be between 150 and 250 pixels per second.
+     * @type {number}
+     * @default
+     */
 
   }, {
     key: "bulletSpeedVariance",
@@ -1730,12 +1730,12 @@ function () {
       Object(_validateConfig__WEBPACK_IMPORTED_MODULE_2__["default"])(this, 'bulletSpeedVariance');
     }
     /**
-    * If you've set {@link #bulletKillType} to `consts.KILL_LIFESPAN` this controls the amount
-    * of lifespan the Bullets have set on launch. The value is given in milliseconds.
-    * When a Bullet hits its lifespan limit it will be automatically killed.
-    * @type {number}
-    * @default
-    */
+     * If you've set {@link #bulletKillType} to `consts.KILL_LIFESPAN` this controls the amount
+     * of lifespan the Bullets have set on launch. The value is given in milliseconds.
+     * When a Bullet hits its lifespan limit it will be automatically killed.
+     * @type {number}
+     * @default
+     */
 
   }, {
     key: "bulletLifespan",
@@ -1747,11 +1747,11 @@ function () {
       Object(_validateConfig__WEBPACK_IMPORTED_MODULE_2__["default"])(this, 'bulletLifespan');
     }
     /**
-    * If you've set {@link #bulletKillType} to `consts.KILL_DISTANCE` this controls the distance
-    * the Bullet can travel before it is automatically killed. The distance is given in pixels.
-    * @type {number}
-    * @default
-    */
+     * If you've set {@link #bulletKillType} to `consts.KILL_DISTANCE` this controls the distance
+     * the Bullet can travel before it is automatically killed. The distance is given in pixels.
+     * @type {number}
+     * @default
+     */
 
   }, {
     key: "bulletKillDistance",
@@ -1763,10 +1763,10 @@ function () {
       Object(_validateConfig__WEBPACK_IMPORTED_MODULE_2__["default"])(this, 'bulletKillDistance');
     }
     /**
-    * This is the amount of {@link Phaser.Physics.Arcade.Body#gravity} added to the Bullets physics body when fired.
-    * Gravity is expressed in pixels / second / second.
-    * @type {Phaser.Math.Vector2}
-    */
+     * This is the amount of {@link Phaser.Physics.Arcade.Body#gravity} added to the Bullets physics body when fired.
+     * Gravity is expressed in pixels / second / second.
+     * @type {Phaser.Math.Vector2}
+     */
 
   }, {
     key: "bulletGravity",
@@ -1778,12 +1778,12 @@ function () {
       Object(_validateConfig__WEBPACK_IMPORTED_MODULE_2__["default"])(this, 'bulletGravity');
     }
     /**
-    * Bullets can optionally adjust their rotation in-flight to match their velocity.
-    * This can create the effect of a bullet 'pointing' to the path it is following, for example
-    * an arrow being fired from a bow, and works especially well when added to {@link #bulletGravity}.
-    * @type {boolean}
-    * @default
-    */
+     * Bullets can optionally adjust their rotation in-flight to match their velocity.
+     * This can create the effect of a bullet 'pointing' to the path it is following, for example
+     * an arrow being fired from a bow, and works especially well when added to {@link #bulletGravity}.
+     * @type {boolean}
+     * @default
+     */
 
   }, {
     key: "bulletRotateToVelocity",
@@ -1795,11 +1795,11 @@ function () {
       Object(_validateConfig__WEBPACK_IMPORTED_MODULE_2__["default"])(this, 'bulletRotateToVelocity');
     }
     /**
-    * The Texture Key that the Bullets use when rendering.
-    * Changing this has no effect on bullets in-flight, only on newly spawned bullets.
-    * @type {string}
-    * @default
-    */
+     * The Texture Key that the Bullets use when rendering.
+     * Changing this has no effect on bullets in-flight, only on newly spawned bullets.
+     * @type {string}
+     * @default
+     */
 
   }, {
     key: "bulletKey",
@@ -1811,11 +1811,11 @@ function () {
       Object(_validateConfig__WEBPACK_IMPORTED_MODULE_2__["default"])(this, 'bulletKey');
     }
     /**
-    * The Texture Frame that the Bullets use when rendering.
-    * Changing this has no effect on bullets in-flight, only on newly spawned bullets.
-    * @type {string|integer}
-    * @default
-    */
+     * The Texture Frame that the Bullets use when rendering.
+     * Changing this has no effect on bullets in-flight, only on newly spawned bullets.
+     * @type {string|integer}
+     * @default
+     */
 
   }, {
     key: "bulletFrame",
@@ -1833,7 +1833,7 @@ function () {
      * It should be a constructor function accepting `(game, x, y, key, frame)`.
      *
      * @property {function} bulletClass
-    */
+     */
 
   }, {
     key: "bulletClass",
@@ -1850,10 +1850,10 @@ function () {
       Object(_validateConfig__WEBPACK_IMPORTED_MODULE_2__["default"])(this, 'bulletClass');
     }
     /**
-    * Should bullets collide with the World bounds or not?
-    *
-    * @property {boolean} bulletCollideWorldBounds
-    */
+     * Should bullets collide with the World bounds or not?
+     *
+     * @property {boolean} bulletCollideWorldBounds
+     */
 
   }, {
     key: "bulletCollideWorldBounds",
@@ -1869,36 +1869,36 @@ function () {
       Object(_validateConfig__WEBPACK_IMPORTED_MODULE_2__["default"])(this, 'bulletCollideWorldBounds');
     }
     /**
-    * This controls how the bullets will be killed. The default is `consts.KILL_WORLD_BOUNDS`.
-    *
-    * There are 7 different "kill types" available:
-    *
-    * * `consts.KILL_NEVER`
-    * The bullets are never destroyed by the Weapon. It's up to you to destroy them via your own code.
-    *
-    * * `consts.KILL_LIFESPAN`
-    * The bullets are automatically killed when their `bulletLifespan` amount expires.
-    *
-    * * `consts.KILL_DISTANCE`
-    * The bullets are automatically killed when they
-    * exceed `bulletDistance` pixels away from their original launch position.
-    *
-    * * `consts.KILL_WEAPON_BOUNDS`
-    * The bullets are automatically killed when they no longer intersect with the {@link #bounds} rectangle.
-    *
-    * * `consts.KILL_CAMERA_BOUNDS`
-    * The bullets are automatically killed when they no longer intersect with the {@link Phaser.Camera#bounds} rectangle.
-    *
-    * * `consts.KILL_WORLD_BOUNDS`
-    * The bullets are automatically killed when they no longer intersect with the {@link Phaser.World#bounds} rectangle.
-    *
-    * * `consts.KILL_STATIC_BOUNDS`
-    * The bullets are automatically killed when they no longer intersect with the {@link #bounds} rectangle.
-    * The difference between static bounds and weapon bounds, is that a static bounds will never be adjusted to
-    * match the position of a tracked sprite or pointer.
-    *
-    * @property {integer} bulletKillType
-    */
+     * This controls how the bullets will be killed. The default is `consts.KILL_WORLD_BOUNDS`.
+     *
+     * There are 7 different "kill types" available:
+     *
+     * * `consts.KILL_NEVER`
+     * The bullets are never destroyed by the Weapon. It's up to you to destroy them via your own code.
+     *
+     * * `consts.KILL_LIFESPAN`
+     * The bullets are automatically killed when their `bulletLifespan` amount expires.
+     *
+     * * `consts.KILL_DISTANCE`
+     * The bullets are automatically killed when they
+     * exceed `bulletDistance` pixels away from their original launch position.
+     *
+     * * `consts.KILL_WEAPON_BOUNDS`
+     * The bullets are automatically killed when they no longer intersect with the {@link #bounds} rectangle.
+     *
+     * * `consts.KILL_CAMERA_BOUNDS`
+     * The bullets are automatically killed when they no longer intersect with the {@link Phaser.Camera#bounds} rectangle.
+     *
+     * * `consts.KILL_WORLD_BOUNDS`
+     * The bullets are automatically killed when they no longer intersect with the {@link Phaser.World#bounds} rectangle.
+     *
+     * * `consts.KILL_STATIC_BOUNDS`
+     * The bullets are automatically killed when they no longer intersect with the {@link #bounds} rectangle.
+     * The difference between static bounds and weapon bounds, is that a static bounds will never be adjusted to
+     * match the position of a tracked sprite or pointer.
+     *
+     * @property {integer} bulletKillType
+     */
 
   }, {
     key: "bulletKillType",
@@ -1925,13 +1925,13 @@ function () {
       Object(_validateConfig__WEBPACK_IMPORTED_MODULE_2__["default"])(this, 'bulletKillType');
     }
     /**
-    * This Rectangle defines the bounds that are used when determining if a Bullet should be killed or not.
-    * It's used in combination with {@link #bulletKillType} when that is set to either `consts.KILL_WEAPON_BOUNDS`
-    * or `consts.KILL_STATIC_BOUNDS`. If you are not using either of these kill types then the bounds are ignored.
-    * If you are tracking a Sprite or Point then the bounds are centered on that object every frame.
-    *
-    * @type {Phaser.Geom.Rectangle}
-    */
+     * This Rectangle defines the bounds that are used when determining if a Bullet should be killed or not.
+     * It's used in combination with {@link #bulletKillType} when that is set to either `consts.KILL_WEAPON_BOUNDS`
+     * or `consts.KILL_STATIC_BOUNDS`. If you are not using either of these kill types then the bounds are ignored.
+     * If you are tracking a Sprite or Point then the bounds are centered on that object every frame.
+     *
+     * @type {Phaser.Geom.Rectangle}
+     */
 
   }, {
     key: "bounds",
@@ -1943,11 +1943,11 @@ function () {
       Object(_validateConfig__WEBPACK_IMPORTED_MODULE_2__["default"])(this, 'bounds');
     }
     /**
-    * The Rectangle used to calculate the bullet bounds from.
-    *
-    * @type {Phaser.Geom.Rectangle}
-    * @private
-    */
+     * The Rectangle used to calculate the bullet bounds from.
+     *
+     * @type {Phaser.Geom.Rectangle}
+     * @private
+     */
 
   }, {
     key: "bulletBounds",
@@ -1959,11 +1959,11 @@ function () {
       Object(_validateConfig__WEBPACK_IMPORTED_MODULE_2__["default"])(this, 'bulletBounds');
     }
     /**
-    * This array stores the frames added via @link #setBulletFrames.
-    *
-    * @type {Array}
-    * @protected
-    */
+     * This array stores the frames added via @link #setBulletFrames.
+     *
+     * @type {Array}
+     * @protected
+     */
 
   }, {
     key: "bulletFrames",
@@ -1975,11 +1975,11 @@ function () {
       Object(_validateConfig__WEBPACK_IMPORTED_MODULE_2__["default"])(this, 'bulletFrames');
     }
     /**
-    * The index of the frame within {@link #bulletFrames} that is currently being used.
-    * This value is only used if {@link #bulletFrameCycle} is set to `true`.
-    * @type {number}
-    * @private
-    */
+     * The index of the frame within {@link #bulletFrames} that is currently being used.
+     * This value is only used if {@link #bulletFrameCycle} is set to `true`.
+     * @type {number}
+     * @private
+     */
 
   }, {
     key: "bulletFrameIndex",
@@ -1991,11 +1991,11 @@ function () {
       Object(_validateConfig__WEBPACK_IMPORTED_MODULE_2__["default"])(this, 'bulletFrameIndex');
     }
     /**
-    * The Sprite currently being tracked by the Weapon, if any.
-    * This is set via the {@link #trackSprite} method.
-    *
-    * @type {Phaser.GameObjects.Sprite|Object}
-    */
+     * The Sprite currently being tracked by the Weapon, if any.
+     * This is set via the {@link #trackSprite} method.
+     *
+     * @type {Phaser.GameObjects.Sprite|Object}
+     */
 
   }, {
     key: "trackedSprite",
@@ -2007,11 +2007,11 @@ function () {
       Object(_validateConfig__WEBPACK_IMPORTED_MODULE_2__["default"])(this, 'trackedSprite');
     }
     /**
-    * The Pointer currently being tracked by the Weapon, if any.
-    * This is set via the {@link #trackPointer} method.
-    *
-    * @type {Phaser.Input.Pointer}
-    */
+     * The Pointer currently being tracked by the Weapon, if any.
+     * This is set via the {@link #trackPointer} method.
+     *
+     * @type {Phaser.Input.Pointer}
+     */
 
   }, {
     key: "trackedPointer",
@@ -2023,15 +2023,15 @@ function () {
       Object(_validateConfig__WEBPACK_IMPORTED_MODULE_2__["default"])(this, 'trackedPointer');
     }
     /**
-    * If you want this Weapon to be able to fire more than 1 bullet in a single
-    * update, then set this property to `true`. When `true` the Weapon plugin won't
-    * set the shot / firing timers until the `postRender` phase of the game loop.
-    * This means you can call `fire` (and similar methods) as often as you like in one
-    * single game update.
-    *
-    * @type {boolean}
-    * @default
-    */
+     * If you want this Weapon to be able to fire more than 1 bullet in a single
+     * update, then set this property to `true`. When `true` the Weapon plugin won't
+     * set the shot / firing timers until the `postRender` phase of the game loop.
+     * This means you can call `fire` (and similar methods) as often as you like in one
+     * single game update.
+     *
+     * @type {boolean}
+     * @default
+     */
 
   }, {
     key: "multiFire",
@@ -2043,13 +2043,13 @@ function () {
       Object(_validateConfig__WEBPACK_IMPORTED_MODULE_2__["default"])(this, 'multiFire');
     }
     /**
-    * If the Weapon is tracking a Sprite, should it also track the Sprites rotation?
-    * This is useful for a game such as Asteroids, where you want the weapon to fire based
-    * on the sprites rotation.
-    *
-    * @type {boolean}
-    * @default
-    */
+     * If the Weapon is tracking a Sprite, should it also track the Sprites rotation?
+     * This is useful for a game such as Asteroids, where you want the weapon to fire based
+     * on the sprites rotation.
+     *
+     * @type {boolean}
+     * @default
+     */
 
   }, {
     key: "trackRotation",
@@ -2061,13 +2061,13 @@ function () {
       Object(_validateConfig__WEBPACK_IMPORTED_MODULE_2__["default"])(this, 'trackRotation');
     }
     /**
-    * The Track Offset is a Vector2 object that allows you to specify a pixel offset that bullets use
-    * when launching from a tracked Sprite or Pointer. For example if you've got a bullet that is 2x2 pixels
-    * in size, but you're tracking a Sprite that is 32x32, then you can set `trackOffset.x = 16` to have
-    * the bullet launched from the center of the Sprite.
-    *
-    * @type {Phaser.Math.Vector2}
-    */
+     * The Track Offset is a Vector2 object that allows you to specify a pixel offset that bullets use
+     * when launching from a tracked Sprite or Pointer. For example if you've got a bullet that is 2x2 pixels
+     * in size, but you're tracking a Sprite that is 32x32, then you can set `trackOffset.x = 16` to have
+     * the bullet launched from the center of the Sprite.
+     *
+     * @type {Phaser.Math.Vector2}
+     */
 
   }, {
     key: "trackOffset",
@@ -2083,7 +2083,7 @@ function () {
      * can be overridden by the {@link #fire} arguments.
      *
      * @property {number} x
-    */
+     */
 
   }, {
     key: "x",
@@ -2098,7 +2098,7 @@ function () {
      * can be overridden by the {@link #fire} arguments.
      *
      * @property {number} y
-    */
+     */
 
   }, {
     key: "y",
