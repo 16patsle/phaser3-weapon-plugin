@@ -4,33 +4,30 @@ var config = {
   scene: {
     preload: preload,
     create: create,
-    update: update
+    update: update,
   },
   physics: {
     default: 'arcade',
     arcade: {
-      debug: true
-    }
-  }
+      debug: true,
+    },
+  },
 };
 
 var game = new Phaser.Game(config);
 
 function preload() {
-
   this.load.image('bullet', 'assets/sprites/shmup-bullet.png');
   this.load.image('ship', 'assets/sprites/thrust_ship.png');
   this.load.scenePlugin('WeaponPlugin', './WeaponPlugin.js', null, 'weapons');
-
 }
 
 function create() {
-
   //  Creates 30 bullets, using the 'bullet' graphic
   this.weapon = this.add.weapon(30, 'bullet');
 
   // Enable physics debugging for the bullets
-  this.weapon.debugPhysics = true
+  this.weapon.debugPhysics = true;
 
   //  The bullets will be automatically killed when they are 2000ms old
   this.weapon.bulletKillType = WeaponPlugin.consts.KILL_LIFESPAN;
@@ -58,7 +55,6 @@ function create() {
   this.weapon.trackSprite(this.sprite, 0, 0, true);
 
   this.cursors = this.input.keyboard.createCursorKeys();
-
 }
 
 function update() {
@@ -70,7 +66,7 @@ function update() {
         point = point || new Phaser.Point();
 
         return point.setToPolar(rotation, speed);*/
-    this.sprite.body.acceleration.setToPolar(this.sprite.rotation, 300)
+    this.sprite.body.acceleration.setToPolar(this.sprite.rotation, 300);
   } else {
     this.sprite.body.acceleration.set(0);
   }
@@ -84,7 +80,7 @@ function update() {
   }
 
   if (this.cursors.space.isDown) {
-    console.log('weapon fire')
+    console.log('weapon fire');
     this.weapon.fire();
   }
 

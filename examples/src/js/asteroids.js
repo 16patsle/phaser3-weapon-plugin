@@ -4,41 +4,38 @@ var config = {
   scene: {
     preload: preload,
     create: create,
-    update: update
+    update: update,
   },
   physics: {
     default: 'arcade',
     arcade: {
-      debug: true
-    }
-  }
+      debug: true,
+    },
+  },
 };
 
 var game = new Phaser.Game(config);
 
 function preload() {
-
   this.load.image('bullet', 'assets/sprites/shmup-bullet.png');
   this.load.image('ship', 'assets/sprites/thrust_ship.png');
   this.load.scenePlugin('WeaponPlugin', './WeaponPlugin.js', null, 'weapons');
   //  Alternatively:
   //  this.plugins.installScenePlugin('WeaponPlugin', WeaponPlugin, 'weapons', this);
-
 }
 
 function create() {
-
   //  Creates 30 bullets, using the 'bullet' graphic
   this.weapon = this.add.weapon(30, 'bullet');
   //  Alternatively:
   //  this.weapon = this.make.weapon({bulletLimit: 30, key: 'bullet'});
 
   // Enable physics debugging for the bullets
-  this.weapon.debugPhysics = true
+  this.weapon.debugPhysics = true;
 
   //  The bullet will be automatically killed when it leaves the world bounds
   this.weapon.bulletKillType = WeaponPlugin.consts.KILL_WORLD_BOUNDS;
-  this.weapon.bulletLifespan = 500
+  this.weapon.bulletLifespan = 500;
 
   //  The speed at which the bullet is fired
   this.weapon.bulletSpeed = 600;
@@ -59,7 +56,6 @@ function create() {
   this.weapon.trackSprite(this.sprite, 0, 0, true);
 
   this.cursors = this.input.keyboard.createCursorKeys();
-
 }
 
 function update() {
@@ -71,7 +67,7 @@ function update() {
         point = point || new Phaser.Point();
 
         return point.setToPolar(rotation, speed);*/
-    this.sprite.body.acceleration.setToPolar(this.sprite.rotation, 300)
+    this.sprite.body.acceleration.setToPolar(this.sprite.rotation, 300);
   } else {
     this.sprite.body.acceleration.set(0);
   }
@@ -85,7 +81,7 @@ function update() {
   }
 
   if (this.cursors.space.isDown) {
-    console.log('weapon fire')
+    console.log('weapon fire');
     this.weapon.fire();
   }
 

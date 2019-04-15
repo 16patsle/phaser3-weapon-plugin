@@ -4,36 +4,33 @@ var config = {
   scene: {
     preload: preload,
     create: create,
-    update: update
+    update: update,
   },
   physics: {
     default: 'arcade',
     arcade: {
-      debug: true
-    }
-  }
+      debug: true,
+    },
+  },
 };
 
 var game = new Phaser.Game(config);
 
 function preload() {
-
   this.load.image('ship', 'assets/sprites/thrust_ship.png');
   this.load.spritesheet('bullet', 'assets/sprites/rgblaser.png', {
     frameWidth: 4,
-    frameHeight: 4
+    frameHeight: 4,
   });
   this.load.scenePlugin('WeaponPlugin', './WeaponPlugin.js', null, 'weapons');
-
 }
 
 function create() {
-
   //  Creates 30 bullets, using the 'bullet' graphic
   this.weapon = this.add.weapon(40, 'bullet');
 
   // Enable physics debugging for the bullets
-  this.weapon.debugPhysics = false
+  this.weapon.debugPhysics = false;
 
   //  The 'rgblaser.png' is a Sprite Sheet with 80 frames in it (each 4x4 px in size)
   //  The 3rd argument tells the Weapon Plugin to advance to the next frame each time
@@ -66,7 +63,6 @@ function create() {
   this.weapon.trackSprite(this.sprite, 0, 0, true);
 
   this.cursors = this.input.keyboard.createCursorKeys();
-
 }
 
 function update() {
@@ -78,7 +74,7 @@ function update() {
         point = point || new Phaser.Point();
 
         return point.setToPolar(rotation, speed);*/
-    this.sprite.body.acceleration.setToPolar(this.sprite.rotation, 300)
+    this.sprite.body.acceleration.setToPolar(this.sprite.rotation, 300);
   } else {
     this.sprite.body.acceleration.set(0);
   }
@@ -92,7 +88,7 @@ function update() {
   }
 
   if (this.cursors.space.isDown) {
-    console.log('weapon fire')
+    console.log('weapon fire');
     this.weapon.fire();
   }
 
