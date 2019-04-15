@@ -10,6 +10,8 @@
     "examples": "http-server examples/src -p 2234",
     "lint": "eslint src/**/*",
     "lint:fix": "npm run lint -- --fix",
+    "lintexamples": "eslint examples/src/js/**/* --parser-options sourceType:\"module\" --global WeaponPlugin --rule 'no-console: off' --rule 'no-unused-vars: [warn, { varsIgnorePattern: game }]'",
+    "lintexamples:fix": "npm run lintexamples -- --fix"
   },
   "repository": {
     "type": "git",
