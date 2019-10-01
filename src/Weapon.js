@@ -1591,7 +1591,7 @@ class Weapon {
       this.eventEmitter.emit('fire', bullet, this, speed);
 
       if (this.fireLimit > 0 && this.shots === this.fireLimit) {
-        this.eventEmitter('firelimit', this, this.fireLimit);
+        this.eventEmitter.emit('firelimit', this, this.fireLimit);
       }
     }
 
