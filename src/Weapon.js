@@ -1085,7 +1085,7 @@ class Weapon {
         visible: false,
       });
 
-      this.bullets.children.each(function(child) {
+      this.bullets.children.each(function (child) {
         child.setData('bulletManager', this);
       }, this);
 
