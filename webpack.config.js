@@ -59,13 +59,18 @@ const config = {
                   },
                   bugfixes: true,
                 }
-              ]
+              ],
+              '@babel/preset-typescript'
             ],
           },
         },
       },
     ],
   },
+
+  resolve: {
+    extensions: ['.ts', '.js', '.json'],
+  }
 };
 
 const configModule = Object.assign({}, config);
@@ -90,7 +95,8 @@ configModule.module = {
                 targets: 'last 2 Edge versions, last 2 Safari versions, last 2 Firefox versions, last 2 Chrome versions',
                 bugfixes: true,
               },
-            ]
+            ],
+            '@babel/preset-typescript'
           ],
         },
       },
@@ -118,7 +124,8 @@ configLegacy.module = {
                 useBuiltIns: 'usage',
                 corejs: 3
               }
-            ]
+            ],
+            '@babel/preset-typescript'
           ],
         },
       },
