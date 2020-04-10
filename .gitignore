@@ -11,5 +11,7 @@ Thumbs.db
 node_modules/
 
 # Build
-build/
+dist/
+examples/src/WeaponPlugin.js
+examples/src/WeaponPlugin.js.map
 /npm-debug.log
