@@ -62,6 +62,7 @@ const config = {
               ],
               '@babel/preset-typescript'
             ],
+            plugins: ['@babel/plugin-proposal-class-properties'],
           },
         },
       },
@@ -98,6 +99,7 @@ configModule.module = {
             ],
             '@babel/preset-typescript'
           ],
+          plugins: ['@babel/plugin-proposal-class-properties'],
         },
       },
     },
@@ -127,6 +129,7 @@ configLegacy.module = {
             ],
             '@babel/preset-typescript'
           ],
+          plugins: ['@babel/plugin-proposal-class-properties'],
         },
       },
     },
