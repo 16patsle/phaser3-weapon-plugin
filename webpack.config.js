@@ -78,7 +78,14 @@ const createConfig = type => {
                 ['@babel/preset-env', presetOptions],
                 '@babel/preset-typescript',
               ],
-              plugins: ['@babel/plugin-proposal-class-properties'],
+              plugins: [
+                [
+                  '@babel/plugin-proposal-class-properties',
+                  {
+                    loose: true,
+                  },
+                ],
+              ],
             },
           },
         },
@@ -93,6 +100,6 @@ const createConfig = type => {
 
 module.exports = [
   createConfig(),
-  createConfig('modern'),
-  createConfig('legacy'),
+  //createConfig('modern'),
+  //createConfig('legacy'),
 ];
