@@ -1103,7 +1103,7 @@ class Weapon {
    *
    * This allows you to lock a Weapon to a Sprite, so that bullets are always launched from its location.
    *
-   * Calling `trackSprite` will reset {@link #trackedPointer} to null, should it have been set, as you can
+   * Calling `trackSprite` will reset {@link #trackedPointer} to undefined, should it have been set, as you can
    * only track _either_ a Sprite, or a Pointer, at once, but not both.
    *
    * @param sprite - The Sprite to track the position of.
@@ -1134,7 +1134,7 @@ class Weapon {
    *
    * This allows you to lock a Weapon to a Pointer, so that bullets are always launched from its location.
    *
-   * Calling `trackPointer` will reset {@link #trackedSprite} to null, should it have been set, as you can
+   * Calling `trackPointer` will reset {@link #trackedSprite} to undefined, should it have been set, as you can
    * only track _either_ a Pointer, or a Sprite, at once, but not both.
    *
    * @param pointer - The Pointer to track the position of.
@@ -1217,7 +1217,7 @@ class Weapon {
    * to the position first. This is the same as calling {@link #fire} and passing in the offset arguments.
    *
    * If there are no more bullets available in the pool, and the pool cannot be extended,
-   * then this method returns `null`. It will also return `null` if not enough time has expired since the last time
+   * then this method returns `undefined`. It will also return `undefined` if not enough time has expired since the last time
    * the Weapon was fired, as defined in the {@link #fireRate} property.
    *
    * Otherwise the first available bullet is selected, launched, and returned.
@@ -1278,7 +1278,7 @@ class Weapon {
 
   /**
    * Attempts to fire a single Bullet. If there are no more bullets available in the pool,
-   * and the pool cannot be extended, then this method returns `null`. It will also return `null`
+   * and the pool cannot be extended, then this method returns `undefined`. It will also return `undefined`
    * if not enough time has expired since the last time the Weapon was fired,
    * as defined in the {@link #fireRate} property.
    *
