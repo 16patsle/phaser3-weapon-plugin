@@ -27,8 +27,15 @@ import validateConfig, { log } from './validateConfig';
  * ```
  */
 class Weapon {
+  /**
+   * The scene the Weapon is bound to
+   */
   scene: Phaser.Scene;
-  debugPhysics = null;
+
+  /**
+   * Should debug graphics render for physics bodies?
+   */
+  debugPhysics = false;
 
   /**
    * Private var that holds the public `bullets` property.
@@ -173,7 +180,13 @@ class Weapon {
   /**
    * Holds internal data about custom bullet body sizes.
    */
-  private _data: object = {
+  private _data: {
+    customBody: boolean;
+    width: number;
+    height: number;
+    offsetX: number;
+    offsetY: number;
+  } = {
     customBody: false,
     width: 0,
     height: 0,
@@ -673,7 +686,7 @@ class Weapon {
   set bulletCollideWorldBounds(value) {
     this._bulletCollideWorldBounds = value;
 
-    this.bullets.children.each(child => {
+    (this.bullets.children as Phaser.Structs.Set<Bullet>).each(child => {
       child.body.collideWorldBounds = value;
       child.setData('bodyDirty', false);
     });
@@ -721,7 +734,7 @@ class Weapon {
         break;
 
       case consts.KILL_CAMERA_BOUNDS:
-        this.bulletBounds = this.scene.sys.cameras.main._bounds;
+        this.bulletBounds = this.scene.sys.cameras.main.getBounds();
         break;
 
       case consts.KILL_WORLD_BOUNDS:
@@ -998,7 +1011,7 @@ class Weapon {
    * @return This Weapon instance.
    */
   pauseAll(): this {
-    this.bullets.children.each(child => {
+    (this.bullets.children as Phaser.Structs.Set<Bullet>).each(child => {
       child.body.enable = false;
       if (child.getData('timeEvent') !== null) {
         child.getData('timeEvent').paused = true;
@@ -1016,7 +1029,7 @@ class Weapon {
    * @return This Weapon instance.
    */
   resumeAll(): this {
-    this.bullets.children.each(child => {
+    (this.bullets.children as Phaser.Structs.Set<Bullet>).each(child => {
       child.body.enable = true;
       if (child.getData('timeEvent') !== null) {
         child.getData('timeEvent').paused = false;
@@ -1033,7 +1046,7 @@ class Weapon {
    * @return This Weapon instance.
    */
   killAll(): this {
-    this.bullets.children.each(child => {
+    (this.bullets.children as Phaser.Structs.Set<Bullet>).each(child => {
       if (child.active) {
         child.kill();
       }
@@ -1537,7 +1550,7 @@ class Weapon {
     this._data.offsetY = offsetY;
 
     //  Update all bullets in the pool
-    this.bullets.children.each(child => {
+    (this.bullets.children as Phaser.Structs.Set<Bullet>).each(child => {
       child.body.setSize(width, height);
       child.body.setOffset(offsetX, offsetY);
       child.setData('bodyDirty', false);

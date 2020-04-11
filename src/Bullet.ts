@@ -112,7 +112,9 @@ class Bullet extends Phaser.GameObjects.Sprite {
       } else if (
         !Phaser.Geom.Intersects.RectangleToRectangle(
           this.getData('bulletManager').bulletBounds,
-          this.body.getBounds(this.getData('bodyBounds'))
+          this.body.getBounds(
+            this.getData('bodyBounds')
+          ) as Phaser.Geom.Rectangle
         )
       ) {
         this.kill();
