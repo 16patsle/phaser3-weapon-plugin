@@ -27,8 +27,8 @@ const config = {
   },
 
   entry: {
-    WeaponPlugin: './main.js',
-    'WeaponPlugin.min': './main.js',
+    WeaponPlugin: './main.ts',
+    'WeaponPlugin.min': './main.ts',
   },
 
   output: {
@@ -43,7 +43,7 @@ const config = {
   module: {
     rules: [
       {
-        test: /.js$/,
+        test: /.(t|j)s$/,
         exclude: /(node_modules)/,
         use: {
           loader: 'babel-loader',
@@ -75,13 +75,13 @@ const config = {
 
 const configModule = Object.assign({}, config);
 configModule.entry = {
-  'WeaponPlugin.modern': './main.js',
-  'WeaponPlugin.modern.min': './main.js',
-}
+  'WeaponPlugin.modern': './main.ts',
+  'WeaponPlugin.modern.min': './main.ts',
+};
 configModule.module = {
   rules: [
     {
-      test: /.js$/,
+      test: /.(t|j)s$/,
       exclude: /(node_modules)/,
       use: {
         loader: 'babel-loader',
@@ -106,13 +106,13 @@ configModule.module = {
 
 const configLegacy = Object.assign({}, config);
 configLegacy.entry = {
-  'WeaponPlugin.legacy': './main.js',
-  'WeaponPlugin.legacy.min': './main.js',
-}
+  'WeaponPlugin.legacy': './main.ts',
+  'WeaponPlugin.legacy.min': './main.ts',
+};
 configLegacy.module = {
   rules: [
     {
-      test: /.js$/,
+      test: /.(t|j)s$/,
       exclude: /(node_modules)/,
       use: {
         loader: 'babel-loader',
