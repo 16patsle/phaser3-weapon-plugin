@@ -1,139 +1,98 @@
 /* eslint-env node */
 const TerserPlugin = require('terser-webpack-plugin');
 
-const config = {
-  mode: 'none',
-  context: `${__dirname}/src/`,
-  devtool: 'source-map',
+const createConfig = type => {
+  let presetOptions = {
+    useBuiltIns: 'usage',
+    corejs: 3,
+    targets: {
+      esmodules: true,
+    },
+    bugfixes: true,
+  };
 
-  optimization: {
-    minimize: true,
-    minimizer: [
-      new TerserPlugin({
-        include: /\.min\.js$/,
-        sourceMap: true,
-        terserOptions: {
-          compress: true,
-          output: {
-            comments: false,
+  if (type === 'modern') {
+    presetOptions = {
+      useBuiltIns: 'usage',
+      corejs: 3,
+      targets:
+        'last 2 Edge versions, last 2 Safari versions, last 2 Firefox versions, last 2 Chrome versions',
+      bugfixes: true,
+    };
+  } else if (type === 'legacy') {
+    presetOptions = {
+      useBuiltIns: 'usage',
+      corejs: 3,
+    };
+  }
+
+  const entryName = type ? 'WeaponPlugin.' + type : 'WeaponPlugin';
+
+  return {
+    mode: 'none',
+    context: `${__dirname}/src/`,
+    devtool: 'source-map',
+
+    optimization: {
+      minimize: true,
+      minimizer: [
+        new TerserPlugin({
+          include: /\.min\.js$/,
+          sourceMap: true,
+          terserOptions: {
+            compress: true,
+            output: {
+              comments: false,
+            },
+            warnings: false,
+            safari10: true,
           },
-          warnings: false,
-          safari10: true,
-        },
-        warningsFilter: () => false,
-      }),
-    ],
-  },
+          warningsFilter: () => false,
+        }),
+      ],
+    },
 
-  entry: {
-    WeaponPlugin: './main.ts',
-    'WeaponPlugin.min': './main.ts',
-  },
+    entry: {
+      [entryName]: './main.ts',
+      [entryName + '.min']: './main.ts',
+    },
 
-  output: {
-    path: `${__dirname}/dist/`,
-    filename: '[name].js',
-    library: 'WeaponPlugin',
-    libraryTarget: 'umd',
-    libraryExport: 'default',
-    umdNamedDefine: true,
-  },
+    output: {
+      path: `${__dirname}/dist/`,
+      filename: '[name].js',
+      library: 'WeaponPlugin',
+      libraryTarget: 'umd',
+      libraryExport: 'default',
+      umdNamedDefine: true,
+    },
 
-  module: {
-    rules: [
-      {
-        test: /.(t|j)s$/,
-        exclude: /(node_modules)/,
-        use: {
-          loader: 'babel-loader',
-          options: {
-            presets: [
-              [
-                '@babel/preset-env',
-                {
-                  useBuiltIns: 'usage',
-                  corejs: 3,
-                  targets: {
-                    esmodules: true,
-                  },
-                  bugfixes: true,
-                },
+    module: {
+      rules: [
+        {
+          test: /.(t|j)s$/,
+          exclude: /(node_modules)/,
+          use: {
+            loader: 'babel-loader',
+            options: {
+              presets: [
+                ['@babel/preset-env', presetOptions],
+                '@babel/preset-typescript',
               ],
-              '@babel/preset-typescript',
-            ],
-            plugins: ['@babel/plugin-proposal-class-properties'],
+              plugins: ['@babel/plugin-proposal-class-properties'],
+            },
           },
         },
-      },
-    ],
-  },
-
-  resolve: {
-    extensions: ['.ts', '.js', '.json'],
-  },
-};
-
-const configModule = Object.assign({}, config);
-configModule.entry = {
-  'WeaponPlugin.modern': './main.ts',
-  'WeaponPlugin.modern.min': './main.ts',
-};
-configModule.module = {
-  rules: [
-    {
-      test: /.(t|j)s$/,
-      exclude: /(node_modules)/,
-      use: {
-        loader: 'babel-loader',
-        options: {
-          presets: [
-            [
-              '@babel/preset-env',
-              {
-                useBuiltIns: 'usage',
-                corejs: 3,
-                targets:
-                  'last 2 Edge versions, last 2 Safari versions, last 2 Firefox versions, last 2 Chrome versions',
-                bugfixes: true,
-              },
-            ],
-            '@babel/preset-typescript',
-          ],
-          plugins: ['@babel/plugin-proposal-class-properties'],
-        },
-      },
+      ],
     },
-  ],
-};
 
-const configLegacy = Object.assign({}, config);
-configLegacy.entry = {
-  'WeaponPlugin.legacy': './main.ts',
-  'WeaponPlugin.legacy.min': './main.ts',
-};
-configLegacy.module = {
-  rules: [
-    {
-      test: /.(t|j)s$/,
-      exclude: /(node_modules)/,
-      use: {
-        loader: 'babel-loader',
-        options: {
-          presets: [
-            [
-              '@babel/preset-env',
-              {
-                useBuiltIns: 'usage',
-                corejs: 3,
-              },
-            ],
-            '@babel/preset-typescript',
-          ],
-          plugins: ['@babel/plugin-proposal-class-properties'],
-        },
-      },
+    resolve: {
+      extensions: ['.ts', '.js', '.json'],
     },
-  ],
+  };
 };
 
-module.exports = [config, configModule, configLegacy];
+module.exports = [
+  createConfig(),
+  createConfig('modern'),
+  createConfig('legacy'),
+];
