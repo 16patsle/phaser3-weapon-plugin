@@ -1036,7 +1036,7 @@ class Weapon {
   pauseAll(): this {
     (this.bullets.children as Phaser.Structs.Set<Bullet>).each(child => {
       child.body.enable = false;
-      if (child.getData('timeEvent') !== null) {
+      if (child.getData('timeEvent') !== undefined) {
         child.getData('timeEvent').paused = true;
       }
     }, this);
@@ -1054,7 +1054,7 @@ class Weapon {
   resumeAll(): this {
     (this.bullets.children as Phaser.Structs.Set<Bullet>).each(child => {
       child.body.enable = true;
-      if (child.getData('timeEvent') !== null) {
+      if (child.getData('timeEvent') !== undefined) {
         child.getData('timeEvent').paused = false;
       }
     }, this);
