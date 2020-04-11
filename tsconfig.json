@@ -1,10 +1,11 @@
 {
   "compilerOptions": {
     "target": "esnext",
+    "outDir": "out",
     "allowJs": true,                          /* Allow javascript files to be compiled. */
     "checkJs": true,                          /* Report errors in .js files. */
     "declaration": true,                      /* Generates corresponding '.d.ts' file. */
-    "noEmit": true,                           /* Do not emit outputs. */            /* Import emit helpers from 'tslib'. */
+    "noEmit": false,                          /* Do not emit outputs. */
     "isolatedModules": true,                  /* Transpile each file as a separate module (similar to 'ts.transpileModule'). */
 
     /* Strict Type-Checking Options */

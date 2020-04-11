@@ -12,6 +12,7 @@ node_modules/
 
 # Build
 dist/
+out/
 examples/src/WeaponPlugin.js
 examples/src/WeaponPlugin.js.map
 /npm-debug.log
