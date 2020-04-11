@@ -1362,12 +1362,15 @@ class Weapon {
     this.fireFrom.x += offsetX;
     this.fireFrom.y += offsetY;
 
-    // Pick a random coordinate inside the fireFrom rectangle
-    const randomX = this.fireFrom.x + Math.random() * this.fireFrom.width;
-    const randomY = this.fireFrom.y + Math.random() * this.fireFrom.height;
-
-    const fromX = this.fireFrom.width > 1 ? randomX : this.fireFrom.x;
-    const fromY = this.fireFrom.height > 1 ? randomY : this.fireFrom.y;
+    // Pick a random coordinate inside the fireFrom rectangle if bigger than 1
+    const fromX =
+      this.fireFrom.width > 1
+        ? this.fireFrom.x + Math.random() * this.fireFrom.width
+        : this.fireFrom.x;
+    const fromY =
+      this.fireFrom.height > 1
+        ? this.fireFrom.y + Math.random() * this.fireFrom.height
+        : this.fireFrom.y;
 
     let angle = this.trackRotation ? this.trackedSprite.angle : this.fireAngle;
 
