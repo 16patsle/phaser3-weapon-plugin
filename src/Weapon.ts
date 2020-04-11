@@ -1415,7 +1415,7 @@ class Weapon {
       moveY = Math.sin(Phaser.Math.DegToRad(angle)) * speed;
     }
 
-    let bullet = null;
+    let bullet: Bullet | undefined;
 
     // Attempt to get a bullet instance to use
     if (this.autoExpandBulletsGroup) {
@@ -1426,13 +1426,13 @@ class Weapon {
         this.bulletKey,
         this.bulletFrame
       );
-      bullet.setData('bulletManager', this);
+      bullet?.setData('bulletManager', this);
     } else {
       bullet = this.bullets.getFirstDead(false);
     }
 
     // Prepare and fire the bullet
-    if (bullet) {
+    if (bullet !== undefined) {
       bullet.prepare(fromX, fromY);
       bullet.setData({
         fromX,

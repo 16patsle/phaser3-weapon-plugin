@@ -5,6 +5,7 @@ let bulletID = 0;
 class Bullet extends Phaser.GameObjects.Sprite {
   body!: Phaser.Physics.Arcade.Body;
   bulletID: number;
+  lifespan?: number;
 
   /**
    * Create a new `Bullet` object. Bullets are used by the `Weapon` class, and are normal Sprites,
