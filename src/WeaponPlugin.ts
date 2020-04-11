@@ -159,10 +159,11 @@ class WeaponPlugin extends Phaser.Plugins.ScenePlugin {
    * You must release everything in here, all references, all objects, free it all up.
    */
   destroy(): void {
-    this.pluginManager = null;
-    this.game = null;
-    this.scene = null;
-    this.systems = null;
+    super.destroy();
+
+    this.weapons.forEach(weapon => {
+      weapon.destroy();
+    });
   }
 }
 

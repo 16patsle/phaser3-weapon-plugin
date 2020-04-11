@@ -58,7 +58,7 @@ class Weapon {
   /**
    * Private var that holds the public `bullets` property.
    */
-  private _bullets: Phaser.GameObjects.Group = null;
+  private _bullets!: Phaser.GameObjects.Group;
 
   /**
    * Private var that holds the public `autoExpandBulletsGroup` property.
@@ -242,14 +242,12 @@ class Weapon {
   /**
    * Private var that holds the public `trackedSprite` property.
    */
-  private _trackedSprite:
-    | Phaser.GameObjects.Sprite
-    | ObjectWithTransform = null;
+  private _trackedSprite?: Phaser.GameObjects.Sprite | ObjectWithTransform;
 
   /**
    * Private var that holds the public `trackedPointer` property.
    */
-  private _trackedPointer: Phaser.Input.Pointer = null;
+  private _trackedPointer?: Phaser.Input.Pointer;
 
   /**
    * Private var that holds the public `multiFire` property.
@@ -825,7 +823,10 @@ class Weapon {
    * The Sprite currently being tracked by the Weapon, if any.
    * This is set via the {@link #trackSprite} method.
    */
-  get trackedSprite(): Phaser.GameObjects.Sprite | ObjectWithTransform {
+  get trackedSprite():
+    | Phaser.GameObjects.Sprite
+    | ObjectWithTransform
+    | undefined {
     return this._trackedSprite;
   }
   set trackedSprite(value) {
@@ -838,7 +839,7 @@ class Weapon {
    * The Pointer currently being tracked by the Weapon, if any.
    * This is set via the {@link #trackPointer} method.
    */
-  get trackedPointer(): Phaser.Input.Pointer {
+  get trackedPointer(): Phaser.Input.Pointer | undefined {
     return this._trackedPointer;
   }
   set trackedPointer(value) {
@@ -960,11 +961,7 @@ class Weapon {
       this._bulletClass = bulletClass;
     }
 
-    if (this.bullets && !this.bullets.scene) {
-      this.bullets = null;
-    }
-
-    if (!this.bullets) {
+    if (!this.bullets || !this.bullets.scene) {
       this.bullets = this.scene.add.group({
         classType: this._bulletClass,
         maxSize: quantity,
@@ -990,8 +987,13 @@ class Weapon {
         child.setData('bulletManager', this);
       });
 
-      this.bulletKey = key;
-      this.bulletFrame = frame;
+      if (typeof key === 'string') {
+        this.bulletKey = key;
+      }
+
+      if (typeof frame === 'string') {
+        this.bulletFrame;
+      }
 
       if (group) {
         group.addMultiple(this.bullets.children.entries);
@@ -1116,7 +1118,7 @@ class Weapon {
     offsetY: integer = 0,
     trackRotation = false
   ): this {
-    this.trackedPointer = null;
+    this.trackedPointer = undefined;
     this.trackedSprite = sprite;
     this.trackRotation = trackRotation;
 
@@ -1151,7 +1153,7 @@ class Weapon {
     }
 
     this.trackedPointer = pointer;
-    this.trackedSprite = null;
+    this.trackedSprite = undefined;
     this.trackRotation = false;
 
     this.trackOffset.set(offsetX, offsetY);
@@ -1193,11 +1195,17 @@ class Weapon {
 
     if (from || this.trackedSprite || this.trackedPointer) {
       positions.forEach(offset => {
-        bullets.push(this.fire(from, null, null, offset.x, offset.y));
+        const bullet = this.fire(from, null, null, offset.x, offset.y);
+        if (bullet) {
+          bullets.push(bullet);
+        }
       });
     } else {
       positions.forEach(position => {
-        bullets.push(this.fire(position));
+        const bullet = this.fire(position);
+        if (bullet) {
+          bullets.push(bullet);
+        }
       });
     }
 
@@ -1224,9 +1232,9 @@ class Weapon {
    * as set with {@link #trackSprite}.
    * @param offsetY - The vertical offset from the position of the tracked Sprite or Pointer,
    * as set with {@link #trackSprite}.
-   * @return The fired bullet, if a launch was successful, otherwise `null`.
+   * @return The fired bullet, if a launch was successful, otherwise `undefined`.
    */
-  fireOffset(offsetX = 0, offsetY = 0): Bullet {
+  fireOffset(offsetX = 0, offsetY = 0): Bullet | undefined {
     return this.fire(null, null, null, offsetX, offsetY);
   }
 
@@ -1235,14 +1243,14 @@ class Weapon {
    * or from a Tracked Sprite or Pointer, if you have one set.
    *
    * @param pointer - The Pointer to fire the bullet towards.
-   * @return The fired bullet if successful, null otherwise.
+   * @return The fired bullet if successful, undefined otherwise.
    */
-  fireAtPointer(pointer?: Phaser.Input.Pointer): Bullet {
+  fireAtPointer(pointer?: Phaser.Input.Pointer): Bullet | undefined {
     if (pointer === undefined && this.scene.input) {
       pointer = this.scene.input.activePointer;
     }
 
-    return this.fire(null, pointer.x, pointer.y);
+    return this.fire(null, pointer?.x, pointer?.y);
   }
 
   /**
@@ -1250,10 +1258,10 @@ class Weapon {
    * or from a Tracked Sprite or Pointer, if you have one set.
    *
    * @param sprite - The Sprite to fire the bullet towards.
-   * @return The fired bullet if successful, null otherwise.
+   * @return The fired bullet if successful, undefined otherwise.
    */
-  fireAtSprite(sprite?: Phaser.GameObjects.Sprite): Bullet {
-    return this.fire(null, sprite.x, sprite.y);
+  fireAtSprite(sprite?: Phaser.GameObjects.Sprite): Bullet | undefined {
+    return this.fire(null, sprite?.x, sprite?.y);
   }
 
   /**
@@ -1262,9 +1270,9 @@ class Weapon {
    *
    * @param x - The x coordinate, in world space, to fire the bullet towards.
    * @param y - The y coordinate, in world space, to fire the bullet towards.
-   * @return The fired bullet if successful, null otherwise.
+   * @return The fired bullet if successful, undefined otherwise.
    */
-  fireAtXY(x?: number, y?: number): Bullet {
+  fireAtXY(x?: number, y?: number): Bullet | undefined {
     return this.fire(null, x, y);
   }
 
@@ -1298,23 +1306,24 @@ class Weapon {
    * or the `from` argument is set, this applies a horizontal offset from the launch position.
    * @param offsetY - If the bullet is fired from a tracked Sprite or Pointer,
    * or the `from` argument is set, this applies a vertical offset from the launch position.
-   * @return The fired bullet, if a launch was successful, otherwise `null`.
+   * @return The fired bullet, if a launch was successful, otherwise `undefined`.
    */
   fire(
     from?:
       | Phaser.GameObjects.Sprite
       | Phaser.Math.Vector2
-      | ObjectWithTransform,
-    x?: number,
-    y?: number,
+      | ObjectWithTransform
+      | null,
+    x?: number | null,
+    y?: number | null,
     offsetX = 0,
     offsetY = 0
-  ): Bullet {
+  ): Bullet | undefined {
     if (
       this.scene.time.now < this._nextFire ||
       (this.fireLimit > 0 && this.shots === this.fireLimit)
     ) {
-      return null;
+      return undefined;
     }
 
     let speed = this.bulletSpeed;
@@ -1331,7 +1340,7 @@ class Weapon {
     if (from) {
       // Fire based on passed coordinates
       this.updateFireFrom(from.x, from.y);
-    } else if (this.trackedSprite) {
+    } else if (this.trackedSprite && this.trackedSprite.rotation) {
       // Fire based on tracked sprite
       if (this.trackRotation) {
         this._rotatedPoint.set(
@@ -1372,7 +1381,10 @@ class Weapon {
         ? this.fireFrom.y + Math.random() * this.fireFrom.height
         : this.fireFrom.y;
 
-    let angle = this.trackRotation ? this.trackedSprite.angle : this.fireAngle;
+    let angle =
+      typeof this.trackedSprite?.angle === 'number' && this.trackRotation
+        ? this.trackedSprite.angle
+        : this.fireAngle;
 
     //  The position (in world space) to fire the bullet towards, if set
     if (typeof x === 'number' && typeof y === 'number') {
@@ -1652,7 +1664,7 @@ class Weapon {
    */
   addBulletAnimation(
     name: string,
-    frames: Phaser.Types.Animations.AnimationFrame[] = null,
+    frames?: Phaser.Types.Animations.AnimationFrame[],
     frameRate = 60,
     repeat = 0
   ): this {
@@ -1715,7 +1727,9 @@ class Weapon {
    * You must release everything in here, all references, all objects, free it all up.
    */
   destroy(): void {
-    this.scene = null;
+    // eslint-disable-next-line @typescript-eslint/ban-ts-ignore
+    // @ts-ignore
+    this.scene = undefined;
 
     this.bullets.destroy(true);
   }

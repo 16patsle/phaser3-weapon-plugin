@@ -51,7 +51,7 @@ function validateConfig(
     (['trackRotation', 'trackedSprite'].includes(property) ||
       property === 'all') &&
     weapon.trackRotation === true &&
-    (weapon.trackedSprite.rotation === undefined ||
+    (weapon.trackedSprite?.rotation === undefined ||
       weapon.trackedSprite.angle === undefined)
   ) {
     log(
@@ -63,7 +63,7 @@ function validateConfig(
     (['bulletInheritSpriteSpeed', 'trackedSprite'].includes(property) ||
       property === 'all') &&
     weapon.bulletInheritSpriteSpeed === true &&
-    !weapon.trackedSprite.body
+    !weapon.trackedSprite?.body
   ) {
     log(
       'Warning: Bullet cannot inherit speed from a sprite without a body.',
@@ -78,16 +78,21 @@ function validateConfig(
     'bulletSpeedVariance',
     'bulletKillDistance',
   ];
+  /* eslint-disable @typescript-eslint/no-non-null-assertion */
   if (property === 'all') {
     shouldBePositive.forEach(key => {
-      if (weapon[key] < 0) {
+      if (weapon[key] !== undefined && weapon[key]! < 0) {
         log(
           'Invalid ' + property + '; must be >= 0; currently ' + weapon[key],
           weapon.logLevel
         );
       }
     });
-  } else if (shouldBePositive.includes(property) && weapon[property] < 0) {
+  } else if (
+    shouldBePositive.includes(property) &&
+    weapon[property] !== undefined &&
+    weapon[property]! < 0
+  ) {
     log(
       'Invalid ' + property + '; must be >= 0; currently ' + weapon[property],
       weapon.logLevel

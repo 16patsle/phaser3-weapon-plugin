@@ -3,7 +3,7 @@ import { KillType } from './consts';
 let bulletID = 0;
 
 class Bullet extends Phaser.GameObjects.Sprite {
-  body: Phaser.Physics.Arcade.Body;
+  body!: Phaser.Physics.Arcade.Body;
   bulletID: number;
 
   /**

@@ -18,6 +18,7 @@ files directly (through a bundler), but prefer to not set up TypeScript compilat
 - Changed exports, the plugin object is now accessible as a named export, or as `WeaponPlugin.WeaponPlugin` as a browser global.
 - The built files now include the necessary polyfills (based on target browsers).
 - Constants previously available at `consts` have been split ut into `consts.KillType`, `consts.Angle` and `consts.FrameType`. They're also available as named exports from `consts.js`.
+- `weapon.fire()` and similar functions return undefined when no bullet is fired.
 
 ### Fixed
 - Fixed several bugs and edge cases, helped by TypeScript
