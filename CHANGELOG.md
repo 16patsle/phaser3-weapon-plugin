@@ -8,7 +8,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### Added
 - Config checks for `trackRotation` and `bulletInheritSpriteSpeed` when following a Sprite without a body or a custom object.
 - Added other build targets, including a legacy build transpiled to ES5 and a modern build supporting the last 2 versions of the major browsers.
-The default build targets browsers supporting ES modules, and can be used together with the legacy build if you want to utilize the [module/nomodule pattern](https://philipwalton.com/articles/deploying-es2015-code-in-production-today/).
+The default build targets browsers supporting ES modules, and can be used together with the legacy build if you want to utilize the
+[module/nomodule pattern](https://philipwalton.com/articles/deploying-es2015-code-in-production-today/).
+- JavaScript source files (compiled from TypeScript) are available in `out/` after build. Use these if you prefer to consume the plugin's source
+files directly (through a bundler), but prefer to not set up TypeScript compilation yourself.
 
 ### Changed
 - Ported plugin to TypeScript
@@ -16,7 +19,10 @@ The default build targets browsers supporting ES modules, and can be used togeth
 - The built files now include the necessary polyfills (based on target browsers).
 
 ### Fixed
-- Fixed several bugs and edge cases
+- Fixed several bugs and edge cases, helped by TypeScript
+
+### Removed
+- Prebuilt files from git. Get them from npm or the releases page, or build them yourself.
 
 ## [1.0.2] - 2019-10-05
 ### Fixed
@@ -42,5 +48,6 @@ The default build targets browsers supporting ES modules, and can be used togeth
 - Fixed several bugs, like incorrect usage of Rectangle.CenterOn.
 
 [Unreleased]: https://github.com/16patsle/phaser3-weapon-plugin/compare/v1.0.1...HEAD
+[1.0.2]: https://github.com/16patsle/phaser3-weapon-plugin/compare/v1.0.1...v1.0.2
 [1.0.1]: https://github.com/16patsle/phaser3-weapon-plugin/compare/v1.0.0...v1.0.1
 [1.0.0]: https://github.com/16patsle/phaser3-weapon-plugin/compare/v1.0.0-beta.1...v1.0.0
