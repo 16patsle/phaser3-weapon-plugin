@@ -1,5 +1,4 @@
-const webpack = require('webpack');
-const path = require('path');
+/* eslint-env node */
 const TerserPlugin = require('terser-webpack-plugin');
 
 const config = {
