@@ -21,8 +21,8 @@ const config = {
           warnings: false,
           safari10: true,
         },
-        warningsFilter: src => false,
-      })
+        warningsFilter: () => false,
+      }),
     ],
   },
 
@@ -55,12 +55,12 @@ const config = {
                   useBuiltIns: 'usage',
                   corejs: 3,
                   targets: {
-                    esmodules: true
+                    esmodules: true,
                   },
                   bugfixes: true,
-                }
+                },
               ],
-              '@babel/preset-typescript'
+              '@babel/preset-typescript',
             ],
             plugins: ['@babel/plugin-proposal-class-properties'],
           },
@@ -71,7 +71,7 @@ const config = {
 
   resolve: {
     extensions: ['.ts', '.js', '.json'],
-  }
+  },
 };
 
 const configModule = Object.assign({}, config);
@@ -93,11 +93,12 @@ configModule.module = {
               {
                 useBuiltIns: 'usage',
                 corejs: 3,
-                targets: 'last 2 Edge versions, last 2 Safari versions, last 2 Firefox versions, last 2 Chrome versions',
+                targets:
+                  'last 2 Edge versions, last 2 Safari versions, last 2 Firefox versions, last 2 Chrome versions',
                 bugfixes: true,
               },
             ],
-            '@babel/preset-typescript'
+            '@babel/preset-typescript',
           ],
           plugins: ['@babel/plugin-proposal-class-properties'],
         },
@@ -124,10 +125,10 @@ configLegacy.module = {
               '@babel/preset-env',
               {
                 useBuiltIns: 'usage',
-                corejs: 3
-              }
+                corejs: 3,
+              },
             ],
-            '@babel/preset-typescript'
+            '@babel/preset-typescript',
           ],
           plugins: ['@babel/plugin-proposal-class-properties'],
         },
@@ -136,4 +137,4 @@ configLegacy.module = {
   ],
 };
 
-module.exports = [config, configModule, configLegacy]
+module.exports = [config, configModule, configLegacy];
