@@ -22,10 +22,19 @@ function preload() {
     frameWidth: 4,
     frameHeight: 4,
   });
-  this.load.scenePlugin('WeaponPlugin', './WeaponPlugin.js', null, 'weapons');
+  // Load the plugin
+  this.load.script('WeaponPlugin', './WeaponPlugin.js');
 }
 
 function create() {
+  // Install the plugin
+  this.plugins.installScenePlugin(
+    'WeaponPlugin',
+    WeaponPlugin.WeaponPlugin,
+    'weapons',
+    this
+  );
+
   //  Creates 30 bullets, using the 'bullet' graphic
   this.weapon = this.add.weapon(40, 'bullet');
 

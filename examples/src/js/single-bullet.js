@@ -19,10 +19,19 @@ const game = new Phaser.Game(config);
 function preload() {
   this.load.image('bullet', 'assets/sprites/bullet.png');
   this.load.image('ship', 'assets/sprites/shmup-ship.png');
-  this.load.scenePlugin('WeaponPlugin', './WeaponPlugin.js', null, 'weapons');
+  // Load the plugin
+  this.load.script('WeaponPlugin', './WeaponPlugin.js');
 }
 
 function create() {
+  // Install the plugin
+  this.plugins.installScenePlugin(
+    'WeaponPlugin',
+    WeaponPlugin.WeaponPlugin,
+    'weapons',
+    this
+  );
+
   //  Creates 1 single bullet, using the 'bullet' graphic
   this.weapon = this.add.weapon(1, 'bullet');
 
