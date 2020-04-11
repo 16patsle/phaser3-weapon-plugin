@@ -2,9 +2,19 @@ import Bullet from './Bullet';
 import consts from './consts';
 import validateConfig, { log } from './validateConfig';
 
-type ObjectWithTransform = {
+/**
+ * Any Object, as long as it has public `x` and `y` properties,
+ * such as Phaser.Geom.Point, { x: 0, y: 0 }, Phaser.GameObjects.Sprite, etc
+ */
+type ObjectWithXY = {
   x: number;
   y: number;
+};
+
+/**
+ * An object that has x/y coords and optional rotation. Any Sprite-like object.
+ */
+type ObjectWithTransform = ObjectWithXY & {
   rotation?: number;
   angle?: number;
   body?: Phaser.Physics.Arcade.Body;
@@ -215,7 +225,7 @@ class Weapon {
   /**
    * This array stores the frames added via {@link #setBulletFrames}.
    */
-  private _bulletFrames: Array<any> = [];
+  private _bulletFrames: integer[] = [];
 
   /**
    * Private var that holds the public `bulletFrameIndex` property.
@@ -225,7 +235,9 @@ class Weapon {
   /**
    * An internal object that stores the animation data added via {@link #addBulletAnimation}.
    */
-  private anims: object = {};
+  private anims: {
+    [name: string]: Phaser.Animations.Animation;
+  } = {};
 
   /**
    * Private var that holds the public `trackedSprite` property.
@@ -787,7 +799,7 @@ class Weapon {
   /**
    * This array stores the frames added via {@link #setBulletFrames}.
    */
-  get bulletFrames(): Array {
+  get bulletFrames(): integer[] {
     return this._bulletFrames;
   }
   set bulletFrames(value) {
@@ -1164,17 +1176,17 @@ class Weapon {
    * When the bullets are launched they have their texture and frame updated, as required.
    * The velocity of the bullets are calculated based on Weapon properties like {@link #bulletSpeed}.
    *
-   * @param positions - An array of positions. Each position can be any Object,
-   * as long as it has public `x` and `y` properties, such as Phaser.Point, { x: 0, y: 0 }, Phaser.Sprite, etc.
+   * @param positions - An array of positions. Each position can be any Object, as long as it
+   * has public `x` and `y` properties, such as Phaser.Geom.Point, { x: 0, y: 0 }, Phaser.GameObjects.Sprite
    * @param from Optionally fires the bullets **from** the `x` and `y` properties of this object,
    * _instead_ of any {@link #trackedSprite} or `trackedPointer` that is set.
    * @return An array containing all of the fired Bullet objects,
    * if a launch was successful, otherwise an empty array.
    */
   fireMany(
-    positions: Array<any>,
+    positions: ObjectWithXY[],
     from: Phaser.GameObjects.Sprite | Phaser.Math.Vector2 | ObjectWithTransform
-  ): Array<Bullet> {
+  ): Bullet[] {
     this.multiFire = true;
 
     const bullets: Bullet[] = [];
@@ -1608,7 +1620,7 @@ class Weapon {
       log(`min frame (${min}) must be <= max frame (${max})`, this.logLevel);
     }
 
-    this.bulletFrames = Phaser.Utils.Array.NumberArray(min, max);
+    this.bulletFrames = Phaser.Utils.Array.NumberArray(min, max) as number[];
     this.bulletFrameIndex = 0;
     this.bulletFrameCycle = selectionMethod === consts.BULLET_FRAME_CYCLE;
     this.bulletFrameRandom = selectionMethod === consts.BULLET_FRAME_RANDOM;
@@ -1632,21 +1644,21 @@ class Weapon {
    * and in which order. e.g. [1, 2, 3] or ['run0', 'run1', run2]). If null then all frames will be used.
    * @param frameRate - The speed at which the animation should play.
    * The speed is given in frames per second.
-   * @param loop - Number of times to repeat the animation. Set to -1 to repeat forever.
+   * @param repeat - Number of times to repeat the animation. Set to -1 to repeat forever.
    * @return This Weapon instance.
    */
   addBulletAnimation(
     name: string,
-    frames: Array<number | string> = null,
+    frames: Phaser.Types.Animations.AnimationFrame[] = null,
     frameRate = 60,
-    loop = 1
+    repeat = 0
   ): this {
     if (!this.scene.sys.anims.exists(name)) {
       this.scene.sys.anims.create({
         key: name,
         frames,
         frameRate,
-        loop,
+        repeat,
       });
 
       this.anims[name] = this.scene.sys.anims.get(name);
