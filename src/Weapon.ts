@@ -276,17 +276,17 @@ class Weapon {
    * TODO: a builder style interface would be neat. Can be kicked way forward
    * into polishing.
    * @param scene - A reference to the Phaser.Scene instance.
-   * @param bulletLimit - The number of bullets to create.
-   * @param key - The texture key for the bullet.
-   * @param frame - The frame name for the bullet.
-   * @param group - A group to add the bullets to.
+   * @param bulletLimit - The quantity of bullets to seed the Weapon with. If -1 it will set the pool to automatically expand.
+   * @param key - The texture cache key of the image that this Sprite will use.
+   * @param frame - If the Sprite image contains multiple frames you can specify which one to use here.
+   * @param group - Optional Group to add the object to.
    */
   constructor(
     scene: Phaser.Scene,
-    bulletLimit: number,
-    key: string,
-    frame: string,
-    group: Phaser.GameObjects.Group
+    bulletLimit?: number,
+    key?: string,
+    frame?: string,
+    group?: Phaser.GameObjects.Group
   ) {
     this.scene = scene;
     this._bulletKey = key || '';
@@ -920,12 +920,11 @@ class Weapon {
    *
    * @param quantity - The quantity of bullets to seed the Weapon
    *  with. If -1 it will set the pool to automatically expand.
-   * @param key - The Game.cache key of the image that this Sprite
-   *  will use.
+   * @param key - The texture cache key of the image that this
+   *  Sprite will use.
    * @param frame - If the Sprite image contains multiple
    *  frames you can specify which one to use here.
-   * @param group - Optional Group to add the
-   *  object to. If not specified it will be added to the World group.
+   * @param group - Optional Group to add the object to.
    * @return This Weapon instance.
    */
   createBullets(

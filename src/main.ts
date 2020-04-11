@@ -8,6 +8,33 @@ import Weapon from './Weapon';
 import Bullet from './Bullet';
 import consts from './consts';
 
+type WeaponConfig = {
+  /**
+   * The quantity of bullets to seed the Weapon with. If -1 it will set the pool to automatically expand.
+   */
+  bulletLimit?: number;
+
+  /**
+   * The Game.cache key of the image that this Sprite will use.
+   */
+  key?: string;
+
+  /**
+   * If the Sprite image contains multiple frames you can specify which one to use here.
+   */
+  frame?: string;
+
+  /**
+   * Optional Group to add the object to. If not specified it will be added to the World group.
+   */
+  group?: Phaser.GameObjects.Group;
+
+  /**
+   * Optional custom class for the Weapon.
+   */
+  weaponClass?: typeof Weapon;
+};
+
 /**
  * The Weapon Plugin provides the ability to easily create a bullet pool
  * and manager.
@@ -50,22 +77,34 @@ class WeaponPlugin extends Phaser.Plugins.ScenePlugin {
     this.weapons = [];
 
     // Register our new Game Object type
-    pluginManager.registerGameObject('weapon', this.add.bind(this), config => {
-      return this.add(
-        config.bulletLimit,
-        config.key,
-        config.frame,
-        config.group,
-        config.weaponClass
-      );
-    });
+    pluginManager.registerGameObject(
+      'weapon',
+      this.add.bind(this),
+      (config: WeaponConfig) => {
+        return this.add(
+          config.bulletLimit,
+          config.key,
+          config.frame,
+          config.group,
+          config.weaponClass
+        );
+      }
+    );
   }
 
+  /**
+   *
+   * @param bulletLimit - The quantity of bullets to seed the Weapon with. If -1 it will set the pool to automatically expand.
+   * @param key - The Game.cache key of the image that this Sprite will use.
+   * @param frame - If the Sprite image contains multiple frames you can specify which one to use here.
+   * @param group - Optional Group to add the object to.
+   * @param weaponClass - Optional custom class for the Weapon.
+   */
   add(
-    bulletLimit: number,
-    key: string,
-    frame: string,
-    group: Phaser.GameObjects.Group,
+    bulletLimit?: number,
+    key?: string,
+    frame?: string,
+    group?: Phaser.GameObjects.Group,
     weaponClass: typeof Weapon = Weapon
   ): Weapon {
     if (!weaponClass) {
