@@ -813,7 +813,7 @@ class Weapon {
    * The Sprite currently being tracked by the Weapon, if any.
    * This is set via the {@link #trackSprite} method.
    */
-  get trackedSprite(): Phaser.GameObjects.Sprite | object {
+  get trackedSprite(): Phaser.GameObjects.Sprite | ObjectWithTransform {
     return this._trackedSprite;
   }
   set trackedSprite(value) {
