@@ -213,7 +213,7 @@ class Weapon {
   private _bulletBounds: Phaser.Geom.Rectangle;
 
   /**
-   * This array stores the frames added via @link #setBulletFrames.
+   * This array stores the frames added via {@link #setBulletFrames}.
    */
   private _bulletFrames: Array<any> = [];
 
@@ -785,7 +785,7 @@ class Weapon {
   }
 
   /**
-   * This array stores the frames added via @link #setBulletFrames.
+   * This array stores the frames added via {@link #setBulletFrames}.
    */
   get bulletFrames(): Array {
     return this._bulletFrames;
