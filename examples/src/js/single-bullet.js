@@ -40,7 +40,7 @@ function create() {
 
   //  The bullet will be automatically killed when it leaves the world bounds
   console.log(`setting bulletKillType`);
-  this.weapon.bulletKillType = WeaponPlugin.consts.KILL_WORLD_BOUNDS;
+  this.weapon.bulletKillType = WeaponPlugin.consts.KillType.KILL_WORLD_BOUNDS;
 
   //  Because our bullet is drawn facing up, we need to offset its rotation:
   this.weapon.bulletAngleOffset = 90;

@@ -39,7 +39,7 @@ function create() {
   this.weapon.debugPhysics = true;
 
   //  The bullets will be automatically killed when they are 2000ms old
-  this.weapon.bulletKillType = WeaponPlugin.consts.KILL_LIFESPAN;
+  this.weapon.bulletKillType = WeaponPlugin.consts.KillType.KILL_LIFESPAN;
   this.weapon.bulletLifespan = 2000;
 
   //  The speed at which the bullet is fired

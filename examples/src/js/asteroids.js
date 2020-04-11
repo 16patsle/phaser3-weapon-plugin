@@ -41,7 +41,7 @@ function create() {
   this.weapon.debugPhysics = true;
 
   //  The bullet will be automatically killed when it leaves the world bounds
-  this.weapon.bulletKillType = WeaponPlugin.consts.KILL_WORLD_BOUNDS;
+  this.weapon.bulletKillType = WeaponPlugin.consts.KillType.KILL_WORLD_BOUNDS;
   this.weapon.bulletLifespan = 500;
 
   //  The speed at which the bullet is fired

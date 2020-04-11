@@ -28,8 +28,8 @@ function validateConfig(
     (['bulletWorldWrap', 'bulletKillType'].includes(property) ||
       property === 'all') &&
     weapon.bulletWorldWrap &&
-    (weapon.bulletKillType === consts.KILL_WORLD_BOUNDS ||
-      weapon.bulletKillType === consts.KILL_WEAPON_BOUNDS)
+    (weapon.bulletKillType === consts.KillType.KILL_WORLD_BOUNDS ||
+      weapon.bulletKillType === consts.KillType.KILL_WEAPON_BOUNDS)
   ) {
     log(
       'Warning: KILL_WORLD_BOUNDS and KILL_WEAPON_BOUNDS does not work well with bulletWorldWrap set to true.',
@@ -39,7 +39,7 @@ function validateConfig(
   if (
     (['bulletKillType', 'bulletLifespan'].includes(property) ||
       property === 'all') &&
-    weapon.bulletKillType === consts.KILL_LIFESPAN &&
+    weapon.bulletKillType === consts.KillType.KILL_LIFESPAN &&
     weapon.bulletLifespan < 0
   ) {
     log(

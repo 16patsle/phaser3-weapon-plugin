@@ -98,7 +98,7 @@ class Weapon {
   /**
    * Private var that holds the public `fireAngle` property.
    */
-  private _fireAngle: integer = consts.ANGLE_UP;
+  private _fireAngle: integer = consts.Angle.ANGLE_UP;
 
   /**
    * Private var that holds the public `bulletInheritSpriteSpeed` property.
@@ -193,7 +193,7 @@ class Weapon {
   /**
    * Private var that holds the public `bulletKillType` property.
    */
-  private _bulletKillType: integer = consts.KILL_WORLD_BOUNDS;
+  private _bulletKillType: integer = consts.KillType.KILL_WORLD_BOUNDS;
 
   /**
    * Holds internal data about custom bullet body sizes.
@@ -436,7 +436,7 @@ class Weapon {
   /**
    * The angle at which the bullets are fired. This can be a const such as Phaser.ANGLE_UP
    * or it can be any number from 0 to 360 inclusive, where 0 degrees is to the right.
-   * @default consts.ANGLE_UP
+   * @default consts.Angle.ANGLE_UP
    */
   get fireAngle(): integer {
     return this._fireAngle;
@@ -595,7 +595,7 @@ class Weapon {
   }
 
   /**
-   * If you've set {@link #bulletKillType} to `consts.KILL_LIFESPAN` this controls the amount
+   * If you've set {@link #bulletKillType} to `consts.KillType.KILL_LIFESPAN` this controls the amount
    * of lifespan the Bullets have set on launch. The value is given in milliseconds.
    * When a Bullet hits its lifespan limit it will be automatically killed.
    * @default 0
@@ -610,7 +610,7 @@ class Weapon {
   }
 
   /**
-   * If you've set {@link #bulletKillType} to `consts.KILL_DISTANCE` this controls the distance
+   * If you've set {@link #bulletKillType} to `consts.KillType.KILL_DISTANCE` this controls the distance
    * the Bullet can travel before it is automatically killed. The distance is given in pixels.
    * @default 0
    */
@@ -717,30 +717,30 @@ class Weapon {
   }
 
   /**
-   * This controls how the bullets will be killed. The default is `consts.KILL_WORLD_BOUNDS`.
+   * This controls how the bullets will be killed. The default is `consts.KillType.KILL_WORLD_BOUNDS`.
    *
    * There are 7 different "kill types" available:
    *
-   * * `consts.KILL_NEVER`
+   * * `consts.KillType.KILL_NEVER`
    * The bullets are never destroyed by the Weapon. It's up to you to destroy them via your own code.
    *
-   * * `consts.KILL_LIFESPAN`
+   * * `consts.KillType.KILL_LIFESPAN`
    * The bullets are automatically killed when their `bulletLifespan` amount expires.
    *
-   * * `consts.KILL_DISTANCE`
+   * * `consts.KillType.KILL_DISTANCE`
    * The bullets are automatically killed when they
    * exceed `bulletDistance` pixels away from their original launch position.
    *
-   * * `consts.KILL_WEAPON_BOUNDS`
+   * * `consts.KillType.KILL_WEAPON_BOUNDS`
    * The bullets are automatically killed when they no longer intersect with the {@link #bounds} rectangle.
    *
-   * * `consts.KILL_CAMERA_BOUNDS`
+   * * `consts.KillType.KILL_CAMERA_BOUNDS`
    * The bullets are automatically killed when they no longer intersect with the {@link Phaser.Camera#bounds} rectangle.
    *
-   * * `consts.KILL_WORLD_BOUNDS`
+   * * `consts.KillType.KILL_WORLD_BOUNDS`
    * The bullets are automatically killed when they no longer intersect with the {@link Phaser.World#bounds} rectangle.
    *
-   * * `consts.KILL_STATIC_BOUNDS`
+   * * `consts.KillType.KILL_STATIC_BOUNDS`
    * The bullets are automatically killed when they no longer intersect with the {@link #bounds} rectangle.
    * The difference between static bounds and weapon bounds, is that a static bounds will never be adjusted to
    * match the position of a tracked sprite or pointer.
@@ -750,16 +750,16 @@ class Weapon {
   }
   set bulletKillType(type) {
     switch (type) {
-      case consts.KILL_STATIC_BOUNDS:
-      case consts.KILL_WEAPON_BOUNDS:
+      case consts.KillType.KILL_STATIC_BOUNDS:
+      case consts.KillType.KILL_WEAPON_BOUNDS:
         this.bulletBounds = this.bounds;
         break;
 
-      case consts.KILL_CAMERA_BOUNDS:
+      case consts.KillType.KILL_CAMERA_BOUNDS:
         this.bulletBounds = this.scene.sys.cameras.main.getBounds();
         break;
 
-      case consts.KILL_WORLD_BOUNDS:
+      case consts.KillType.KILL_WORLD_BOUNDS:
         this.bulletBounds = this.scene.physics.world.bounds;
         break;
     }
@@ -771,8 +771,8 @@ class Weapon {
 
   /**
    * This Rectangle defines the bounds that are used when determining if a Bullet should be killed or not.
-   * It's used in combination with {@link #bulletKillType} when that is set to either `consts.KILL_WEAPON_BOUNDS`
-   * or `consts.KILL_STATIC_BOUNDS`. If you are not using either of these kill types then the bounds are ignored.
+   * It's used in combination with {@link #bulletKillType} when that is set to either `consts.KillType.KILL_WEAPON_BOUNDS`
+   * or `consts.KillType.KILL_STATIC_BOUNDS`. If you are not using either of these kill types then the bounds are ignored.
    * If you are tracking a Sprite or Point then the bounds are centered on that object every frame.
    */
   get bounds(): Phaser.Geom.Rectangle {
@@ -1431,7 +1431,7 @@ class Weapon {
       });
 
       // Prepare timer for bullet lifespan
-      if (this.bulletKillType === consts.KILL_LIFESPAN) {
+      if (this.bulletKillType === consts.KillType.KILL_LIFESPAN) {
         bullet.setData(
           'timeEvent',
           this.scene.time.addEvent({
@@ -1599,19 +1599,19 @@ class Weapon {
    * @param min - The minimum value the frame can be. Usually zero.
    * @param max - The maximum value the frame can be.
    * @param selcetionMethod - Specifies how the
-   *  frame for the fired bullet will be selected. See consts.BULLET_FRAME_XYZ
+   *  frame for the fired bullet will be selected. See consts.FrameType.BULLET_FRAME_XYZ
    *  for options.
    * @return This Weapon instance.
    */
   setBulletFrames(
     min: integer,
     max: integer,
-    selectionMethod = consts.BULLET_FRAME_STABLE
+    selectionMethod = consts.FrameType.BULLET_FRAME_STABLE
   ): this {
     if (
       typeof selectionMethod !== 'number' ||
-      selectionMethod < consts.BULLET_FRAME_STABLE ||
-      selectionMethod > consts.BULLET_FRAME_RANDOM
+      selectionMethod < consts.FrameType.BULLET_FRAME_STABLE ||
+      selectionMethod > consts.FrameType.BULLET_FRAME_RANDOM
     ) {
       log(
         `Invalid bullet frame selection method specified: ${selectionMethod}`,
@@ -1625,8 +1625,10 @@ class Weapon {
 
     this.bulletFrames = Phaser.Utils.Array.NumberArray(min, max) as number[];
     this.bulletFrameIndex = 0;
-    this.bulletFrameCycle = selectionMethod === consts.BULLET_FRAME_CYCLE;
-    this.bulletFrameRandom = selectionMethod === consts.BULLET_FRAME_RANDOM;
+    this.bulletFrameCycle =
+      selectionMethod === consts.FrameType.BULLET_FRAME_CYCLE;
+    this.bulletFrameRandom =
+      selectionMethod === consts.FrameType.BULLET_FRAME_RANDOM;
 
     return this;
   }
@@ -1676,7 +1678,7 @@ class Weapon {
    * Internal update method, called by the Weapon Plugin.
    */
   update(): void {
-    if (this._bulletKillType === consts.KILL_WEAPON_BOUNDS) {
+    if (this._bulletKillType === consts.KillType.KILL_WEAPON_BOUNDS) {
       if (this.trackedSprite) {
         Phaser.Geom.Rectangle.CenterOn(
           this.bounds,

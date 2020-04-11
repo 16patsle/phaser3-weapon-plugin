@@ -1,45 +1,55 @@
-enum Consts {
+/**
+ * Kill type constants for {@link Weapon#bulletKillType}
+ */
+enum KillType {
   /**
-   * A {@link #bulletKillType} constant that stops the bullets from ever being destroyed automatically.
+   * A {@link Weapon#bulletKillType} constant that stops the bullets from ever being destroyed automatically.
    */
   KILL_NEVER = 0,
 
   /**
-   * A {@link #bulletKillType} constant that automatically kills the bullets
-   * when their {@link #bulletLifespan} expires.
+   * A {@link Weapon#bulletKillType} constant that automatically kills the bullets
+   * when their {@link Weapon#bulletLifespan} expires.
    */
   KILL_LIFESPAN = 1,
 
   /**
-   * A {@link #bulletKillType} constant that automatically kills the bullets after they
-   * exceed the {@link #bulletDistance} from their original firing position.
+   * A {@link Weapon#bulletKillType} constant that automatically kills the bullets after they
+   * exceed the {@link Weapon#bulletDistance} from their original firing position.
    */
   KILL_DISTANCE = 2,
 
   /**
-   * A {@link #bulletKillType} constant that automatically kills the bullets
-   * when they leave the {@link #bounds} rectangle.
+   * A {@link Weapon#bulletKillType} constant that automatically kills the bullets
+   * when they leave the {@link Weapon#bounds} rectangle.
    */
   KILL_WEAPON_BOUNDS = 3,
 
   /**
-   * A {@link #bulletKillType} constant that automatically kills the bullets
-   * when they leave the {@link Phaser.Camera#bounds} rectangle.
+   * A {@link Weapon#bulletKillType} constant that automatically kills the bullets
+   * when they leave the {@link Phaser.Cameras.Scene2D.Camera#bounds} rectangle.
    */
   KILL_CAMERA_BOUNDS = 4,
 
   /**
-   * A {@link #bulletKillType} constant that automatically kills the bullets
-   * when they leave the {@link Phaser.World#bounds} rectangle.
+   * A {@link Weapon#bulletKillType} constant that automatically kills the bullets
+   * when they leave the {@link Phaser.Physics.Arcade.World#bounds} rectangle.
    */
   KILL_WORLD_BOUNDS = 5,
 
   /**
-   * A {@link #bulletKillType} constant that automatically kills the bullets
+   * A {@link Weapon#bulletKillType} constant that automatically kills the bullets
    * when they leave the {@link #bounds} rectangle.
    */
   KILL_STATIC_BOUNDS = 6,
+}
 
+export { KillType };
+
+/**
+ * Angle constants that can be used anywhere you specify angles in degrees, for instance {@link Weapon#bulletAngleOffset}.
+ */
+enum Angle {
   /**
    * The Angle (in degrees) a Game Object needs to be set to in order to face up.
    */
@@ -79,7 +89,14 @@ enum Consts {
    * The Angle (in degrees) a Game Object needs to be set to in order to face south west.
    */
   ANGLE_SOUTH_WEST = 135,
+}
 
+export { Angle };
+
+/**
+ * Bullet frame type constants for {@link Weapon#setBulletFrames}
+ */
+enum FrameType {
   /**
    * When selecting a bullet frame the same frame should always be used. This
    * is the default value.
@@ -97,4 +114,10 @@ enum Consts {
   BULLET_FRAME_RANDOM = 2,
 }
 
-export default Consts;
+export { FrameType };
+
+export default {
+  KillType,
+  Angle,
+  FrameType,
+};
