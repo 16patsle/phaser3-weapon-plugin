@@ -1,12 +1,6 @@
 import consts from './consts';
 import Weapon from './Weapon';
 
-type KeysMatching<T, V> = {
-  [K in keyof T]: T[K] extends V ? K : never;
-}[keyof T];
-
-type WeaponProperty = KeysMatching<Weapon, string | number | boolean>;
-
 /**
  * Log text to the console or throw an error
  * @param text - Text to be logged
@@ -27,7 +21,7 @@ function log(text: string, logLevel: 'warn' | 'error' | 'off'): void {
  */
 function validateConfig(
   weapon: Weapon,
-  property: WeaponProperty | 'all' = 'all'
+  property: keyof Weapon | 'all' = 'all'
 ): void {
   if (
     (['bulletWorldWrap', 'bulletKillType'].includes(property) ||
@@ -52,7 +46,7 @@ function validateConfig(
       weapon.logLevel
     );
   }
-  const shouldBePositive: WeaponProperty[] = [
+  const shouldBePositive: (keyof Weapon)[] = [
     'fireLimit',
     'fireRate',
     'fireRateVariance',
