@@ -62,7 +62,7 @@ const createConfig = type => {
       filename: '[name].js',
       library: 'WeaponPlugin',
       libraryTarget: 'umd',
-      libraryExport: 'default',
+      libraryExport: '',
       umdNamedDefine: true,
     },
 
