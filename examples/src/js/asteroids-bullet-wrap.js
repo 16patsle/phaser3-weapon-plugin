@@ -1,4 +1,4 @@
-var config = {
+const config = {
   type: Phaser.WEBGL,
   parent: 'phaser-example',
   scene: {
@@ -14,7 +14,7 @@ var config = {
   },
 };
 
-var game = new Phaser.Game(config);
+const game = new Phaser.Game(config);
 
 function preload() {
   this.load.image('bullet', 'assets/sprites/shmup-bullet.png');
