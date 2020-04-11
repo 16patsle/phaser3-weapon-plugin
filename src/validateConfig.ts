@@ -8,6 +8,7 @@ import Weapon from './Weapon';
  */
 function log(text: string, logLevel: 'warn' | 'error' | 'off'): void {
   if (logLevel === 'warn') {
+    /* eslint-disable-next-line no-console */
     console.warn(text);
   } else if (logLevel === 'error') {
     throw new Error(text);
