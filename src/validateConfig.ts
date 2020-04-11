@@ -51,7 +51,8 @@ function validateConfig(
     (['trackRotation', 'trackedSprite'].includes(property) ||
       property === 'all') &&
     weapon.trackRotation === true &&
-    (!weapon.trackedSprite.rotation || !weapon.trackedSprite.angle)
+    (weapon.trackedSprite.rotation === undefined ||
+      weapon.trackedSprite.angle === undefined)
   ) {
     log(
       'Warning: Weapon cannot track rotation of an object without a rotation and/or angle property.',
