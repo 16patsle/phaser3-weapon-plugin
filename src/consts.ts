@@ -47,7 +47,7 @@ enum KillType {
 export { KillType };
 
 /**
- * Angle constants that can be used anywhere you specify angles in degrees, for instance {@link Weapon#bulletAngleOffset}.
+ * Angle constants that can be used anywhere you specify angles in degrees, for instance {@link Weapon#fireAngle} and {@link Weapon#bulletAngleOffset}.
  */
 enum Angle {
   /**
