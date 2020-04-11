@@ -306,13 +306,13 @@ class Weapon {
   constructor(
     scene: Phaser.Scene,
     bulletLimit?: number,
-    key?: string,
-    frame?: string,
+    key = '',
+    frame = '',
     group?: Phaser.GameObjects.Group
   ) {
     this.scene = scene;
-    this._bulletKey = key || '';
-    this._bulletFrame = frame || '';
+    this._bulletKey = key;
+    this._bulletFrame = frame;
     this._bulletBounds = this.scene.physics.world.bounds;
 
     validateConfig(this);
