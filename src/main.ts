@@ -34,12 +34,17 @@ import consts from './consts';
  * ```
  */
 class WeaponPlugin extends Phaser.Plugins.ScenePlugin {
+  weapons: Weapon[];
+
   /**
-   * @param {Phaser.Scene} scene - A reference to the Phaser.Scene instance.
-   * @param {Phaser.Plugins.PluginManager} pluginManager - A reference to the
+   * @param scene - A reference to the Phaser.Scene instance.
+   * @param pluginManager - A reference to the
    *  Phaser.Plugins.PluginManager instance.
    */
-  constructor(scene, pluginManager) {
+  constructor(
+    scene: Phaser.Scene,
+    pluginManager: Phaser.Plugins.PluginManager
+  ) {
     super(scene, pluginManager);
 
     this.weapons = [];
@@ -56,7 +61,13 @@ class WeaponPlugin extends Phaser.Plugins.ScenePlugin {
     });
   }
 
-  add(bulletLimit, key, frame, group, weaponClass) {
+  add(
+    bulletLimit: number,
+    key: string,
+    frame: string,
+    group: Phaser.GameObjects.Group,
+    weaponClass: typeof Weapon = Weapon
+  ): Weapon {
     if (!weaponClass) {
       weaponClass = Weapon;
     }
@@ -71,10 +82,8 @@ class WeaponPlugin extends Phaser.Plugins.ScenePlugin {
    * Called by the PluginManager when this plugin is started.
    * If a plugin is stopped, and then started again, this will get called again.
    * Typically called immediately after `BasePlugin.init`.
-   *
-   * @returns {void}
    */
-  start() {
+  start(): void {
     this.systems.events.on('postrender', this.postRender, this);
   }
 
@@ -82,9 +91,8 @@ class WeaponPlugin extends Phaser.Plugins.ScenePlugin {
    * If this is a Scene Plugin (i.e. installed into a Scene) then this method is called when the Scene boots.
    * By this point the plugin properties `scene` and `systems` will have already been set.
    * In here you can listen for Scene events and set-up whatever you need for this plugin to run.
-   * @returns {void}
    */
-  boot() {
+  boot(): void {
     const eventEmitter = this.systems.events;
 
     eventEmitter.on('update', this.update, this);
@@ -93,11 +101,8 @@ class WeaponPlugin extends Phaser.Plugins.ScenePlugin {
 
   /**
    * Internal update method, called by the PluginManager.
-   *
-   * @protected
-   * @returns {void}
    */
-  update() {
+  protected update(): void {
     this.weapons.forEach(weapon => {
       weapon.update();
     });
@@ -105,11 +110,8 @@ class WeaponPlugin extends Phaser.Plugins.ScenePlugin {
 
   /**
    * Internal update method, called by the PluginManager.
-   *
-   * @protected
-   * @returns {void}
    */
-  postRender() {
+  protected postRender(): void {
     this.weapons.forEach(weapon => {
       weapon.postRender();
     });
@@ -118,9 +120,8 @@ class WeaponPlugin extends Phaser.Plugins.ScenePlugin {
   /**
    * Destroys this Weapon.
    * You must release everything in here, all references, all objects, free it all up.
-   * @returns {void}
    */
-  destroy() {
+  destroy(): void {
     this.pluginManager = null;
     this.game = null;
     this.scene = null;

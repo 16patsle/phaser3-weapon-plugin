@@ -3,19 +3,28 @@ import consts from './consts';
 let bulletID = 0;
 
 class Bullet extends Phaser.GameObjects.Sprite {
+  body: Phaser.Physics.Arcade.Body;
+  bulletID: number;
+
   /**
    * Create a new `Bullet` object. Bullets are used by the `Weapon` class, and are normal Sprites,
    * with a few extra properties in the data manager to handle Weapon specific features.
    *
-   * @param {Phaser.Scene} scene - A reference to the currently running scene.
-   * @param {number} x - The x coordinate (in world space) to position the Particle at.
-   * @param {number} y - The y coordinate (in world space) to position the Particle at.
-   * @param {string} key - This is the image or texture used by the Particle during rendering.
+   * @param scene - A reference to the currently running scene.
+   * @param x - The x coordinate (in world space) to position the Particle at.
+   * @param y - The y coordinate (in world space) to position the Particle at.
+   * @param key - This is the image or texture used by the Particle during rendering.
    * It can be a string which is a reference to the Cache entry, or an instance of a RenderTexture or PIXI.Texture.
-   * @param {string|number} frame - If this Particle is using part of a sprite sheet or texture atlas
+   * @param frame - If this Particle is using part of a sprite sheet or texture atlas
    * you can specify the exact frame to use by giving a string or numeric index.
    */
-  constructor(scene, x, y, key, frame) {
+  constructor(
+    scene: Phaser.Scene,
+    x: number,
+    y: number,
+    key: string,
+    frame: string | number
+  ) {
     super(scene, x, y, key, frame);
     this.bulletID = bulletID;
     bulletID++;
@@ -39,9 +48,8 @@ class Bullet extends Phaser.GameObjects.Sprite {
   /**
    * Prepares this bullet to be fired and interact with the rest of the scene
    * again.
-   * @returns {void}
    */
-  prepare(x, y) {
+  prepare(x: number, y: number): void {
     this.setActive(true);
     this.setVisible(true);
     this.body.enable = true;
@@ -53,9 +61,9 @@ class Bullet extends Phaser.GameObjects.Sprite {
   /**
    * Kills the Bullet, freeing it up for re-use by the Weapon bullet pool.
    * Also dispatches the `Weapon`s kill signal.
-   * @returns {Bullet} This instance of the bullet class
+   * @returns This instance of the bullet class
    */
-  kill() {
+  kill(): this {
     // Reproduce Phaser.Physics.Arcade.Components.Enable.disableBody because
     // we can't assume that the bullet class has it built in.
     this.body.stop();
@@ -83,9 +91,9 @@ class Bullet extends Phaser.GameObjects.Sprite {
 
   /**
    * Updates the Bullet, killing as required.
-   * @returns {Bullet} This instance of the bullet class
+   * @returns This instance of the bullet class
    */
-  update() {
+  update(): this {
     if (!this.active) {
       // this was previously a check to this.exists
       return;
