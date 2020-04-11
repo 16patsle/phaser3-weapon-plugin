@@ -2,6 +2,14 @@ import Bullet from './Bullet';
 import consts from './consts';
 import validateConfig, { log } from './validateConfig';
 
+type ObjectWithTransform = {
+  x: number;
+  y: number;
+  rotation?: number;
+  angle?: number;
+  body?: Phaser.Physics.Arcade.Body;
+};
+
 /**
  * The Weapon provides the ability to easily create a bullet pool and manager.
  *
@@ -222,7 +230,9 @@ class Weapon {
   /**
    * Private var that holds the public `trackedSprite` property.
    */
-  private _trackedSprite: Phaser.GameObjects.Sprite | object = null;
+  private _trackedSprite:
+    | Phaser.GameObjects.Sprite
+    | ObjectWithTransform = null;
 
   /**
    * Private var that holds the public `trackedPointer` property.
@@ -964,9 +974,9 @@ class Weapon {
         visible: false,
       });
 
-      this.bullets.children.each(function (child) {
+      this.bullets.children.each(child => {
         child.setData('bulletManager', this);
-      }, this);
+      });
 
       this.bulletKey = key;
       this.bulletFrame = frame;
@@ -1089,7 +1099,7 @@ class Weapon {
    * @return This Weapon instance.
    */
   trackSprite(
-    sprite: Phaser.GameObjects.Sprite | object,
+    sprite: Phaser.GameObjects.Sprite | ObjectWithTransform,
     offsetX: integer = 0,
     offsetY: integer = 0,
     trackRotation = false
@@ -1156,15 +1166,14 @@ class Weapon {
    *
    * @param positions - An array of positions. Each position can be any Object,
    * as long as it has public `x` and `y` properties, such as Phaser.Point, { x: 0, y: 0 }, Phaser.Sprite, etc.
-   * @param from
-   * Optionally fires the bullets **from** the `x` and `y` properties of this object,
+   * @param from Optionally fires the bullets **from** the `x` and `y` properties of this object,
    * _instead_ of any {@link #trackedSprite} or `trackedPointer` that is set.
    * @return An array containing all of the fired Bullet objects,
    * if a launch was successful, otherwise an empty array.
    */
   fireMany(
     positions: Array<any>,
-    from: Phaser.GameObjects.Sprite | Phaser.Math.Vector2 | object | string
+    from: Phaser.GameObjects.Sprite | Phaser.Math.Vector2 | ObjectWithTransform
   ): Array<Bullet> {
     this.multiFire = true;
 
@@ -1267,8 +1276,7 @@ class Weapon {
    * and you can call `fire` as many times as you like, per loop. Multiple fires in a single update
    * only counts once towards the `shots` total, but you will still receive a Signal for each bullet.
    *
-   * @param {Phaser.GameObjects.Sprite|Phaser.Math.Vector2|Object|string} [from]
-   * Optionally fires the bullet **from** the `x` and `y` properties of this object.
+   * @param from Optionally fires the bullet **from** the `x` and `y` properties of this object.
    * If set this overrides {@link #trackedSprite} or `trackedPointer`. Pass `null` to ignore it.
    * @param x - The x coordinate, in world space, to fire the bullet **towards**.
    * If left as `undefined`, or `null`, the bullet direction is based on its angle.
@@ -1281,7 +1289,10 @@ class Weapon {
    * @return The fired bullet, if a launch was successful, otherwise `null`.
    */
   fire(
-    from?: Phaser.GameObjects.Sprite | Phaser.Math.Vector2 | object | string,
+    from?:
+      | Phaser.GameObjects.Sprite
+      | Phaser.Math.Vector2
+      | ObjectWithTransform,
     x?: number,
     y?: number,
     offsetX = 0,
@@ -1328,7 +1339,7 @@ class Weapon {
       }
 
       if (this.bulletInheritSpriteSpeed) {
-        speed += this.trackedSprite.body.speed;
+        speed += (this.trackedSprite.body as Phaser.Physics.Arcade.Body).speed;
       }
     } else if (this.trackedPointer) {
       // Fire based on tracked pointer
