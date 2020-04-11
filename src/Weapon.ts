@@ -775,10 +775,10 @@ class Weapon {
   /**
    * The Rectangle used to calculate the bullet bounds from.
    */
-  protected get bulletBounds(): Phaser.Geom.Rectangle {
+  get bulletBounds(): Phaser.Geom.Rectangle {
     return this._bulletBounds;
   }
-  protected set bulletBounds(value) {
+  set bulletBounds(value) {
     this._bulletBounds = value;
 
     validateConfig(this, 'bulletBounds');
@@ -787,10 +787,10 @@ class Weapon {
   /**
    * This array stores the frames added via @link #setBulletFrames.
    */
-  protected get bulletFrames(): Array {
+  get bulletFrames(): Array {
     return this._bulletFrames;
   }
-  protected set bulletFrames(value) {
+  set bulletFrames(value) {
     this._bulletFrames = value;
 
     validateConfig(this, 'bulletFrames');
@@ -800,10 +800,10 @@ class Weapon {
    * The index of the frame within {@link #bulletFrames} that is currently being used.
    * This value is only used if {@link #bulletFrameCycle} is set to `true`.
    */
-  protected get bulletFrameIndex(): number {
+  get bulletFrameIndex(): number {
     return this._bulletFrameIndex;
   }
-  protected set bulletFrameIndex(value) {
+  set bulletFrameIndex(value) {
     this._bulletFrameIndex = value;
 
     validateConfig(this, 'bulletFrameIndex');
