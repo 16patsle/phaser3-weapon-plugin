@@ -1338,7 +1338,7 @@ class Weapon {
         this.updateFireFrom(this.trackedSprite.x, this.trackedSprite.y);
       }
 
-      if (this.bulletInheritSpriteSpeed) {
+      if (this.bulletInheritSpriteSpeed && this.trackedSprite.body) {
         speed += (this.trackedSprite.body as Phaser.Physics.Arcade.Body).speed;
       }
     } else if (this.trackedPointer) {

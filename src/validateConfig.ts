@@ -46,6 +46,28 @@ function validateConfig(
       weapon.logLevel
     );
   }
+  if (
+    (['trackRotation', 'trackedSprite'].includes(property) ||
+      property === 'all') &&
+    weapon.trackRotation === true &&
+    (!weapon.trackedSprite.rotation || !weapon.trackedSprite.angle)
+  ) {
+    log(
+      'Warning: Weapon cannot track rotation of an object without a rotation and/or angle property.',
+      weapon.logLevel
+    );
+  }
+  if (
+    (['bulletInheritSpriteSpeed', 'trackedSprite'].includes(property) ||
+      property === 'all') &&
+    weapon.bulletInheritSpriteSpeed === true &&
+    !weapon.trackedSprite.body
+  ) {
+    log(
+      'Warning: Bullet cannot inherit speed from a sprite without a body.',
+      weapon.logLevel
+    );
+  }
   const shouldBePositive: (keyof Weapon)[] = [
     'fireLimit',
     'fireRate',
