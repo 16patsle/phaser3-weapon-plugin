@@ -1,6 +1,12 @@
 import consts from './consts';
 import Weapon from './Weapon';
 
+type KeysMatching<T, V> = {
+  [K in keyof T]: T[K] extends V ? K : never;
+}[keyof T];
+
+type WeaponProperty = KeysMatching<Weapon, string | number | boolean>;
+
 /**
  * Log text to the console or throw an error
  * @param text - Text to be logged
@@ -19,9 +25,13 @@ function log(text: string, logLevel: 'warn' | 'error' | 'off'): void {
  * @param weapon - The weapon being validated
  * @param property - The property of the weapon being validated
  */
-function validateConfig(weapon: Weapon, property: string): void {
+function validateConfig(
+  weapon: Weapon,
+  property: WeaponProperty | 'all' = 'all'
+): void {
   if (
-    ['bulletWorldWrap', 'bulletKillType'].includes(property) &&
+    (['bulletWorldWrap', 'bulletKillType'].includes(property) ||
+      property === 'all') &&
     weapon.bulletWorldWrap &&
     (weapon.bulletKillType === consts.KILL_WORLD_BOUNDS ||
       weapon.bulletKillType === consts.KILL_WEAPON_BOUNDS)
@@ -32,7 +42,8 @@ function validateConfig(weapon: Weapon, property: string): void {
     );
   }
   if (
-    ['bulletKillType', 'bulletLifespan'].includes(property) &&
+    (['bulletKillType', 'bulletLifespan'].includes(property) ||
+      property === 'all') &&
     weapon.bulletKillType === consts.KILL_LIFESPAN &&
     weapon.bulletLifespan < 0
   ) {
@@ -41,17 +52,24 @@ function validateConfig(weapon: Weapon, property: string): void {
       weapon.logLevel
     );
   }
-  if (
-    [
-      'fireLimit',
-      'fireRate',
-      'fireRateVariance',
-      'bulletAngleVariance',
-      'bulletSpeedVariance',
-      'bulletKillDistance',
-    ].includes(property) &&
-    weapon[property] < 0
-  ) {
+  const shouldBePositive: WeaponProperty[] = [
+    'fireLimit',
+    'fireRate',
+    'fireRateVariance',
+    'bulletAngleVariance',
+    'bulletSpeedVariance',
+    'bulletKillDistance',
+  ];
+  if (property === 'all') {
+    shouldBePositive.forEach(key => {
+      if (weapon[key] < 0) {
+        log(
+          'Invalid ' + property + '; must be >= 0; currently ' + weapon[key],
+          weapon.logLevel
+        );
+      }
+    });
+  } else if (shouldBePositive.includes(property) && weapon[property] < 0) {
     log(
       'Invalid ' + property + '; must be >= 0; currently ' + weapon[property],
       weapon.logLevel
