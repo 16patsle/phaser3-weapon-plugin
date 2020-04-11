@@ -123,7 +123,7 @@ class Bullet extends Phaser.GameObjects.Sprite {
     }
 
     if (this.getData('rotateToVelocity')) {
-      this.rotation = this.body.velocity.atan();
+      this.rotation = Math.atan2(this.body.velocity.y, this.body.velocity.x);
     }
 
     if (this.getData('bulletManager').bulletWorldWrap) {

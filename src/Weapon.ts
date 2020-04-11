@@ -1649,7 +1649,7 @@ class Weapon {
         loop,
       });
 
-      this.anims[name] = this.scene.sys.anims.anims.entries[name];
+      this.anims[name] = this.scene.sys.anims.get(name);
     }
 
     this.bulletAnimation = name;
@@ -1663,7 +1663,6 @@ class Weapon {
   update(): void {
     if (this._bulletKillType === consts.KILL_WEAPON_BOUNDS) {
       if (this.trackedSprite) {
-        this.trackedSprite.updateTransform();
         Phaser.Geom.Rectangle.CenterOn(
           this.bounds,
           this.trackedSprite.x,
