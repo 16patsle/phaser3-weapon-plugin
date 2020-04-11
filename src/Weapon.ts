@@ -1372,7 +1372,7 @@ class Weapon {
     let angle = this.trackRotation ? this.trackedSprite.angle : this.fireAngle;
 
     //  The position (in world space) to fire the bullet towards, if set
-    if (x !== null && y !== null) {
+    if (typeof x === 'number' && typeof y === 'number') {
       angle = Phaser.Math.RadToDeg(Math.atan2(y - fromY, x - fromX));
     }
 
