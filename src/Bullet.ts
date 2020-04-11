@@ -91,9 +91,8 @@ class Bullet extends Phaser.GameObjects.Sprite {
 
   /**
    * Updates the Bullet, killing as required.
-   * @returns This instance of the bullet class
    */
-  update(): this {
+  update(): void {
     if (!this.active) {
       // this was previously a check to this.exists
       return;
