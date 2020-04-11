@@ -1,4 +1,4 @@
-import consts from './consts';
+import { KillType } from './consts';
 
 let bulletID = 0;
 
@@ -99,8 +99,8 @@ class Bullet extends Phaser.GameObjects.Sprite {
       return;
     }
 
-    if (this.getData('killType') > consts.KillType.KILL_LIFESPAN) {
-      if (this.getData('killType') === consts.KillType.KILL_DISTANCE) {
+    if (this.getData('killType') > KillType.KILL_LIFESPAN) {
+      if (this.getData('killType') === KillType.KILL_DISTANCE) {
         if (
           new Phaser.Math.Vector2(
             this.getData('fromX'),
