@@ -55,7 +55,7 @@ type WeaponConfig = {
  * ```javascript
  * var weapon = this.add.weapon(10, 'bullet');
  * weapon.fireFrom.setPosition(300, 300);
- * this.input.on('pointerdown', weapon.fire, this);
+ * this.input.on(Phaser.Input.Events.POINTER_DOWN, weapon.fire, this);
  * ```
  */
 class WeaponPlugin extends Phaser.Plugins.ScenePlugin {
@@ -121,7 +121,11 @@ class WeaponPlugin extends Phaser.Plugins.ScenePlugin {
    * Typically called immediately after `BasePlugin.init`.
    */
   start(): void {
-    this.systems.events.on('postrender', this.postRender, this);
+    this.systems.events.on(
+      Phaser.Core.Events.POST_RENDER,
+      this.postRender,
+      this
+    );
   }
 
   /**
@@ -132,8 +136,8 @@ class WeaponPlugin extends Phaser.Plugins.ScenePlugin {
   boot(): void {
     const eventEmitter = this.systems.events;
 
-    eventEmitter.on('update', this.update, this);
-    eventEmitter.on('destroy', this.destroy, this);
+    eventEmitter.on(Phaser.Scenes.Events.UPDATE, this.update, this);
+    eventEmitter.on(Phaser.Core.Events.DESTROY, this.destroy, this);
   }
 
   /**

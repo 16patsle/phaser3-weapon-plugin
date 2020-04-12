@@ -42,7 +42,7 @@ type ObjectWithTransform = ObjectWithXY & {
  * ```javascript
  * var weapon = this.add.weapon(10, 'bullet');
  * weapon.fireFrom.setPosition(300, 300);
- * this.input.on('pointerdown', weapon.fire, this);
+ * this.input.on(Phaser.Input.Events.POINTER_DOWN, weapon.fire, this);
  * ```
  */
 class Weapon extends Phaser.Events.EventEmitter {
