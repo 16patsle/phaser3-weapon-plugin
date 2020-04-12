@@ -55,7 +55,7 @@ function create() {
 
   this.cursors = this.input.keyboard.createCursorKeys();
 
-  this.weapon.on('fire', () => {
+  this.weapon.on(WeaponPlugin.events.WEAPON_FIRE, () => {
     // Teleport sprite to random location
     this.sprite.x = Math.random() * this.game.renderer.width;
     this.sprite.y = Math.random() * this.game.renderer.height;

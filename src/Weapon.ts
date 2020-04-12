@@ -1,6 +1,7 @@
 import Bullet from './Bullet';
 import { KillType, Angle, FrameType } from './consts';
 import validateConfig, { log } from './validateConfig';
+import { WEAPON_FIRE, WEAPON_FIRE_LIMIT } from './events';
 
 /**
  * Any Object, as long as it has public `x` and `y` properties,
@@ -1525,10 +1526,10 @@ class Weapon extends Phaser.Events.EventEmitter {
       }
 
       // Emit events
-      this.emit('fire', bullet, this, speed);
+      this.emit(WEAPON_FIRE, bullet, this, speed);
 
       if (this.fireLimit > 0 && this.shots === this.fireLimit) {
-        this.emit('firelimit', this, this.fireLimit);
+        this.emit(WEAPON_FIRE_LIMIT, this, this.fireLimit);
       }
     }
 

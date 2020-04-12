@@ -20,6 +20,7 @@ files directly (through a bundler), but prefer to not set up TypeScript compilat
 - Constants previously available at `consts` have been split ut into `consts.KillType`, `consts.Angle` and `consts.FrameType`. They're also available as named exports from `consts.js`.
 - `weapon.fire()` and similar functions return undefined when no bullet is fired.
 - Weapon now extends EventEmitter directly. Event listeners are now added by using `weapon.on` instead of `weapon.eventEmitter.on`.
+- Events are available as constants from the `events` export, similar to how Phaser has done it for a while. You can optionally use these when adding event listener, so `weapon.on('fire', eventHandler)` becomes `weapon.on(events.WEAPON_FIRE, eventHandler)`.
 
 ### Fixed
 - Fixed several bugs and edge cases, helped by TypeScript

@@ -1,5 +1,6 @@
 import { KillType } from './consts';
 import type { Weapon } from './main';
+import { BULLET_KILL } from './events';
 
 let bulletID = 0;
 
@@ -145,7 +146,11 @@ class Bullet extends Phaser.GameObjects.Sprite {
       this.setData('timeEvent', undefined);
     }
 
-    this.getData('bulletManager')?.emit('kill', this);
+    this.getData('bulletManager')?.emit(
+      BULLET_KILL,
+      this,
+      this.getData('bulletManager')
+    );
 
     return this;
   }
