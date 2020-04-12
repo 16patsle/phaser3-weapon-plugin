@@ -106,9 +106,6 @@ class WeaponPlugin extends Phaser.Plugins.ScenePlugin {
     group?: Phaser.GameObjects.Group,
     weaponClass: typeof Weapon = Weapon
   ): Weapon {
-    if (!weaponClass) {
-      weaponClass = Weapon;
-    }
     const weapon = new weaponClass(this.scene, bulletLimit, key, frame, group);
 
     this.weapons.push(weapon);
