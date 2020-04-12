@@ -1007,7 +1007,7 @@ class Weapon extends Phaser.Events.EventEmitter {
   /**
    * Call a function on each in-flight bullet in this Weapon.
    *
-   * See {@link Phaser.GameObjects.Group#forEachExists forEachExists} for more details.
+   * See {@link Phaser.Structs.Set#each Set#each} for more details.
    *
    * @param callback - The function that will be called for each applicable child.
    * The child will be passed as the first argument.
@@ -1015,12 +1015,10 @@ class Weapon extends Phaser.Events.EventEmitter {
    * @param args - Additional arguments to pass to the callback function, after the child item.
    * @return This Weapon instance.
    */
-  forEach(callback: Function, callbackContext: object, ...args: any[]): this {
-    const extraArgs = [callback, callbackContext, args];
-
+  forEach(callback: Function, callbackContext: any, ...args: any[]): this {
     this.bullets.children.each(child => {
       if (child.active) {
-        callback.call(callbackContext, child, extraArgs);
+        callback.call(callbackContext, child, args);
       }
     });
 

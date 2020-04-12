@@ -24,6 +24,7 @@ files directly (through a bundler), but prefer to not set up TypeScript compilat
 
 ### Fixed
 - Fixed several bugs and edge cases, helped by TypeScript
+- `weapon.forEach` now properly only passes the bullet and any custom args to the callback function.
 
 ### Removed
 - Prebuilt files from git. Get them from npm or the releases page, or build them yourself.
