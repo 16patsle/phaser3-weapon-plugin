@@ -100,6 +100,6 @@ const createConfig = type => {
 
 module.exports = [
   createConfig(),
-  //createConfig('modern'),
-  //createConfig('legacy'),
+  createConfig('modern'),
+  createConfig('legacy'),
 ];
