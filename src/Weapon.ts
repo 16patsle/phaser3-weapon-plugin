@@ -44,7 +44,7 @@ type ObjectWithTransform = ObjectWithXY & {
  * this.input.on('pointerdown', weapon.fire, this);
  * ```
  */
-class Weapon {
+class Weapon extends Phaser.Events.EventEmitter {
   /**
    * The scene the Weapon is bound to
    */
@@ -290,8 +290,6 @@ class Weapon {
    */
   logLevel: 'warn' | 'error' | 'off' = 'warn';
 
-  eventEmitter = new Phaser.Events.EventEmitter();
-
   /**
    * TODO: a builder style interface would be neat. Can be kicked way forward
    * into polishing.
@@ -308,6 +306,8 @@ class Weapon {
     frame = '',
     group?: Phaser.GameObjects.Group
   ) {
+    super();
+
     this.scene = scene;
     this._bulletKey = key;
     this._bulletFrame = frame;
@@ -1525,10 +1525,10 @@ class Weapon {
       }
 
       // Emit events
-      this.eventEmitter.emit('fire', bullet, this, speed);
+      this.emit('fire', bullet, this, speed);
 
       if (this.fireLimit > 0 && this.shots === this.fireLimit) {
-        this.eventEmitter.emit('firelimit', this, this.fireLimit);
+        this.emit('firelimit', this, this.fireLimit);
       }
     }
 

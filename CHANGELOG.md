@@ -19,6 +19,7 @@ files directly (through a bundler), but prefer to not set up TypeScript compilat
 - The built files now include the necessary polyfills (based on target browsers).
 - Constants previously available at `consts` have been split ut into `consts.KillType`, `consts.Angle` and `consts.FrameType`. They're also available as named exports from `consts.js`.
 - `weapon.fire()` and similar functions return undefined when no bullet is fired.
+- Weapon now extends EventEmitter directly. Event listeners are now added by using `weapon.on` instead of `weapon.eventEmitter.on`.
 
 ### Fixed
 - Fixed several bugs and edge cases, helped by TypeScript

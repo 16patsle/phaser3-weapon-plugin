@@ -145,7 +145,7 @@ class Bullet extends Phaser.GameObjects.Sprite {
       this.setData('timeEvent', undefined);
     }
 
-    this.getData('bulletManager')?.eventEmitter.emit('kill', this);
+    this.getData('bulletManager')?.emit('kill', this);
 
     return this;
   }
