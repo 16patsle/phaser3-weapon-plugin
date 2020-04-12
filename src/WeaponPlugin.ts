@@ -97,6 +97,7 @@ class WeaponPlugin extends Phaser.Plugins.ScenePlugin {
    * @param frame - If the Sprite image contains multiple frames you can specify which one to use here.
    * @param group - Optional Group to add the object to.
    * @param weaponClass - Optional custom class for the Weapon.
+   * @returns The weapon that was created
    */
   add(
     bulletLimit?: number,

@@ -320,7 +320,7 @@ class Weapon extends Phaser.Events.EventEmitter {
   }
 
   /**
-   * This is the Phaser.Group that contains all of the bullets managed by this plugin.
+   * This is the Phaser.GameObjects.Group that contains all of the bullets managed by this plugin.
    */
   get bullets(): Phaser.GameObjects.Group {
     return this._bullets;
@@ -683,6 +683,7 @@ class Weapon extends Phaser.Events.EventEmitter {
    * overridden before calling `createBullets` and set to your own class type.
    *
    * It should be a constructor function accepting `(scene, x, y, key, frame)`.
+   * @default Bullet
    */
   get bulletClass(): Function {
     return this._bulletClass;
@@ -700,6 +701,7 @@ class Weapon extends Phaser.Events.EventEmitter {
 
   /**
    * Should bullets collide with the World bounds or not?
+   * @default false
    */
   get bulletCollideWorldBounds(): boolean {
     return this._bulletCollideWorldBounds;
@@ -743,6 +745,7 @@ class Weapon extends Phaser.Events.EventEmitter {
    * The bullets are automatically killed when they no longer intersect with the {@link #bounds} rectangle.
    * The difference between static bounds and weapon bounds, is that a static bounds will never be adjusted to
    * match the position of a tracked sprite or pointer.
+   * @default consts.KillType.KILL_WORLD_BOUNDS
    */
   get bulletKillType(): integer {
     return this._bulletKillType;
