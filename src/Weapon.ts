@@ -983,7 +983,7 @@ class Weapon {
         visible: false,
       });
 
-      this.bullets.children.each(child => {
+      (this.bullets.children as Phaser.Structs.Set<Bullet>).each(child => {
         child.setData('bulletManager', this);
       });
 
@@ -1036,8 +1036,9 @@ class Weapon {
   pauseAll(): this {
     (this.bullets.children as Phaser.Structs.Set<Bullet>).each(child => {
       child.body.enable = false;
-      if (child.getData('timeEvent') !== undefined) {
-        child.getData('timeEvent').paused = true;
+      const timeEvent = child.getData('timeEvent');
+      if (timeEvent !== undefined) {
+        timeEvent.paused = true;
       }
     }, this);
 
@@ -1054,8 +1055,9 @@ class Weapon {
   resumeAll(): this {
     (this.bullets.children as Phaser.Structs.Set<Bullet>).each(child => {
       child.body.enable = true;
-      if (child.getData('timeEvent') !== undefined) {
-        child.getData('timeEvent').paused = false;
+      const timeEvent = child.getData('timeEvent');
+      if (timeEvent !== undefined) {
+        timeEvent.paused = false;
       }
     }, this);
 

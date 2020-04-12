@@ -1,6 +1,19 @@
 import { KillType } from './consts';
+import type { Weapon } from './main';
 
 let bulletID = 0;
+
+type BulletData = {
+  timeEvent?: Phaser.Time.TimerEvent;
+  bulletManager?: Weapon;
+  fromX: number;
+  fromY: number;
+  bodyDirty: boolean;
+  rotateToVelocity: boolean;
+  killType: KillType;
+  killDistance: number;
+  bodyBounds: Phaser.Geom.Rectangle;
+};
 
 class Bullet extends Phaser.GameObjects.Sprite {
   body!: Phaser.Physics.Arcade.Body;
@@ -40,10 +53,54 @@ class Bullet extends Phaser.GameObjects.Sprite {
       fromY: 0,
       bodyDirty: true,
       rotateToVelocity: false,
-      killType: 0,
+      killType: KillType.KILL_NEVER,
       killDistance: 0,
       bodyBounds: new Phaser.Geom.Rectangle(),
     });
+  }
+
+  setData(key: Partial<BulletData>, data?: never): this;
+  setData(key: 'timeEvent', data: BulletData['timeEvent']): this;
+  setData(key: 'bulletManager', data: BulletData['bulletManager']): this;
+  setData(key: 'fromX', data: BulletData['fromX']): this;
+  setData(key: 'fromY', data: BulletData['fromY']): this;
+  setData(key: 'bodyDirty', data: BulletData['bodyDirty']): this;
+  setData(key: 'rotateToVelocity', data: BulletData['rotateToVelocity']): this;
+  setData(key: 'killType', data: BulletData['killType']): this;
+  setData(key: 'killDistance', data: BulletData['killDistance']): this;
+  setData(key: 'bodyBounds', data: BulletData['bodyBounds']): this;
+  setData(
+    key: string | Partial<BulletData>,
+    data?:
+      | boolean
+      | number
+      | Phaser.Time.TimerEvent
+      | Weapon
+      | Phaser.Geom.Rectangle
+      | undefined
+  ): this {
+    return super.setData(key, data);
+  }
+
+  getData(key: 'timeEvent'): BulletData['timeEvent'];
+  getData(key: 'bulletManager'): BulletData['bulletManager'];
+  getData(key: 'fromX'): BulletData['fromX'];
+  getData(key: 'fromY'): BulletData['fromY'];
+  getData(key: 'bodyDirty'): BulletData['bodyDirty'];
+  getData(key: 'rotateToVelocity'): BulletData['rotateToVelocity'];
+  getData(key: 'killType'): BulletData['killType'];
+  getData(key: 'killDistance'): BulletData['killDistance'];
+  getData(key: 'bodyBounds'): BulletData['bodyBounds'];
+  getData(
+    key: string
+  ):
+    | boolean
+    | number
+    | Phaser.Time.TimerEvent
+    | Weapon
+    | Phaser.Geom.Rectangle
+    | undefined {
+    return super.getData(key);
   }
 
   /**
@@ -55,8 +112,10 @@ class Bullet extends Phaser.GameObjects.Sprite {
     this.setVisible(true);
     this.body.enable = true;
     this.body.reset(x, y);
-    this.body.debugShowBody = this.getData('bulletManager').debugPhysics;
-    this.body.debugShowVelocity = this.getData('bulletManager').debugPhysics;
+
+    const debugPhysics = this.getData('bulletManager')?.debugPhysics || false;
+    this.body.debugShowBody = debugPhysics;
+    this.body.debugShowVelocity = debugPhysics;
   }
 
   /**
@@ -80,12 +139,13 @@ class Bullet extends Phaser.GameObjects.Sprite {
     // Another option would be to use Date.now() and manually process pause
     // events with a flag and some math.
     // Both of those are probably premature optimizations.
-    if (this.getData('timeEvent') !== undefined) {
-      this.getData('timeEvent').destroy();
+    const timeEvent = this.getData('timeEvent');
+    if (timeEvent !== undefined) {
+      timeEvent.destroy();
       this.setData('timeEvent', undefined);
     }
 
-    this.getData('bulletManager').eventEmitter.emit('kill', this);
+    this.getData('bulletManager')?.eventEmitter.emit('kill', this);
 
     return this;
   }
@@ -98,6 +158,8 @@ class Bullet extends Phaser.GameObjects.Sprite {
       // this was previously a check to this.exists
       return;
     }
+
+    const bulletManager = this.getData('bulletManager') as Weapon;
 
     if (this.getData('killType') > KillType.KILL_LIFESPAN) {
       if (this.getData('killType') === KillType.KILL_DISTANCE) {
@@ -112,7 +174,7 @@ class Bullet extends Phaser.GameObjects.Sprite {
         }
       } else if (
         !Phaser.Geom.Intersects.RectangleToRectangle(
-          this.getData('bulletManager').bulletBounds,
+          bulletManager.bulletBounds,
           this.body.getBounds(
             this.getData('bodyBounds')
           ) as Phaser.Geom.Rectangle
@@ -126,11 +188,8 @@ class Bullet extends Phaser.GameObjects.Sprite {
       this.rotation = Math.atan2(this.body.velocity.y, this.body.velocity.x);
     }
 
-    if (this.getData('bulletManager').bulletWorldWrap) {
-      this.scene.physics.world.wrap(
-        this,
-        this.getData('bulletManager').bulletWorldWrapPadding
-      );
+    if (bulletManager.bulletWorldWrap) {
+      this.scene.physics.world.wrap(this, bulletManager.bulletWorldWrapPadding);
     }
   }
 }
