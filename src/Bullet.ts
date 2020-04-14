@@ -29,7 +29,7 @@ class Bullet extends Phaser.GameObjects.Sprite {
    * @param x - The x coordinate (in world space) to position the Bullet at.
    * @param y - The y coordinate (in world space) to position the Bullet at.
    * @param key - This is the image or texture used by the Particle during rendering.
-   * It can be a string which is a reference to the Cache entry, or an instance of a RenderTexture or {@link https://photonstorm.github.io/phaser3-docs/Phaser.Textures.Texture.html Phaser.Textures.Texture}.
+   * It can be a string which is a reference to the Cache entry, or an instance of a RenderTexture or {@link https://photonstorm.github.io/phaser3-docs/Phaser.Textures.Texture.html Texture}.
    * @param frame - If this Bullet is using part of a sprite sheet or texture atlas
    * you can specify the exact frame to use by giving a string or numeric index.
    */
