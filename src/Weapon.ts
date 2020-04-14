@@ -1101,7 +1101,7 @@ class Weapon extends Phaser.Events.EventEmitter {
   }
 
   /**
-   * Sets this Weapon to track the given Sprite, or any {@link ObjectWithTransform Object with x/y coords an optionally rotation}
+   * Sets this Weapon to track the given Sprite, or any {@link ObjectWithTransform Object with x/y coords and optionally rotation}
    * When a Weapon tracks a Sprite it will automatically update its {@link fireFrom} value to match the
    * Sprite's position within the Game World, adjusting the coordinates based on the offset arguments.
    *
