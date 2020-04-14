@@ -37,5 +37,13 @@
   },
   "include": [
     "src/*"
-  ]
+  ],
+  "typedocOptions": {
+    "out": "docs",
+    "theme": "minimal",
+    "includeVersion": true,
+    "excludePrivate": true,
+    "inputFiles": ["src"],
+    "exclude": ["src/main.ts", "src/validateConfig.ts"]
+  }
 }
