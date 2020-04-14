@@ -5,7 +5,7 @@ import { WEAPON_FIRE, WEAPON_FIRE_LIMIT } from './events';
 
 /**
  * Any Object, as long as it has public `x` and `y` properties,
- * such as Phaser.Geom.Point, { x: 0, y: 0 }, Phaser.GameObjects.Sprite, etc
+ * such as {@link Phaser.Geom.Point}, `{ x: 0, y: 0 }`, {@link Phaser.GameObjects.Sprite}, etc
  */
 type ObjectWithXY = {
   x: number;
@@ -28,7 +28,7 @@ type ObjectWithTransform = ObjectWithXY & {
  * few extra properties. The Bullets are enabled for Arcade Physics. They do
  * not currently work with Impact or Matter Physics.
  *
- * The Bullets are created inside of {@link #bullets weapon.bullets}, which is
+ * The Bullets are created inside of {@link bullets weapon.bullets}, which is
  * a {@link Phaser.GameObjects.Group} instance. Anything you can usually do
  * with a Group, like iterate it, etc can be done to the bullets Group too.
  *
@@ -37,7 +37,7 @@ type ObjectWithTransform = ObjectWithXY & {
  * like gravity for them.
  *
  * A small example, using add.weapon, assumed to be running from within a
- * {@link Phaser.Scene#create} method:
+ * {@link Phaser.Scene.create} method:
  *
  * ```javascript
  * var weapon = this.add.weapon(10, 'bullet');
@@ -57,142 +57,142 @@ class Weapon extends Phaser.Events.EventEmitter {
   debugPhysics = false;
 
   /**
-   * Private var that holds the public `bullets` property.
+   * Private var that holds the public {@link bullets} property.
    */
   private _bullets!: Phaser.GameObjects.Group;
 
   /**
-   * Private var that holds the public `autoExpandBulletsGroup` property.
+   * Private var that holds the public {@link autoExpandBulletsGroup} property.
    */
   private _autoExpandBulletsGroup = false;
 
   /**
-   * Private var that holds the public `autofire` property.
+   * Private var that holds the public {@link autofire} property.
    */
   private _autofire = false;
 
   /**
-   * Private var that holds the public `shots` property.
+   * Private var that holds the public {@link shots} property.
    */
   private _shots = 0;
 
   /**
-   * Private var that holds the public `fireLimit` property.
+   * Private var that holds the public {@link fireLimit} property.
    */
   private _fireLimit = 0;
 
   /**
-   * Private var that holds the public `fireRate` property.
+   * Private var that holds the public {@link fireRate} property.
    */
   private _fireRate = 100;
 
   /**
-   * Private var that holds the public `fireRateVariance` property.
+   * Private var that holds the public {@link fireRateVariance} property.
    */
   private _fireRateVariance = 0;
 
   /**
-   * Private var that holds the public `fireFrom` property.
+   * Private var that holds the public {@link fireFrom} property.
    */
   private _fireFrom = new Phaser.Geom.Rectangle(0, 0, 1, 1);
 
   /**
-   * Private var that holds the public `fireAngle` property.
+   * Private var that holds the public {@link fireAngle} property.
    */
   private _fireAngle: integer = Angle.ANGLE_UP;
 
   /**
-   * Private var that holds the public `bulletInheritSpriteSpeed` property.
+   * Private var that holds the public {@link bulletInheritSpriteSpeed} property.
    */
   private _bulletInheritSpriteSpeed = false;
 
   /**
-   * Private var that holds the public `bulletAnimation` property.
+   * Private var that holds the public {@link bulletAnimation} property.
    */
   private _bulletAnimation = '';
 
   /**
-   * Private var that holds the public `bulletFrameRandom` property.
+   * Private var that holds the public {@link bulletFrameRandom} property.
    */
   private _bulletFrameRandom = false;
 
   /**
-   * Private var that holds the public `bulletFrameCycle` property.
+   * Private var that holds the public {@link bulletFrameCycle} property.
    */
   private _bulletFrameCycle = false;
 
   /**
-   * Private var that holds the public `bulletWorldWrap` property.
+   * Private var that holds the public {@link bulletWorldWrap} property.
    */
   private _bulletWorldWrap = false;
 
   /**
-   * Private var that holds the public `bulletWorldWrapPadding` property.
+   * Private var that holds the public {@link bulletWorldWrapPadding} property.
    */
   private _bulletWorldWrapPadding: integer = 0;
 
   /**
-   * Private var that holds the public `bulletAngleOffset` property.
+   * Private var that holds the public {@link bulletAngleOffset} property.
    */
   private _bulletAngleOffset = 0;
 
   /**
-   * Private var that holds the public `bulletAngleVariance` property.
+   * Private var that holds the public {@link bulletAngleVariance} property.
    */
   private _bulletAngleVariance = 0;
 
   /**
-   * Private var that holds the public `bulletSpeed` property.
+   * Private var that holds the public {@link bulletSpeed} property.
    */
   private _bulletSpeed = 200;
 
   /**
-   * Private var that holds the public `bulletSpeedVariance` property.
+   * Private var that holds the public {@link bulletSpeedVariance} property.
    */
   private _bulletSpeedVariance = 0;
 
   /**
-   * Private var that holds the public `bulletLifespan` property.
+   * Private var that holds the public {@link bulletLifespan} property.
    */
   private _bulletLifespan = 0;
 
   /**
-   * Private var that holds the public `bulletKillDistance` property.
+   * Private var that holds the public {@link bulletKillDistance} property.
    */
   private _bulletKillDistance = 0;
 
   /**
-   * Private var that holds the public `bulletGravity` property.
+   * Private var that holds the public {@link bulletGravity} property.
    */
   private _bulletGravity = new Phaser.Math.Vector2(0, 0);
 
   /**
-   * Private var that holds the public `bulletRotateToVelocity` property.
+   * Private var that holds the public {@link bulletRotateToVelocity} property.
    */
   private _bulletRotateToVelocity = false;
 
   /**
-   * Private var that holds the public `bulletKey` property.
+   * Private var that holds the public {@link bulletKey} property.
    */
   private _bulletKey: string;
 
   /**
-   * Private var that holds the public `bulletFrame` property.
+   * Private var that holds the public {@link bulletFrame} property.
    */
   private _bulletFrame: string | integer;
 
   /**
-   * Private var that holds the public `bulletClass` property.
+   * Private var that holds the public {@link bulletClass} property.
    */
   private _bulletClass: Function = Bullet;
 
   /**
-   * Private var that holds the public `bulletCollideWorldBounds` property.
+   * Private var that holds the public {@link bulletCollideWorldBounds} property.
    */
   private _bulletCollideWorldBounds = false;
 
   /**
-   * Private var that holds the public `bulletKillType` property.
+   * Private var that holds the public {@link bulletKillType} property.
    */
   private _bulletKillType: integer = KillType.KILL_WORLD_BOUNDS;
 
@@ -214,44 +214,44 @@ class Weapon extends Phaser.Events.EventEmitter {
   };
 
   /**
-   * Private var that holds the public `bounds` property.
+   * Private var that holds the public {@link bounds} property.
    */
   private _bounds = new Phaser.Geom.Rectangle();
 
   /**
-   * Private var that holds the public `bulletBounds` property.
+   * Private var that holds the public {@link bulletBounds} property.
    */
   private _bulletBounds: Phaser.Geom.Rectangle;
 
   /**
-   * This array stores the frames added via {@link #setBulletFrames}.
+   * This array stores the frames added via {@link setBulletFrames}.
    */
   private _bulletFrames: integer[] = [];
 
   /**
-   * Private var that holds the public `bulletFrameIndex` property.
+   * Private var that holds the public {@link bulletFrameIndex} property.
    */
   private _bulletFrameIndex = 0;
 
   /**
-   * An internal object that stores the animation data added via {@link #addBulletAnimation}.
+   * An internal object that stores the animation data added via {@link addBulletAnimation}.
    */
   private anims: {
     [name: string]: Phaser.Animations.Animation;
   } = {};
 
   /**
-   * Private var that holds the public `trackedSprite` property.
+   * Private var that holds the public {@link trackedSprite} property.
    */
   private _trackedSprite?: Phaser.GameObjects.Sprite | ObjectWithTransform;
 
   /**
-   * Private var that holds the public `trackedPointer` property.
+   * Private var that holds the public {@link trackedPointer} property.
    */
   private _trackedPointer?: Phaser.Input.Pointer;
 
   /**
-   * Private var that holds the public `multiFire` property.
+   * Private var that holds the public {@link multiFire} property.
    */
   private _multiFire = false;
 
@@ -261,12 +261,12 @@ class Weapon extends Phaser.Events.EventEmitter {
   private _hasFired = false;
 
   /**
-   * Private var that holds the public `trackRotation` property.
+   * Private var that holds the public {@link trackRotation} property.
    */
   private _trackRotation = false;
 
   /**
-   * Private var that holds the public `trackOffset` property.
+   * Private var that holds the public {@link trackOffset} property.
    */
   private _trackOffset = new Phaser.Math.Vector2();
 
@@ -294,7 +294,7 @@ class Weapon extends Phaser.Events.EventEmitter {
   /**
    * TODO: a builder style interface would be neat. Can be kicked way forward
    * into polishing.
-   * @param scene - A reference to the Phaser.Scene instance.
+   * @param scene - A reference to the {@link Phaser.Scene} instance.
    * @param bulletLimit - The quantity of bullets to seed the Weapon with. If -1 it will set the pool to automatically expand.
    * @param key - The texture cache key of the image that this Sprite will use.
    * @param frame - If the Sprite image contains multiple frames you can specify which one to use here.
@@ -320,7 +320,7 @@ class Weapon extends Phaser.Events.EventEmitter {
   }
 
   /**
-   * This is the Phaser.GameObjects.Group that contains all of the bullets managed by this plugin.
+   * This is the {@link Phaser.GameObjects.Group} that contains all of the bullets managed by this plugin.
    */
   get bullets(): Phaser.GameObjects.Group {
     return this._bullets;
@@ -347,7 +347,7 @@ class Weapon extends Phaser.Events.EventEmitter {
 
   /**
    * Will this weapon auto fire? If set to true then a new bullet will be fired
-   * based on the {@link #fireRate} value.
+   * based on the {@link fireRate} value.
    * @default false
    */
   get autofire(): boolean {
@@ -361,8 +361,8 @@ class Weapon extends Phaser.Events.EventEmitter {
 
   /**
    * The total number of bullets this Weapon has fired so far.
-   * You can limit the number of shots allowed (via {@link #fireLimit}), and reset
-   * this total via {@link #resetShots}.
+   * You can limit the number of shots allowed (via {@link fireLimit}), and reset
+   * this total via {@link resetShots}.
    * @default 0
    */
   get shots(): number {
@@ -376,8 +376,8 @@ class Weapon extends Phaser.Events.EventEmitter {
 
   /**
    * The maximum number of shots that this Weapon is allowed to fire before it stops.
-   * When the limit is hit the {@link #onFireLimit} event is dispatched.
-   * You can reset the shot counter via {@link #resetShots}.
+   * When the limit is hit the {@link WEAPON_FIRE_LIMIT} event is dispatched.
+   * You can reset the shot counter via {@link resetShots}.
    * @default 0
    */
   get fireLimit(): number {
@@ -403,9 +403,9 @@ class Weapon extends Phaser.Events.EventEmitter {
   }
 
   /**
-   * This is a modifier that is added to the {@link #fireRate} each update to add variety
+   * This is a modifier that is added to the {@link fireRate} each update to add variety
    * to the firing rate of the Weapon. The value is given in milliseconds.
-   * If you've a `fireRate` of 200 and a `fireRateVariance` of 50 then the actual
+   * If you've a {@link fireRate} of 200 and a {@link fireRateVariance} of 50 then the actual
    * firing rate of the Weapon will be between 150 and 250.
    * @default 0
    */
@@ -433,9 +433,9 @@ class Weapon extends Phaser.Events.EventEmitter {
   }
 
   /**
-   * The angle at which the bullets are fired. This can be a const such as Phaser.ANGLE_UP
+   * The angle at which the bullets are fired. This can be a const such as {@link Angle.ANGLE_UP ANGLE_UP}
    * or it can be any number from 0 to 360 inclusive, where 0 degrees is to the right.
-   * @default consts.Angle.ANGLE_UP
+   * @default {@link Angle.ANGLE_UP ANGLE_UP}
    */
   get fireAngle(): integer {
     return this._fireAngle;
@@ -447,7 +447,7 @@ class Weapon extends Phaser.Events.EventEmitter {
   }
 
   /**
-   * When a Bullet is fired it can optionally inherit the velocity of the `trackedSprite` if set.
+   * When a Bullet is fired it can optionally inherit the velocity of the {@link trackedSprite} if set.
    * @default false
    */
   get bulletInheritSpriteSpeed(): boolean {
@@ -461,7 +461,7 @@ class Weapon extends Phaser.Events.EventEmitter {
 
   /**
    * The string based name of the animation that the Bullet will be given on launch.
-   * This is set via {@link #addBulletAnimation}.
+   * This is set via {@link addBulletAnimation}.
    * @default ''
    */
   get bulletAnimation(): string {
@@ -474,7 +474,7 @@ class Weapon extends Phaser.Events.EventEmitter {
   }
 
   /**
-   * If you've added a set of frames via {@link #setBulletFrames} then you can optionally
+   * If you've added a set of frames via {@link setBulletFrames} then you can optionally
    * chose for each Bullet fired to pick a random frame from the set.
    * @default false
    */
@@ -488,7 +488,7 @@ class Weapon extends Phaser.Events.EventEmitter {
   }
 
   /**
-   * If you've added a set of frames via {@link #setBulletFrames} then you can optionally
+   * If you've added a set of frames via {@link setBulletFrames} then you can optionally
    * chose for each Bullet fired to use the next frame in the set. The frame index is then
    * advanced one frame until it reaches the end of the set, then it starts from the start
    * again. Cycling frames like this allows you to create varied bullet effects via
@@ -506,7 +506,7 @@ class Weapon extends Phaser.Events.EventEmitter {
 
   /**
    * Should the Bullets wrap around the world bounds? This automatically calls
-   * `World.wrap` on the Bullet each frame. See the docs for that method for details.
+   * {@link World.wrap} on the Bullet each frame. See the docs for that method for details.
    * @default false
    */
   get bulletWorldWrap(): boolean {
@@ -519,7 +519,7 @@ class Weapon extends Phaser.Events.EventEmitter {
   }
 
   /**
-   * If `bulletWorldWrap` is true then you can provide an optional padding value with this
+   * If {@link bulletWorldWrap} is true then you can provide an optional padding value with this
    * property. It's added to the calculations determining when the Bullet should wrap around
    * the world or not. The value is given in pixels.
    * @default 0
@@ -551,7 +551,7 @@ class Weapon extends Phaser.Events.EventEmitter {
 
   /**
    * This is a variance added to the angle of Bullets when they are fired.
-   * If you fire from an angle of 90 and have a `bulletAngleVariance` of 20 then the actual
+   * If you fire from an angle of 90 and have a {@link bulletAngleVariance} of 20 then the actual
    * angle of the Bullets will be between 70 and 110 degrees. This is a quick way to add a
    * great 'spread' effect to a Weapon.
    * @default 0
@@ -580,7 +580,7 @@ class Weapon extends Phaser.Events.EventEmitter {
 
   /**
    * This is a variance added to the speed of Bullets when they are fired.
-   * If bullets have a {@link #bulletSpeed} value of 200, and a `bulletSpeedVariance` of 50
+   * If bullets have a {@link bulletSpeed} value of 200, and a {@link bulletSpeedVariance} of 50
    * then the actual speed of the Bullets will be between 150 and 250 pixels per second.
    * @default 0
    */
@@ -594,7 +594,7 @@ class Weapon extends Phaser.Events.EventEmitter {
   }
 
   /**
-   * If you've set {@link #bulletKillType} to `consts.KillType.KILL_LIFESPAN` this controls the amount
+   * If you've set {@link bulletKillType} to {@link KillType.KILL_LIFESPAN KILL_LIFESPAN} this controls the amount
    * of lifespan the Bullets have set on launch. The value is given in milliseconds.
    * When a Bullet hits its lifespan limit it will be automatically killed.
    * @default 0
@@ -609,7 +609,7 @@ class Weapon extends Phaser.Events.EventEmitter {
   }
 
   /**
-   * If you've set {@link #bulletKillType} to `consts.KillType.KILL_DISTANCE` this controls the distance
+   * If you've set {@link bulletKillType} to {@link KillType.KILL_DISTANCE KILL_DISTANCE} this controls the distance
    * the Bullet can travel before it is automatically killed. The distance is given in pixels.
    * @default 0
    */
@@ -623,7 +623,7 @@ class Weapon extends Phaser.Events.EventEmitter {
   }
 
   /**
-   * This is the amount of {@link Phaser.Physics.Arcade.Body#gravity} added to the Bullets physics body when fired.
+   * This is the amount of {@link Phaser.Physics.Arcade.Body.gravity} added to the Bullets physics body when fired.
    * Gravity is expressed in pixels / second / second.
    */
   get bulletGravity(): Phaser.Math.Vector2 {
@@ -638,7 +638,7 @@ class Weapon extends Phaser.Events.EventEmitter {
   /**
    * Bullets can optionally adjust their rotation in-flight to match their velocity.
    * This can create the effect of a bullet 'pointing' to the path it is following, for example
-   * an arrow being fired from a bow, and works especially well when added to {@link #bulletGravity}.
+   * an arrow being fired from a bow, and works especially well when added to {@link bulletGravity}.
    * @default false
    */
   get bulletRotateToVelocity(): boolean {
@@ -679,8 +679,8 @@ class Weapon extends Phaser.Events.EventEmitter {
   }
 
   /**
-   * The Class of the bullets that are launched by this Weapon. Defaults to {@link Phaser.Bullet}, but can be
-   * overridden before calling `createBullets` and set to your own class type.
+   * The Class of the bullets that are launched by this Weapon. Defaults to {@link Bullet}, but can be
+   * overridden before calling {@link createBullets} and set to your own class type.
    *
    * It should be a constructor function accepting `(scene, x, y, key, frame)`.
    * @default Bullet
@@ -718,34 +718,34 @@ class Weapon extends Phaser.Events.EventEmitter {
   }
 
   /**
-   * This controls how the bullets will be killed. The default is `consts.KillType.KILL_WORLD_BOUNDS`.
+   * This controls how the bullets will be killed. The default is {@link KillType.KILL_WORLD_BOUNDS KILL_WORLD_BOUNDS}.
    *
    * There are 7 different "kill types" available:
    *
-   * * `consts.KillType.KILL_NEVER`
+   * * {@linkcode KillType.KILL_NEVER KILL_NEVER}
    * The bullets are never destroyed by the Weapon. It's up to you to destroy them via your own code.
    *
-   * * `consts.KillType.KILL_LIFESPAN`
-   * The bullets are automatically killed when their `bulletLifespan` amount expires.
+   * * {@linkcode KillType.KILL_LIFESPAN KILL_LIFESPAN}
+   * The bullets are automatically killed when their {@link bulletLifespan} amount expires.
    *
-   * * `consts.KillType.KILL_DISTANCE`
+   * * {@linkcode KillType.KILL_DISTANCE KILL_DISTANCE}
    * The bullets are automatically killed when they
-   * exceed `bulletDistance` pixels away from their original launch position.
+   * exceed {@link bulletKillDistance} pixels away from their original launch position.
    *
-   * * `consts.KillType.KILL_WEAPON_BOUNDS`
-   * The bullets are automatically killed when they no longer intersect with the {@link #bounds} rectangle.
+   * * {@linkcode KillType.KILL_WEAPON_BOUNDS KILL_WEAPON_BOUNDS}
+   * The bullets are automatically killed when they no longer intersect with the {@link bounds} rectangle.
    *
-   * * `consts.KillType.KILL_CAMERA_BOUNDS`
-   * The bullets are automatically killed when they no longer intersect with the {@link Phaser.Camera#bounds} rectangle.
+   * * {@linkcode KillType.KILL_CAMERA_BOUNDS KILL_CAMERA_BOUNDS}
+   * The bullets are automatically killed when they no longer intersect with the {@link Phaser.Camera.bounds} rectangle.
    *
-   * * `consts.KillType.KILL_WORLD_BOUNDS`
-   * The bullets are automatically killed when they no longer intersect with the {@link Phaser.World#bounds} rectangle.
+   * * {@linkcode KillType.KILL_WORLD_BOUNDS KILL_WORLD_BOUNDS}
+   * The bullets are automatically killed when they no longer intersect with the {@link Phaser.World.bounds} rectangle.
    *
-   * * `consts.KillType.KILL_STATIC_BOUNDS`
-   * The bullets are automatically killed when they no longer intersect with the {@link #bounds} rectangle.
+   * * {@linkcode KillType.KILL_STATIC_BOUNDS KILL_STATIC_BOUNDS}
+   * The bullets are automatically killed when they no longer intersect with the {@link bounds} rectangle.
    * The difference between static bounds and weapon bounds, is that a static bounds will never be adjusted to
    * match the position of a tracked sprite or pointer.
-   * @default consts.KillType.KILL_WORLD_BOUNDS
+   * @default {@link KillType.KILL_WORLD_BOUNDS KILL_WORLD_BOUNDS}
    */
   get bulletKillType(): integer {
     return this._bulletKillType;
@@ -773,8 +773,8 @@ class Weapon extends Phaser.Events.EventEmitter {
 
   /**
    * This Rectangle defines the bounds that are used when determining if a Bullet should be killed or not.
-   * It's used in combination with {@link #bulletKillType} when that is set to either `consts.KillType.KILL_WEAPON_BOUNDS`
-   * or `consts.KillType.KILL_STATIC_BOUNDS`. If you are not using either of these kill types then the bounds are ignored.
+   * It's used in combination with {@link bulletKillType} when that is set to either {@link KillType.KILL_WEAPON_BOUNDS KILL_WEAPON_BOUNDS}
+   * or {@link KillType.KILL_STATIC_BOUNDS KILL_STATIC_BOUNDS}. If you are not using either of these kill types then the bounds are ignored.
    * If you are tracking a Sprite or Point then the bounds are centered on that object every frame.
    */
   get bounds(): Phaser.Geom.Rectangle {
@@ -799,7 +799,7 @@ class Weapon extends Phaser.Events.EventEmitter {
   }
 
   /**
-   * This array stores the frames added via {@link #setBulletFrames}.
+   * This array stores the frames added via {@link setBulletFrames}.
    */
   get bulletFrames(): integer[] {
     return this._bulletFrames;
@@ -811,8 +811,8 @@ class Weapon extends Phaser.Events.EventEmitter {
   }
 
   /**
-   * The index of the frame within {@link #bulletFrames} that is currently being used.
-   * This value is only used if {@link #bulletFrameCycle} is set to `true`.
+   * The index of the frame within {@link bulletFrames} that is currently being used.
+   * This value is only used if {@link bulletFrameCycle} is set to `true`.
    */
   get bulletFrameIndex(): number {
     return this._bulletFrameIndex;
@@ -825,7 +825,7 @@ class Weapon extends Phaser.Events.EventEmitter {
 
   /**
    * The Sprite currently being tracked by the Weapon, if any.
-   * This is set via the {@link #trackSprite} method.
+   * This is set via the {@link trackSprite} method.
    */
   get trackedSprite():
     | Phaser.GameObjects.Sprite
@@ -841,7 +841,7 @@ class Weapon extends Phaser.Events.EventEmitter {
 
   /**
    * The Pointer currently being tracked by the Weapon, if any.
-   * This is set via the {@link #trackPointer} method.
+   * This is set via the {@link trackPointer} method.
    */
   get trackedPointer(): Phaser.Input.Pointer | undefined {
     return this._trackedPointer;
@@ -855,8 +855,8 @@ class Weapon extends Phaser.Events.EventEmitter {
   /**
    * If you want this Weapon to be able to fire more than 1 bullet in a single
    * update, then set this property to `true`. When `true` the Weapon plugin won't
-   * set the shot / firing timers until the `postRender` phase of the game loop.
-   * This means you can call `fire` (and similar methods) as often as you like in one
+   * set the shot / firing timers until the {@link postRender} phase of the game loop.
+   * This means you can call {@link fire} (and similar methods) as often as you like in one
    * single game update.
    * @default false
    */
@@ -900,8 +900,8 @@ class Weapon extends Phaser.Events.EventEmitter {
   }
 
   /**
-   * The x coordinate from which bullets are fired. This is the same as `Weapon.fireFrom.x`, and
-   * can be overridden by the {@link #fire} arguments.
+   * The x coordinate from which bullets are fired. This is the same as {@link Weapon.fireFrom}.x, and
+   * can be overridden by the {@link fire} arguments.
    */
   get x(): number {
     return this.fireFrom.x;
@@ -911,8 +911,8 @@ class Weapon extends Phaser.Events.EventEmitter {
   }
 
   /**
-   * The y coordinate from which bullets are fired. This is the same as `Weapon.fireFrom.y`, and
-   * can be overridden by the {@link #fire} arguments.
+   * The y coordinate from which bullets are fired. This is the same as {@link Weapon.fireFrom}.y, and
+   * can be overridden by the {@link fire} arguments.
    */
   get y(): number {
     return this.fireFrom.y;
@@ -923,7 +923,7 @@ class Weapon extends Phaser.Events.EventEmitter {
 
   /**
    * This method performs two actions: First it will check to see if the
-   * {@link #bullets} Group exists or not, and if not it creates it, adding its
+   * {@link bullets} Group exists or not, and if not it creates it, adding its
    * children to the `group` given as the 4th argument.
    *
    * Then it will seed the bullet pool with the `quantity` number of Bullets,
@@ -941,7 +941,7 @@ class Weapon extends Phaser.Events.EventEmitter {
    * careful it doesn't grow too large.
    *
    * You can either set the texture key and frame here, or via the
-   * {@link #bulletKey} and {@link #bulletFrame} properties. You can also
+   * {@link bulletKey} and {@link bulletFrame} properties. You can also
    * animate bullets, or set them to use random frames. All Bullets belonging
    * to a single Weapon instance must share the same texture key however.
    *
@@ -1010,7 +1010,7 @@ class Weapon extends Phaser.Events.EventEmitter {
   /**
    * Call a function on each in-flight bullet in this Weapon.
    *
-   * See {@link Phaser.Structs.Set#each Set#each} for more details.
+   * See {@link Phaser.Structs.Set.each Set#each} for more details.
    *
    * @param callback - The function that will be called for each applicable child.
    * The child will be passed as the first argument.
@@ -1029,7 +1029,7 @@ class Weapon extends Phaser.Events.EventEmitter {
   }
 
   /**
-   * Sets {@link Phaser.Physics.Arcade.Body#enable} to `false` on each bullet in this Weapon.
+   * Sets {@link Phaser.Physics.Arcade.Body.enable} to `false` on each bullet in this Weapon.
    * This has the effect of stopping them in-flight should they be moving.
    * It also stops them being able to be checked for collision.
    *
@@ -1048,7 +1048,7 @@ class Weapon extends Phaser.Events.EventEmitter {
   }
 
   /**
-   * Sets {@link Phaser.Physics.Arcade.Body#enable} to `true` on each bullet in this Weapon.
+   * Sets {@link Phaser.Physics.Arcade.Body.enable} to `true` on each bullet in this Weapon.
    * This has the effect of resuming their motion should they be in-flight.
    * It also enables them for collision checks again.
    *
@@ -1067,8 +1067,8 @@ class Weapon extends Phaser.Events.EventEmitter {
   }
 
   /**
-   * Calls {@link Phaser.Bullet#kill} on every in-flight bullet in this Weapon.
-   * Also re-enables their physics bodies, should they have been disabled via {@link #pauseAll}.
+   * Calls {@link Bullet.kill} on every in-flight bullet in this Weapon.
+   * Also re-enables their physics bodies, should they have been disabled via {@link pauseAll}.
    *
    * @return This Weapon instance.
    */
@@ -1084,10 +1084,10 @@ class Weapon extends Phaser.Events.EventEmitter {
   }
 
   /**
-   * Resets the {@link #shots} counter back to zero. This is used when you've set
-   * {@link #fireLimit} and have hit (or just wish to reset) your limit.
+   * Resets the {@link shots} counter back to zero. This is used when you've set
+   * {@link fireLimit} and have hit (or just wish to reset) your limit.
    *
-   * @param newLimit - Optionally set a new {@link #fireLimit}.
+   * @param newLimit - Optionally set a new {@link fireLimit}.
    * @return This Weapon instance.
    */
   resetShots(newLimit?: integer): this {
@@ -1101,13 +1101,13 @@ class Weapon extends Phaser.Events.EventEmitter {
   }
 
   /**
-   * Sets this Weapon to track the given Sprite, or any Object with a public {@link Phaser.Component.Core#world world}
-   * Point object. When a Weapon tracks a Sprite it will automatically update its {@link #fireFrom} value to match the
+   * Sets this Weapon to track the given Sprite, or any Object with a public {@link Phaser.Component.Core.world world}
+   * Point object. When a Weapon tracks a Sprite it will automatically update its {@link fireFrom} value to match the
    * Sprite's position within the Game World, adjusting the coordinates based on the offset arguments.
    *
    * This allows you to lock a Weapon to a Sprite, so that bullets are always launched from its location.
    *
-   * Calling `trackSprite` will reset {@link #trackedPointer} to undefined, should it have been set, as you can
+   * Calling {@link trackSprite} will reset {@link trackedPointer} to undefined, should it have been set, as you can
    * only track _either_ a Sprite, or a Pointer, at once, but not both.
    *
    * @param sprite - The Sprite to track the position of.
@@ -1133,16 +1133,16 @@ class Weapon extends Phaser.Events.EventEmitter {
 
   /**
    * Sets this Weapon to track the given Pointer.
-   * When a Weapon tracks a Pointer it will automatically update its {@link #fireFrom} value to match the Pointer's
+   * When a Weapon tracks a Pointer it will automatically update its {@link fireFrom} value to match the Pointer's
    * position within the Game World, adjusting the coordinates based on the offset arguments.
    *
    * This allows you to lock a Weapon to a Pointer, so that bullets are always launched from its location.
    *
-   * Calling `trackPointer` will reset {@link #trackedSprite} to undefined, should it have been set, as you can
+   * Calling {@link trackPointer} will reset {@link trackedSprite} to undefined, should it have been set, as you can
    * only track _either_ a Pointer, or a Sprite, at once, but not both.
    *
    * @param pointer - The Pointer to track the position of.
-   * Defaults to `Input.activePointer` if not specified.
+   * Defaults to {@link Input.activePointer} if not specified.
    * @param offsetX - The horizontal offset from the Pointers position to be applied to the Weapon.
    * @param offsetY - The vertical offset from the Pointers position to be applied to the Weapon.
    * @return This Weapon instance.
@@ -1174,18 +1174,18 @@ class Weapon extends Phaser.Events.EventEmitter {
    * If `from` is undefined, and there is no tracked object, then the bullets are fired
    * from the given positions, as they exist in the world.
    *
-   * Calling this method sets {@link #multiFire} to `true`.
+   * Calling this method sets {@link multiFire} to `true`.
    *
    * If there are not enough bullets available in the pool, and the pool cannot be extended,
    * then this method may not fire from all of the given positions.
    *
    * When the bullets are launched they have their texture and frame updated, as required.
-   * The velocity of the bullets are calculated based on Weapon properties like {@link #bulletSpeed}.
+   * The velocity of the bullets are calculated based on Weapon properties like {@link bulletSpeed}.
    *
    * @param positions - An array of positions. Each position can be any Object, as long as it
-   * has public `x` and `y` properties, such as Phaser.Geom.Point, { x: 0, y: 0 }, Phaser.GameObjects.Sprite
-   * @param from Optionally fires the bullets **from** the `x` and `y` properties of this object,
-   * _instead_ of any {@link #trackedSprite} or `trackedPointer` that is set.
+   * has public `x` and `y` properties, such as {@link Phaser.Geom.Point}, { x: 0, y: 0 }, {@link Phaser.GameObjects.Sprite}
+   * @param from Optionally fires the bullets **from** the {@link x} and {@link y} properties of this object,
+   * _instead_ of any {@link trackedSprite} or {@link trackedPointer} that is set.
    * @return An array containing all of the fired Bullet objects,
    * if a launch was successful, otherwise an empty array.
    */
@@ -1218,24 +1218,24 @@ class Weapon extends Phaser.Events.EventEmitter {
 
   /**
    * Attempts to fire a single Bullet from a tracked Sprite or Pointer, but applies an offset
-   * to the position first. This is the same as calling {@link #fire} and passing in the offset arguments.
+   * to the position first. This is the same as calling {@link fire} and passing in the offset arguments.
    *
    * If there are no more bullets available in the pool, and the pool cannot be extended,
    * then this method returns `undefined`. It will also return `undefined` if not enough time has expired since the last time
-   * the Weapon was fired, as defined in the {@link #fireRate} property.
+   * the Weapon was fired, as defined in the {@link fireRate} property.
    *
    * Otherwise the first available bullet is selected, launched, and returned.
    *
    * When the bullet is launched it has its texture and frame updated, as required. The velocity of the bullet is
-   * calculated based on Weapon properties like {@link #bulletSpeed}.
+   * calculated based on Weapon properties like {@link bulletSpeed}.
    *
-   * If you wish to fire multiple bullets in a single game update, then set {@link #multiFire} to `true`
-   * and you can call this method as many times as you like, per loop. See also {@link #fireMany}.
+   * If you wish to fire multiple bullets in a single game update, then set {@link multiFire} to `true`
+   * and you can call this method as many times as you like, per loop. See also {@link fireMany}.
    *
    * @param offsetX - The horizontal offset from the position of the tracked Sprite or Pointer,
-   * as set with {@link #trackSprite}.
+   * as set with {@link trackSprite}.
    * @param offsetY - The vertical offset from the position of the tracked Sprite or Pointer,
-   * as set with {@link #trackSprite}.
+   * as set with {@link trackSprite}.
    * @return The fired bullet, if a launch was successful, otherwise `undefined`.
    */
   fireOffset(offsetX = 0, offsetY = 0): Bullet | undefined {
@@ -1243,7 +1243,7 @@ class Weapon extends Phaser.Events.EventEmitter {
   }
 
   /**
-   * Fires a bullet **at** the given Pointer. The bullet will be launched from the {@link #fireFrom} position,
+   * Fires a bullet **at** the given Pointer. The bullet will be launched from the {@link fireFrom} position,
    * or from a Tracked Sprite or Pointer, if you have one set.
    *
    * @param pointer - The Pointer to fire the bullet towards.
@@ -1258,7 +1258,7 @@ class Weapon extends Phaser.Events.EventEmitter {
   }
 
   /**
-   * Fires a bullet **at** the given Sprite. The bullet will be launched from the {@link #fireFrom} position,
+   * Fires a bullet **at** the given Sprite. The bullet will be launched from the {@link fireFrom} position,
    * or from a Tracked Sprite or Pointer, if you have one set.
    *
    * @param sprite - The Sprite to fire the bullet towards.
@@ -1269,7 +1269,7 @@ class Weapon extends Phaser.Events.EventEmitter {
   }
 
   /**
-   * Fires a bullet **at** the given coordinates. The bullet will be launched from the {@link #fireFrom} position,
+   * Fires a bullet **at** the given coordinates. The bullet will be launched from the {@link fireFrom} position,
    * or from a Tracked Sprite or Pointer, if you have one set.
    *
    * @param x - The x coordinate, in world space, to fire the bullet towards.
@@ -1284,24 +1284,24 @@ class Weapon extends Phaser.Events.EventEmitter {
    * Attempts to fire a single Bullet. If there are no more bullets available in the pool,
    * and the pool cannot be extended, then this method returns `undefined`. It will also return `undefined`
    * if not enough time has expired since the last time the Weapon was fired,
-   * as defined in the {@link #fireRate} property.
+   * as defined in the {@link fireRate} property.
    *
    * Otherwise the first available bullet is selected, launched, and returned.
    *
    * The arguments are all optional, but allow you to control both where the bullet is launched from, and aimed at.
    *
-   * If you don't provide any of the arguments then it uses those set via properties such as {@link #trackedSprite},
-   * {@link #bulletAngle} and so on.
+   * If you don't provide any of the arguments then it uses those set via properties such as {@link trackedSprite},
+   * {@link fireAngle} and so on.
    *
    * When the bullet is launched it has its texture and frame updated, as required. The velocity of the bullet is
-   * calculated based on Weapon properties like `bulletSpeed`.
+   * calculated based on Weapon properties like {@link bulletSpeed}.
    *
    * If you wish to fire multiple bullets in a single game update, then set `Weapon.multiFire = true`
-   * and you can call `fire` as many times as you like, per loop. Multiple fires in a single update
-   * only counts once towards the `shots` total, but you will still receive a Signal for each bullet.
+   * and you can call {@link fire} as many times as you like, per loop. Multiple fires in a single update
+   * only counts once towards the {@link shots} total, but you will still receive an event for each bullet.
    *
-   * @param from Optionally fires the bullet **from** the `x` and `y` properties of this object.
-   * If set this overrides {@link #trackedSprite} or `trackedPointer`. Pass `null` to ignore it.
+   * @param from Optionally fires the bullet **from** the {@link x} and {@link y} properties of this object.
+   * If set this overrides {@link trackedSprite} or {@link trackedPointer}. Pass `null` to ignore it.
    * @param x - The x coordinate, in world space, to fire the bullet **towards**.
    * If left as `undefined`, or `null`, the bullet direction is based on its angle.
    * @param y - The y coordinate, in world space, to fire the bullet **towards**.
@@ -1606,7 +1606,7 @@ class Weapon extends Phaser.Events.EventEmitter {
    * This is intended for use when you've got numeric based frames, such as
    * those loaded via a Sprite Sheet.
    *
-   * It works by calling `Phaser.Utils.Array.NumberArray` internally, using
+   * It works by calling {@link Phaser.Utils.Array.NumberArray} internally, using
    * the min and max values provided. Then it sets the frame index to be zero.
    *
    * You can optionally set the cycle and random booleans, to allow bullets to
@@ -1614,8 +1614,8 @@ class Weapon extends Phaser.Events.EventEmitter {
    *
    * @param min - The minimum value the frame can be. Usually zero.
    * @param max - The maximum value the frame can be.
-   * @param selcetionMethod - Specifies how the
-   *  frame for the fired bullet will be selected. See consts.FrameType.BULLET_FRAME_XYZ
+   * @param selectionMethod - Specifies how the
+   *  frame for the fired bullet will be selected. See {@link FrameType consts.FrameType}
    *  for options.
    * @return This Weapon instance.
    */
@@ -1649,14 +1649,14 @@ class Weapon extends Phaser.Events.EventEmitter {
 
   /**
    * Adds a new animation under the given key. Optionally set the frames, frame rate and loop.
-   * The arguments are all the same as for `Animation.add`, and work in the same way.
+   * The arguments are all the same as for {@link Animation.add}, and work in the same way.
    *
-   * {@link #bulletAnimation} will be set to this animation after it's created. From that point on, all
+   * {@link bulletAnimation} will be set to this animation after it's created. From that point on, all
    * bullets fired will play using this animation. You can swap between animations by calling this method
-   * several times, and then just changing the {@link #bulletAnimation} property to the name of the animation
+   * several times, and then just changing the {@link bulletAnimation} property to the name of the animation
    * you wish to play for the next launched bullet.
    *
-   * If you wish to stop using animations at all, set {@link #bulletAnimation} to '' (an empty string).
+   * If you wish to stop using animations at all, set {@link bulletAnimation} to '' (an empty string).
    *
    * @param name - The unique (within the Weapon instance) name for the animation, i.e. "fire", "blast".
    * @param frames - An array of numbers/strings that correspond to the framesto add to this animation

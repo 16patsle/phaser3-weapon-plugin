@@ -22,15 +22,15 @@ class Bullet extends Phaser.GameObjects.Sprite {
   lifespan?: number;
 
   /**
-   * Create a new `Bullet` object. Bullets are used by the `Weapon` class, and are normal Sprites,
+   * Create a new `Bullet` object. Bullets are used by the {@link Weapon} class, and are normal Sprites,
    * with a few extra properties in the data manager to handle Weapon specific features.
    *
    * @param scene - A reference to the currently running scene.
-   * @param x - The x coordinate (in world space) to position the Particle at.
-   * @param y - The y coordinate (in world space) to position the Particle at.
+   * @param x - The x coordinate (in world space) to position the Bullet at.
+   * @param y - The y coordinate (in world space) to position the Bullet at.
    * @param key - This is the image or texture used by the Particle during rendering.
-   * It can be a string which is a reference to the Cache entry, or an instance of a RenderTexture or PIXI.Texture.
-   * @param frame - If this Particle is using part of a sprite sheet or texture atlas
+   * It can be a string which is a reference to the Cache entry, or an instance of a RenderTexture or {@link Phaser.Textures.Texture}.
+   * @param frame - If this Bullet is using part of a sprite sheet or texture atlas
    * you can specify the exact frame to use by giving a string or numeric index.
    */
   constructor(
@@ -105,8 +105,10 @@ class Bullet extends Phaser.GameObjects.Sprite {
   }
 
   /**
-   * Prepares this bullet to be fired and interact with the rest of the scene
-   * again.
+   * Prepares this bullet to be fired and to interact with the rest
+   * of the scene again.
+   * @param x - Resets bullet position to this x coordinate
+   * @param y - Resets bullet position to this y coordinate
    */
   prepare(x: number, y: number): void {
     this.setActive(true);
@@ -121,7 +123,7 @@ class Bullet extends Phaser.GameObjects.Sprite {
 
   /**
    * Kills the Bullet, freeing it up for re-use by the Weapon bullet pool.
-   * Also dispatches the `Weapon`s kill signal.
+   * Also dispatches the {@link BULLET_KILL} event on the {@link Weapon}.
    * @returns This instance of the bullet class
    */
   kill(): this {

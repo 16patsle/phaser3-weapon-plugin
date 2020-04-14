@@ -41,7 +41,7 @@ type WeaponConfig = {
  * few extra properties. The Bullets are enabled for Arcade Physics. They do
  * not currently work with Impact or Matter Physics.
  *
- * The Bullets are created inside of {@link #bullets weapon.bullets}, which is
+ * The Bullets are created inside of {@link Weapon.bullets weapon.bullets}, which is
  * a {@link Phaser.GameObjects.Group} instance. Anything you can usually do
  * with a Group, like iterate it, etc can be done to the bullets Group too.
  *
@@ -50,7 +50,7 @@ type WeaponConfig = {
  * like gravity for them.
  *
  * A small example, using add.weapon, assumed to be running from within a
- * {@link Phaser.Scene#create} method:
+ * {@link Phaser.Scene.create} method:
  *
  * ```javascript
  * var weapon = this.add.weapon(10, 'bullet');
@@ -62,9 +62,9 @@ class WeaponPlugin extends Phaser.Plugins.ScenePlugin {
   weapons: Weapon[];
 
   /**
-   * @param scene - A reference to the Phaser.Scene instance.
+   * @param scene - A reference to the {@link Phaser.Scene} instance.
    * @param pluginManager - A reference to the
-   *  Phaser.Plugins.PluginManager instance.
+   *  {@link Phaser.Plugins.PluginManager} instance.
    */
   constructor(
     scene: Phaser.Scene,

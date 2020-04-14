@@ -1,45 +1,47 @@
 /**
- * Kill type constants for {@link Weapon#bulletKillType}
+ * Kill type constants for {@link Weapon.bulletKillType}
  */
 enum KillType {
   /**
-   * A {@link Weapon#bulletKillType} constant that stops the bullets from ever being destroyed automatically.
+   * A {@link Weapon.bulletKillType bulletKillType} constant that stops the bullets from ever being destroyed automatically.
    */
   KILL_NEVER = 0,
 
   /**
-   * A {@link Weapon#bulletKillType} constant that automatically kills the bullets
-   * when their {@link Weapon#bulletLifespan} expires.
+   * A {@link Weapon.bulletKillType bulletKillType} constant that automatically kills the bullets
+   * when their {@link Weapon.bulletLifespan} expires.
    */
   KILL_LIFESPAN = 1,
 
   /**
-   * A {@link Weapon#bulletKillType} constant that automatically kills the bullets after they
-   * exceed the {@link Weapon#bulletDistance} from their original firing position.
+   * A {@link Weapon.bulletKillType bulletKillType} constant that automatically kills the bullets after they
+   * exceed the {@link Weapon.bulletKillDistance} from their original firing position.
    */
   KILL_DISTANCE = 2,
 
   /**
-   * A {@link Weapon#bulletKillType} constant that automatically kills the bullets
-   * when they leave the {@link Weapon#bounds} rectangle.
+   * A {@link Weapon.bulletKillType bulletKillType} constant that automatically kills the bullets
+   * when they leave the {@link Weapon.bounds} rectangle.
    */
   KILL_WEAPON_BOUNDS = 3,
 
   /**
-   * A {@link Weapon#bulletKillType} constant that automatically kills the bullets
-   * when they leave the {@link Phaser.Cameras.Scene2D.Camera#bounds} rectangle.
+   * A {@link Weapon.bulletKillType bulletKillType} constant that automatically kills the bullets
+   * when they leave the {@link Phaser.Cameras.Scene2D.Camera.bounds} rectangle.
    */
   KILL_CAMERA_BOUNDS = 4,
 
   /**
-   * A {@link Weapon#bulletKillType} constant that automatically kills the bullets
-   * when they leave the {@link Phaser.Physics.Arcade.World#bounds} rectangle.
+   * A {@link Weapon.bulletKillType bulletKillType} constant that automatically kills the bullets
+   * when they leave the {@link Phaser.Physics.Arcade.World.bounds} rectangle.
    */
   KILL_WORLD_BOUNDS = 5,
 
   /**
-   * A {@link Weapon#bulletKillType} constant that automatically kills the bullets
-   * when they leave the {@link #bounds} rectangle.
+   * A {@link Weapon.bulletKillType} constant that automatically kills the bullets
+   * when they leave the {@link Weapon.bounds} rectangle.
+   * The difference between static bounds and weapon bounds, is that a static bounds will never be adjusted to
+   * match the position of a tracked sprite or pointer.
    */
   KILL_STATIC_BOUNDS = 6,
 }
@@ -47,7 +49,7 @@ enum KillType {
 export { KillType };
 
 /**
- * Angle constants that can be used anywhere you specify angles in degrees, for instance {@link Weapon#fireAngle} and {@link Weapon#bulletAngleOffset}.
+ * Angle constants that can be used anywhere you specify angles in degrees, for instance {@link Weapon.fireAngle} and {@link Weapon.bulletAngleOffset}.
  */
 enum Angle {
   /**
@@ -94,7 +96,7 @@ enum Angle {
 export { Angle };
 
 /**
- * Bullet frame type constants for {@link Weapon#setBulletFrames}
+ * Bullet frame type constants for {@link Weapon.setBulletFrames}
  */
 enum FrameType {
   /**
