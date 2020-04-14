@@ -31,6 +31,8 @@ Version 2 of this plugin is distributed in 3 different editions: normal, legacy 
 
 Additionally there's the modern build, which at the moment is almost the same as the normal build. However it targets the last 2 releases of all the major browsers (Internet Explorer doesn't count as major), and thus only transpiles a few of the newest language features, giving the smallest bundle size and the best performance. As time goes on, expect this build to diverge further from the normal build.
 
+Additionally, the TypeScript-compiled source code of the plugin will be available in the `out/` directory in case you want to consume it from a bundler, but prefer not to set up TypeScript compilation yourself.
+
 ## Using Plugins in Phaser 3
 
 There are several ways to load plugins in Phaser 3. You can load plugins externally, or include them in your bundle.
