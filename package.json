@@ -4,6 +4,7 @@
   "description": "Weapon Plugin for Phaser 3",
   "main": "src/main.js",
   "scripts": {
+    "prepare": "npm install --no-save phaser && (npm run build & npm run tsc & npm run docs)",
     "prebuild": "npm run lint:fix",
     "build": "webpack",
     "postbuild": "cp dist/WeaponPlugin.{js,js.map} examples/src/",
