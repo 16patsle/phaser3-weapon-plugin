@@ -42,7 +42,7 @@ type WeaponConfig = {
  * not currently work with Impact or Matter Physics.
  *
  * The Bullets are created inside of {@link Weapon.bullets weapon.bullets}, which is
- * a {@link Phaser.GameObjects.Group} instance. Anything you can usually do
+ * a {@link https://photonstorm.github.io/phaser3-docs/Phaser.GameObjects.Group.html Phaser.GameObjects.Group} instance. Anything you can usually do
  * with a Group, like iterate it, etc can be done to the bullets Group too.
  *
  * Bullets can have textures and even animations. You can control the speed at
@@ -50,7 +50,7 @@ type WeaponConfig = {
  * like gravity for them.
  *
  * A small example, using add.weapon, assumed to be running from within a
- * {@link Phaser.Scene.create} method:
+ * {@link https://photonstorm.github.io/phaser3-docs/Phaser.Types.Scenes.html#.SceneCreateCallback Phaser.Scene.create} method:
  *
  * ```javascript
  * var weapon = this.add.weapon(10, 'bullet');
@@ -62,9 +62,9 @@ class WeaponPlugin extends Phaser.Plugins.ScenePlugin {
   weapons: Weapon[];
 
   /**
-   * @param scene - A reference to the {@link Phaser.Scene} instance.
+   * @param scene - A reference to the {@link https://photonstorm.github.io/phaser3-docs/Phaser.Scene.html Phaser.Scene} instance.
    * @param pluginManager - A reference to the
-   *  {@link Phaser.Plugins.PluginManager} instance.
+   *  {@link https://photonstorm.github.io/phaser3-docs/Phaser.Plugins.PluginManager.html Phaser.Plugins.PluginManager} instance.
    */
   constructor(
     scene: Phaser.Scene,
