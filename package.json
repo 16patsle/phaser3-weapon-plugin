@@ -1,6 +1,6 @@
 {
   "name": "phaser3-weapon-plugin",
-  "version": "1.0.2",
+  "version": "2.0.0",
   "description": "Weapon Plugin for Phaser 3",
   "main": "out/main.js",
   "types": "out/main.d.ts",
