@@ -1,5 +1,5 @@
 import consts from './consts';
-import Weapon from './Weapon';
+import type Weapon from './Weapon';
 
 /**
  * Log text to the console or throw an error
