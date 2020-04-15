@@ -24,6 +24,8 @@ To run Eslint and Prettier, use `npm run lint` (for just linting) or `npm run li
 
 ## Documentation
 
+The documentation is available at [16patsle.github.io/phaser3-weapon-plugin](https://16patsle.github.io/phaser3-weapon-plugin/)
+
 The plugin is documented using inline JSDoc/TSDoc comments, which are processed by TypeDoc into static documentation pages. You can run the TypeDoc generator with `npm run docs`.
 
 ## Difference between prebuilt files
