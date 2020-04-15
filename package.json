@@ -4,6 +4,7 @@
   "description": "Weapon Plugin for Phaser 3",
   "main": "out/main.js",
   "types": "out/main.d.ts",
+  "type": "module",
   "scripts": {
     "prepare": "npm install --no-save phaser && (npm run build & npm run tsc & npm run docs)",
     "prebuild": "npm run lint:fix",
