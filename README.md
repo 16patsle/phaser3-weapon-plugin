@@ -10,6 +10,8 @@ npm install phaser3-weapon-plugin # if you use npm
 yarn add phaser3-weapon-plugin # for yarn users
 ```
 
+**[Version 2 is out, read the announcement post for more information](https://medium.com/@16patsle/announcing-phaser3-weapon-plugin-v2-b662500beebf)**
+
 ## Building
 
 Run `npm install` to download dependencies and build. To rebuild you can use `npm run build`.
