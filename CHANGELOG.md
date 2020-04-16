@@ -5,6 +5,8 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
 ## [Unreleased]
+
+## [2.0.1] - 2020-04-16
 ### Changed
 - The package.json now specifies that the package type is "module", for theoretically better future support.
 - validateConfig now imports Weapon as a type import, since it only ever uses it as a type
@@ -63,7 +65,8 @@ files directly (through a bundler), but prefer to not set up TypeScript compilat
 ### Fixed
 - Fixed several bugs, like incorrect usage of Rectangle.CenterOn.
 
-[Unreleased]: https://github.com/16patsle/phaser3-weapon-plugin/compare/v1.0.1...HEAD
+[Unreleased]: https://github.com/16patsle/phaser3-weapon-plugin/compare/v2.0.1...HEAD
+[2.0.1]: https://github.com/16patsle/phaser3-weapon-plugin/compare/v2.0.0...v2.0.1
 [2.0.0]: https://github.com/16patsle/phaser3-weapon-plugin/compare/v1.0.2...v2.0.0
 [1.0.2]: https://github.com/16patsle/phaser3-weapon-plugin/compare/v1.0.1...v1.0.2
 [1.0.1]: https://github.com/16patsle/phaser3-weapon-plugin/compare/v1.0.0...v1.0.1
