@@ -1344,7 +1344,7 @@ class Weapon extends Phaser.Events.EventEmitter {
     if (from) {
       // Fire based on passed coordinates
       this.updateFireFrom(from.x, from.y);
-    } else if (this.trackedSprite && this.trackedSprite.rotation) {
+    } else if (this.trackedSprite && typeof this.trackedSprite.rotation === 'number') {
       // Fire based on tracked sprite
       if (this.trackRotation) {
         this._rotatedPoint.set(
