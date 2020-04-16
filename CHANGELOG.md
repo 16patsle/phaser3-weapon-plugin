@@ -5,6 +5,13 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
 ## [Unreleased]
+### Changed
+- The package.json now specifies that the package type is "module", for theoretically better future support.
+- validateConfig now imports Weapon as a type import, since it only ever uses it as a type
+- Moved core-js to devDependencies, as it's only used at build time. Having it as a dependency causes it to be installed by npm when consuming the package, and if you pipe the plugin's source files through babel with `useBuiltins` enabled, it would resolve `core-js` separately from your own code, causing it to be bundled twice.
+
+### Fixed
+- Firing bullets when tracking a sprite with rotation set to 0. Due to an oversight the plugin checked for falsy values to check for the existence of  `rotation`, rather than checking if it was a number.
 
 ## [2.0.0] - 2020-04-15
 ### Added
