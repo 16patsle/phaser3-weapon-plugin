@@ -6,8 +6,8 @@
   "types": "out/main.d.ts",
   "type": "module",
   "scripts": {
-    "prepare": "npm install --no-save phaser && (npm run build & npm run tsc & npm run docs)",
-    "prepublishOnly": "git add docs/ && git commit -m \"Update generated docs\"",
+    "prepare": "npm install --no-save phaser && (npm run build & npm run tsc)",
+    "prepublishOnly": "npm run docs && git add docs/ && git commit -m \"Update generated docs\"",
     "prebuild": "npm run lint:fix",
     "build": "webpack",
     "postbuild": "cp dist/WeaponPlugin.{js,js.map} examples/src/",
