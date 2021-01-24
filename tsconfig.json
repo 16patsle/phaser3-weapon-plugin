@@ -43,7 +43,7 @@
     "theme": "minimal",
     "includeVersion": true,
     "excludePrivate": true,
-    "inputFiles": ["src"],
+    "entryPoints": ["src"],
     "exclude": ["src/main.ts", "src/validateConfig.ts"]
   }
 }

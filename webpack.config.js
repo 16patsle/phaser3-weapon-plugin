@@ -4,7 +4,7 @@ const TerserPlugin = require('terser-webpack-plugin');
 const createConfig = type => {
   let presetOptions = {
     useBuiltIns: 'usage',
-    corejs: 3,
+    corejs: '3.8',
     targets: {
       esmodules: true,
     },
@@ -14,7 +14,7 @@ const createConfig = type => {
   if (type === 'modern') {
     presetOptions = {
       useBuiltIns: 'usage',
-      corejs: 3,
+      corejs: '3.8',
       targets:
         'last 2 Edge versions, last 2 Safari versions, last 2 Firefox versions, last 2 Chrome versions',
       bugfixes: true,
@@ -22,7 +22,7 @@ const createConfig = type => {
   } else if (type === 'legacy') {
     presetOptions = {
       useBuiltIns: 'usage',
-      corejs: 3,
+      corejs: '3.8',
     };
   }
 
@@ -38,7 +38,6 @@ const createConfig = type => {
       minimizer: [
         new TerserPlugin({
           include: /\.min\.js$/,
-          sourceMap: true,
           terserOptions: {
             compress: true,
             output: {
@@ -47,7 +46,6 @@ const createConfig = type => {
             warnings: false,
             safari10: true,
           },
-          warningsFilter: () => false,
         }),
       ],
     },
