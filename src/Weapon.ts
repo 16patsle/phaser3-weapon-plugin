@@ -325,7 +325,7 @@ class Weapon extends Phaser.Events.EventEmitter {
   get bullets(): Phaser.GameObjects.Group {
     return this._bullets;
   }
-  set bullets(value) {
+  set bullets(value: Phaser.GameObjects.Group) {
     this._bullets = value;
 
     validateConfig(this, 'bullets');
@@ -339,7 +339,7 @@ class Weapon extends Phaser.Events.EventEmitter {
   get autoExpandBulletsGroup(): boolean {
     return this._autoExpandBulletsGroup;
   }
-  set autoExpandBulletsGroup(value) {
+  set autoExpandBulletsGroup(value: boolean) {
     this._autoExpandBulletsGroup = value;
 
     validateConfig(this, 'autoExpandBulletsGroup');
@@ -353,7 +353,7 @@ class Weapon extends Phaser.Events.EventEmitter {
   get autofire(): boolean {
     return this._autofire;
   }
-  set autofire(value) {
+  set autofire(value: boolean) {
     this._autofire = value;
 
     validateConfig(this, 'autofire');
@@ -368,7 +368,7 @@ class Weapon extends Phaser.Events.EventEmitter {
   get shots(): number {
     return this._shots;
   }
-  set shots(value) {
+  set shots(value: number) {
     this._shots = value;
 
     validateConfig(this, 'shots');
@@ -383,7 +383,7 @@ class Weapon extends Phaser.Events.EventEmitter {
   get fireLimit(): number {
     return this._fireLimit;
   }
-  set fireLimit(value) {
+  set fireLimit(value: number) {
     this._fireLimit = value;
 
     validateConfig(this, 'fireLimit');
@@ -396,7 +396,7 @@ class Weapon extends Phaser.Events.EventEmitter {
   get fireRate(): number {
     return this._fireRate;
   }
-  set fireRate(value) {
+  set fireRate(value: number) {
     this._fireRate = value;
 
     validateConfig(this, 'fireRate');
@@ -412,7 +412,7 @@ class Weapon extends Phaser.Events.EventEmitter {
   get fireRateVariance(): number {
     return this._fireRateVariance;
   }
-  set fireRateVariance(value) {
+  set fireRateVariance(value: number) {
     this._fireRateVariance = value;
 
     validateConfig(this, 'fireRateVariance');
@@ -426,7 +426,7 @@ class Weapon extends Phaser.Events.EventEmitter {
   get fireFrom(): Phaser.Geom.Rectangle {
     return this._fireFrom;
   }
-  set fireFrom(value) {
+  set fireFrom(value: Phaser.Geom.Rectangle) {
     this._fireFrom = value;
 
     validateConfig(this, 'fireFrom');
@@ -440,7 +440,7 @@ class Weapon extends Phaser.Events.EventEmitter {
   get fireAngle(): integer {
     return this._fireAngle;
   }
-  set fireAngle(value) {
+  set fireAngle(value: integer) {
     this._fireAngle = value;
 
     validateConfig(this, 'fireAngle');
@@ -453,7 +453,7 @@ class Weapon extends Phaser.Events.EventEmitter {
   get bulletInheritSpriteSpeed(): boolean {
     return this._bulletInheritSpriteSpeed;
   }
-  set bulletInheritSpriteSpeed(value) {
+  set bulletInheritSpriteSpeed(value: boolean) {
     this._bulletInheritSpriteSpeed = value;
 
     validateConfig(this, 'bulletInheritSpriteSpeed');
@@ -467,7 +467,7 @@ class Weapon extends Phaser.Events.EventEmitter {
   get bulletAnimation(): string {
     return this._bulletAnimation;
   }
-  set bulletAnimation(value) {
+  set bulletAnimation(value: string) {
     this._bulletAnimation = value;
 
     validateConfig(this, 'bulletAnimation');
@@ -481,7 +481,7 @@ class Weapon extends Phaser.Events.EventEmitter {
   get bulletFrameRandom(): boolean {
     return this._bulletFrameRandom;
   }
-  set bulletFrameRandom(value) {
+  set bulletFrameRandom(value: boolean) {
     this._bulletFrameRandom = value;
 
     validateConfig(this, 'bulletFrameRandom');
@@ -498,7 +498,7 @@ class Weapon extends Phaser.Events.EventEmitter {
   get bulletFrameCycle(): boolean {
     return this._bulletFrameCycle;
   }
-  set bulletFrameCycle(value) {
+  set bulletFrameCycle(value: boolean) {
     this._bulletFrameCycle = value;
 
     validateConfig(this, 'bulletFrameCycle');
@@ -512,7 +512,7 @@ class Weapon extends Phaser.Events.EventEmitter {
   get bulletWorldWrap(): boolean {
     return this._bulletWorldWrap;
   }
-  set bulletWorldWrap(value) {
+  set bulletWorldWrap(value: boolean) {
     this._bulletWorldWrap = value;
 
     validateConfig(this, 'bulletWorldWrap');
@@ -527,7 +527,7 @@ class Weapon extends Phaser.Events.EventEmitter {
   get bulletWorldWrapPadding(): integer {
     return this._bulletWorldWrapPadding;
   }
-  set bulletWorldWrapPadding(value) {
+  set bulletWorldWrapPadding(value: integer) {
     this._bulletWorldWrapPadding = value;
 
     validateConfig(this, 'bulletWorldWrapPadding');
@@ -543,7 +543,7 @@ class Weapon extends Phaser.Events.EventEmitter {
   get bulletAngleOffset(): number {
     return this._bulletAngleOffset;
   }
-  set bulletAngleOffset(value) {
+  set bulletAngleOffset(value: number) {
     this._bulletAngleOffset = value;
 
     validateConfig(this, 'bulletAngleOffset');
@@ -559,7 +559,7 @@ class Weapon extends Phaser.Events.EventEmitter {
   get bulletAngleVariance(): number {
     return this._bulletAngleVariance;
   }
-  set bulletAngleVariance(value) {
+  set bulletAngleVariance(value: number) {
     this._bulletAngleVariance = value;
 
     validateConfig(this, 'bulletAngleVariance');
@@ -572,7 +572,7 @@ class Weapon extends Phaser.Events.EventEmitter {
   get bulletSpeed(): number {
     return this._bulletSpeed;
   }
-  set bulletSpeed(value) {
+  set bulletSpeed(value: number) {
     this._bulletSpeed = value;
 
     validateConfig(this, 'bulletSpeed');
@@ -587,7 +587,7 @@ class Weapon extends Phaser.Events.EventEmitter {
   get bulletSpeedVariance(): number {
     return this._bulletSpeedVariance;
   }
-  set bulletSpeedVariance(value) {
+  set bulletSpeedVariance(value: number) {
     this._bulletSpeedVariance = value;
 
     validateConfig(this, 'bulletSpeedVariance');
@@ -602,7 +602,7 @@ class Weapon extends Phaser.Events.EventEmitter {
   get bulletLifespan(): number {
     return this._bulletLifespan;
   }
-  set bulletLifespan(value) {
+  set bulletLifespan(value: number) {
     this._bulletLifespan = value;
 
     validateConfig(this, 'bulletLifespan');
@@ -616,7 +616,7 @@ class Weapon extends Phaser.Events.EventEmitter {
   get bulletKillDistance(): number {
     return this._bulletKillDistance;
   }
-  set bulletKillDistance(value) {
+  set bulletKillDistance(value: number) {
     this._bulletKillDistance = value;
 
     validateConfig(this, 'bulletKillDistance');
@@ -629,7 +629,7 @@ class Weapon extends Phaser.Events.EventEmitter {
   get bulletGravity(): Phaser.Math.Vector2 {
     return this._bulletGravity;
   }
-  set bulletGravity(value) {
+  set bulletGravity(value: Phaser.Math.Vector2) {
     this._bulletGravity = value;
 
     validateConfig(this, 'bulletGravity');
@@ -644,7 +644,7 @@ class Weapon extends Phaser.Events.EventEmitter {
   get bulletRotateToVelocity(): boolean {
     return this._bulletRotateToVelocity;
   }
-  set bulletRotateToVelocity(value) {
+  set bulletRotateToVelocity(value: boolean) {
     this._bulletRotateToVelocity = value;
 
     validateConfig(this, 'bulletRotateToVelocity');
@@ -658,7 +658,7 @@ class Weapon extends Phaser.Events.EventEmitter {
   get bulletKey(): string {
     return this._bulletKey;
   }
-  set bulletKey(value) {
+  set bulletKey(value: string) {
     this._bulletKey = value;
 
     validateConfig(this, 'bulletKey');
@@ -672,7 +672,7 @@ class Weapon extends Phaser.Events.EventEmitter {
   get bulletFrame(): string | integer {
     return this._bulletFrame;
   }
-  set bulletFrame(value) {
+  set bulletFrame(value: string | integer) {
     this._bulletFrame = value;
 
     validateConfig(this, 'bulletFrame');
@@ -688,7 +688,7 @@ class Weapon extends Phaser.Events.EventEmitter {
   get bulletClass(): typeof Bullet {
     return this._bulletClass;
   }
-  set bulletClass(classType) {
+  set bulletClass(classType: typeof Bullet) {
     this._bulletClass = classType;
 
     // `this.bullets` exists only after createBullets()
@@ -706,7 +706,7 @@ class Weapon extends Phaser.Events.EventEmitter {
   get bulletCollideWorldBounds(): boolean {
     return this._bulletCollideWorldBounds;
   }
-  set bulletCollideWorldBounds(value) {
+  set bulletCollideWorldBounds(value: boolean) {
     this._bulletCollideWorldBounds = value;
 
     (this.bullets.children as Phaser.Structs.Set<Bullet>).each(child => {
@@ -750,7 +750,7 @@ class Weapon extends Phaser.Events.EventEmitter {
   get bulletKillType(): integer {
     return this._bulletKillType;
   }
-  set bulletKillType(type) {
+  set bulletKillType(type: integer) {
     switch (type) {
       case KillType.KILL_STATIC_BOUNDS:
       case KillType.KILL_WEAPON_BOUNDS:
@@ -780,7 +780,7 @@ class Weapon extends Phaser.Events.EventEmitter {
   get bounds(): Phaser.Geom.Rectangle {
     return this._bounds;
   }
-  set bounds(value) {
+  set bounds(value: Phaser.Geom.Rectangle) {
     this._bounds = value;
 
     validateConfig(this, 'bounds');
@@ -792,7 +792,7 @@ class Weapon extends Phaser.Events.EventEmitter {
   get bulletBounds(): Phaser.Geom.Rectangle {
     return this._bulletBounds;
   }
-  set bulletBounds(value) {
+  set bulletBounds(value: Phaser.Geom.Rectangle) {
     this._bulletBounds = value;
 
     validateConfig(this, 'bulletBounds');
@@ -804,7 +804,7 @@ class Weapon extends Phaser.Events.EventEmitter {
   get bulletFrames(): integer[] {
     return this._bulletFrames;
   }
-  set bulletFrames(value) {
+  set bulletFrames(value: integer[]) {
     this._bulletFrames = value;
 
     validateConfig(this, 'bulletFrames');
@@ -817,7 +817,7 @@ class Weapon extends Phaser.Events.EventEmitter {
   get bulletFrameIndex(): number {
     return this._bulletFrameIndex;
   }
-  set bulletFrameIndex(value) {
+  set bulletFrameIndex(value: number) {
     this._bulletFrameIndex = value;
 
     validateConfig(this, 'bulletFrameIndex');
@@ -833,7 +833,9 @@ class Weapon extends Phaser.Events.EventEmitter {
     | undefined {
     return this._trackedSprite;
   }
-  set trackedSprite(value) {
+  set trackedSprite(
+    value: Phaser.GameObjects.Sprite | ObjectWithTransform | undefined
+  ) {
     this._trackedSprite = value;
 
     validateConfig(this, 'trackedSprite');
@@ -846,7 +848,7 @@ class Weapon extends Phaser.Events.EventEmitter {
   get trackedPointer(): Phaser.Input.Pointer | undefined {
     return this._trackedPointer;
   }
-  set trackedPointer(value) {
+  set trackedPointer(value: Phaser.Input.Pointer | undefined) {
     this._trackedPointer = value;
 
     validateConfig(this, 'trackedPointer');
@@ -863,7 +865,7 @@ class Weapon extends Phaser.Events.EventEmitter {
   get multiFire(): boolean {
     return this._multiFire;
   }
-  set multiFire(value) {
+  set multiFire(value: boolean) {
     this._multiFire = value;
 
     validateConfig(this, 'multiFire');
@@ -878,7 +880,7 @@ class Weapon extends Phaser.Events.EventEmitter {
   get trackRotation(): boolean {
     return this._trackRotation;
   }
-  set trackRotation(value) {
+  set trackRotation(value: boolean) {
     this._trackRotation = value;
 
     validateConfig(this, 'trackRotation');
@@ -893,7 +895,7 @@ class Weapon extends Phaser.Events.EventEmitter {
   get trackOffset(): Phaser.Math.Vector2 {
     return this._trackOffset;
   }
-  set trackOffset(value) {
+  set trackOffset(value: Phaser.Math.Vector2) {
     this._trackOffset = value;
 
     validateConfig(this, 'trackOffset');
@@ -906,7 +908,7 @@ class Weapon extends Phaser.Events.EventEmitter {
   get x(): number {
     return this.fireFrom.x;
   }
-  set x(value) {
+  set x(value: number) {
     this.fireFrom.x = value;
   }
 
@@ -917,7 +919,7 @@ class Weapon extends Phaser.Events.EventEmitter {
   get y(): number {
     return this.fireFrom.y;
   }
-  set y(value) {
+  set y(value: number) {
     this.fireFrom.y = value;
   }
 
@@ -1007,6 +1009,7 @@ class Weapon extends Phaser.Events.EventEmitter {
     return this;
   }
 
+  /* eslint-disable no-unused-vars */
   /**
    * Call a function on each in-flight bullet in this Weapon.
    *
@@ -1019,9 +1022,12 @@ class Weapon extends Phaser.Events.EventEmitter {
    * @return This Weapon instance.
    */
   forEach(
-    callback: (child: Phaser.GameObjects.GameObject, ...args: any[]) => void,
-    callbackContext: any,
-    ...args: any[]
+    callback: (
+      child: Phaser.GameObjects.GameObject,
+      ...args: unknown[]
+    ) => void,
+    callbackContext: unknown,
+    ...args: unknown[]
   ): this {
     this.bullets.children.each(child => {
       if (child.active) {
@@ -1031,6 +1037,7 @@ class Weapon extends Phaser.Events.EventEmitter {
 
     return this;
   }
+  /* eslint-enable no-unused-vars */
 
   /**
    * Sets {@link https://photonstorm.github.io/phaser3-docs/Phaser.Physics.Arcade.Body.html#enable Body.enable} to `false` on each bullet in this Weapon.

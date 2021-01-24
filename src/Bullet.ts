@@ -60,6 +60,8 @@ class Bullet extends Phaser.GameObjects.Sprite {
     });
   }
 
+  /* eslint-disable no-unused-vars */
+
   setData(key: Partial<BulletData>, data?: never): this;
   setData(key: 'timeEvent', data: BulletData['timeEvent']): this;
   setData(key: 'bulletManager', data: BulletData['bulletManager']): this;
@@ -103,6 +105,8 @@ class Bullet extends Phaser.GameObjects.Sprite {
     | undefined {
     return super.getData(key);
   }
+
+  /* eslint-enable no-unused-vars */
 
   /**
    * Prepares this bullet to be fired and to interact with the rest

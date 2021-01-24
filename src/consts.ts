@@ -1,3 +1,4 @@
+/* eslint-disable no-unused-vars */
 /**
  * Kill type constants for {@link Weapon.bulletKillType}
  */
