@@ -1,6 +1,7 @@
 .vscode
 docs/
-.eslintrc.js
+examples/
+.eslintrc.cjs
 .prettierrc
 tsconfig.json
-webpack.config.js
+webpack.config.cjs
