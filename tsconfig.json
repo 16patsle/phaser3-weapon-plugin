@@ -1,7 +1,7 @@
 {
   "compilerOptions": {
     "target": "esnext",
-    "outDir": "out",
+    "outDir": "out/esnext",
     "allowJs": true,                          /* Allow javascript files to be compiled. */
     "checkJs": true,                          /* Report errors in .js files. */
     "declaration": true,                      /* Generates corresponding '.d.ts' file. */

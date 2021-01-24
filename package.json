@@ -2,8 +2,10 @@
   "name": "phaser3-weapon-plugin",
   "version": "2.0.1",
   "description": "Weapon Plugin for Phaser 3",
-  "main": "out/main.js",
-  "types": "out/main.d.ts",
+  "main": "dist/WeaponPlugin.js",
+  "module": "out/es2016/main.js",
+  "esnext": "out/esnext/main.js",
+  "types": "out/esnext/main.d.ts",
   "type": "module",
   "scripts": {
     "prepare": "npm install --no-save phaser && (npm run build & npm run tsc)",
@@ -18,7 +20,7 @@
     "lintexamples:fix": "npm run lintexamples -- --fix",
     "lintmd": "markdownlint-cli2 \"**/*.md\" \"#node_modules\"",
     "lintmd:fix": "markdownlint-cli2-fix \"**/*.md\" \"#node_modules\"",
-    "tsc": "tsc",
+    "tsc": "tsc && tsc -t ES2016 --outDir out/es2016",
     "docs": "typedoc && touch docs/.nojekyll"
   },
   "repository": {
