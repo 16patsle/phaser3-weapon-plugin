@@ -7,6 +7,20 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [2.0.1] - 2021-01-24
+
+### Changed in 2.1.0
+
+- Improved instructions in README.
+- Added a `module` entrypoint in package.json, pointing to what was formerly
+the `main` entrypoint.
+- The `main` entrypoint no longer points to a module, but the normal bundle.
+- Updated dependencies, which made the bundle a bit smaller.
+
+### Fixed in 2.1.0
+
+- The main entrypoint no longer uses ESNext syntax.
+
 ## [2.0.1] - 2020-04-16
 
 ### Changed in 2.0.1
@@ -106,7 +120,8 @@ Now you can use `this.add.weapon`.
 
 - Fixed several bugs, like incorrect usage of Rectangle.CenterOn.
 
-[Unreleased]: https://github.com/16patsle/phaser3-weapon-plugin/compare/v2.0.1...HEAD
+[Unreleased]: https://github.com/16patsle/phaser3-weapon-plugin/compare/v2.1.0...HEAD
+[2.0.1]: https://github.com/16patsle/phaser3-weapon-plugin/compare/v2.0.1...v2.1.0
 [2.0.1]: https://github.com/16patsle/phaser3-weapon-plugin/compare/v2.0.0...v2.0.1
 [2.0.0]: https://github.com/16patsle/phaser3-weapon-plugin/compare/v1.0.2...v2.0.0
 [1.0.2]: https://github.com/16patsle/phaser3-weapon-plugin/compare/v1.0.1...v1.0.2
