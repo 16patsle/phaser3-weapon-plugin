@@ -184,7 +184,7 @@ class Weapon extends Phaser.Events.EventEmitter {
   /**
    * Private var that holds the public {@link bulletClass} property.
    */
-  private _bulletClass: Function = Bullet;
+  private _bulletClass: typeof Bullet = Bullet;
 
   /**
    * Private var that holds the public {@link bulletCollideWorldBounds} property.
@@ -685,7 +685,7 @@ class Weapon extends Phaser.Events.EventEmitter {
    * It should be a constructor function accepting `(scene, x, y, key, frame)`.
    * @default Bullet
    */
-  get bulletClass(): Function {
+  get bulletClass(): typeof Bullet {
     return this._bulletClass;
   }
   set bulletClass(classType) {
@@ -1018,7 +1018,11 @@ class Weapon extends Phaser.Events.EventEmitter {
    * @param args - Additional arguments to pass to the callback function, after the child item.
    * @return This Weapon instance.
    */
-  forEach(callback: Function, callbackContext: any, ...args: any[]): this {
+  forEach(
+    callback: (child: Phaser.GameObjects.GameObject, ...args: any[]) => void,
+    callbackContext: any,
+    ...args: any[]
+  ): this {
     this.bullets.children.each(child => {
       if (child.active) {
         callback.call(callbackContext, child, args);
@@ -1734,7 +1738,7 @@ class Weapon extends Phaser.Events.EventEmitter {
    * You must release everything in here, all references, all objects, free it all up.
    */
   destroy(): void {
-    // eslint-disable-next-line @typescript-eslint/ban-ts-ignore
+    // eslint-disable-next-line @typescript-eslint/ban-ts-comment
     // @ts-ignore
     this.scene = undefined;
 
