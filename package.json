@@ -16,6 +16,8 @@
     "lint:fix": "npm run lint -- --fix",
     "lintexamples": "eslint examples/src/js/**/* --parser-options sourceType:\"module\" --global WeaponPlugin --rule 'no-console: off' --rule 'no-unused-vars: [warn, { varsIgnorePattern: game }]'",
     "lintexamples:fix": "npm run lintexamples -- --fix",
+    "lintmd": "markdownlint-cli2 \"**/*.md\" \"#node_modules\"",
+    "lintmd:fix": "markdownlint-cli2-fix \"**/*.md\" \"#node_modules\"",
     "tsc": "tsc",
     "docs": "typedoc && touch docs/.nojekyll"
   },
@@ -42,6 +44,7 @@
     "eslint-config-prettier": "^6.10.1",
     "eslint-plugin-prettier": "^3.1.3",
     "http-server": "^0.12.1",
+    "markdownlint-cli2": "^0.0.13",
     "prettier": "2.0.4",
     "terser-webpack-plugin": "^2.3.5",
     "typedoc": "^0.17.4",
