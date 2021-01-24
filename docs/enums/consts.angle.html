@@ -3,7 +3,7 @@
 <head>
 	<meta charset="utf-8">
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
-	<title>phaser3-weapon-plugin - v2.0.1 | phaser3-weapon-plugin - v2.0.1</title>
+	<title>Angle | phaser3-weapon-plugin - v2.0.1</title>
 	<meta name="description" content="Documentation for phaser3-weapon-plugin - v2.0.1">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 	<style type="text/css">/*! normalize.css v1.1.3 | MIT License | git.io/normalize */
@@ -2646,7 +2646,7 @@ img {
 		<div class="container">
 			<div class="table-wrap">
 				<div class="table-cell">
-					<strong><a href="index.html">phaser3-weapon-plugin - v2.0.1</a></strong>
+					<strong><a href="../index.html">phaser3-weapon-plugin - v2.0.1</a></strong>
 				</div>
 				<div class="table-cell" id="tsd-widgets">
 					<div id="tsd-filter">
@@ -2676,134 +2676,195 @@ img {
 </header>
 <nav class="tsd-navigation secondary">
 	<ul>
+		<li class="current tsd-kind-enum tsd-parent-kind-module">
+			<a href="consts.angle.html" class="tsd-kind-icon">Angle</a>
+			<ul>
+				<li class=" tsd-kind-enum-member tsd-parent-kind-enum">
+					<a href="consts.angle.html#angle_down" class="tsd-kind-icon">ANGLE_<wbr>DOWN</a>
+				</li>
+				<li class=" tsd-kind-enum-member tsd-parent-kind-enum">
+					<a href="consts.angle.html#angle_left" class="tsd-kind-icon">ANGLE_<wbr>LEFT</a>
+				</li>
+				<li class=" tsd-kind-enum-member tsd-parent-kind-enum">
+					<a href="consts.angle.html#angle_north_east" class="tsd-kind-icon">ANGLE_<wbr>NORTH_<wbr>EAST</a>
+				</li>
+				<li class=" tsd-kind-enum-member tsd-parent-kind-enum">
+					<a href="consts.angle.html#angle_north_west" class="tsd-kind-icon">ANGLE_<wbr>NORTH_<wbr>WEST</a>
+				</li>
+				<li class=" tsd-kind-enum-member tsd-parent-kind-enum">
+					<a href="consts.angle.html#angle_right" class="tsd-kind-icon">ANGLE_<wbr>RIGHT</a>
+				</li>
+				<li class=" tsd-kind-enum-member tsd-parent-kind-enum">
+					<a href="consts.angle.html#angle_south_east" class="tsd-kind-icon">ANGLE_<wbr>SOUTH_<wbr>EAST</a>
+				</li>
+				<li class=" tsd-kind-enum-member tsd-parent-kind-enum">
+					<a href="consts.angle.html#angle_south_west" class="tsd-kind-icon">ANGLE_<wbr>SOUTH_<wbr>WEST</a>
+				</li>
+				<li class=" tsd-kind-enum-member tsd-parent-kind-enum">
+					<a href="consts.angle.html#angle_up" class="tsd-kind-icon">ANGLE_<wbr>UP</a>
+				</li>
+			</ul>
+		</li>
+		<li class=" tsd-kind-enum tsd-parent-kind-module">
+			<a href="consts.frametype.html" class="tsd-kind-icon">Frame<wbr>Type</a>
+		</li>
+		<li class=" tsd-kind-enum tsd-parent-kind-module">
+			<a href="consts.killtype.html" class="tsd-kind-icon">Kill<wbr>Type</a>
+		</li>
+		<li class=" tsd-kind-property tsd-parent-kind-module">
+			<a href="../modules/consts.html#default" class="tsd-kind-icon">default</a>
+		</li>
 	</ul>
 </nav>
 <div class="container container-main">
 	<div class="content-wrap">
-		<div class="tsd-panel tsd-typography">
-			<a href="#phaser3-weapon-plugin" id="phaser3-weapon-plugin" style="color: inherit; text-decoration: none;">
-				<h1>Phaser3 Weapon Plugin</h1>
-			</a>
-			<p>A Phaser 3 compatible port of the Weapon Plugin shipped with Phaser CE.</p>
-			<p>This plugin is considered stable and mostly feature complete.
-			Most bugs should be fixed, but if any do occur please help us by reporting them.</p>
-			<p>This plugin can be installed from npm:</p>
-			<pre><code class="language-bash"><span style="color: #000000">npm install phaser3-weapon-plugin </span><span style="color: #008000"># if you use npm</span>
-<span style="color: #000000">yarn add phaser3-weapon-plugin </span><span style="color: #008000"># for yarn users</span>
-</code></pre>
-			<p><strong><a href="https://medium.com/@16patsle/announcing-phaser3-weapon-plugin-v2-b662500beebf">Version 2 is out, read the announcement post for more information</a></strong></p>
-			<a href="#building" id="building" style="color: inherit; text-decoration: none;">
-				<h2>Building</h2>
-			</a>
-			<p>Run <code>npm install</code> to download dependencies and build.
-			To rebuild you can use <code>npm run build</code>.</p>
-			<p>Use <code>npm run examples</code> to run the exampes locally,
-			then visit <code>localhost:2344</code> in your browser.</p>
-			<a href="#linting" id="linting" style="color: inherit; text-decoration: none;">
-				<h2>Linting</h2>
-			</a>
-			<p>To run Eslint and Prettier, use <code>npm run lint</code> (for just linting)
-				or <code>npm run lint:fix</code> (for fixing). The equivalent scripts for linting the examples
-			are <code>lintexamples</code> and <code>lintexamples:fix</code>.</p>
-			<a href="#documentation" id="documentation" style="color: inherit; text-decoration: none;">
-				<h2>Documentation</h2>
-			</a>
-			<p>The documentation is available at
-			<a href="https://16patsle.github.io/phaser3-weapon-plugin/">16patsle.github.io/phaser3-weapon-plugin</a></p>
-			<p>The plugin is documented using inline JSDoc/TSDoc comments, which are processed
-				by TypeDoc into static documentation pages.
-			You can run the TypeDoc generator with <code>npm run docs</code>.</p>
-			<a href="#difference-between-prebuilt-files" id="difference-between-prebuilt-files" style="color: inherit; text-decoration: none;">
-				<h2>Difference between prebuilt files</h2>
-			</a>
-			<p>Version 2 of this plugin is distributed in 3 different editions:
-				normal, legacy and modern. The legacy build is transpiled down to ES5, and also
-				includes the required polyfills. The normal build supports all browsers
-				supporting ES modules, and can be used together with the legacy build if you
-				want to leverage the
-				<a href="https://philipwalton.com/articles/deploying-es2015-code-in-production-today/">module/nomodule pattern</a>.
-			Unless you know you need ES5, using the normal build will most likely be preferred.</p>
-			<p>Additionally there&#39;s the modern build, which at the moment is almost the same
-				as the normal build. However it targets the last 2 releases of all the major
-				browsers (Internet Explorer doesn&#39;t count as major), and thus only transpiles
-				a few of the newest language features, giving the smallest bundle size and the
-				best performance. As time goes on, expect this build to diverge further from
-			the normal build.</p>
-			<p>Additionally, the TypeScript-compiled source code of the plugin will be
-				available in the <code>out/</code> directory in case you want to consume it from a
-			bundler, but prefer not to set up TypeScript compilation yourself.</p>
-			<a href="#using-plugins-in-phaser-3" id="using-plugins-in-phaser-3" style="color: inherit; text-decoration: none;">
-				<h2>Using Plugins in Phaser 3</h2>
-			</a>
-			<p>There are several ways to load plugins in Phaser 3.
-			You can load plugins externally, or include them in your bundle.</p>
-			<p>To load an external plugin:</p>
-			<pre><code class="language-js"><span style="color: #0000FF">function</span><span style="color: #000000"> </span><span style="color: #795E26">preload</span><span style="color: #000000"> () {</span>
-<span style="color: #000000">    </span><span style="color: #008000">// Load the script</span>
-<span style="color: #000000">    </span><span style="color: #0000FF">this</span><span style="color: #000000">.</span><span style="color: #001080">load</span><span style="color: #000000">.</span><span style="color: #795E26">script</span><span style="color: #000000">(</span><span style="color: #A31515">&#039;WeaponPlugin&#039;</span><span style="color: #000000">, </span><span style="color: #A31515">&#039;path/to/WeaponPlugin.js&#039;</span><span style="color: #000000">, </span><span style="color: #A31515">&#039;weaponPlugin&#039;</span><span style="color: #000000">, </span><span style="color: #A31515">&#039;weapons&#039;</span><span style="color: #000000">);</span>
-<span style="color: #000000">}</span>
-</code></pre>
-			<p>If you have the plugin object accessible, for example by including
-				the script in a script tag, or importing it using a bundler,
-			you can skip the loading step.</p>
-			<p>Then to install it and add it into a Scene:</p>
-			<pre><code class="language-js"><span style="color: #0000FF">function</span><span style="color: #000000"> </span><span style="color: #795E26">create</span><span style="color: #000000"> () {</span>
-<span style="color: #000000">    </span><span style="color: #008000">// Install it into a scene</span>
-<span style="color: #000000">    </span><span style="color: #0000FF">this</span><span style="color: #000000">.</span><span style="color: #001080">plugins</span><span style="color: #000000">.</span><span style="color: #795E26">installScenePlugin</span><span style="color: #000000">(</span>
-<span style="color: #000000">        </span><span style="color: #A31515">&#039;WeaponPlugin&#039;</span><span style="color: #000000">,</span>
-<span style="color: #000000">        </span><span style="color: #001080">WeaponPlugin</span><span style="color: #000000">.</span><span style="color: #001080">WeaponPlugin</span><span style="color: #000000">,</span>
-<span style="color: #000000">        </span><span style="color: #A31515">&#039;weapons&#039;</span><span style="color: #000000">,</span>
-<span style="color: #000000">        </span><span style="color: #0000FF">this</span>
-<span style="color: #000000">    );</span>
-<span style="color: #000000">}</span>
-</code></pre>
-			<p>The last parameter can be omitted if you don&#39;t want to inject it into
-				a scene yet. This is something you can leverage if you load the plugin
-				in a Preloader scene. If you load and install the plugin in a Preloader
-				scene, then you can add it to any other Scenes by specifying it
-			in the plugins array:</p>
-			<pre><code class="language-js"><span style="color: #0000FF">var</span><span style="color: #000000"> </span><span style="color: #001080">config</span><span style="color: #000000"> = {</span>
-<span style="color: #000000">    </span><span style="color: #001080">scene:</span><span style="color: #000000"> {</span>
-<span style="color: #000000">        </span><span style="color: #001080">create:</span><span style="color: #000000"> </span><span style="color: #001080">create</span><span style="color: #000000">,</span>
-<span style="color: #000000">        </span><span style="color: #001080">plugins:</span><span style="color: #000000"> [ </span><span style="color: #A31515">&#039;WeaponPlugin&#039;</span><span style="color: #000000"> ],</span>
-<span style="color: #000000">        </span><span style="color: #001080">map:</span><span style="color: #000000"> {</span>
-<span style="color: #000000">            </span><span style="color: #A31515">&#039;weapons&#039;</span><span style="color: #001080">:</span><span style="color: #000000"> </span><span style="color: #A31515">&#039;weapons&#039;</span>
-<span style="color: #000000">        }</span>
-<span style="color: #000000">    }</span>
-<span style="color: #000000">};</span>
-</code></pre>
-			<p>Usage of the plugin should be similar to that of the one included in Phaser CE.
-				See the documentation which should have been built in the <code>docs/</code> folder after
-			running <code>npm install</code>, and the included examples.</p>
-			<p>The plugin is written in TypeScript and uses modern ES2015/ES6 syntax,
-			but the legacy built version targets ES5.</p>
-			<a href="#credits" id="credits" style="color: inherit; text-decoration: none;">
-				<h2>Credits</h2>
-			</a>
-			<p>This plugin is a port of the
-				<a href="https://github.com/photonstorm/phaser-ce/blob/f2be9bef1d953c9cd55dcd8808d109fa96731126/src/plugins/weapon/WeaponPlugin.js">Weapon Plugin</a>
-				in Phaser CE by Richard Davey, and is based on the Phaser 3 Plugin template,
-			also by Richard Davey</p>
-			<p>The port of the plugin was started and is maintained by
-				<a href="https://github.com/16patsle">@16patsle</a>, but
-				<a href="https://github.com/jdotrjs">@jdotrjs</a> has helped extensively with debugging
-			and by porting several features.</p>
-		</div>
-		<div style="position:relative;"><a name="typedoc-main-index" class="tsd-anchor"></a></div>
+		<section class="tsd-panel tsd-comment">
+			<div class="tsd-comment tsd-typography">
+				<div class="lead">
+					<p>Angle constants that can be used anywhere you specify angles in degrees, for instance {@link Weapon.fireAngle} and {@link Weapon.bulletAngleOffset}.</p>
+				</div>
+			</div>
+		</section>
 		<section class="tsd-panel-group tsd-index-group">
 			<h2>Index</h2>
 			<section class="tsd-panel tsd-index-panel">
 				<div class="tsd-index-content">
 					<section class="tsd-index-section ">
-						<h3>Modules</h3>
+						<h3>Enumeration members</h3>
 						<ul class="tsd-index-list">
-							<li class="tsd-kind-module"><a href="modules/bullet.html" class="tsd-kind-icon">Bullet</a></li>
-							<li class="tsd-kind-module"><a href="modules/weapon.html" class="tsd-kind-icon">Weapon</a></li>
-							<li class="tsd-kind-module"><a href="modules/weaponplugin.html" class="tsd-kind-icon">Weapon<wbr>Plugin</a></li>
-							<li class="tsd-kind-module"><a href="modules/consts.html" class="tsd-kind-icon">consts</a></li>
-							<li class="tsd-kind-module"><a href="modules/events.html" class="tsd-kind-icon">events</a></li>
+							<li class="tsd-kind-enum-member tsd-parent-kind-enum"><a href="consts.angle.html#angle_down" class="tsd-kind-icon">ANGLE_<wbr>DOWN</a></li>
+							<li class="tsd-kind-enum-member tsd-parent-kind-enum"><a href="consts.angle.html#angle_left" class="tsd-kind-icon">ANGLE_<wbr>LEFT</a></li>
+							<li class="tsd-kind-enum-member tsd-parent-kind-enum"><a href="consts.angle.html#angle_north_east" class="tsd-kind-icon">ANGLE_<wbr>NORTH_<wbr>EAST</a></li>
+							<li class="tsd-kind-enum-member tsd-parent-kind-enum"><a href="consts.angle.html#angle_north_west" class="tsd-kind-icon">ANGLE_<wbr>NORTH_<wbr>WEST</a></li>
+							<li class="tsd-kind-enum-member tsd-parent-kind-enum"><a href="consts.angle.html#angle_right" class="tsd-kind-icon">ANGLE_<wbr>RIGHT</a></li>
+							<li class="tsd-kind-enum-member tsd-parent-kind-enum"><a href="consts.angle.html#angle_south_east" class="tsd-kind-icon">ANGLE_<wbr>SOUTH_<wbr>EAST</a></li>
+							<li class="tsd-kind-enum-member tsd-parent-kind-enum"><a href="consts.angle.html#angle_south_west" class="tsd-kind-icon">ANGLE_<wbr>SOUTH_<wbr>WEST</a></li>
+							<li class="tsd-kind-enum-member tsd-parent-kind-enum"><a href="consts.angle.html#angle_up" class="tsd-kind-icon">ANGLE_<wbr>UP</a></li>
 						</ul>
 					</section>
+				</div>
+			</section>
+		</section>
+		<section class="tsd-panel-group tsd-member-group ">
+			<h2>Enumeration members</h2>
+			<section class="tsd-panel tsd-member tsd-kind-enum-member tsd-parent-kind-enum">
+				<a name="angle_down" class="tsd-anchor"></a>
+				<h3>ANGLE_<wbr>DOWN</h3>
+				<div class="tsd-signature tsd-kind-icon">ANGLE_<wbr>DOWN<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-symbol"> = 90</span></div>
+				<aside class="tsd-sources">
+					<ul>
+						<li>Defined in <a href="https://github.com/16patsle/phaser3-weapon-plugin/blob/98e2230/src/consts.ts#L63">src/consts.ts:63</a></li>
+					</ul>
+				</aside>
+				<div class="tsd-comment tsd-typography">
+					<div class="lead">
+						<p>The Angle (in degrees) a Game Object needs to be set to in order to face down.</p>
+					</div>
+				</div>
+			</section>
+			<section class="tsd-panel tsd-member tsd-kind-enum-member tsd-parent-kind-enum">
+				<a name="angle_left" class="tsd-anchor"></a>
+				<h3>ANGLE_<wbr>LEFT</h3>
+				<div class="tsd-signature tsd-kind-icon">ANGLE_<wbr>LEFT<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-symbol"> = 180</span></div>
+				<aside class="tsd-sources">
+					<ul>
+						<li>Defined in <a href="https://github.com/16patsle/phaser3-weapon-plugin/blob/98e2230/src/consts.ts#L68">src/consts.ts:68</a></li>
+					</ul>
+				</aside>
+				<div class="tsd-comment tsd-typography">
+					<div class="lead">
+						<p>The Angle (in degrees) a Game Object needs to be set to in order to face left.</p>
+					</div>
+				</div>
+			</section>
+			<section class="tsd-panel tsd-member tsd-kind-enum-member tsd-parent-kind-enum">
+				<a name="angle_north_east" class="tsd-anchor"></a>
+				<h3>ANGLE_<wbr>NORTH_<wbr>EAST</h3>
+				<div class="tsd-signature tsd-kind-icon">ANGLE_<wbr>NORTH_<wbr>EAST<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-symbol"> = 315</span></div>
+				<aside class="tsd-sources">
+					<ul>
+						<li>Defined in <a href="https://github.com/16patsle/phaser3-weapon-plugin/blob/98e2230/src/consts.ts#L78">src/consts.ts:78</a></li>
+					</ul>
+				</aside>
+				<div class="tsd-comment tsd-typography">
+					<div class="lead">
+						<p>The Angle (in degrees) a Game Object needs to be set to in order to face north east.</p>
+					</div>
+				</div>
+			</section>
+			<section class="tsd-panel tsd-member tsd-kind-enum-member tsd-parent-kind-enum">
+				<a name="angle_north_west" class="tsd-anchor"></a>
+				<h3>ANGLE_<wbr>NORTH_<wbr>WEST</h3>
+				<div class="tsd-signature tsd-kind-icon">ANGLE_<wbr>NORTH_<wbr>WEST<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-symbol"> = 225</span></div>
+				<aside class="tsd-sources">
+					<ul>
+						<li>Defined in <a href="https://github.com/16patsle/phaser3-weapon-plugin/blob/98e2230/src/consts.ts#L83">src/consts.ts:83</a></li>
+					</ul>
+				</aside>
+				<div class="tsd-comment tsd-typography">
+					<div class="lead">
+						<p>The Angle (in degrees) a Game Object needs to be set to in order to face north west.</p>
+					</div>
+				</div>
+			</section>
+			<section class="tsd-panel tsd-member tsd-kind-enum-member tsd-parent-kind-enum">
+				<a name="angle_right" class="tsd-anchor"></a>
+				<h3>ANGLE_<wbr>RIGHT</h3>
+				<div class="tsd-signature tsd-kind-icon">ANGLE_<wbr>RIGHT<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-symbol"> = 0</span></div>
+				<aside class="tsd-sources">
+					<ul>
+						<li>Defined in <a href="https://github.com/16patsle/phaser3-weapon-plugin/blob/98e2230/src/consts.ts#L73">src/consts.ts:73</a></li>
+					</ul>
+				</aside>
+				<div class="tsd-comment tsd-typography">
+					<div class="lead">
+						<p>The Angle (in degrees) a Game Object needs to be set to in order to face right.</p>
+					</div>
+				</div>
+			</section>
+			<section class="tsd-panel tsd-member tsd-kind-enum-member tsd-parent-kind-enum">
+				<a name="angle_south_east" class="tsd-anchor"></a>
+				<h3>ANGLE_<wbr>SOUTH_<wbr>EAST</h3>
+				<div class="tsd-signature tsd-kind-icon">ANGLE_<wbr>SOUTH_<wbr>EAST<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-symbol"> = 45</span></div>
+				<aside class="tsd-sources">
+					<ul>
+						<li>Defined in <a href="https://github.com/16patsle/phaser3-weapon-plugin/blob/98e2230/src/consts.ts#L88">src/consts.ts:88</a></li>
+					</ul>
+				</aside>
+				<div class="tsd-comment tsd-typography">
+					<div class="lead">
+						<p>The Angle (in degrees) a Game Object needs to be set to in order to face south east.</p>
+					</div>
+				</div>
+			</section>
+			<section class="tsd-panel tsd-member tsd-kind-enum-member tsd-parent-kind-enum">
+				<a name="angle_south_west" class="tsd-anchor"></a>
+				<h3>ANGLE_<wbr>SOUTH_<wbr>WEST</h3>
+				<div class="tsd-signature tsd-kind-icon">ANGLE_<wbr>SOUTH_<wbr>WEST<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-symbol"> = 135</span></div>
+				<aside class="tsd-sources">
+					<ul>
+						<li>Defined in <a href="https://github.com/16patsle/phaser3-weapon-plugin/blob/98e2230/src/consts.ts#L93">src/consts.ts:93</a></li>
+					</ul>
+				</aside>
+				<div class="tsd-comment tsd-typography">
+					<div class="lead">
+						<p>The Angle (in degrees) a Game Object needs to be set to in order to face south west.</p>
+					</div>
+				</div>
+			</section>
+			<section class="tsd-panel tsd-member tsd-kind-enum-member tsd-parent-kind-enum">
+				<a name="angle_up" class="tsd-anchor"></a>
+				<h3>ANGLE_<wbr>UP</h3>
+				<div class="tsd-signature tsd-kind-icon">ANGLE_<wbr>UP<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-symbol"> = 270</span></div>
+				<aside class="tsd-sources">
+					<ul>
+						<li>Defined in <a href="https://github.com/16patsle/phaser3-weapon-plugin/blob/98e2230/src/consts.ts#L58">src/consts.ts:58</a></li>
+					</ul>
+				</aside>
+				<div class="tsd-comment tsd-typography">
+					<div class="lead">
+						<p>The Angle (in degrees) a Game Object needs to be set to in order to face up.</p>
+					</div>
 				</div>
 			</section>
 		</section>

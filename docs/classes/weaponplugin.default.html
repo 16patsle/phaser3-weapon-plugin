@@ -3,7 +3,7 @@
 <head>
 	<meta charset="utf-8">
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
-	<title>phaser3-weapon-plugin - v2.0.1 | phaser3-weapon-plugin - v2.0.1</title>
+	<title>default | phaser3-weapon-plugin - v2.0.1</title>
 	<meta name="description" content="Documentation for phaser3-weapon-plugin - v2.0.1">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 	<style type="text/css">/*! normalize.css v1.1.3 | MIT License | git.io/normalize */
@@ -2646,7 +2646,7 @@ img {
 		<div class="container">
 			<div class="table-wrap">
 				<div class="table-cell">
-					<strong><a href="index.html">phaser3-weapon-plugin - v2.0.1</a></strong>
+					<strong><a href="../index.html">phaser3-weapon-plugin - v2.0.1</a></strong>
 				</div>
 				<div class="table-cell" id="tsd-widgets">
 					<div id="tsd-filter">
@@ -2676,135 +2676,474 @@ img {
 </header>
 <nav class="tsd-navigation secondary">
 	<ul>
+		<li class="current tsd-kind-class tsd-parent-kind-module">
+			<a href="weaponplugin.default.html" class="tsd-kind-icon">default</a>
+			<ul>
+				<li class=" tsd-kind-constructor tsd-parent-kind-class">
+					<a href="weaponplugin.default.html#constructor" class="tsd-kind-icon">constructor</a>
+				</li>
+				<li class=" tsd-kind-property tsd-parent-kind-class tsd-is-protected tsd-is-external">
+					<a href="weaponplugin.default.html#game" class="tsd-kind-icon">game</a>
+				</li>
+				<li class=" tsd-kind-property tsd-parent-kind-class tsd-is-protected tsd-is-external">
+					<a href="weaponplugin.default.html#pluginmanager" class="tsd-kind-icon">plugin<wbr>Manager</a>
+				</li>
+				<li class=" tsd-kind-property tsd-parent-kind-class tsd-is-protected tsd-is-external">
+					<a href="weaponplugin.default.html#scene" class="tsd-kind-icon">scene</a>
+				</li>
+				<li class=" tsd-kind-property tsd-parent-kind-class tsd-is-protected tsd-is-external">
+					<a href="weaponplugin.default.html#systems" class="tsd-kind-icon">systems</a>
+				</li>
+				<li class=" tsd-kind-property tsd-parent-kind-class">
+					<a href="weaponplugin.default.html#weapons" class="tsd-kind-icon">weapons</a>
+				</li>
+				<li class=" tsd-kind-method tsd-parent-kind-class">
+					<a href="weaponplugin.default.html#add" class="tsd-kind-icon">add</a>
+				</li>
+				<li class=" tsd-kind-method tsd-parent-kind-class">
+					<a href="weaponplugin.default.html#boot" class="tsd-kind-icon">boot</a>
+				</li>
+				<li class=" tsd-kind-method tsd-parent-kind-class">
+					<a href="weaponplugin.default.html#destroy" class="tsd-kind-icon">destroy</a>
+				</li>
+				<li class=" tsd-kind-method tsd-parent-kind-class tsd-is-external">
+					<a href="weaponplugin.default.html#init" class="tsd-kind-icon">init</a>
+				</li>
+				<li class=" tsd-kind-method tsd-parent-kind-class tsd-is-protected">
+					<a href="weaponplugin.default.html#postrender" class="tsd-kind-icon">post<wbr>Render</a>
+				</li>
+				<li class=" tsd-kind-method tsd-parent-kind-class">
+					<a href="weaponplugin.default.html#start" class="tsd-kind-icon">start</a>
+				</li>
+				<li class=" tsd-kind-method tsd-parent-kind-class tsd-is-external">
+					<a href="weaponplugin.default.html#stop" class="tsd-kind-icon">stop</a>
+				</li>
+				<li class=" tsd-kind-method tsd-parent-kind-class tsd-is-protected">
+					<a href="weaponplugin.default.html#update" class="tsd-kind-icon">update</a>
+				</li>
+			</ul>
+		</li>
 	</ul>
 </nav>
 <div class="container container-main">
 	<div class="content-wrap">
-		<div class="tsd-panel tsd-typography">
-			<a href="#phaser3-weapon-plugin" id="phaser3-weapon-plugin" style="color: inherit; text-decoration: none;">
-				<h1>Phaser3 Weapon Plugin</h1>
-			</a>
-			<p>A Phaser 3 compatible port of the Weapon Plugin shipped with Phaser CE.</p>
-			<p>This plugin is considered stable and mostly feature complete.
-			Most bugs should be fixed, but if any do occur please help us by reporting them.</p>
-			<p>This plugin can be installed from npm:</p>
-			<pre><code class="language-bash"><span style="color: #000000">npm install phaser3-weapon-plugin </span><span style="color: #008000"># if you use npm</span>
-<span style="color: #000000">yarn add phaser3-weapon-plugin </span><span style="color: #008000"># for yarn users</span>
+		<section class="tsd-panel tsd-comment">
+			<div class="tsd-comment tsd-typography">
+				<div class="lead">
+					<p>The Weapon Plugin provides the ability to easily create a bullet pool
+					and manager.</p>
+				</div>
+				<p>Weapons fire <a href="../modules/bullet.html">Bullet</a> objects, which are essentially Sprites with a
+					few extra properties. The Bullets are enabled for Arcade Physics. They do
+				not currently work with Impact or Matter Physics.</p>
+				<p>The Bullets are created inside of {@link Weapon.bullets weapon.bullets}, which is
+					a <a href="https://photonstorm.github.io/phaser3-docs/Phaser.GameObjects.Group.html" class="external">Group</a> instance. Anything you can usually do
+				with a Group, like iterate it, etc can be done to the bullets Group too.</p>
+				<p>Bullets can have textures and even animations. You can control the speed at
+					which they are fired, the firing rate, the firing angle, and even set things
+				like gravity for them.</p>
+				<p>A small example, using add.weapon, assumed to be running from within a
+				<a href="https://photonstorm.github.io/phaser3-docs/Phaser.Types.Scenes.html#.SceneCreateCallback" class="external">Phaser.Scene.create</a> method:</p>
+				<pre><code class="language-javascript"><span style="color: #0000FF">var</span><span style="color: #000000"> </span><span style="color: #001080">weapon</span><span style="color: #000000"> = </span><span style="color: #0000FF">this</span><span style="color: #000000">.</span><span style="color: #001080">add</span><span style="color: #000000">.</span><span style="color: #795E26">weapon</span><span style="color: #000000">(</span><span style="color: #098658">10</span><span style="color: #000000">, </span><span style="color: #A31515">&#039;bullet&#039;</span><span style="color: #000000">);</span>
+<span style="color: #001080">weapon</span><span style="color: #000000">.</span><span style="color: #001080">fireFrom</span><span style="color: #000000">.</span><span style="color: #795E26">setPosition</span><span style="color: #000000">(</span><span style="color: #098658">300</span><span style="color: #000000">, </span><span style="color: #098658">300</span><span style="color: #000000">);</span>
+<span style="color: #0000FF">this</span><span style="color: #000000">.</span><span style="color: #001080">input</span><span style="color: #000000">.</span><span style="color: #795E26">on</span><span style="color: #000000">(</span><span style="color: #001080">Phaser</span><span style="color: #000000">.</span><span style="color: #001080">Input</span><span style="color: #000000">.</span><span style="color: #001080">Events</span><span style="color: #000000">.</span><span style="color: #0070C1">POINTER_DOWN</span><span style="color: #000000">, </span><span style="color: #001080">weapon</span><span style="color: #000000">.</span><span style="color: #001080">fire</span><span style="color: #000000">, </span><span style="color: #0000FF">this</span><span style="color: #000000">);</span>
 </code></pre>
-			<p><strong><a href="https://medium.com/@16patsle/announcing-phaser3-weapon-plugin-v2-b662500beebf">Version 2 is out, read the announcement post for more information</a></strong></p>
-			<a href="#building" id="building" style="color: inherit; text-decoration: none;">
-				<h2>Building</h2>
-			</a>
-			<p>Run <code>npm install</code> to download dependencies and build.
-			To rebuild you can use <code>npm run build</code>.</p>
-			<p>Use <code>npm run examples</code> to run the exampes locally,
-			then visit <code>localhost:2344</code> in your browser.</p>
-			<a href="#linting" id="linting" style="color: inherit; text-decoration: none;">
-				<h2>Linting</h2>
-			</a>
-			<p>To run Eslint and Prettier, use <code>npm run lint</code> (for just linting)
-				or <code>npm run lint:fix</code> (for fixing). The equivalent scripts for linting the examples
-			are <code>lintexamples</code> and <code>lintexamples:fix</code>.</p>
-			<a href="#documentation" id="documentation" style="color: inherit; text-decoration: none;">
-				<h2>Documentation</h2>
-			</a>
-			<p>The documentation is available at
-			<a href="https://16patsle.github.io/phaser3-weapon-plugin/">16patsle.github.io/phaser3-weapon-plugin</a></p>
-			<p>The plugin is documented using inline JSDoc/TSDoc comments, which are processed
-				by TypeDoc into static documentation pages.
-			You can run the TypeDoc generator with <code>npm run docs</code>.</p>
-			<a href="#difference-between-prebuilt-files" id="difference-between-prebuilt-files" style="color: inherit; text-decoration: none;">
-				<h2>Difference between prebuilt files</h2>
-			</a>
-			<p>Version 2 of this plugin is distributed in 3 different editions:
-				normal, legacy and modern. The legacy build is transpiled down to ES5, and also
-				includes the required polyfills. The normal build supports all browsers
-				supporting ES modules, and can be used together with the legacy build if you
-				want to leverage the
-				<a href="https://philipwalton.com/articles/deploying-es2015-code-in-production-today/">module/nomodule pattern</a>.
-			Unless you know you need ES5, using the normal build will most likely be preferred.</p>
-			<p>Additionally there&#39;s the modern build, which at the moment is almost the same
-				as the normal build. However it targets the last 2 releases of all the major
-				browsers (Internet Explorer doesn&#39;t count as major), and thus only transpiles
-				a few of the newest language features, giving the smallest bundle size and the
-				best performance. As time goes on, expect this build to diverge further from
-			the normal build.</p>
-			<p>Additionally, the TypeScript-compiled source code of the plugin will be
-				available in the <code>out/</code> directory in case you want to consume it from a
-			bundler, but prefer not to set up TypeScript compilation yourself.</p>
-			<a href="#using-plugins-in-phaser-3" id="using-plugins-in-phaser-3" style="color: inherit; text-decoration: none;">
-				<h2>Using Plugins in Phaser 3</h2>
-			</a>
-			<p>There are several ways to load plugins in Phaser 3.
-			You can load plugins externally, or include them in your bundle.</p>
-			<p>To load an external plugin:</p>
-			<pre><code class="language-js"><span style="color: #0000FF">function</span><span style="color: #000000"> </span><span style="color: #795E26">preload</span><span style="color: #000000"> () {</span>
-<span style="color: #000000">    </span><span style="color: #008000">// Load the script</span>
-<span style="color: #000000">    </span><span style="color: #0000FF">this</span><span style="color: #000000">.</span><span style="color: #001080">load</span><span style="color: #000000">.</span><span style="color: #795E26">script</span><span style="color: #000000">(</span><span style="color: #A31515">&#039;WeaponPlugin&#039;</span><span style="color: #000000">, </span><span style="color: #A31515">&#039;path/to/WeaponPlugin.js&#039;</span><span style="color: #000000">, </span><span style="color: #A31515">&#039;weaponPlugin&#039;</span><span style="color: #000000">, </span><span style="color: #A31515">&#039;weapons&#039;</span><span style="color: #000000">);</span>
-<span style="color: #000000">}</span>
-</code></pre>
-			<p>If you have the plugin object accessible, for example by including
-				the script in a script tag, or importing it using a bundler,
-			you can skip the loading step.</p>
-			<p>Then to install it and add it into a Scene:</p>
-			<pre><code class="language-js"><span style="color: #0000FF">function</span><span style="color: #000000"> </span><span style="color: #795E26">create</span><span style="color: #000000"> () {</span>
-<span style="color: #000000">    </span><span style="color: #008000">// Install it into a scene</span>
-<span style="color: #000000">    </span><span style="color: #0000FF">this</span><span style="color: #000000">.</span><span style="color: #001080">plugins</span><span style="color: #000000">.</span><span style="color: #795E26">installScenePlugin</span><span style="color: #000000">(</span>
-<span style="color: #000000">        </span><span style="color: #A31515">&#039;WeaponPlugin&#039;</span><span style="color: #000000">,</span>
-<span style="color: #000000">        </span><span style="color: #001080">WeaponPlugin</span><span style="color: #000000">.</span><span style="color: #001080">WeaponPlugin</span><span style="color: #000000">,</span>
-<span style="color: #000000">        </span><span style="color: #A31515">&#039;weapons&#039;</span><span style="color: #000000">,</span>
-<span style="color: #000000">        </span><span style="color: #0000FF">this</span>
-<span style="color: #000000">    );</span>
-<span style="color: #000000">}</span>
-</code></pre>
-			<p>The last parameter can be omitted if you don&#39;t want to inject it into
-				a scene yet. This is something you can leverage if you load the plugin
-				in a Preloader scene. If you load and install the plugin in a Preloader
-				scene, then you can add it to any other Scenes by specifying it
-			in the plugins array:</p>
-			<pre><code class="language-js"><span style="color: #0000FF">var</span><span style="color: #000000"> </span><span style="color: #001080">config</span><span style="color: #000000"> = {</span>
-<span style="color: #000000">    </span><span style="color: #001080">scene:</span><span style="color: #000000"> {</span>
-<span style="color: #000000">        </span><span style="color: #001080">create:</span><span style="color: #000000"> </span><span style="color: #001080">create</span><span style="color: #000000">,</span>
-<span style="color: #000000">        </span><span style="color: #001080">plugins:</span><span style="color: #000000"> [ </span><span style="color: #A31515">&#039;WeaponPlugin&#039;</span><span style="color: #000000"> ],</span>
-<span style="color: #000000">        </span><span style="color: #001080">map:</span><span style="color: #000000"> {</span>
-<span style="color: #000000">            </span><span style="color: #A31515">&#039;weapons&#039;</span><span style="color: #001080">:</span><span style="color: #000000"> </span><span style="color: #A31515">&#039;weapons&#039;</span>
-<span style="color: #000000">        }</span>
-<span style="color: #000000">    }</span>
-<span style="color: #000000">};</span>
-</code></pre>
-			<p>Usage of the plugin should be similar to that of the one included in Phaser CE.
-				See the documentation which should have been built in the <code>docs/</code> folder after
-			running <code>npm install</code>, and the included examples.</p>
-			<p>The plugin is written in TypeScript and uses modern ES2015/ES6 syntax,
-			but the legacy built version targets ES5.</p>
-			<a href="#credits" id="credits" style="color: inherit; text-decoration: none;">
-				<h2>Credits</h2>
-			</a>
-			<p>This plugin is a port of the
-				<a href="https://github.com/photonstorm/phaser-ce/blob/f2be9bef1d953c9cd55dcd8808d109fa96731126/src/plugins/weapon/WeaponPlugin.js">Weapon Plugin</a>
-				in Phaser CE by Richard Davey, and is based on the Phaser 3 Plugin template,
-			also by Richard Davey</p>
-			<p>The port of the plugin was started and is maintained by
-				<a href="https://github.com/16patsle">@16patsle</a>, but
-				<a href="https://github.com/jdotrjs">@jdotrjs</a> has helped extensively with debugging
-			and by porting several features.</p>
-		</div>
-		<div style="position:relative;"><a name="typedoc-main-index" class="tsd-anchor"></a></div>
+			</div>
+		</section>
+		<section class="tsd-panel tsd-hierarchy">
+			<h3>Hierarchy</h3>
+			<ul class="tsd-hierarchy">
+				<li>
+					<span class="tsd-signature-type">ScenePlugin</span>
+					<ul class="tsd-hierarchy">
+						<li>
+							<span class="target">default</span>
+						</li>
+					</ul>
+				</li>
+			</ul>
+		</section>
 		<section class="tsd-panel-group tsd-index-group">
 			<h2>Index</h2>
 			<section class="tsd-panel tsd-index-panel">
 				<div class="tsd-index-content">
 					<section class="tsd-index-section ">
-						<h3>Modules</h3>
+						<h3>Constructors</h3>
 						<ul class="tsd-index-list">
-							<li class="tsd-kind-module"><a href="modules/bullet.html" class="tsd-kind-icon">Bullet</a></li>
-							<li class="tsd-kind-module"><a href="modules/weapon.html" class="tsd-kind-icon">Weapon</a></li>
-							<li class="tsd-kind-module"><a href="modules/weaponplugin.html" class="tsd-kind-icon">Weapon<wbr>Plugin</a></li>
-							<li class="tsd-kind-module"><a href="modules/consts.html" class="tsd-kind-icon">consts</a></li>
-							<li class="tsd-kind-module"><a href="modules/events.html" class="tsd-kind-icon">events</a></li>
+							<li class="tsd-kind-constructor tsd-parent-kind-class"><a href="weaponplugin.default.html#constructor" class="tsd-kind-icon">constructor</a></li>
+						</ul>
+					</section>
+					<section class="tsd-index-section ">
+						<h3>Properties</h3>
+						<ul class="tsd-index-list">
+							<li class="tsd-kind-property tsd-parent-kind-class tsd-is-protected tsd-is-external"><a href="weaponplugin.default.html#game" class="tsd-kind-icon">game</a></li>
+							<li class="tsd-kind-property tsd-parent-kind-class tsd-is-protected tsd-is-external"><a href="weaponplugin.default.html#pluginmanager" class="tsd-kind-icon">plugin<wbr>Manager</a></li>
+							<li class="tsd-kind-property tsd-parent-kind-class tsd-is-protected tsd-is-external"><a href="weaponplugin.default.html#scene" class="tsd-kind-icon">scene</a></li>
+							<li class="tsd-kind-property tsd-parent-kind-class tsd-is-protected tsd-is-external"><a href="weaponplugin.default.html#systems" class="tsd-kind-icon">systems</a></li>
+							<li class="tsd-kind-property tsd-parent-kind-class"><a href="weaponplugin.default.html#weapons" class="tsd-kind-icon">weapons</a></li>
+						</ul>
+					</section>
+					<section class="tsd-index-section ">
+						<h3>Methods</h3>
+						<ul class="tsd-index-list">
+							<li class="tsd-kind-method tsd-parent-kind-class"><a href="weaponplugin.default.html#add" class="tsd-kind-icon">add</a></li>
+							<li class="tsd-kind-method tsd-parent-kind-class"><a href="weaponplugin.default.html#boot" class="tsd-kind-icon">boot</a></li>
+							<li class="tsd-kind-method tsd-parent-kind-class"><a href="weaponplugin.default.html#destroy" class="tsd-kind-icon">destroy</a></li>
+							<li class="tsd-kind-method tsd-parent-kind-class tsd-is-external"><a href="weaponplugin.default.html#init" class="tsd-kind-icon">init</a></li>
+							<li class="tsd-kind-method tsd-parent-kind-class tsd-is-protected"><a href="weaponplugin.default.html#postrender" class="tsd-kind-icon">post<wbr>Render</a></li>
+							<li class="tsd-kind-method tsd-parent-kind-class"><a href="weaponplugin.default.html#start" class="tsd-kind-icon">start</a></li>
+							<li class="tsd-kind-method tsd-parent-kind-class tsd-is-external"><a href="weaponplugin.default.html#stop" class="tsd-kind-icon">stop</a></li>
+							<li class="tsd-kind-method tsd-parent-kind-class tsd-is-protected"><a href="weaponplugin.default.html#update" class="tsd-kind-icon">update</a></li>
 						</ul>
 					</section>
 				</div>
+			</section>
+		</section>
+		<section class="tsd-panel-group tsd-member-group ">
+			<h2>Constructors</h2>
+			<section class="tsd-panel tsd-member tsd-kind-constructor tsd-parent-kind-class">
+				<a name="constructor" class="tsd-anchor"></a>
+				<h3>constructor</h3>
+				<ul class="tsd-signatures tsd-kind-constructor tsd-parent-kind-class">
+					<li class="tsd-signature tsd-kind-icon">new default<span class="tsd-signature-symbol">(</span>scene<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">Scene</span>, pluginManager<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">PluginManager</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><a href="weaponplugin.default.html" class="tsd-signature-type" data-tsd-kind="Class">default</a></li>
+				</ul>
+				<ul class="tsd-descriptions">
+					<li class="tsd-description">
+						<aside class="tsd-sources">
+							<ul>
+								<li>Defined in <a href="https://github.com/16patsle/phaser3-weapon-plugin/blob/98e2230/src/WeaponPlugin.ts#L62">src/WeaponPlugin.ts:62</a></li>
+							</ul>
+						</aside>
+						<h4 class="tsd-parameters-title">Parameters</h4>
+						<ul class="tsd-parameters">
+							<li>
+								<h5>scene: <span class="tsd-signature-type">Scene</span></h5>
+								<div class="tsd-comment tsd-typography">
+									<p>A reference to the <a href="https://photonstorm.github.io/phaser3-docs/Phaser.Scene.html" class="external">Phaser.Scene</a> instance.</p>
+								</div>
+							</li>
+							<li>
+								<h5>pluginManager: <span class="tsd-signature-type">PluginManager</span></h5>
+								<div class="tsd-comment tsd-typography">
+									<p>A reference to the
+									<a href="https://photonstorm.github.io/phaser3-docs/Phaser.Plugins.PluginManager.html" class="external">PluginManager</a> instance.</p>
+								</div>
+							</li>
+						</ul>
+						<h4 class="tsd-returns-title">Returns <a href="weaponplugin.default.html" class="tsd-signature-type" data-tsd-kind="Class">default</a></h4>
+					</li>
+				</ul>
+			</section>
+		</section>
+		<section class="tsd-panel-group tsd-member-group ">
+			<h2>Properties</h2>
+			<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-class tsd-is-protected tsd-is-external">
+				<a name="game" class="tsd-anchor"></a>
+				<h3><span class="tsd-flag ts-flagProtected">Protected</span> game</h3>
+				<div class="tsd-signature tsd-kind-icon">game<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">Game</span></div>
+				<aside class="tsd-sources">
+					<ul>
+						<li>Defined in node_modules/phaser/types/phaser.d.ts:78455</li>
+					</ul>
+				</aside>
+				<div class="tsd-comment tsd-typography">
+					<div class="lead">
+						<p>A reference to the Game instance this plugin is running under.</p>
+					</div>
+				</div>
+			</section>
+			<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-class tsd-is-protected tsd-is-external">
+				<a name="pluginmanager" class="tsd-anchor"></a>
+				<h3><span class="tsd-flag ts-flagProtected">Protected</span> plugin<wbr>Manager</h3>
+				<div class="tsd-signature tsd-kind-icon">plugin<wbr>Manager<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">PluginManager</span></div>
+				<aside class="tsd-sources">
+					<ul>
+						<li>Defined in node_modules/phaser/types/phaser.d.ts:78450</li>
+					</ul>
+				</aside>
+				<div class="tsd-comment tsd-typography">
+					<div class="lead">
+						<p>A handy reference to the Plugin Manager that is responsible for this plugin.
+						Can be used as a route to gain access to game systems and  events.</p>
+					</div>
+				</div>
+			</section>
+			<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-class tsd-is-protected tsd-is-external">
+				<a name="scene" class="tsd-anchor"></a>
+				<h3><span class="tsd-flag ts-flagProtected">Protected</span> scene</h3>
+				<div class="tsd-signature tsd-kind-icon">scene<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">Scene</span></div>
+				<aside class="tsd-sources">
+					<ul>
+						<li>Defined in node_modules/phaser/types/phaser.d.ts:78919</li>
+					</ul>
+				</aside>
+				<div class="tsd-comment tsd-typography">
+					<div class="lead">
+						<p>A reference to the Scene that has installed this plugin.
+							Only set if it&#39;s a Scene Plugin, otherwise <code>null</code>.
+							This property is only set when the plugin is instantiated and added to the Scene, not before.
+						You can use it during the <code>boot</code> method.</p>
+					</div>
+				</div>
+			</section>
+			<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-class tsd-is-protected tsd-is-external">
+				<a name="systems" class="tsd-anchor"></a>
+				<h3><span class="tsd-flag ts-flagProtected">Protected</span> systems</h3>
+				<div class="tsd-signature tsd-kind-icon">systems<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">Systems</span></div>
+				<aside class="tsd-sources">
+					<ul>
+						<li>Defined in node_modules/phaser/types/phaser.d.ts:78927</li>
+					</ul>
+				</aside>
+				<div class="tsd-comment tsd-typography">
+					<div class="lead">
+						<p>A reference to the Scene Systems of the Scene that has installed this plugin.
+							Only set if it&#39;s a Scene Plugin, otherwise <code>null</code>.
+							This property is only set when the plugin is instantiated and added to the Scene, not before.
+						You can use it during the <code>boot</code> method.</p>
+					</div>
+				</div>
+			</section>
+			<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-class">
+				<a name="weapons" class="tsd-anchor"></a>
+				<h3>weapons</h3>
+				<div class="tsd-signature tsd-kind-icon">weapons<span class="tsd-signature-symbol">:</span> <a href="weapon.default.html" class="tsd-signature-type" data-tsd-kind="Class">default</a><span class="tsd-signature-symbol">[]</span></div>
+				<aside class="tsd-sources">
+					<ul>
+						<li>Defined in <a href="https://github.com/16patsle/phaser3-weapon-plugin/blob/98e2230/src/WeaponPlugin.ts#L62">src/WeaponPlugin.ts:62</a></li>
+					</ul>
+				</aside>
+			</section>
+		</section>
+		<section class="tsd-panel-group tsd-member-group ">
+			<h2>Methods</h2>
+			<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class">
+				<a name="add" class="tsd-anchor"></a>
+				<h3>add</h3>
+				<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class">
+					<li class="tsd-signature tsd-kind-icon">add<span class="tsd-signature-symbol">(</span>bulletLimit<span class="tsd-signature-symbol">?: </span><span class="tsd-signature-type">number</span>, key<span class="tsd-signature-symbol">?: </span><span class="tsd-signature-type">string</span>, frame<span class="tsd-signature-symbol">?: </span><span class="tsd-signature-type">string</span>, group<span class="tsd-signature-symbol">?: </span><span class="tsd-signature-type">Group</span>, weaponClass<span class="tsd-signature-symbol">?: </span><span class="tsd-signature-symbol">typeof </span><a href="weapon.default.html" class="tsd-signature-type" data-tsd-kind="Class">default</a><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><a href="weapon.default.html" class="tsd-signature-type" data-tsd-kind="Class">default</a></li>
+				</ul>
+				<ul class="tsd-descriptions">
+					<li class="tsd-description">
+						<aside class="tsd-sources">
+							<ul>
+								<li>Defined in <a href="https://github.com/16patsle/phaser3-weapon-plugin/blob/98e2230/src/WeaponPlugin.ts#L102">src/WeaponPlugin.ts:102</a></li>
+							</ul>
+						</aside>
+						<h4 class="tsd-parameters-title">Parameters</h4>
+						<ul class="tsd-parameters">
+							<li>
+								<h5><span class="tsd-flag ts-flagOptional">Optional</span> bulletLimit: <span class="tsd-signature-type">number</span></h5>
+								<div class="tsd-comment tsd-typography">
+									<p>The quantity of bullets to seed the Weapon with. If -1 it will set the pool to automatically expand.</p>
+								</div>
+							</li>
+							<li>
+								<h5><span class="tsd-flag ts-flagOptional">Optional</span> key: <span class="tsd-signature-type">string</span></h5>
+								<div class="tsd-comment tsd-typography">
+									<p>The Game.cache key of the image that this Sprite will use.</p>
+								</div>
+							</li>
+							<li>
+								<h5><span class="tsd-flag ts-flagOptional">Optional</span> frame: <span class="tsd-signature-type">string</span></h5>
+								<div class="tsd-comment tsd-typography">
+									<p>If the Sprite image contains multiple frames you can specify which one to use here.</p>
+								</div>
+							</li>
+							<li>
+								<h5><span class="tsd-flag ts-flagOptional">Optional</span> group: <span class="tsd-signature-type">Group</span></h5>
+								<div class="tsd-comment tsd-typography">
+									<p>Optional Group to add the object to.</p>
+								</div>
+							</li>
+							<li>
+								<h5>weaponClass: <span class="tsd-signature-symbol">typeof </span><a href="weapon.default.html" class="tsd-signature-type" data-tsd-kind="Class">default</a><span class="tsd-signature-symbol"> = ...</span></h5>
+								<div class="tsd-comment tsd-typography">
+									<p>Optional custom class for the Weapon.</p>
+								</div>
+							</li>
+						</ul>
+						<h4 class="tsd-returns-title">Returns <a href="weapon.default.html" class="tsd-signature-type" data-tsd-kind="Class">default</a></h4>
+						<p>The weapon that was created</p>
+					</li>
+				</ul>
+			</section>
+			<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class">
+				<a name="boot" class="tsd-anchor"></a>
+				<h3>boot</h3>
+				<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class">
+					<li class="tsd-signature tsd-kind-icon">boot<span class="tsd-signature-symbol">(</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">void</span></li>
+				</ul>
+				<ul class="tsd-descriptions">
+					<li class="tsd-description">
+						<aside class="tsd-sources">
+							<ul>
+								<li>Defined in <a href="https://github.com/16patsle/phaser3-weapon-plugin/blob/98e2230/src/WeaponPlugin.ts#L134">src/WeaponPlugin.ts:134</a></li>
+							</ul>
+						</aside>
+						<div class="tsd-comment tsd-typography">
+							<div class="lead">
+								<p>If this is a Scene Plugin (i.e. installed into a Scene) then this method is called when the Scene boots.
+									By this point the plugin properties <code>scene</code> and <code>systems</code> will have already been set.
+								In here you can listen for Scene events and set-up whatever you need for this plugin to run.</p>
+							</div>
+						</div>
+						<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">void</span></h4>
+					</li>
+				</ul>
+			</section>
+			<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class">
+				<a name="destroy" class="tsd-anchor"></a>
+				<h3>destroy</h3>
+				<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class">
+					<li class="tsd-signature tsd-kind-icon">destroy<span class="tsd-signature-symbol">(</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">void</span></li>
+				</ul>
+				<ul class="tsd-descriptions">
+					<li class="tsd-description">
+						<aside class="tsd-sources">
+							<ul>
+								<li>Defined in <a href="https://github.com/16patsle/phaser3-weapon-plugin/blob/98e2230/src/WeaponPlugin.ts#L163">src/WeaponPlugin.ts:163</a></li>
+							</ul>
+						</aside>
+						<div class="tsd-comment tsd-typography">
+							<div class="lead">
+								<p>Destroys this Weapon.
+								You must release everything in here, all references, all objects, free it all up.</p>
+							</div>
+						</div>
+						<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">void</span></h4>
+					</li>
+				</ul>
+			</section>
+			<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class tsd-is-external">
+				<a name="init" class="tsd-anchor"></a>
+				<h3>init</h3>
+				<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class tsd-is-external">
+					<li class="tsd-signature tsd-kind-icon">init<span class="tsd-signature-symbol">(</span>data<span class="tsd-signature-symbol">?: </span><span class="tsd-signature-type">any</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">void</span></li>
+				</ul>
+				<ul class="tsd-descriptions">
+					<li class="tsd-description">
+						<aside class="tsd-sources">
+							<ul>
+								<li>Defined in node_modules/phaser/types/phaser.d.ts:78465</li>
+							</ul>
+						</aside>
+						<div class="tsd-comment tsd-typography">
+							<div class="lead">
+								<p>The PluginManager calls this method on a Global Plugin when the plugin is first instantiated.
+									It will never be called again on this instance.
+									In here you can set-up whatever you need for this plugin to run.
+									If a plugin is set to automatically start then <code>BasePlugin.start</code> will be called immediately after this.
+								On a Scene Plugin, this method is never called. Use {@link Phaser.Plugins.ScenePlugin#boot} instead.</p>
+							</div>
+						</div>
+						<h4 class="tsd-parameters-title">Parameters</h4>
+						<ul class="tsd-parameters">
+							<li>
+								<h5><span class="tsd-flag ts-flagOptional">Optional</span> data: <span class="tsd-signature-type">any</span></h5>
+								<div class="tsd-comment tsd-typography">
+									<p>A value specified by the user, if any, from the <code>data</code> property of the plugin&#39;s configuration object (if started at game boot) or passed in the PluginManager&#39;s <code>install</code> method (if started manually).</p>
+								</div>
+							</li>
+						</ul>
+						<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">void</span></h4>
+					</li>
+				</ul>
+			</section>
+			<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class tsd-is-protected">
+				<a name="postrender" class="tsd-anchor"></a>
+				<h3><span class="tsd-flag ts-flagProtected">Protected</span> post<wbr>Render</h3>
+				<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class tsd-is-protected">
+					<li class="tsd-signature tsd-kind-icon">post<wbr>Render<span class="tsd-signature-symbol">(</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">void</span></li>
+				</ul>
+				<ul class="tsd-descriptions">
+					<li class="tsd-description">
+						<aside class="tsd-sources">
+							<ul>
+								<li>Defined in <a href="https://github.com/16patsle/phaser3-weapon-plugin/blob/98e2230/src/WeaponPlugin.ts#L153">src/WeaponPlugin.ts:153</a></li>
+							</ul>
+						</aside>
+						<div class="tsd-comment tsd-typography">
+							<div class="lead">
+								<p>Internal update method, called by the PluginManager.</p>
+							</div>
+						</div>
+						<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">void</span></h4>
+					</li>
+				</ul>
+			</section>
+			<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class">
+				<a name="start" class="tsd-anchor"></a>
+				<h3>start</h3>
+				<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class">
+					<li class="tsd-signature tsd-kind-icon">start<span class="tsd-signature-symbol">(</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">void</span></li>
+				</ul>
+				<ul class="tsd-descriptions">
+					<li class="tsd-description">
+						<aside class="tsd-sources">
+							<ul>
+								<li>Defined in <a href="https://github.com/16patsle/phaser3-weapon-plugin/blob/98e2230/src/WeaponPlugin.ts#L121">src/WeaponPlugin.ts:121</a></li>
+							</ul>
+						</aside>
+						<div class="tsd-comment tsd-typography">
+							<div class="lead">
+								<p>Called by the PluginManager when this plugin is started.
+									If a plugin is stopped, and then started again, this will get called again.
+								Typically called immediately after <code>BasePlugin.init</code>.</p>
+							</div>
+						</div>
+						<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">void</span></h4>
+					</li>
+				</ul>
+			</section>
+			<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class tsd-is-external">
+				<a name="stop" class="tsd-anchor"></a>
+				<h3>stop</h3>
+				<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class tsd-is-external">
+					<li class="tsd-signature tsd-kind-icon">stop<span class="tsd-signature-symbol">(</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">void</span></li>
+				</ul>
+				<ul class="tsd-descriptions">
+					<li class="tsd-description">
+						<aside class="tsd-sources">
+							<ul>
+								<li>Defined in node_modules/phaser/types/phaser.d.ts:78483</li>
+							</ul>
+						</aside>
+						<div class="tsd-comment tsd-typography">
+							<div class="lead">
+								<p>The PluginManager calls this method on a Global Plugin when the plugin is stopped.
+									The game code has requested that your plugin stop doing whatever it does.
+									It is now considered as &#39;inactive&#39; by the PluginManager.
+									Handle that process here (i.e. stop listening for events, etc)
+									If the plugin is started again then <code>BasePlugin.start</code> will be called again.
+								On a Scene Plugin, this method is never called.</p>
+							</div>
+						</div>
+						<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">void</span></h4>
+					</li>
+				</ul>
+			</section>
+			<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class tsd-is-protected">
+				<a name="update" class="tsd-anchor"></a>
+				<h3><span class="tsd-flag ts-flagProtected">Protected</span> update</h3>
+				<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class tsd-is-protected">
+					<li class="tsd-signature tsd-kind-icon">update<span class="tsd-signature-symbol">(</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">void</span></li>
+				</ul>
+				<ul class="tsd-descriptions">
+					<li class="tsd-description">
+						<aside class="tsd-sources">
+							<ul>
+								<li>Defined in <a href="https://github.com/16patsle/phaser3-weapon-plugin/blob/98e2230/src/WeaponPlugin.ts#L144">src/WeaponPlugin.ts:144</a></li>
+							</ul>
+						</aside>
+						<div class="tsd-comment tsd-typography">
+							<div class="lead">
+								<p>Internal update method, called by the PluginManager.</p>
+							</div>
+						</div>
+						<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">void</span></h4>
+					</li>
+				</ul>
 			</section>
 		</section>
 		<footer class="with-border-bottom">
@@ -2812,10 +3151,16 @@ img {
 				<h2>Legend</h2>
 				<div class="tsd-legend-group">
 					<ul class="tsd-legend">
+						<li class="tsd-kind-class"><span class="tsd-kind-icon">Class</span></li>
+						<li class="tsd-kind-constructor tsd-parent-kind-class"><span class="tsd-kind-icon">Constructor</span></li>
+						<li class="tsd-kind-property tsd-parent-kind-class"><span class="tsd-kind-icon">Property</span></li>
+						<li class="tsd-kind-method tsd-parent-kind-class"><span class="tsd-kind-icon">Method</span></li>
+					</ul>
+					<ul class="tsd-legend">
 						<li class="tsd-kind-enum"><span class="tsd-kind-icon">Enumeration</span></li>
 					</ul>
 					<ul class="tsd-legend">
-						<li class="tsd-kind-class"><span class="tsd-kind-icon">Class</span></li>
+						<li class="tsd-kind-method tsd-parent-kind-class tsd-is-protected"><span class="tsd-kind-icon">Protected method</span></li>
 					</ul>
 				</div>
 			</div>
