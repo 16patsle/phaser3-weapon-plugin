@@ -10,20 +10,24 @@ const createConfig = type => {
     },
     bugfixes: true,
   };
+  let target = 'es6'
 
   if (type === 'modern') {
+    const browserslist = 'last 2 Edge versions, last 2 Safari versions, last 2 Firefox versions, last 2 Chrome versions'
     presetOptions = {
       useBuiltIns: 'usage',
       corejs: '3.8',
       targets:
-        'last 2 Edge versions, last 2 Safari versions, last 2 Firefox versions, last 2 Chrome versions',
+        browserslist,
       bugfixes: true,
     };
+    target = 'browserslist:' + browserslist
   } else if (type === 'legacy') {
     presetOptions = {
       useBuiltIns: 'usage',
       corejs: '3.8',
     };
+    target = 'es5'
   }
 
   const entryName = type ? 'WeaponPlugin.' + type : 'WeaponPlugin';
@@ -32,6 +36,7 @@ const createConfig = type => {
     mode: 'none',
     context: `${__dirname}/src/`,
     devtool: 'source-map',
+    target,
 
     optimization: {
       minimize: true,
