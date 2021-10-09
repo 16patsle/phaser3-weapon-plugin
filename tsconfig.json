@@ -43,6 +43,7 @@
     "includeVersion": true,
     "excludePrivate": true,
     "entryPoints": ["src/main.ts"],
-    "exclude": ["src/validateConfig.ts"]
+    "exclude": ["src/validateConfig.ts"],
+    "plugin": "./typedoc-plugin-phaser-links.cjs"
   }
 }
