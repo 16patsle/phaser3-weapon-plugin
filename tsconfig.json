@@ -43,7 +43,7 @@
     "theme": "minimal",
     "includeVersion": true,
     "excludePrivate": true,
-    "entryPoints": ["src"],
+    "entryPoints": ["src/WeaponPlugin.ts"],
     "exclude": ["src/main.ts", "src/validateConfig.ts"]
   }
 }
