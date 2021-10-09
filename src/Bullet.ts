@@ -17,7 +17,7 @@ type BulletData = {
 };
 
 class Bullet extends Phaser.GameObjects.Sprite {
-  body!: Phaser.Physics.Arcade.Body;
+  declare body: Phaser.Physics.Arcade.Body;
   bulletID: number;
   lifespan?: number;
 
