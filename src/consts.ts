@@ -28,13 +28,13 @@ enum KillType {
 
   /**
    * A {@link Weapon.bulletKillType bulletKillType} constant that automatically kills the bullets
-   * when they leave the {@link https://photonstorm.github.io/phaser3-docs/Phaser.Cameras.Scene2D.Camera.html#getBounds Camera.getBounds} rectangle.
+   * when they leave the {@link https://newdocs.phaser.io/docs/3.55.2/Phaser.Cameras.Scene2D.Camera#getBounds Camera.getBounds} rectangle.
    */
   KILL_CAMERA_BOUNDS = 4,
 
   /**
    * A {@link Weapon.bulletKillType bulletKillType} constant that automatically kills the bullets
-   * when they leave the {@link https://photonstorm.github.io/phaser3-docs/Phaser.Physics.Arcade.World.html#bounds World.bounds} rectangle.
+   * when they leave the {@link https://newdocs.phaser.io/docs/3.55.2/Phaser.Physics.Arcade.World#bounds World.bounds} rectangle.
    */
   KILL_WORLD_BOUNDS = 5,
 
