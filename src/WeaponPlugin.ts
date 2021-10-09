@@ -65,12 +65,14 @@ class WeaponPlugin extends Phaser.Plugins.ScenePlugin {
    * @param scene - A reference to the {@link https://photonstorm.github.io/phaser3-docs/Phaser.Scene.html Phaser.Scene} instance.
    * @param pluginManager - A reference to the
    *  {@link https://photonstorm.github.io/phaser3-docs/Phaser.Plugins.PluginManager.html PluginManager} instance.
+   * @param pluginKey - The key under which this plugin has been installed into the Scene Systems.
    */
   constructor(
     scene: Phaser.Scene,
-    pluginManager: Phaser.Plugins.PluginManager
+    pluginManager: Phaser.Plugins.PluginManager,
+    pluginKey: string
   ) {
-    super(scene, pluginManager);
+    super(scene, pluginManager, pluginKey);
 
     this.weapons = [];
 
