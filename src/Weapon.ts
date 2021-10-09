@@ -7,7 +7,7 @@ import { WEAPON_FIRE, WEAPON_FIRE_LIMIT } from './events';
  * Any Object, as long as it has public `x` and `y` properties,
  * such as {@link https://newdocs.phaser.io/docs/3.55.2/Phaser.Geom.Point Point}, `{ x: 0, y: 0 }`, {@link https://newdocs.phaser.io/docs/3.55.2/Phaser.GameObjects.Sprite Sprite}, etc
  */
-type ObjectWithXY = {
+export type ObjectWithXY = {
   x: number;
   y: number;
 };
@@ -15,7 +15,7 @@ type ObjectWithXY = {
 /**
  * An object that has x/y coords and optional rotation. Any Sprite-like object.
  */
-type ObjectWithTransform = ObjectWithXY & {
+export type ObjectWithTransform = ObjectWithXY & {
   rotation?: number;
   angle?: number;
   body?: Phaser.Physics.Arcade.Body;
