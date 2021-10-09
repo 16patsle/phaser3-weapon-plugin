@@ -22,7 +22,7 @@
     "lintmd": "markdownlint-cli2 \"**/*.md\" \"#node_modules\"",
     "lintmd:fix": "markdownlint-cli2-fix \"**/*.md\" \"#node_modules\"",
     "tsc": "tsc && tsc -t ES2016 --outDir out/es2016",
-    "docs": "typedoc && touch docs/.nojekyll"
+    "docs": "typedoc"
   },
   "repository": {
     "type": "git",
