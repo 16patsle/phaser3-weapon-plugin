@@ -15,7 +15,7 @@ export const WEAPON_FIRE = 'fire';
  * @event WEAPON_FIRE_LIMIT
  *
  * @param {Weapon} weapon - The weapon emitting the event
- * @param {number} fireLimist - The fire limit
+ * @param {number} fireLimit - The fire limit
  */
 export const WEAPON_FIRE_LIMIT = 'firelimit';
 
