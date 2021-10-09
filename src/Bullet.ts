@@ -16,7 +16,7 @@ type BulletData = {
   bodyBounds: Phaser.Geom.Rectangle;
 };
 
-class Bullet extends Phaser.GameObjects.Sprite {
+export class Bullet extends Phaser.GameObjects.Sprite {
   declare body: Phaser.Physics.Arcade.Body;
   bulletID: number;
   lifespan?: number;

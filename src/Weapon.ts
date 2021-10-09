@@ -45,7 +45,7 @@ type ObjectWithTransform = ObjectWithXY & {
  * this.input.on(Phaser.Input.Events.POINTER_DOWN, weapon.fire, this);
  * ```
  */
-class Weapon extends Phaser.Events.EventEmitter {
+export class Weapon extends Phaser.Events.EventEmitter {
   /**
    * The scene the Weapon is bound to
    */

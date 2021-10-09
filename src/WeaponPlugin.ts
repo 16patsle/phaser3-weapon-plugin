@@ -58,7 +58,7 @@ type WeaponConfig = {
  * this.input.on(Phaser.Input.Events.POINTER_DOWN, weapon.fire, this);
  * ```
  */
-class WeaponPlugin extends Phaser.Plugins.ScenePlugin {
+export class WeaponPlugin extends Phaser.Plugins.ScenePlugin {
   weapons: Weapon[];
 
   /**
