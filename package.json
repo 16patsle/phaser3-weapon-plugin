@@ -12,7 +12,7 @@
     "prepublishOnly": "npm run docs && git add docs/ && git commit -m \"Update generated docs\"",
     "prebuild": "npm run lint:fix",
     "build": "webpack",
-    "postbuild": "cp dist/WeaponPlugin.{js,js.map} examples/src/",
+    "disabledpostbuild": "cp dist/WeaponPlugin.{js,js.map} examples/src/",
     "test": "npm run lint --silent",
     "examples": "http-server examples/src -p 2234",
     "lint": "eslint src/**/*",
