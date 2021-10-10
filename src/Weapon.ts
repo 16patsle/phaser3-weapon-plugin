@@ -624,7 +624,7 @@ export class Weapon extends Phaser.Events.EventEmitter {
   }
 
   /**
-   * This is the acceleration due to {@link https://newdocs.phaser.io/docs/3.55.2/Phaser.Physics.Arcade.Body#gravity gravity} 
+   * This is the acceleration due to {@link https://newdocs.phaser.io/docs/3.55.2/Phaser.Physics.Arcade.Body#gravity gravity}
    * added to the Bullets physics body when fired, in pixels per second squared.
    * Total gravity is the sum of this vector and the simulation's gravity.
    */
@@ -1313,7 +1313,7 @@ export class Weapon extends Phaser.Events.EventEmitter {
    * If you wish to fire multiple bullets in a single game update, then set `Weapon.multiFire = true`
    * and you can call {@link fire} as many times as you like, per loop. Multiple fires in a single update
    * only counts once towards the {@link shots} total, but you will still receive an event for each bullet.
-   * 
+   *
    * @emits {@link WEAPON_FIRE}
    * @emits {@link WEAPON_FIRE_LIMIT}
    *

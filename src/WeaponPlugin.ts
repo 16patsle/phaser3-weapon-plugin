@@ -34,7 +34,7 @@ type WeaponConfig = {
 };
 
 /**
- * The Weapon Plugin provides the ability to easily create a {@link Weapon} with 
+ * The Weapon Plugin provides the ability to easily create a {@link Weapon} with
  * its own bullet pool and manager.
  * @see {@link Weapon} for a more detailed explanation.
  *
