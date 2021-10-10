@@ -624,8 +624,9 @@ export class Weapon extends Phaser.Events.EventEmitter {
   }
 
   /**
-   * This is the amount of {@link https://newdocs.phaser.io/docs/3.55.2/Phaser.Physics.Arcade.Body#gravity Phaser.Physics.Arcade.Body.gravity} added to the Bullets physics body when fired.
-   * Gravity is expressed in pixels / second / second.
+   * This is the acceleration due to {@link https://newdocs.phaser.io/docs/3.55.2/Phaser.Physics.Arcade.Body#gravity gravity} 
+   * added to the Bullets physics body when fired, in pixels per second squared.
+   * Total gravity is the sum of this vector and the simulation's gravity.
    */
   get bulletGravity(): Phaser.Math.Vector2 {
     return this._bulletGravity;
@@ -683,7 +684,8 @@ export class Weapon extends Phaser.Events.EventEmitter {
    * The Class of the bullets that are launched by this Weapon. Defaults to {@link Bullet}, but can be
    * overridden before calling {@link createBullets} and set to your own class type.
    *
-   * It should be a constructor function accepting `(scene, x, y, key, frame)`.
+   * It should be a class (or constructor function) accepting the same params as {@link Bullet},
+   * i.e. `(scene:` {@link https://newdocs.phaser.io/docs/3.55.2/Phaser.Scene `Phaser.Scene`}`, x: number, y: number, key: string, frame: string | number)`.
    * @defaultValue Bullet
    */
   get bulletClass(): typeof Bullet {
@@ -721,7 +723,7 @@ export class Weapon extends Phaser.Events.EventEmitter {
   /**
    * This controls how the bullets will be killed. The default is {@link KillType.KILL_WORLD_BOUNDS KILL_WORLD_BOUNDS}.
    *
-   * There are 7 different "kill types" available:
+   * There are 7 different {@link KillType "kill types"} available:
    *
    * * {@linkcode KillType.KILL_NEVER KILL_NEVER}
    * The bullets are never destroyed by the Weapon. It's up to you to destroy them via your own code.
@@ -858,7 +860,7 @@ export class Weapon extends Phaser.Events.EventEmitter {
   /**
    * If you want this Weapon to be able to fire more than 1 bullet in a single
    * update, then set this property to `true`. When `true` the Weapon plugin won't
-   * set the shot / firing timers until the {@link postRender} phase of the game loop.
+   * set the shot / firing timers until the {@link https://newdocs.phaser.io/docs/3.55.2/Phaser.Core.Events.POST_RENDER postRender} phase of the game loop.
    * This means you can call {@link fire} (and similar methods) as often as you like in one
    * single game update.
    * @defaultValue false
@@ -1705,6 +1707,8 @@ export class Weapon extends Phaser.Events.EventEmitter {
 
   /**
    * Internal update method, called by the Weapon Plugin.
+   * Used for updating weapon bounds and handling {@link autofire}.
+   * @internal
    */
   update(): void {
     if (this._bulletKillType === KillType.KILL_WEAPON_BOUNDS) {
@@ -1729,7 +1733,9 @@ export class Weapon extends Phaser.Events.EventEmitter {
   }
 
   /**
-   * Internal update method, called by the Weapon Plugin.
+   * Internal postRender method, called by the Weapon Plugin.
+   * Used for instance when multiFire is enabled.
+   * @internal
    */
   postRender(): void {
     if (!this.multiFire || !this._hasFired) {
