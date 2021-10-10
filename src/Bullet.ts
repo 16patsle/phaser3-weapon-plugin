@@ -16,15 +16,20 @@ type BulletData = {
   bodyBounds: Phaser.Geom.Rectangle;
 };
 
+/**
+ * Bullets are used by the {@link Weapon} class, and are normal
+ * {@link https://newdocs.phaser.io/docs/3.55.2/Phaser.GameObjects.Sprite Sprites},
+ * with a few extra properties in the data manager to handle Weapon specific features.
+ */
 export class Bullet extends Phaser.GameObjects.Sprite {
+  /**
+   * This Bullet's Physics Body.
+   */
   declare body: Phaser.Physics.Arcade.Body;
   bulletID: number;
   lifespan?: number;
 
   /**
-   * Create a new `Bullet` object. Bullets are used by the {@link Weapon} class, and are normal Sprites,
-   * with a few extra properties in the data manager to handle Weapon specific features.
-   *
    * @param scene - A reference to the currently running scene.
    * @param x - The x coordinate (in world space) to position the Bullet at.
    * @param y - The y coordinate (in world space) to position the Bullet at.
