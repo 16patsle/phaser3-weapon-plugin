@@ -335,7 +335,7 @@ export class Weapon extends Phaser.Events.EventEmitter {
   /**
    * Should the bullet pool run out of bullets (i.e. they are all in flight) then this
    * boolean controls if the Group will create a brand new bullet object or not.
-   * @default false
+   * @defaultValue false
    */
   get autoExpandBulletsGroup(): boolean {
     return this._autoExpandBulletsGroup;
@@ -349,7 +349,7 @@ export class Weapon extends Phaser.Events.EventEmitter {
   /**
    * Will this weapon auto fire? If set to true then a new bullet will be fired
    * based on the {@link fireRate} value.
-   * @default false
+   * @defaultValue false
    */
   get autofire(): boolean {
     return this._autofire;
@@ -364,7 +364,7 @@ export class Weapon extends Phaser.Events.EventEmitter {
    * The total number of bullets this Weapon has fired so far.
    * You can limit the number of shots allowed (via {@link fireLimit}), and reset
    * this total via {@link resetShots}.
-   * @default 0
+   * @defaultValue 0
    */
   get shots(): number {
     return this._shots;
@@ -379,7 +379,7 @@ export class Weapon extends Phaser.Events.EventEmitter {
    * The maximum number of shots that this Weapon is allowed to fire before it stops.
    * When the limit is hit the {@link WEAPON_FIRE_LIMIT} event is dispatched.
    * You can reset the shot counter via {@link resetShots}.
-   * @default 0
+   * @defaultValue 0
    */
   get fireLimit(): number {
     return this._fireLimit;
@@ -392,7 +392,7 @@ export class Weapon extends Phaser.Events.EventEmitter {
 
   /**
    * The minimum interval between shots, in milliseconds.
-   * @default 100
+   * @defaultValue 100
    */
   get fireRate(): number {
     return this._fireRate;
@@ -408,7 +408,7 @@ export class Weapon extends Phaser.Events.EventEmitter {
    * to the firing rate of the Weapon. The value is given in milliseconds.
    * If you've a {@link fireRate} of 200 and a {@link fireRateVariance} of 50 then the actual
    * firing rate of the Weapon will be between 150 and 250.
-   * @default 0
+   * @defaultValue 0
    */
   get fireRateVariance(): number {
     return this._fireRateVariance;
@@ -436,7 +436,7 @@ export class Weapon extends Phaser.Events.EventEmitter {
   /**
    * The angle at which the bullets are fired. This can be a const such as {@link Angle.ANGLE_UP ANGLE_UP}
    * or it can be any number from 0 to 360 inclusive, where 0 degrees is to the right.
-   * @default {@link Angle.ANGLE_UP ANGLE_UP}
+   * @defaultValue {@link Angle.ANGLE_UP ANGLE_UP}
    */
   get fireAngle(): integer {
     return this._fireAngle;
@@ -449,7 +449,7 @@ export class Weapon extends Phaser.Events.EventEmitter {
 
   /**
    * When a Bullet is fired it can optionally inherit the velocity of the {@link trackedSprite} if set.
-   * @default false
+   * @defaultValue false
    */
   get bulletInheritSpriteSpeed(): boolean {
     return this._bulletInheritSpriteSpeed;
@@ -463,7 +463,7 @@ export class Weapon extends Phaser.Events.EventEmitter {
   /**
    * The string based name of the animation that the Bullet will be given on launch.
    * This is set via {@link addBulletAnimation}.
-   * @default ''
+   * @defaultValue ''
    */
   get bulletAnimation(): string {
     return this._bulletAnimation;
@@ -477,7 +477,7 @@ export class Weapon extends Phaser.Events.EventEmitter {
   /**
    * If you've added a set of frames via {@link setBulletFrames} then you can optionally
    * chose for each Bullet fired to pick a random frame from the set.
-   * @default false
+   * @defaultValue false
    */
   get bulletFrameRandom(): boolean {
     return this._bulletFrameRandom;
@@ -494,7 +494,7 @@ export class Weapon extends Phaser.Events.EventEmitter {
    * advanced one frame until it reaches the end of the set, then it starts from the start
    * again. Cycling frames like this allows you to create varied bullet effects via
    * sprite sheets.
-   * @default false
+   * @defaultValue false
    */
   get bulletFrameCycle(): boolean {
     return this._bulletFrameCycle;
@@ -508,7 +508,7 @@ export class Weapon extends Phaser.Events.EventEmitter {
   /**
    * Should the Bullets wrap around the world bounds? This automatically calls
    * {@link https://newdocs.phaser.io/docs/3.55.2/Phaser.Physics.Arcade.World#wrap World.wrap} on the Bullet each frame. See the docs for that method for details.
-   * @default false
+   * @defaultValue false
    */
   get bulletWorldWrap(): boolean {
     return this._bulletWorldWrap;
@@ -523,7 +523,7 @@ export class Weapon extends Phaser.Events.EventEmitter {
    * If {@link bulletWorldWrap} is true then you can provide an optional padding value with this
    * property. It's added to the calculations determining when the Bullet should wrap around
    * the world or not. The value is given in pixels.
-   * @default 0
+   * @defaultValue 0
    */
   get bulletWorldWrapPadding(): integer {
     return this._bulletWorldWrapPadding;
@@ -539,7 +539,7 @@ export class Weapon extends Phaser.Events.EventEmitter {
    * This is useful if for example your bullet sprites have been drawn facing up, instead of
    * to the right, and you want to fire them at an angle. In which case you can set the
    * angle offset to be 90 and they'll be properly rotated when fired.
-   * @default 0
+   * @defaultValue 0
    */
   get bulletAngleOffset(): number {
     return this._bulletAngleOffset;
@@ -555,7 +555,7 @@ export class Weapon extends Phaser.Events.EventEmitter {
    * If you fire from an angle of 90 and have a {@link bulletAngleVariance} of 20 then the actual
    * angle of the Bullets will be between 70 and 110 degrees. This is a quick way to add a
    * great 'spread' effect to a Weapon.
-   * @default 0
+   * @defaultValue 0
    */
   get bulletAngleVariance(): number {
     return this._bulletAngleVariance;
@@ -568,7 +568,7 @@ export class Weapon extends Phaser.Events.EventEmitter {
 
   /**
    * The initial velocity of fired bullets, in pixels per second.
-   * @default 200
+   * @defaultValue 200
    */
   get bulletSpeed(): number {
     return this._bulletSpeed;
@@ -583,7 +583,7 @@ export class Weapon extends Phaser.Events.EventEmitter {
    * This is a variance added to the speed of Bullets when they are fired.
    * If bullets have a {@link bulletSpeed} value of 200, and a {@link bulletSpeedVariance} of 50
    * then the actual speed of the Bullets will be between 150 and 250 pixels per second.
-   * @default 0
+   * @defaultValue 0
    */
   get bulletSpeedVariance(): number {
     return this._bulletSpeedVariance;
@@ -598,7 +598,7 @@ export class Weapon extends Phaser.Events.EventEmitter {
    * If you've set {@link bulletKillType} to {@link KillType.KILL_LIFESPAN KILL_LIFESPAN} this controls the amount
    * of lifespan the Bullets have set on launch. The value is given in milliseconds.
    * When a Bullet hits its lifespan limit it will be automatically killed.
-   * @default 0
+   * @defaultValue 0
    */
   get bulletLifespan(): number {
     return this._bulletLifespan;
@@ -612,7 +612,7 @@ export class Weapon extends Phaser.Events.EventEmitter {
   /**
    * If you've set {@link bulletKillType} to {@link KillType.KILL_DISTANCE KILL_DISTANCE} this controls the distance
    * the Bullet can travel before it is automatically killed. The distance is given in pixels.
-   * @default 0
+   * @defaultValue 0
    */
   get bulletKillDistance(): number {
     return this._bulletKillDistance;
@@ -640,7 +640,7 @@ export class Weapon extends Phaser.Events.EventEmitter {
    * Bullets can optionally adjust their rotation in-flight to match their velocity.
    * This can create the effect of a bullet 'pointing' to the path it is following, for example
    * an arrow being fired from a bow, and works especially well when added to {@link bulletGravity}.
-   * @default false
+   * @defaultValue false
    */
   get bulletRotateToVelocity(): boolean {
     return this._bulletRotateToVelocity;
@@ -654,7 +654,7 @@ export class Weapon extends Phaser.Events.EventEmitter {
   /**
    * The Texture Key that the Bullets use when rendering.
    * Changing this has no effect on bullets in-flight, only on newly spawned bullets.
-   * @default ''
+   * @defaultValue ''
    */
   get bulletKey(): string {
     return this._bulletKey;
@@ -668,7 +668,7 @@ export class Weapon extends Phaser.Events.EventEmitter {
   /**
    * The Texture Frame that the Bullets use when rendering.
    * Changing this has no effect on bullets in-flight, only on newly spawned bullets.
-   * @default ''
+   * @defaultValue ''
    */
   get bulletFrame(): string | integer {
     return this._bulletFrame;
@@ -684,7 +684,7 @@ export class Weapon extends Phaser.Events.EventEmitter {
    * overridden before calling {@link createBullets} and set to your own class type.
    *
    * It should be a constructor function accepting `(scene, x, y, key, frame)`.
-   * @default Bullet
+   * @defaultValue Bullet
    */
   get bulletClass(): typeof Bullet {
     return this._bulletClass;
@@ -702,7 +702,7 @@ export class Weapon extends Phaser.Events.EventEmitter {
 
   /**
    * Should bullets collide with the World bounds or not?
-   * @default false
+   * @defaultValue false
    */
   get bulletCollideWorldBounds(): boolean {
     return this._bulletCollideWorldBounds;
@@ -746,7 +746,7 @@ export class Weapon extends Phaser.Events.EventEmitter {
    * The bullets are automatically killed when they no longer intersect with the {@link bounds} rectangle.
    * The difference between static bounds and weapon bounds, is that a static bounds will never be adjusted to
    * match the position of a tracked sprite or pointer.
-   * @default {@link KillType.KILL_WORLD_BOUNDS KILL_WORLD_BOUNDS}
+   * @defaultValue {@link KillType.KILL_WORLD_BOUNDS KILL_WORLD_BOUNDS}
    */
   get bulletKillType(): integer {
     return this._bulletKillType;
@@ -861,7 +861,7 @@ export class Weapon extends Phaser.Events.EventEmitter {
    * set the shot / firing timers until the {@link postRender} phase of the game loop.
    * This means you can call {@link fire} (and similar methods) as often as you like in one
    * single game update.
-   * @default false
+   * @defaultValue false
    */
   get multiFire(): boolean {
     return this._multiFire;
@@ -876,7 +876,7 @@ export class Weapon extends Phaser.Events.EventEmitter {
    * If the Weapon is tracking a Sprite, should it also track the Sprites rotation?
    * This is useful for a game such as Asteroids, where you want the weapon to fire based
    * on the sprites rotation.
-   * @default false
+   * @defaultValue false
    */
   get trackRotation(): boolean {
     return this._trackRotation;
