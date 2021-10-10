@@ -24,18 +24,21 @@ export type ObjectWithTransform = ObjectWithXY & {
 /**
  * The Weapon provides the ability to easily create a bullet pool and manager.
  *
- * Weapons fire {@link Bullet} objects, which are essentially Sprites with a
- * few extra properties. The Bullets are enabled for Arcade Physics. They do
- * not currently work with Impact or Matter Physics.
+ * Weapons fire {@link Bullet} objects, which are essentially
+ * {@link https://newdocs.phaser.io/docs/3.55.2/Phaser.GameObjects.Sprite Sprites}
+ * with a few extra properties. The Bullets are enabled for Arcade Physics.
+ * They do not currently work with Impact or Matter Physics.
  *
- * The Bullets are created inside of {@link bullets weapon.bullets}, which is
- * a {@link https://newdocs.phaser.io/docs/3.55.2/Phaser.GameObjects.Group Group} instance. Anything you can usually do
- * with a Group, like iterate it, etc can be done to the bullets Group too.
+ * The Bullets are created inside of {@link bullets weapon.bullets}, which is a
+ * {@link https://newdocs.phaser.io/docs/3.55.2/Phaser.GameObjects.Group Group} instance.
+ * Anything you can usually do with a Group, like iterate it, etc can be done
+ * to the bullets Group too.
  *
  * Bullets can have textures and even animations. You can control the speed at
  * which they are fired, the firing rate, the firing angle, and even set things
  * like gravity for them.
  *
+ * @example
  * A small example, using add.weapon, assumed to be running from within a
  * {@link https://newdocs.phaser.io/docs/3.55.2/Phaser.Types.Scenes.SceneCreateCallback Phaser.Scene.create} method:
  *

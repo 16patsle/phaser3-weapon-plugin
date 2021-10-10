@@ -34,28 +34,22 @@ type WeaponConfig = {
 };
 
 /**
- * The Weapon Plugin provides the ability to easily create a bullet pool
- * and manager.
+ * The Weapon Plugin provides the ability to easily create a {@link Weapon} with 
+ * its own bullet pool and manager.
+ * @see {@link Weapon} for a more detailed explanation.
  *
- * Weapons fire {@link Bullet} objects, which are essentially Sprites with a
- * few extra properties. The Bullets are enabled for Arcade Physics. They do
- * not currently work with Impact or Matter Physics.
- *
- * The Bullets are created inside of {@link Weapon.bullets weapon.bullets}, which is
- * a {@link https://newdocs.phaser.io/docs/3.55.2/Phaser.GameObjects.Group Group} instance. Anything you can usually do
- * with a Group, like iterate it, etc can be done to the bullets Group too.
- *
- * Bullets can have textures and even animations. You can control the speed at
- * which they are fired, the firing rate, the firing angle, and even set things
- * like gravity for them.
- *
- * A small example, using add.weapon, assumed to be running from within a
+ * @example
+ * A small example on how to install the plugin, assumed to be running from within a
  * {@link https://newdocs.phaser.io/docs/3.55.2/Phaser.Types.Scenes.SceneCreateCallback Phaser.Scene.create} method:
  *
  * ```javascript
- * var weapon = this.add.weapon(10, 'bullet');
- * weapon.fireFrom.setPosition(300, 300);
- * this.input.on(Phaser.Input.Events.POINTER_DOWN, weapon.fire, this);
+ * // Install it into a scene
+ * this.plugins.installScenePlugin(
+ *   'WeaponPlugin',
+ *   WeaponPlugin,
+ *   'weapons',
+ *   this
+ * );
  * ```
  */
 export class WeaponPlugin extends Phaser.Plugins.ScenePlugin {
