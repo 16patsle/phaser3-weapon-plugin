@@ -197,7 +197,7 @@ export class Weapon extends Phaser.Events.EventEmitter {
   /**
    * Private var that holds the public {@link bulletKillType} property.
    */
-  private _bulletKillType: integer = KillType.KILL_WORLD_BOUNDS;
+  private _bulletKillType: KillType = KillType.KILL_WORLD_BOUNDS;
 
   /**
    * Holds internal data about custom bullet body sizes.
