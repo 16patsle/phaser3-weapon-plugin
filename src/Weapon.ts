@@ -1313,6 +1313,9 @@ export class Weapon extends Phaser.Events.EventEmitter {
    * If you wish to fire multiple bullets in a single game update, then set `Weapon.multiFire = true`
    * and you can call {@link fire} as many times as you like, per loop. Multiple fires in a single update
    * only counts once towards the {@link shots} total, but you will still receive an event for each bullet.
+   * 
+   * @emits {@link WEAPON_FIRE}
+   * @emits {@link WEAPON_FIRE_LIMIT}
    *
    * @param from Optionally fires the bullet **from** the {@link x} and {@link y} properties of this object.
    * If set this overrides {@link trackedSprite} or {@link trackedPointer}. Pass `null` to ignore it.

@@ -135,6 +135,7 @@ export class Bullet extends Phaser.GameObjects.Sprite {
   /**
    * Kills the Bullet, freeing it up for re-use by the Weapon bullet pool.
    * Also dispatches the {@link BULLET_KILL} event on the {@link Weapon}.
+   * @emits {@link BULLET_KILL}
    * @returns This instance of the bullet class
    */
   kill(): this {
