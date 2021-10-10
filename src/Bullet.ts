@@ -2,8 +2,6 @@ import { KillType } from './consts';
 import type { Weapon } from './main';
 import { BULLET_KILL } from './events';
 
-let bulletID = 0;
-
 type BulletData = {
   timeEvent?: Phaser.Time.TimerEvent;
   bulletManager?: Weapon;
@@ -26,7 +24,6 @@ export class Bullet extends Phaser.GameObjects.Sprite {
    * This Bullet's Physics Body.
    */
   declare body: Phaser.Physics.Arcade.Body;
-  bulletID: number;
   lifespan?: number;
 
   /**
@@ -46,8 +43,6 @@ export class Bullet extends Phaser.GameObjects.Sprite {
     frame: string | number
   ) {
     super(scene, x, y, key, frame);
-    this.bulletID = bulletID;
-    bulletID++;
     this.scene.physics.add.existing(this);
 
     this.setDataEnabled();
