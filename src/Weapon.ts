@@ -1,6 +1,6 @@
-import Bullet from './Bullet';
+import { Bullet } from './Bullet';
 import { KillType, Angle, FrameType } from './consts';
-import validateConfig, { log } from './validateConfig';
+import { validateConfig, log } from './validateConfig';
 import { WEAPON_FIRE, WEAPON_FIRE_LIMIT } from './events';
 
 /**
