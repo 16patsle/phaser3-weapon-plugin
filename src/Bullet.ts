@@ -178,7 +178,7 @@ export class Bullet extends Phaser.GameObjects.Sprite {
           new Phaser.Math.Vector2(
             this.getData('fromX'),
             this.getData('fromY')
-          ).distance((this as unknown) as Phaser.Math.Vector2) >
+          ).distance(this as unknown as Phaser.Math.Vector2) >
           this.getData('killDistance')
         ) {
           this.kill();
