@@ -750,10 +750,10 @@ export class Weapon extends Phaser.Events.EventEmitter {
    * match the position of a tracked sprite or pointer.
    * @defaultValue {@link KillType.KILL_WORLD_BOUNDS KILL_WORLD_BOUNDS}
    */
-  get bulletKillType(): integer {
+  get bulletKillType(): KillType {
     return this._bulletKillType;
   }
-  set bulletKillType(type: integer) {
+  set bulletKillType(type: KillType) {
     switch (type) {
       case KillType.KILL_STATIC_BOUNDS:
       case KillType.KILL_WEAPON_BOUNDS:
