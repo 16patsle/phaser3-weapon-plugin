@@ -289,14 +289,12 @@ export class Weapon extends Phaser.Events.EventEmitter {
   private _rotatedPoint = new Phaser.Math.Vector2();
 
   /**
-   * Log level for this weapon. Either `warn`, `error' or `off`. `warn` is the default.
+   * Log level for this weapon. Either `warn`, `error` or `off`. `warn` is the default.
    * If you change this, please do so before setting any other properties.
    */
   logLevel: 'warn' | 'error' | 'off' = 'warn';
 
   /**
-   * TODO: a builder style interface would be neat. Can be kicked way forward
-   * into polishing.
    * @param scene - A reference to the {@link https://newdocs.phaser.io/docs/3.55.2/Phaser.Scene Phaser.Scene} instance.
    * @param bulletLimit - The quantity of bullets to seed the Weapon with. If -1 it will set the pool to automatically expand.
    * @param key - The texture cache key of the image that this Sprite will use.
