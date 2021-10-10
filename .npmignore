@@ -4,4 +4,5 @@ examples/
 .eslintrc.cjs
 .prettierrc
 tsconfig.json
+typedoc-plugin-phaser-links.cjs
 webpack.config.cjs

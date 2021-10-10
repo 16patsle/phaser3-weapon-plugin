@@ -4,7 +4,7 @@ const TerserPlugin = require('terser-webpack-plugin');
 const createConfig = type => {
   let presetOptions = {
     useBuiltIns: 'usage',
-    corejs: '3.8',
+    corejs: '3.18',
     targets: {
       esmodules: true,
     },
@@ -16,7 +16,7 @@ const createConfig = type => {
     const browserslist = 'last 2 Edge versions, last 2 Safari versions, last 2 Firefox versions, last 2 Chrome versions'
     presetOptions = {
       useBuiltIns: 'usage',
-      corejs: '3.8',
+      corejs: '3.18',
       targets:
         browserslist,
       bugfixes: true,
@@ -25,7 +25,7 @@ const createConfig = type => {
   } else if (type === 'legacy') {
     presetOptions = {
       useBuiltIns: 'usage',
-      corejs: '3.8',
+      corejs: '3.18',
     };
     target = 'es5'
   }
@@ -64,6 +64,7 @@ const createConfig = type => {
       library: 'WeaponPlugin',
       libraryTarget: 'umd',
       umdNamedDefine: true,
+      chunkFormat: 'array-push',
     },
 
     module: {
@@ -74,17 +75,22 @@ const createConfig = type => {
           use: {
             loader: 'babel-loader',
             options: {
+              assumptions: {
+                constantSuper: true,
+                ignoreFunctionLength: true,
+                ignoreToPrimitiveHint: true,
+                noClassCalls: true,
+                noDocumentAll: true,
+                noIncompleteNsImportDetection: true,
+                noNewArrows: true,
+                objectRestNoSymbols: true,
+                pureGetters: true,
+                setClassMethods: true,
+                setPublicClassFields: true,
+              },
               presets: [
                 ['@babel/preset-env', presetOptions],
-                '@babel/preset-typescript',
-              ],
-              plugins: [
-                [
-                  '@babel/plugin-proposal-class-properties',
-                  {
-                    loose: true,
-                  },
-                ],
+                ['@babel/preset-typescript', { allowDeclareFields: true }],
               ],
             },
           },

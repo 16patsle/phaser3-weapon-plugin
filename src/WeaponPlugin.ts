@@ -4,7 +4,7 @@
  * @author       Richard Davey
  * @license      {@link https://github.com/16patsle/phaser3-weapon-plugin/blob/master/LICENSE|MIT License}
  */
-import Weapon from './Weapon';
+import { Weapon } from './Weapon';
 
 type WeaponConfig = {
   /**
@@ -34,43 +34,39 @@ type WeaponConfig = {
 };
 
 /**
- * The Weapon Plugin provides the ability to easily create a bullet pool
- * and manager.
+ * The Weapon Plugin provides the ability to easily create a {@link Weapon} with 
+ * its own bullet pool and manager.
+ * @see {@link Weapon} for a more detailed explanation.
  *
- * Weapons fire {@link Bullet} objects, which are essentially Sprites with a
- * few extra properties. The Bullets are enabled for Arcade Physics. They do
- * not currently work with Impact or Matter Physics.
- *
- * The Bullets are created inside of {@link Weapon.bullets weapon.bullets}, which is
- * a {@link https://photonstorm.github.io/phaser3-docs/Phaser.GameObjects.Group.html Group} instance. Anything you can usually do
- * with a Group, like iterate it, etc can be done to the bullets Group too.
- *
- * Bullets can have textures and even animations. You can control the speed at
- * which they are fired, the firing rate, the firing angle, and even set things
- * like gravity for them.
- *
- * A small example, using add.weapon, assumed to be running from within a
- * {@link https://photonstorm.github.io/phaser3-docs/Phaser.Types.Scenes.html#.SceneCreateCallback Phaser.Scene.create} method:
+ * @example
+ * A small example on how to install the plugin, assumed to be running from within a
+ * {@link https://newdocs.phaser.io/docs/3.55.2/Phaser.Types.Scenes.SceneCreateCallback Phaser.Scene.create} method:
  *
  * ```javascript
- * var weapon = this.add.weapon(10, 'bullet');
- * weapon.fireFrom.setPosition(300, 300);
- * this.input.on(Phaser.Input.Events.POINTER_DOWN, weapon.fire, this);
+ * // Install it into a scene
+ * this.plugins.installScenePlugin(
+ *   'WeaponPlugin',
+ *   WeaponPlugin,
+ *   'weapons',
+ *   this
+ * );
  * ```
  */
-class WeaponPlugin extends Phaser.Plugins.ScenePlugin {
+export class WeaponPlugin extends Phaser.Plugins.ScenePlugin {
   weapons: Weapon[];
 
   /**
-   * @param scene - A reference to the {@link https://photonstorm.github.io/phaser3-docs/Phaser.Scene.html Phaser.Scene} instance.
+   * @param scene - A reference to the {@link https://newdocs.phaser.io/docs/3.55.2/Phaser.Scene Phaser.Scene} instance.
    * @param pluginManager - A reference to the
-   *  {@link https://photonstorm.github.io/phaser3-docs/Phaser.Plugins.PluginManager.html PluginManager} instance.
+   *  {@link https://newdocs.phaser.io/docs/3.55.2/Phaser.Plugins.PluginManager PluginManager} instance.
+   * @param pluginKey - The key under which this plugin has been installed into the Scene Systems.
    */
   constructor(
     scene: Phaser.Scene,
-    pluginManager: Phaser.Plugins.PluginManager
+    pluginManager: Phaser.Plugins.PluginManager,
+    pluginKey: string
   ) {
-    super(scene, pluginManager);
+    super(scene, pluginManager, pluginKey);
 
     this.weapons = [];
 

@@ -7,7 +7,27 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
-## [2.0.1] - 2021-01-24
+## [2.2.0] - 2021-10-10
+
+### Changed in 2.2.0
+
+- Remove bulletID from the Bullet class. While technically a minor breaking change,
+this property did not serve a purpose and would not have been used by anyone.
+- Add named exports to modules. The default exports are still there, with the exception of validateConfig.
+- Rework how stuff is exported, resulting in cleaner docs.
+- Improve documentation descriptions across the board.
+- Link Phaser types in the docs directly to the official docs, using a TypeDoc plugin.
+- Update existing links to the Phaser docs to point to the new docs.
+- Tweak build configuration, resulting in a noticeable reduction in size even in the minified builds.
+
+### Fixed in 2.2.0
+
+- Fixed missing pluginKey parameter possibly causing problems in Phaser 3.54 and later.
+- Change type of Weapon#bulletKilltype to actually be the KillType enum (instead of number).
+- Use the `declare` keyword to narrow type of bullet body.
+- Fixed various minor errors in the docs.
+
+## [2.1.0] - 2021-01-24
 
 ### Changed in 2.1.0
 
@@ -120,8 +140,9 @@ Now you can use `this.add.weapon`.
 
 - Fixed several bugs, like incorrect usage of Rectangle.CenterOn.
 
-[Unreleased]: https://github.com/16patsle/phaser3-weapon-plugin/compare/v2.1.0...HEAD
-[2.0.1]: https://github.com/16patsle/phaser3-weapon-plugin/compare/v2.0.1...v2.1.0
+[Unreleased]: https://github.com/16patsle/phaser3-weapon-plugin/compare/v2.2.0...HEAD
+[2.2.0]: https://github.com/16patsle/phaser3-weapon-plugin/compare/v2.1.0...v2.2.0
+[2.1.0]: https://github.com/16patsle/phaser3-weapon-plugin/compare/v2.0.1...v2.1.0
 [2.0.1]: https://github.com/16patsle/phaser3-weapon-plugin/compare/v2.0.0...v2.0.1
 [2.0.0]: https://github.com/16patsle/phaser3-weapon-plugin/compare/v1.0.2...v2.0.0
 [1.0.2]: https://github.com/16patsle/phaser3-weapon-plugin/compare/v1.0.1...v1.0.2

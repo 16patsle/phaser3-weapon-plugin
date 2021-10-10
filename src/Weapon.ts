@@ -1,13 +1,13 @@
-import Bullet from './Bullet';
+import { Bullet } from './Bullet';
 import { KillType, Angle, FrameType } from './consts';
-import validateConfig, { log } from './validateConfig';
+import { validateConfig, log } from './validateConfig';
 import { WEAPON_FIRE, WEAPON_FIRE_LIMIT } from './events';
 
 /**
  * Any Object, as long as it has public `x` and `y` properties,
- * such as {@link https://photonstorm.github.io/phaser3-docs/Phaser.Geom.Point.html Point}, `{ x: 0, y: 0 }`, {@link https://photonstorm.github.io/phaser3-docs/Phaser.GameObjects.Sprite.html Sprite}, etc
+ * such as {@link https://newdocs.phaser.io/docs/3.55.2/Phaser.Geom.Point Point}, `{ x: 0, y: 0 }`, {@link https://newdocs.phaser.io/docs/3.55.2/Phaser.GameObjects.Sprite Sprite}, etc
  */
-type ObjectWithXY = {
+export type ObjectWithXY = {
   x: number;
   y: number;
 };
@@ -15,7 +15,7 @@ type ObjectWithXY = {
 /**
  * An object that has x/y coords and optional rotation. Any Sprite-like object.
  */
-type ObjectWithTransform = ObjectWithXY & {
+export type ObjectWithTransform = ObjectWithXY & {
   rotation?: number;
   angle?: number;
   body?: Phaser.Physics.Arcade.Body;
@@ -24,20 +24,23 @@ type ObjectWithTransform = ObjectWithXY & {
 /**
  * The Weapon provides the ability to easily create a bullet pool and manager.
  *
- * Weapons fire {@link Bullet} objects, which are essentially Sprites with a
- * few extra properties. The Bullets are enabled for Arcade Physics. They do
- * not currently work with Impact or Matter Physics.
+ * Weapons fire {@link Bullet} objects, which are essentially
+ * {@link https://newdocs.phaser.io/docs/3.55.2/Phaser.GameObjects.Sprite Sprites}
+ * with a few extra properties. The Bullets are enabled for Arcade Physics.
+ * They do not currently work with Impact or Matter Physics.
  *
- * The Bullets are created inside of {@link bullets weapon.bullets}, which is
- * a {@link https://photonstorm.github.io/phaser3-docs/Phaser.GameObjects.Group.html Group} instance. Anything you can usually do
- * with a Group, like iterate it, etc can be done to the bullets Group too.
+ * The Bullets are created inside of {@link bullets weapon.bullets}, which is a
+ * {@link https://newdocs.phaser.io/docs/3.55.2/Phaser.GameObjects.Group Group} instance.
+ * Anything you can usually do with a Group, like iterate it, etc can be done
+ * to the bullets Group too.
  *
  * Bullets can have textures and even animations. You can control the speed at
  * which they are fired, the firing rate, the firing angle, and even set things
  * like gravity for them.
  *
+ * @example
  * A small example, using add.weapon, assumed to be running from within a
- * {@link https://photonstorm.github.io/phaser3-docs/Phaser.Types.Scenes.html#.SceneCreateCallback Phaser.Scene.create} method:
+ * {@link https://newdocs.phaser.io/docs/3.55.2/Phaser.Types.Scenes.SceneCreateCallback Phaser.Scene.create} method:
  *
  * ```javascript
  * var weapon = this.add.weapon(10, 'bullet');
@@ -45,7 +48,7 @@ type ObjectWithTransform = ObjectWithXY & {
  * this.input.on(Phaser.Input.Events.POINTER_DOWN, weapon.fire, this);
  * ```
  */
-class Weapon extends Phaser.Events.EventEmitter {
+export class Weapon extends Phaser.Events.EventEmitter {
   /**
    * The scene the Weapon is bound to
    */
@@ -194,7 +197,7 @@ class Weapon extends Phaser.Events.EventEmitter {
   /**
    * Private var that holds the public {@link bulletKillType} property.
    */
-  private _bulletKillType: integer = KillType.KILL_WORLD_BOUNDS;
+  private _bulletKillType: KillType = KillType.KILL_WORLD_BOUNDS;
 
   /**
    * Holds internal data about custom bullet body sizes.
@@ -286,15 +289,13 @@ class Weapon extends Phaser.Events.EventEmitter {
   private _rotatedPoint = new Phaser.Math.Vector2();
 
   /**
-   * Log level for this weapon. Either `warn`, `error' or `off`. `warn` is the default.
+   * Log level for this weapon. Either `warn`, `error` or `off`. `warn` is the default.
    * If you change this, please do so before setting any other properties.
    */
   logLevel: 'warn' | 'error' | 'off' = 'warn';
 
   /**
-   * TODO: a builder style interface would be neat. Can be kicked way forward
-   * into polishing.
-   * @param scene - A reference to the {@link https://photonstorm.github.io/phaser3-docs/Phaser.Scene.html Phaser.Scene} instance.
+   * @param scene - A reference to the {@link https://newdocs.phaser.io/docs/3.55.2/Phaser.Scene Phaser.Scene} instance.
    * @param bulletLimit - The quantity of bullets to seed the Weapon with. If -1 it will set the pool to automatically expand.
    * @param key - The texture cache key of the image that this Sprite will use.
    * @param frame - If the Sprite image contains multiple frames you can specify which one to use here.
@@ -320,7 +321,7 @@ class Weapon extends Phaser.Events.EventEmitter {
   }
 
   /**
-   * This is the {@link https://photonstorm.github.io/phaser3-docs/Phaser.GameObjects.Group.html Group} that contains all of the bullets managed by this plugin.
+   * This is the {@link https://newdocs.phaser.io/docs/3.55.2/Phaser.GameObjects.Group Group} that contains all of the bullets managed by this plugin.
    */
   get bullets(): Phaser.GameObjects.Group {
     return this._bullets;
@@ -334,7 +335,7 @@ class Weapon extends Phaser.Events.EventEmitter {
   /**
    * Should the bullet pool run out of bullets (i.e. they are all in flight) then this
    * boolean controls if the Group will create a brand new bullet object or not.
-   * @default false
+   * @defaultValue false
    */
   get autoExpandBulletsGroup(): boolean {
     return this._autoExpandBulletsGroup;
@@ -348,7 +349,7 @@ class Weapon extends Phaser.Events.EventEmitter {
   /**
    * Will this weapon auto fire? If set to true then a new bullet will be fired
    * based on the {@link fireRate} value.
-   * @default false
+   * @defaultValue false
    */
   get autofire(): boolean {
     return this._autofire;
@@ -363,7 +364,7 @@ class Weapon extends Phaser.Events.EventEmitter {
    * The total number of bullets this Weapon has fired so far.
    * You can limit the number of shots allowed (via {@link fireLimit}), and reset
    * this total via {@link resetShots}.
-   * @default 0
+   * @defaultValue 0
    */
   get shots(): number {
     return this._shots;
@@ -378,7 +379,7 @@ class Weapon extends Phaser.Events.EventEmitter {
    * The maximum number of shots that this Weapon is allowed to fire before it stops.
    * When the limit is hit the {@link WEAPON_FIRE_LIMIT} event is dispatched.
    * You can reset the shot counter via {@link resetShots}.
-   * @default 0
+   * @defaultValue 0
    */
   get fireLimit(): number {
     return this._fireLimit;
@@ -391,7 +392,7 @@ class Weapon extends Phaser.Events.EventEmitter {
 
   /**
    * The minimum interval between shots, in milliseconds.
-   * @default 100
+   * @defaultValue 100
    */
   get fireRate(): number {
     return this._fireRate;
@@ -407,7 +408,7 @@ class Weapon extends Phaser.Events.EventEmitter {
    * to the firing rate of the Weapon. The value is given in milliseconds.
    * If you've a {@link fireRate} of 200 and a {@link fireRateVariance} of 50 then the actual
    * firing rate of the Weapon will be between 150 and 250.
-   * @default 0
+   * @defaultValue 0
    */
   get fireRateVariance(): number {
     return this._fireRateVariance;
@@ -435,7 +436,7 @@ class Weapon extends Phaser.Events.EventEmitter {
   /**
    * The angle at which the bullets are fired. This can be a const such as {@link Angle.ANGLE_UP ANGLE_UP}
    * or it can be any number from 0 to 360 inclusive, where 0 degrees is to the right.
-   * @default {@link Angle.ANGLE_UP ANGLE_UP}
+   * @defaultValue {@link Angle.ANGLE_UP ANGLE_UP}
    */
   get fireAngle(): integer {
     return this._fireAngle;
@@ -448,7 +449,7 @@ class Weapon extends Phaser.Events.EventEmitter {
 
   /**
    * When a Bullet is fired it can optionally inherit the velocity of the {@link trackedSprite} if set.
-   * @default false
+   * @defaultValue false
    */
   get bulletInheritSpriteSpeed(): boolean {
     return this._bulletInheritSpriteSpeed;
@@ -462,7 +463,7 @@ class Weapon extends Phaser.Events.EventEmitter {
   /**
    * The string based name of the animation that the Bullet will be given on launch.
    * This is set via {@link addBulletAnimation}.
-   * @default ''
+   * @defaultValue ''
    */
   get bulletAnimation(): string {
     return this._bulletAnimation;
@@ -476,7 +477,7 @@ class Weapon extends Phaser.Events.EventEmitter {
   /**
    * If you've added a set of frames via {@link setBulletFrames} then you can optionally
    * chose for each Bullet fired to pick a random frame from the set.
-   * @default false
+   * @defaultValue false
    */
   get bulletFrameRandom(): boolean {
     return this._bulletFrameRandom;
@@ -493,7 +494,7 @@ class Weapon extends Phaser.Events.EventEmitter {
    * advanced one frame until it reaches the end of the set, then it starts from the start
    * again. Cycling frames like this allows you to create varied bullet effects via
    * sprite sheets.
-   * @default false
+   * @defaultValue false
    */
   get bulletFrameCycle(): boolean {
     return this._bulletFrameCycle;
@@ -506,8 +507,8 @@ class Weapon extends Phaser.Events.EventEmitter {
 
   /**
    * Should the Bullets wrap around the world bounds? This automatically calls
-   * {@link https://photonstorm.github.io/phaser3-docs/Phaser.Physics.Arcade.World.html#wrap World.wrap} on the Bullet each frame. See the docs for that method for details.
-   * @default false
+   * {@link https://newdocs.phaser.io/docs/3.55.2/Phaser.Physics.Arcade.World#wrap World.wrap} on the Bullet each frame. See the docs for that method for details.
+   * @defaultValue false
    */
   get bulletWorldWrap(): boolean {
     return this._bulletWorldWrap;
@@ -522,7 +523,7 @@ class Weapon extends Phaser.Events.EventEmitter {
    * If {@link bulletWorldWrap} is true then you can provide an optional padding value with this
    * property. It's added to the calculations determining when the Bullet should wrap around
    * the world or not. The value is given in pixels.
-   * @default 0
+   * @defaultValue 0
    */
   get bulletWorldWrapPadding(): integer {
     return this._bulletWorldWrapPadding;
@@ -538,7 +539,7 @@ class Weapon extends Phaser.Events.EventEmitter {
    * This is useful if for example your bullet sprites have been drawn facing up, instead of
    * to the right, and you want to fire them at an angle. In which case you can set the
    * angle offset to be 90 and they'll be properly rotated when fired.
-   * @default 0
+   * @defaultValue 0
    */
   get bulletAngleOffset(): number {
     return this._bulletAngleOffset;
@@ -554,7 +555,7 @@ class Weapon extends Phaser.Events.EventEmitter {
    * If you fire from an angle of 90 and have a {@link bulletAngleVariance} of 20 then the actual
    * angle of the Bullets will be between 70 and 110 degrees. This is a quick way to add a
    * great 'spread' effect to a Weapon.
-   * @default 0
+   * @defaultValue 0
    */
   get bulletAngleVariance(): number {
     return this._bulletAngleVariance;
@@ -567,7 +568,7 @@ class Weapon extends Phaser.Events.EventEmitter {
 
   /**
    * The initial velocity of fired bullets, in pixels per second.
-   * @default 200
+   * @defaultValue 200
    */
   get bulletSpeed(): number {
     return this._bulletSpeed;
@@ -582,7 +583,7 @@ class Weapon extends Phaser.Events.EventEmitter {
    * This is a variance added to the speed of Bullets when they are fired.
    * If bullets have a {@link bulletSpeed} value of 200, and a {@link bulletSpeedVariance} of 50
    * then the actual speed of the Bullets will be between 150 and 250 pixels per second.
-   * @default 0
+   * @defaultValue 0
    */
   get bulletSpeedVariance(): number {
     return this._bulletSpeedVariance;
@@ -597,7 +598,7 @@ class Weapon extends Phaser.Events.EventEmitter {
    * If you've set {@link bulletKillType} to {@link KillType.KILL_LIFESPAN KILL_LIFESPAN} this controls the amount
    * of lifespan the Bullets have set on launch. The value is given in milliseconds.
    * When a Bullet hits its lifespan limit it will be automatically killed.
-   * @default 0
+   * @defaultValue 0
    */
   get bulletLifespan(): number {
     return this._bulletLifespan;
@@ -611,7 +612,7 @@ class Weapon extends Phaser.Events.EventEmitter {
   /**
    * If you've set {@link bulletKillType} to {@link KillType.KILL_DISTANCE KILL_DISTANCE} this controls the distance
    * the Bullet can travel before it is automatically killed. The distance is given in pixels.
-   * @default 0
+   * @defaultValue 0
    */
   get bulletKillDistance(): number {
     return this._bulletKillDistance;
@@ -623,8 +624,9 @@ class Weapon extends Phaser.Events.EventEmitter {
   }
 
   /**
-   * This is the amount of {@link https://photonstorm.github.io/phaser3-docs/Phaser.Physics.Arcade.Body.html#gravity Phaser.Physics.Arcade.Body.gravity} added to the Bullets physics body when fired.
-   * Gravity is expressed in pixels / second / second.
+   * This is the acceleration due to {@link https://newdocs.phaser.io/docs/3.55.2/Phaser.Physics.Arcade.Body#gravity gravity} 
+   * added to the Bullets physics body when fired, in pixels per second squared.
+   * Total gravity is the sum of this vector and the simulation's gravity.
    */
   get bulletGravity(): Phaser.Math.Vector2 {
     return this._bulletGravity;
@@ -639,7 +641,7 @@ class Weapon extends Phaser.Events.EventEmitter {
    * Bullets can optionally adjust their rotation in-flight to match their velocity.
    * This can create the effect of a bullet 'pointing' to the path it is following, for example
    * an arrow being fired from a bow, and works especially well when added to {@link bulletGravity}.
-   * @default false
+   * @defaultValue false
    */
   get bulletRotateToVelocity(): boolean {
     return this._bulletRotateToVelocity;
@@ -653,7 +655,7 @@ class Weapon extends Phaser.Events.EventEmitter {
   /**
    * The Texture Key that the Bullets use when rendering.
    * Changing this has no effect on bullets in-flight, only on newly spawned bullets.
-   * @default ''
+   * @defaultValue ''
    */
   get bulletKey(): string {
     return this._bulletKey;
@@ -667,7 +669,7 @@ class Weapon extends Phaser.Events.EventEmitter {
   /**
    * The Texture Frame that the Bullets use when rendering.
    * Changing this has no effect on bullets in-flight, only on newly spawned bullets.
-   * @default ''
+   * @defaultValue ''
    */
   get bulletFrame(): string | integer {
     return this._bulletFrame;
@@ -682,8 +684,9 @@ class Weapon extends Phaser.Events.EventEmitter {
    * The Class of the bullets that are launched by this Weapon. Defaults to {@link Bullet}, but can be
    * overridden before calling {@link createBullets} and set to your own class type.
    *
-   * It should be a constructor function accepting `(scene, x, y, key, frame)`.
-   * @default Bullet
+   * It should be a class (or constructor function) accepting the same params as {@link Bullet},
+   * i.e. `(scene:` {@link https://newdocs.phaser.io/docs/3.55.2/Phaser.Scene `Phaser.Scene`}`, x: number, y: number, key: string, frame: string | number)`.
+   * @defaultValue Bullet
    */
   get bulletClass(): typeof Bullet {
     return this._bulletClass;
@@ -701,7 +704,7 @@ class Weapon extends Phaser.Events.EventEmitter {
 
   /**
    * Should bullets collide with the World bounds or not?
-   * @default false
+   * @defaultValue false
    */
   get bulletCollideWorldBounds(): boolean {
     return this._bulletCollideWorldBounds;
@@ -720,7 +723,7 @@ class Weapon extends Phaser.Events.EventEmitter {
   /**
    * This controls how the bullets will be killed. The default is {@link KillType.KILL_WORLD_BOUNDS KILL_WORLD_BOUNDS}.
    *
-   * There are 7 different "kill types" available:
+   * There are 7 different {@link KillType "kill types"} available:
    *
    * * {@linkcode KillType.KILL_NEVER KILL_NEVER}
    * The bullets are never destroyed by the Weapon. It's up to you to destroy them via your own code.
@@ -736,21 +739,21 @@ class Weapon extends Phaser.Events.EventEmitter {
    * The bullets are automatically killed when they no longer intersect with the {@link bounds} rectangle.
    *
    * * {@linkcode KillType.KILL_CAMERA_BOUNDS KILL_CAMERA_BOUNDS}
-   * The bullets are automatically killed when they no longer intersect with the {@link https://photonstorm.github.io/phaser3-docs/Phaser.Cameras.Scene2D.Camera.html#getBounds Camera.getBounds} rectangle.
+   * The bullets are automatically killed when they no longer intersect with the {@link https://newdocs.phaser.io/docs/3.55.2/Phaser.Cameras.Scene2D.Camera#getBounds Camera.getBounds} rectangle.
    *
    * * {@linkcode KillType.KILL_WORLD_BOUNDS KILL_WORLD_BOUNDS}
-   * The bullets are automatically killed when they no longer intersect with the {@link https://photonstorm.github.io/phaser3-docs/Phaser.Physics.Arcade.World.html#bounds World.bounds} rectangle.
+   * The bullets are automatically killed when they no longer intersect with the {@link https://newdocs.phaser.io/docs/3.55.2/Phaser.Physics.Arcade.World#bounds World.bounds} rectangle.
    *
    * * {@linkcode KillType.KILL_STATIC_BOUNDS KILL_STATIC_BOUNDS}
    * The bullets are automatically killed when they no longer intersect with the {@link bounds} rectangle.
    * The difference between static bounds and weapon bounds, is that a static bounds will never be adjusted to
    * match the position of a tracked sprite or pointer.
-   * @default {@link KillType.KILL_WORLD_BOUNDS KILL_WORLD_BOUNDS}
+   * @defaultValue {@link KillType.KILL_WORLD_BOUNDS KILL_WORLD_BOUNDS}
    */
-  get bulletKillType(): integer {
+  get bulletKillType(): KillType {
     return this._bulletKillType;
   }
-  set bulletKillType(type: integer) {
+  set bulletKillType(type: KillType) {
     switch (type) {
       case KillType.KILL_STATIC_BOUNDS:
       case KillType.KILL_WEAPON_BOUNDS:
@@ -857,10 +860,10 @@ class Weapon extends Phaser.Events.EventEmitter {
   /**
    * If you want this Weapon to be able to fire more than 1 bullet in a single
    * update, then set this property to `true`. When `true` the Weapon plugin won't
-   * set the shot / firing timers until the {@link postRender} phase of the game loop.
+   * set the shot / firing timers until the {@link https://newdocs.phaser.io/docs/3.55.2/Phaser.Core.Events.POST_RENDER postRender} phase of the game loop.
    * This means you can call {@link fire} (and similar methods) as often as you like in one
    * single game update.
-   * @default false
+   * @defaultValue false
    */
   get multiFire(): boolean {
     return this._multiFire;
@@ -875,7 +878,7 @@ class Weapon extends Phaser.Events.EventEmitter {
    * If the Weapon is tracking a Sprite, should it also track the Sprites rotation?
    * This is useful for a game such as Asteroids, where you want the weapon to fire based
    * on the sprites rotation.
-   * @default false
+   * @defaultValue false
    */
   get trackRotation(): boolean {
     return this._trackRotation;
@@ -1013,7 +1016,7 @@ class Weapon extends Phaser.Events.EventEmitter {
   /**
    * Call a function on each in-flight bullet in this Weapon.
    *
-   * See {@link https://photonstorm.github.io/phaser3-docs/Phaser.Structs.Set.html#each Set.each} for more details.
+   * See {@link https://newdocs.phaser.io/docs/3.55.2/Phaser.Structs.Set#each Set.each} for more details.
    *
    * @param callback - The function that will be called for each applicable child.
    * The child will be passed as the first argument.
@@ -1040,7 +1043,7 @@ class Weapon extends Phaser.Events.EventEmitter {
   /* eslint-enable no-unused-vars */
 
   /**
-   * Sets {@link https://photonstorm.github.io/phaser3-docs/Phaser.Physics.Arcade.Body.html#enable Body.enable} to `false` on each bullet in this Weapon.
+   * Sets {@link https://newdocs.phaser.io/docs/3.55.2/Phaser.Physics.Arcade.Body#enable Body.enable} to `false` on each bullet in this Weapon.
    * This has the effect of stopping them in-flight should they be moving.
    * It also stops them being able to be checked for collision.
    *
@@ -1059,7 +1062,7 @@ class Weapon extends Phaser.Events.EventEmitter {
   }
 
   /**
-   * Sets {@link https://photonstorm.github.io/phaser3-docs/Phaser.Physics.Arcade.Body.html#enable Body.enable} to `true` on each bullet in this Weapon.
+   * Sets {@link https://newdocs.phaser.io/docs/3.55.2/Phaser.Physics.Arcade.Body#enable Body.enable} to `true` on each bullet in this Weapon.
    * This has the effect of resuming their motion should they be in-flight.
    * It also enables them for collision checks again.
    *
@@ -1153,7 +1156,7 @@ class Weapon extends Phaser.Events.EventEmitter {
    * only track _either_ a Pointer, or a Sprite, at once, but not both.
    *
    * @param pointer - The Pointer to track the position of.
-   * Defaults to {@link https://photonstorm.github.io/phaser3-docs/Phaser.Input.InputPlugin.html#activePointer InputPlugin.activePointer} if not specified.
+   * Defaults to {@link https://newdocs.phaser.io/docs/3.55.2/Phaser.Input.InputPlugin#activePointer InputPlugin.activePointer} if not specified.
    * @param offsetX - The horizontal offset from the Pointers position to be applied to the Weapon.
    * @param offsetY - The vertical offset from the Pointers position to be applied to the Weapon.
    * @return This Weapon instance.
@@ -1194,7 +1197,7 @@ class Weapon extends Phaser.Events.EventEmitter {
    * The velocity of the bullets are calculated based on Weapon properties like {@link bulletSpeed}.
    *
    * @param positions - An array of positions. Each position can be any Object, as long as it
-   * has public `x` and `y` properties, such as {@link https://photonstorm.github.io/phaser3-docs/Phaser.Geom.Point.html Point}, { x: 0, y: 0 }, {@link https://photonstorm.github.io/phaser3-docs/Phaser.GameObjects.Sprite.html Sprite}
+   * has public `x` and `y` properties, such as {@link https://newdocs.phaser.io/docs/3.55.2/Phaser.Geom.Point Point}, { x: 0, y: 0 }, {@link https://newdocs.phaser.io/docs/3.55.2/Phaser.GameObjects.Sprite Sprite}
    * @param from Optionally fires the bullets **from** the {@link x} and {@link y} properties of this object,
    * _instead_ of any {@link trackedSprite} or {@link trackedPointer} that is set.
    * @return An array containing all of the fired Bullet objects,
@@ -1310,6 +1313,9 @@ class Weapon extends Phaser.Events.EventEmitter {
    * If you wish to fire multiple bullets in a single game update, then set `Weapon.multiFire = true`
    * and you can call {@link fire} as many times as you like, per loop. Multiple fires in a single update
    * only counts once towards the {@link shots} total, but you will still receive an event for each bullet.
+   * 
+   * @emits {@link WEAPON_FIRE}
+   * @emits {@link WEAPON_FIRE_LIMIT}
    *
    * @param from Optionally fires the bullet **from** the {@link x} and {@link y} properties of this object.
    * If set this overrides {@link trackedSprite} or {@link trackedPointer}. Pass `null` to ignore it.
@@ -1620,7 +1626,7 @@ class Weapon extends Phaser.Events.EventEmitter {
    * This is intended for use when you've got numeric based frames, such as
    * those loaded via a Sprite Sheet.
    *
-   * It works by calling {@link https://photonstorm.github.io/phaser3-docs/Phaser.Utils.Array.html#.NumberArray Phaser.Utils.Array.NumberArray} internally, using
+   * It works by calling {@link https://newdocs.phaser.io/docs/3.55.2/Phaser.Utils.Array#NumberArray Phaser.Utils.Array.NumberArray} internally, using
    * the min and max values provided. Then it sets the frame index to be zero.
    *
    * You can optionally set the cycle and random booleans, to allow bullets to
@@ -1663,7 +1669,7 @@ class Weapon extends Phaser.Events.EventEmitter {
 
   /**
    * Adds a new animation under the given key. Optionally set the frames, frame rate and loop.
-   * The arguments are all the same as for {@link https://photonstorm.github.io/phaser3-docs/Phaser.Animations.AnimationManager.html#add AnimationManager.add}, and work in the same way.
+   * The arguments are all the same as for {@link https://newdocs.phaser.io/docs/3.55.2/Phaser.Animations.AnimationManager#add AnimationManager.add}, and work in the same way.
    *
    * {@link bulletAnimation} will be set to this animation after it's created. From that point on, all
    * bullets fired will play using this animation. You can swap between animations by calling this method
@@ -1704,6 +1710,8 @@ class Weapon extends Phaser.Events.EventEmitter {
 
   /**
    * Internal update method, called by the Weapon Plugin.
+   * Used for updating weapon bounds and handling {@link autofire}.
+   * @internal
    */
   update(): void {
     if (this._bulletKillType === KillType.KILL_WEAPON_BOUNDS) {
@@ -1728,7 +1736,9 @@ class Weapon extends Phaser.Events.EventEmitter {
   }
 
   /**
-   * Internal update method, called by the Weapon Plugin.
+   * Internal postRender method, called by the Weapon Plugin.
+   * Used for instance when multiFire is enabled.
+   * @internal
    */
   postRender(): void {
     if (!this.multiFire || !this._hasFired) {

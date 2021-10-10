@@ -40,10 +40,9 @@
   ],
   "typedocOptions": {
     "out": "docs",
-    "theme": "minimal",
     "includeVersion": true,
     "excludePrivate": true,
-    "entryPoints": ["src"],
-    "exclude": ["src/main.ts", "src/validateConfig.ts"]
+    "entryPoints": ["src/main.ts"],
+    "plugin": "./typedoc-plugin-phaser-links.cjs"
   }
 }

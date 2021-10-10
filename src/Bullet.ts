@@ -2,8 +2,6 @@ import { KillType } from './consts';
 import type { Weapon } from './main';
 import { BULLET_KILL } from './events';
 
-let bulletID = 0;
-
 type BulletData = {
   timeEvent?: Phaser.Time.TimerEvent;
   bulletManager?: Weapon;
@@ -16,20 +14,31 @@ type BulletData = {
   bodyBounds: Phaser.Geom.Rectangle;
 };
 
-class Bullet extends Phaser.GameObjects.Sprite {
-  body!: Phaser.Physics.Arcade.Body;
-  bulletID: number;
+/**
+ * Bullets are used by the {@link Weapon} class, and are normal
+ * {@link https://newdocs.phaser.io/docs/3.55.2/Phaser.GameObjects.Sprite Sprites},
+ * with a few extra properties in the data manager to handle Weapon specific features.
+ */
+export class Bullet extends Phaser.GameObjects.Sprite {
+  /**
+   * This Bullet's Physics Body.
+   */
+  declare body: Phaser.Physics.Arcade.Body;
+
+  /**
+   * If you've set {@link Weapon.bulletKillType} to {@link KillType.KILL_LIFESPAN KILL_LIFESPAN}
+   * this property contains the lifespan the Bullets have set on launch. The value is given in milliseconds.
+   * When a Bullet hits its lifespan limit it will be automatically killed.
+   * @readonly
+   */
   lifespan?: number;
 
   /**
-   * Create a new `Bullet` object. Bullets are used by the {@link Weapon} class, and are normal Sprites,
-   * with a few extra properties in the data manager to handle Weapon specific features.
-   *
    * @param scene - A reference to the currently running scene.
    * @param x - The x coordinate (in world space) to position the Bullet at.
    * @param y - The y coordinate (in world space) to position the Bullet at.
    * @param key - This is the image or texture used by the Particle during rendering.
-   * It can be a string which is a reference to the Cache entry, or an instance of a RenderTexture or {@link https://photonstorm.github.io/phaser3-docs/Phaser.Textures.Texture.html Texture}.
+   * It can be a string which is a reference to the Cache entry, or an instance of a RenderTexture or {@link https://newdocs.phaser.io/docs/3.55.2/Phaser.Textures.Texture Texture}.
    * @param frame - If this Bullet is using part of a sprite sheet or texture atlas
    * you can specify the exact frame to use by giving a string or numeric index.
    */
@@ -41,8 +50,6 @@ class Bullet extends Phaser.GameObjects.Sprite {
     frame: string | number
   ) {
     super(scene, x, y, key, frame);
-    this.bulletID = bulletID;
-    bulletID++;
     this.scene.physics.add.existing(this);
 
     this.setDataEnabled();
@@ -128,6 +135,7 @@ class Bullet extends Phaser.GameObjects.Sprite {
   /**
    * Kills the Bullet, freeing it up for re-use by the Weapon bullet pool.
    * Also dispatches the {@link BULLET_KILL} event on the {@link Weapon}.
+   * @emits {@link BULLET_KILL}
    * @returns This instance of the bullet class
    */
   kill(): this {
@@ -178,7 +186,7 @@ class Bullet extends Phaser.GameObjects.Sprite {
           new Phaser.Math.Vector2(
             this.getData('fromX'),
             this.getData('fromY')
-          ).distance((this as unknown) as Phaser.Math.Vector2) >
+          ).distance(this as unknown as Phaser.Math.Vector2) >
           this.getData('killDistance')
         ) {
           this.kill();
