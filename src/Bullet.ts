@@ -24,6 +24,13 @@ export class Bullet extends Phaser.GameObjects.Sprite {
    * This Bullet's Physics Body.
    */
   declare body: Phaser.Physics.Arcade.Body;
+
+  /**
+   * If you've set {@link Weapon.bulletKillType} to {@link KillType.KILL_LIFESPAN KILL_LIFESPAN}
+   * this property contains the lifespan the Bullets have set on launch. The value is given in milliseconds.
+   * When a Bullet hits its lifespan limit it will be automatically killed.
+   * @readonly
+   */
   lifespan?: number;
 
   /**
