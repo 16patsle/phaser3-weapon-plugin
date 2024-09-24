@@ -4,6 +4,8 @@
  * @author       Richard Davey
  * @license      {@link https://github.com/16patsle/phaser3-weapon-plugin/blob/master/LICENSE|MIT License}
  */
+import Phaser from 'phaser';
+
 import { Weapon } from './Weapon';
 
 type WeaponConfig = {

@@ -1,3 +1,5 @@
+import Phaser from 'phaser';
+
 import { KillType } from './consts';
 import type { Weapon } from './main';
 import { BULLET_KILL } from './events';

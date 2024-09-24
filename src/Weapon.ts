@@ -1,3 +1,5 @@
+import Phaser from 'phaser';
+
 import { Bullet } from './Bullet';
 import { KillType, Angle, FrameType } from './consts';
 import { validateConfig, log } from './validateConfig';

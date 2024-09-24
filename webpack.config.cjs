@@ -101,6 +101,10 @@ const createConfig = type => {
     resolve: {
       extensions: ['.ts', '.js', '.json'],
     },
+
+    externals: {
+      phaser: 'Phaser',
+    },
   };
 };
 
