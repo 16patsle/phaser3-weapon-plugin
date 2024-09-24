@@ -4,30 +4,30 @@ const TerserPlugin = require('terser-webpack-plugin');
 const createConfig = type => {
   let presetOptions = {
     useBuiltIns: 'usage',
-    corejs: '3.18',
+    corejs: '3.38',
     targets: {
       esmodules: true,
     },
     bugfixes: true,
   };
-  let target = 'es6'
+  let target = 'es6';
 
   if (type === 'modern') {
-    const browserslist = 'last 2 Edge versions, last 2 Safari versions, last 2 Firefox versions, last 2 Chrome versions'
+    const browserslist =
+      'last 2 Edge versions, last 2 Safari versions, last 2 Firefox versions, last 2 Chrome versions';
     presetOptions = {
       useBuiltIns: 'usage',
-      corejs: '3.18',
-      targets:
-        browserslist,
+      corejs: '3.38',
+      targets: browserslist,
       bugfixes: true,
     };
-    target = 'browserslist:' + browserslist
+    target = 'browserslist:' + browserslist;
   } else if (type === 'legacy') {
     presetOptions = {
       useBuiltIns: 'usage',
-      corejs: '3.18',
+      corejs: '3.38',
     };
-    target = 'es5'
+    target = 'es5';
   }
 
   const entryName = type ? 'WeaponPlugin.' + type : 'WeaponPlugin';
