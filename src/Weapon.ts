@@ -712,9 +712,10 @@ export class Weapon extends Phaser.Events.EventEmitter {
   set bulletCollideWorldBounds(value: boolean) {
     this._bulletCollideWorldBounds = value;
 
-    (this.bullets.children as Phaser.Structs.Set<Bullet>).each(child => {
+    (this.bullets.children as Phaser.Structs.Set<Bullet>).iterate(child => {
       child.body.collideWorldBounds = value;
       child.setData('bodyDirty', false);
+      return true;
     });
 
     validateConfig(this, 'bulletCollideWorldBounds');
@@ -984,19 +985,20 @@ export class Weapon extends Phaser.Events.EventEmitter {
         quantity = 1;
       }
 
-      this.bullets.createMultiple({
-        key,
-        frame,
-        repeat: quantity,
-        active: false,
-        visible: false,
-      });
-
-      (this.bullets.children as Phaser.Structs.Set<Bullet>).each(child => {
-        child.setData('bulletManager', this);
-      });
-
       if (typeof key === 'string') {
+        this.bullets.createMultiple({
+          key,
+          frame,
+          repeat: quantity,
+          active: false,
+          visible: false,
+        });
+
+        (this.bullets.children as Phaser.Structs.Set<Bullet>).iterate(child => {
+          child.setData('bulletManager', this);
+          return true;
+        });
+
         this.bulletKey = key;
       }
 
@@ -1036,6 +1038,7 @@ export class Weapon extends Phaser.Events.EventEmitter {
       if (child.active) {
         callback.call(callbackContext, child, args);
       }
+      return true;
     });
 
     return this;
@@ -1050,12 +1053,13 @@ export class Weapon extends Phaser.Events.EventEmitter {
    * @return This Weapon instance.
    */
   pauseAll(): this {
-    (this.bullets.children as Phaser.Structs.Set<Bullet>).each(child => {
+    (this.bullets.children as Phaser.Structs.Set<Bullet>).iterate(child => {
       child.body.enable = false;
       const timeEvent = child.getData('timeEvent');
       if (timeEvent !== undefined) {
         timeEvent.paused = true;
       }
+      return true;
     }, this);
 
     return this;
@@ -1069,12 +1073,13 @@ export class Weapon extends Phaser.Events.EventEmitter {
    * @return This Weapon instance.
    */
   resumeAll(): this {
-    (this.bullets.children as Phaser.Structs.Set<Bullet>).each(child => {
+    (this.bullets.children as Phaser.Structs.Set<Bullet>).iterate(child => {
       child.body.enable = true;
       const timeEvent = child.getData('timeEvent');
       if (timeEvent !== undefined) {
         timeEvent.paused = false;
       }
+      return true;
     }, this);
 
     return this;
@@ -1087,11 +1092,12 @@ export class Weapon extends Phaser.Events.EventEmitter {
    * @return This Weapon instance.
    */
   killAll(): this {
-    (this.bullets.children as Phaser.Structs.Set<Bullet>).each(child => {
+    (this.bullets.children as Phaser.Structs.Set<Bullet>).iterate(child => {
       if (child.active) {
         child.kill();
       }
       child.body.enable = true;
+      return true;
     });
 
     return this;
@@ -1611,10 +1617,11 @@ export class Weapon extends Phaser.Events.EventEmitter {
     this._data.offsetY = offsetY;
 
     //  Update all bullets in the pool
-    (this.bullets.children as Phaser.Structs.Set<Bullet>).each(child => {
+    (this.bullets.children as Phaser.Structs.Set<Bullet>).iterate(child => {
       child.body.setSize(width, height);
       child.body.setOffset(offsetX, offsetY);
       child.setData('bodyDirty', false);
+      return true;
     });
 
     return this;

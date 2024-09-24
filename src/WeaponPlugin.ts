@@ -55,6 +55,8 @@ type WeaponConfig = {
 export class WeaponPlugin extends Phaser.Plugins.ScenePlugin {
   weapons: Weapon[];
 
+  declare scene: Phaser.Scene;
+
   /**
    * @param scene - A reference to the {@link https://newdocs.phaser.io/docs/3.55.2/Phaser.Scene Phaser.Scene} instance.
    * @param pluginManager - A reference to the
@@ -115,7 +117,7 @@ export class WeaponPlugin extends Phaser.Plugins.ScenePlugin {
    * Typically called immediately after `BasePlugin.init`.
    */
   start(): void {
-    this.systems.events.on(
+    this.systems?.events.on(
       Phaser.Core.Events.POST_RENDER,
       this.postRender,
       this
@@ -128,10 +130,10 @@ export class WeaponPlugin extends Phaser.Plugins.ScenePlugin {
    * In here you can listen for Scene events and set-up whatever you need for this plugin to run.
    */
   boot(): void {
-    const eventEmitter = this.systems.events;
+    const eventEmitter = this.systems?.events;
 
-    eventEmitter.on(Phaser.Scenes.Events.UPDATE, this.update, this);
-    eventEmitter.on(Phaser.Core.Events.DESTROY, this.destroy, this);
+    eventEmitter?.on(Phaser.Scenes.Events.UPDATE, this.update, this);
+    eventEmitter?.on(Phaser.Core.Events.DESTROY, this.destroy, this);
   }
 
   /**

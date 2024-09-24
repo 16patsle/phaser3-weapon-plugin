@@ -47,6 +47,7 @@
     "eslint-plugin-prettier": "^3.4.1",
     "http-server": "^14.1.1",
     "markdownlint-cli2": "^0.5.1",
+    "phaser": "^3.60.0",
     "prettier": "^2.4.1",
     "terser-webpack-plugin": "^5.2.4",
     "typedoc": "^0.22.5",
@@ -55,6 +56,6 @@
     "webpack-cli": "^4.9.0"
   },
   "peerDependencies": {
-    "phaser": "^3.54.0"
+    "phaser": "^3.60.0"
   }
 }

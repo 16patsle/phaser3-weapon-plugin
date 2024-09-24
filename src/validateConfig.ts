@@ -81,7 +81,10 @@ function validateConfig(
   /* eslint-disable @typescript-eslint/no-non-null-assertion */
   if (property === 'all') {
     shouldBePositive.forEach(key => {
-      if (weapon[key] !== undefined && weapon[key]! < 0) {
+      if (
+        (typeof weapon[key] === 'string' || typeof weapon[key] === 'number') &&
+        Number(weapon[key]) < 0
+      ) {
         log(
           'Invalid ' + property + '; must be >= 0; currently ' + weapon[key],
           weapon.logLevel
@@ -90,8 +93,9 @@ function validateConfig(
     });
   } else if (
     shouldBePositive.includes(property) &&
-    weapon[property] !== undefined &&
-    weapon[property]! < 0
+    (typeof weapon[property] === 'string' ||
+      typeof weapon[property] === 'number') &&
+    Number(weapon[property]) < 0
   ) {
     log(
       'Invalid ' + property + '; must be >= 0; currently ' + weapon[property],
